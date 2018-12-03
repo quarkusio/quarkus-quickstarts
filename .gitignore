@@ -10,3 +10,14 @@ buildNumber.properties
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
+
+*.log
+graph-output.dot
+
+.settings
+.vscode
+.project
+.classpath
+.iml
+.idea
+.factorypath
