@@ -10,14 +10,10 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.target>1.8</maven.compiler.target>
+
+    <failsafe.version>2.21.0</failsafe.version>
   </properties>
   <dependencies>
-    <dependency>
-      <groupId>org.jboss.shamrock</groupId>
-      <artifactId>shamrock-jaxrs-deployment</artifactId>
-      <version>${shamrock.version}</version>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>org.jboss.shamrock</groupId>
       <artifactId>shamrock-arc-deployment</artifactId>
@@ -34,12 +30,6 @@
       <groupId>org.jboss.shamrock</groupId>
       <artifactId>shamrock-junit</artifactId>
       <version>${shamrock.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <version>3.2.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -80,6 +70,24 @@
                 </goals>
                 <configuration>
                   <enableHttpUrlHandler>true</enableHttpUrlHandler>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>${failsafe.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+                <configuration>
+                  <systemProperties>
+                    <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                  </systemProperties>
                 </configuration>
               </execution>
             </executions>
