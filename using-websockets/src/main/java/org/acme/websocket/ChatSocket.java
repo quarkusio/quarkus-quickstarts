@@ -12,26 +12,26 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import javax.websocket.Session;
 
-@ServerEndpoint("/chat/{username}")
+@ServerEndpoint("/chat/{username}")     
 @ApplicationScoped
 public class ChatSocket {
 
-    static Map<String, Session> sessions = new ConcurrentHashMap<>();
+    Map<String, Session> sessions = new ConcurrentHashMap<>();
 
     @OnOpen
-    public void opening(Session session, @PathParam("username") String username) {
+    public void onOpen(Session session, @PathParam("username") String username) {
         sessions.put(username, session);
         broadcast("User " + username + " joined");
     }
 
     @OnClose
-    public void closing(Session session, @PathParam("username") String username) {
+    public void onClose(Session session, @PathParam("username") String username) {
         sessions.remove(username);
         broadcast("User " + username + " left");
     }
 
     @OnError
-    public void errored(Session session, @PathParam("username") String username, Throwable throwable) {
+    public void onError(Session session, @PathParam("username") String username, Throwable throwable) {
         sessions.remove(username);
         broadcast("User " + username + " left on error: " + throwable);
     }
