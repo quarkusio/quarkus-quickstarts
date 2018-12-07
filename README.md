@@ -9,6 +9,6 @@ This repository contains a set of examples about the Shamrock framework.
 * [Application Configuration](./application-configuration): How to configure your application
 * [Scheduling periodic tasks](./scheduling-periodic-tasks): How to schedule periodic jobs
 * [Using Web Sockets](./using-websockets): Demonstrate how to use web sockets and serve static assets
-* [Startup and Shutdown actions](./application-lifecycle-events): Explains how to execute code when the application starts and stops.
-
+* [Startup and Shutdown actions](./application-lifecycle-events): Explains how to execute code when the application starts and stops
+* [Validation and JSON](./input-validation): How to consume and produce JSON payloads and how to validate the user input with Bean Validation
 
