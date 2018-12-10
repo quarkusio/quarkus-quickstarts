@@ -1,6 +1,7 @@
 package org.acme.validation;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
@@ -35,7 +36,9 @@ public class BookResource {
             res.message = "woohoo!";
         } else {
             res.success = false;
-            res.message = violations.iterator().next().getMessage();
+            res.message = violations.stream()
+                .map(cv -> cv.getMessage())
+                .collect(Collectors.joining(", "));
         }
         return res;
     }
