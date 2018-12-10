@@ -22,12 +22,6 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.shamrock</groupId>
-      <artifactId>shamrock-logging-deployment</artifactId>
-      <version>${shamrock.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.shamrock</groupId>
       <artifactId>shamrock-junit</artifactId>
       <version>${shamrock.version}</version>
       <scope>test</scope>
