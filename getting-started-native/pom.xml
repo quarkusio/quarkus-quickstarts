@@ -42,12 +42,6 @@
             <scope>provided</scope>
             <version>${shamrock.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.shamrock</groupId>
-            <artifactId>shamrock-logging-deployment</artifactId>
-            <scope>provided</scope>
-            <version>${shamrock.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.jboss.shamrock</groupId>
