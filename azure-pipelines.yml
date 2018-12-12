@@ -16,5 +16,5 @@ jobs:
     displayName: 'Maven Build'
     inputs:
       goals: 'verify'
-      options: '--settings azure-mvn-settings.xml -Pprotean -Pnative -Dnative-image.xmx=4g'
+      options: '--settings azure-mvn-settings.xml -Pprotean -Dnative-image.docker-build -Pnative -Dnative-image.xmx=4g'
 
