@@ -32,6 +32,37 @@
             </snapshots>
         </repository>
       </repositories>
+
+      <pluginRepositories>        
+        <pluginRepository>
+            <id>protean-nexus-release</id>
+            <name>Protean AWS Nexus - Releases</name>
+            <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/releases/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>protean-nexus-snapshot</id>
+            <name>Protean AWS Nexus - Snapshots</name>
+            <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/snapshots/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <!-- 10 minutes. Or enforce refresh by using -U option to Maven -->
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
     </profile>
   </profiles>
   <activeProfiles>
