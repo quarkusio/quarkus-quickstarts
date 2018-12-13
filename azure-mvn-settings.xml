@@ -1,4 +1,12 @@
 <settings>
+ <mirrors>
+    <mirror>
+      <id>jboss-public-repository-group</id>
+      <mirrorOf>*,!protean-nexus-release,!protean-nexus-snapshot</mirrorOf>
+      <name>jboss</name>
+      <url>http://repository.jboss.org/nexus/content/groups/developer/</url>
+    </mirror>
+  </mirrors>
   <profiles>
     <profile>
       <id>protean</id>
