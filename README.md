@@ -12,4 +12,4 @@ This repository contains a set of examples about the Shamrock framework.
 * [Startup and Shutdown actions](./application-lifecycle-events): Explains how to execute code when the application starts and stops
 * [Validation and JSON](./input-validation): How to consume and produce JSON payloads and how to validate the user input with Bean Validation
 
-The content of this documentation is published at <http://10.8.247.58/nfs/protean/index.html>.
+There is documentation published at <http://10.8.247.58/nfs/protean/index.html> (docs' [sources are here](https://github.com/jbossas/protean-shamrock/tree/master/docs/src/main/asciidoc)).
