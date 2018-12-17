@@ -37,7 +37,7 @@ Please make sure to monitor the output of the build and act accordingly.
 * All quickstarts must contain unit tests,
 * All quickstarts supporting the native mode must contain native tests,
 * If your quicstart does not work in native mode, write a comment in the pull request,
-* New quickstarts must be listed in the link:README.md page
+* New quickstarts must be listed in the [README.md](./README.md) page
 
 ## Build
 
