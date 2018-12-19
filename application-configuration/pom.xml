@@ -12,24 +12,31 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jboss.shamrock</groupId>
+        <artifactId>shamrock-bom</artifactId>
+        <version>${shamrock.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.jboss.shamrock</groupId>
       <artifactId>shamrock-jaxrs-deployment</artifactId>
-      <version>${shamrock.version}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.shamrock</groupId>
       <artifactId>shamrock-arc-deployment</artifactId>
-      <version>${shamrock.version}</version>
-      <scope>provided</scope>
     </dependency>   
     <dependency>
       <groupId>org.jboss.shamrock</groupId>
       <artifactId>shamrock-junit</artifactId>
-      <version>${shamrock.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>
