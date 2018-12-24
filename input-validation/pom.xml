@@ -112,4 +112,89 @@
       </build>
     </profile>
   </profiles>
+
+  <!-- This should go away as soon as we publish the artifacts publicly. -->
+  <repositories>
+    <repository>
+      <id>central</id>
+      <name>Maven Central</name>
+      <url>http://repo.maven.apache.org/maven2</url>
+    </repository>
+    <!-- Forgot the password? see https://github.com/protean-project/hibernate-protean/wiki/Protean-Nexus-credentials -->
+    <repository>
+      <id>protean-nexus-release</id>
+      <name>Protean AWS Nexus - Releases</name>
+      <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/releases/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <!-- Forgot the password? see https://github.com/protean-project/hibernate-protean/wiki/Protean-Nexus-credentials -->
+    <repository>
+      <id>protean-nexus-snapshot</id>
+      <name>Protean AWS Nexus - Snapshots</name>
+      <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/snapshots/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <!-- 10 minutes. Or enforce refresh by using -U option to Maven -->
+        <updatePolicy>daily</updatePolicy>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>jboss</id>
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Maven Central</name>
+      <url>http://repo.maven.apache.org/maven2</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>protean-nexus-release</id>
+      <name>Protean AWS Nexus - Releases</name>
+      <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/releases/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+    <!-- Forgot the password? see https://github.com/protean-project/hibernate-protean/wiki/Protean-Nexus-credentials -->
+    <pluginRepository>
+      <id>protean-nexus-snapshot</id>
+      <name>Protean AWS Nexus - Snapshots</name>
+      <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/snapshots/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <!-- 10 minutes. Or enforce refresh by using -U option to Maven -->
+        <updatePolicy>daily</updatePolicy>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 </project>
