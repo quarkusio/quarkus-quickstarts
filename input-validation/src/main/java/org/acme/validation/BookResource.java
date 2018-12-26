@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import javax.validation.Validator;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,21 +21,25 @@ public class BookResource {
     @Inject
     Validator validator;
 
+    @Inject
+    BookService bookService;
+
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
         return "hello";
     }
 
+    @Path("/manual-validation")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Result tryMe(Book book) {
+    public Result tryMeManualValidation(Book book) {
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         Result res = new Result();
-        if (violations.isEmpty()) {            
+        if (violations.isEmpty()) {
             res.success = true;
-            res.message = "woohoo!";
+            res.message = "Book is valid! It was validated by manual validation.";
         } else {
             res.success = false;
             res.message = violations.stream()
@@ -43,8 +49,41 @@ public class BookResource {
         return res;
     }
 
+    @Path("/end-point-method-validation")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Result tryMeEndPointMethodValidation(@Valid Book book) {
+        Result res = new Result();
+        res.success = true;
+        res.message = "Book is valid! It was validated by end point method validation.";
+        return res;
+    }
 
-    private class Result {
+    @Path("/service-method-validation")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Result tryMeServiceMethodValidation(Book book) {
+        Result res = new Result();
+
+        try {
+            bookService.validateBook(book);
+
+            res.success = true;
+            res.message = "Book is valid! It was validated by service method validation.";
+        }
+        catch (ConstraintViolationException e) {
+            res.success = false;
+            res.message = e.getConstraintViolations().stream()
+                .map(cv -> cv.getMessage())
+                .collect(Collectors.joining(", "));
+        }
+
+        return res;
+    }
+
+    public class Result {
         private String message;
         private boolean success;
 
@@ -61,9 +100,7 @@ public class BookResource {
         }
 
         public void setSuccess(boolean success) {
-            this.success = success;            
+            this.success = success;
         }
-        
     }
-
 }

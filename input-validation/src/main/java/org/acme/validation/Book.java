@@ -3,9 +3,8 @@ package org.acme.validation;
 import javax.validation.constraints.*;
 
 public class Book {
-    
 
-    @NotBlank(message="Title cannot be blank")    
+    @NotBlank(message="Title cannot be blank")
     private String title;
 
     @NotBlank(message="Author cannot be blank")
