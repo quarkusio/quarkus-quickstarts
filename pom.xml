@@ -20,5 +20,6 @@
         <module>using-websockets</module>
         <module>using-opentracing</module>
         <module>using-spring-di</module>
+        <module>rest-client</module>
     </modules>
 </project>
