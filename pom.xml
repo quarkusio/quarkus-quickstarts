@@ -19,5 +19,6 @@
         <module>scheduling-periodic-tasks</module>
         <module>using-websockets</module>
         <module>using-opentracing</module>
+        <module>rest-client</module>
     </modules>
 </project>
