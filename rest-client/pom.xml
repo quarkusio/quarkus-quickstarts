@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.acme</groupId>
+    <artifactId>rest-client</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <properties>
+        <shamrock.version>0.5.0</shamrock.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.shamrock</groupId>
+                <artifactId>shamrock-bom</artifactId>
+                <version>${shamrock.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.shamrock</groupId>
+            <artifactId>shamrock-jaxrs-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shamrock</groupId>
+            <artifactId>shamrock-maven-plugin</artifactId>
+            <version>${shamrock.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shamrock</groupId>
+            <artifactId>shamrock-arc-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shamrock</groupId>
+            <artifactId>shamrock-rest-client-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson2-provider</artifactId>
+            <version>4.0.0.Beta6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shamrock</groupId>
+            <artifactId>shamrock-junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>3.2.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jboss.shamrock</groupId>
+                <artifactId>shamrock-maven-plugin</artifactId>
+                <version>${shamrock.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>native</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jboss.shamrock</groupId>
+                        <artifactId>shamrock-maven-plugin</artifactId>
+                        <version>${shamrock.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>native-image</goal>
+                                </goals>
+                                <configuration>
+                                    <enableHttpUrlHandler>true</enableHttpUrlHandler>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <!-- This should go away as soon as we publish the artifacts publicly. -->
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>http://repo.maven.apache.org/maven2</url>
+        </repository>
+        <!-- Forgot the password? see https://github.com/protean-project/hibernate-protean/wiki/Protean-Nexus-credentials -->
+        <repository>
+            <id>protean-nexus-release</id>
+            <name>Protean AWS Nexus - Releases</name>
+            <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/releases/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <!-- Forgot the password? see https://github.com/protean-project/hibernate-protean/wiki/Protean-Nexus-credentials -->
+        <repository>
+            <id>protean-nexus-snapshot</id>
+            <name>Protean AWS Nexus - Snapshots</name>
+            <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/snapshots/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <!-- 10 minutes. Or enforce refresh by using -U option to Maven -->
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jboss</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>http://repo.maven.apache.org/maven2</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>protean-nexus-release</id>
+            <name>Protean AWS Nexus - Releases</name>
+            <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/releases/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <!-- Forgot the password? see https://github.com/protean-project/hibernate-protean/wiki/Protean-Nexus-credentials -->
+        <pluginRepository>
+            <id>protean-nexus-snapshot</id>
+            <name>Protean AWS Nexus - Snapshots</name>
+            <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/snapshots/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <!-- 10 minutes. Or enforce refresh by using -U option to Maven -->
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+
+</project>
