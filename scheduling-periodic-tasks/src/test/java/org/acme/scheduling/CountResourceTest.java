@@ -13,7 +13,7 @@ public class CountResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/app/count")
+          .when().get("/count")
           .then()
              .statusCode(200)
              .body(containsString("count"));
