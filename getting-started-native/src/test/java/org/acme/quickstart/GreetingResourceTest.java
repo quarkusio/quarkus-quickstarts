@@ -15,7 +15,7 @@ public class GreetingResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("app/hello")
+          .when().get("/hello")
           .then()
              .statusCode(200)  
              .body(is("hello"));
@@ -26,7 +26,7 @@ public class GreetingResourceTest {
         String uuid = UUID.randomUUID().toString();
         given()
           .pathParam("name", uuid)
-          .when().get("app/hello/greeting/{name}")
+          .when().get("/hello/greeting/{name}")
           .then()
             .statusCode(200)
             .body(is("hello " + uuid));
