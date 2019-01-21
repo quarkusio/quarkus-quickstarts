@@ -39,7 +39,7 @@ public class BookResourceTest {
         .when()
             .post("/books/manual-validation")
         .then()
-            .statusCode(200)
+            .statusCode(400)
             .body("success", is(false), "message", containsString("Title"));
     }
 
@@ -51,7 +51,7 @@ public class BookResourceTest {
         .when()
             .post("/books/manual-validation")
         .then()
-            .statusCode(200)
+            .statusCode(400)
             .body("success", is(false), "message", containsString("Author"));
     }
 
@@ -63,7 +63,7 @@ public class BookResourceTest {
         .when()
             .post("/books/manual-validation")
         .then()
-            .statusCode(200)
+            .statusCode(400)
             .body("success", is(false), "message", containsString("lazy"));
     }
 
@@ -88,7 +88,7 @@ public class BookResourceTest {
             .post("/books/end-point-method-validation")
         .then()
             .statusCode(400)
-            .body("parameterViolations.message", hasItem("Title cannot be blank"));
+            .body("success", is(false), "message", containsString("Title"));
     }
 
     @Test
@@ -111,6 +111,7 @@ public class BookResourceTest {
         .when()
             .post("/books/service-method-validation")
         .then()
+            .statusCode(400)
             .body("success", is(false), "message", containsString("Title"));
     }
 }
