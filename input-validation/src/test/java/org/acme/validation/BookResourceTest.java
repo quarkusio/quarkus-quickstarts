@@ -88,7 +88,7 @@ public class BookResourceTest {
             .post("/books/end-point-method-validation")
         .then()
             .statusCode(400)
-            .body("success", is(false), "message", containsString("Title"));
+            .body("parameterViolations.message", hasItem("Title cannot be blank"));
     }
 
     @Test
