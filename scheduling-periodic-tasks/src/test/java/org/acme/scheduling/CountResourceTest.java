@@ -1,13 +1,12 @@
 package org.acme.scheduling;
 
-import org.jboss.shamrock.test.ShamrockTest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.shamrock.test.junit.ShamrockTest;
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;;
 
-@RunWith(ShamrockTest.class)
+@ShamrockTest
 public class CountResourceTest {
 
     @Test

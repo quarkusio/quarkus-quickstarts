@@ -1,13 +1,12 @@
 package org.acme.validation;
 
-import org.jboss.shamrock.test.ShamrockTest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.shamrock.test.junit.ShamrockTest;
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.*;
 
-@RunWith(ShamrockTest.class)
+@ShamrockTest
 public class BookResourceTest {
 
     @Test

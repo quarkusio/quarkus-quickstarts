@@ -18,6 +18,6 @@ graph-output.dot
 .vscode
 .project
 .classpath
-.iml
+*.iml
 .idea
 .factorypath
