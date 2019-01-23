@@ -1,15 +1,14 @@
 package org.acme.quickstart;
 
-import org.jboss.shamrock.test.ShamrockTest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.shamrock.test.junit.ShamrockTest;
+import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
-@RunWith(ShamrockTest.class)    
+@ShamrockTest
 public class GreetingResourceTest {
 
     @Test

@@ -1,11 +1,10 @@
 package org.acme.quickstart;
 
 
-import org.jboss.shamrock.test.SubstrateTest;
-import org.junit.runner.RunWith;
+import org.jboss.shamrock.test.junit.SubstrateTest;
 
-@RunWith(SubstrateTest.class) 
-public class GreetingResourceIT extends GreetingResourceTest { 
+@SubstrateTest
+public class GreetingResourceIT extends GreetingResourceTest {
 
     // Run the same tests
 
