@@ -16,7 +16,8 @@
 
 package org.acme.spring.di;
 
-import javax.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -25,7 +26,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/greeting")
 public class GreeterResource {
 
-    @Inject
+    @Autowired
     private GreeterBean greeterBean;
 
     @GET
