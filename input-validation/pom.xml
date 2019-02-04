@@ -33,7 +33,7 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.shamrock</groupId>
-      <artifactId>shamrock-arc-deployment</artifactId>
+      <artifactId>shamrock-hibernate-validator-deployment</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.shamrock</groupId>
@@ -44,10 +44,6 @@
       <artifactId>rest-assured</artifactId>
       <version>3.3.0</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.shamrock</groupId>
-      <artifactId>shamrock-bean-validation-deployment</artifactId>
     </dependency>
   </dependencies>
   <build>
