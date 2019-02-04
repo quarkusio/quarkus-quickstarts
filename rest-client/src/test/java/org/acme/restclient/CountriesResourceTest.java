@@ -1,22 +1,26 @@
 package org.acme.restclient;
 
-import org.jboss.shamrock.test.ShamrockTest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.shamrock.test.junit.ShamrockTest;
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 
-@RunWith(ShamrockTest.class)    
+@ShamrockTest
 public class CountriesResourceTest {
 
     @Test
-    public void testNameEndpoint() {
+    public void testCountryNameEndpoint() {
         given()
-          .when().get("app/country/name/gree")
+          .when().get("/country/name/greece")
           .then()
              .statusCode(200)  
-             .body("size()", equalTo(2));
+             .body("$.size()", is(1),
+                     "[0].alpha2Code", is("GR"),
+                     "[0].capital", is("Athens"),
+                     "[0].currencies.size()", is(1),
+                     "[0].currencies[0].name", is("Euro")
+             );
     }
 
 }
