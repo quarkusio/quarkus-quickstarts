@@ -1,19 +1,18 @@
 package org.acme.validation;
 
-import org.jboss.shamrock.test.ShamrockTest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.shamrock.test.junit.ShamrockTest;
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.*;
 
-@RunWith(ShamrockTest.class)
+@ShamrockTest
 public class BookResourceTest {
 
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/app/books")
+          .when().get("/books")
           .then()
              .statusCode(200)
              .body(is("hello"));
@@ -25,7 +24,7 @@ public class BookResourceTest {
             .body("{\"title\": \"some book\", \"author\": \"me\", \"pages\":5}")
             .header("Content-Type", "application/json")
         .when()
-            .post("/app/books/manual-validation")
+            .post("/books/manual-validation")
         .then()
             .statusCode(200)
             .body("success", is(true), "message", containsString("Book is valid!"));
@@ -37,7 +36,7 @@ public class BookResourceTest {
             .body("{\"author\": \"me\", \"pages\":5}")
             .header("Content-Type", "application/json")
         .when()
-            .post("/app/books/manual-validation")
+            .post("/books/manual-validation")
         .then()
             .statusCode(200)
             .body("success", is(false), "message", containsString("Title"));
@@ -49,7 +48,7 @@ public class BookResourceTest {
             .body("{\"title\": \"catchy\", \"pages\":5}")
             .header("Content-Type", "application/json")
         .when()
-            .post("/app/books/manual-validation")
+            .post("/books/manual-validation")
         .then()
             .statusCode(200)
             .body("success", is(false), "message", containsString("Author"));
@@ -61,7 +60,7 @@ public class BookResourceTest {
             .body("{\"title\": \"some book\", \"author\": \"me\", \"pages\":-25}")
             .header("Content-Type", "application/json")
         .when()
-            .post("/app/books/manual-validation")
+            .post("/books/manual-validation")
         .then()
             .statusCode(200)
             .body("success", is(false), "message", containsString("lazy"));
@@ -73,7 +72,7 @@ public class BookResourceTest {
             .body("{\"title\": \"some book\", \"author\": \"me\", \"pages\":5}")
             .header("Content-Type", "application/json")
         .when()
-            .post("/app/books/end-point-method-validation")
+            .post("/books/end-point-method-validation")
         .then()
             .statusCode(200)
             .body("success", is(true), "message", containsString("Book is valid!"));
@@ -85,7 +84,7 @@ public class BookResourceTest {
             .body("{\"author\": \"me\", \"pages\":5}")
             .header("Content-Type", "application/json")
         .when()
-            .post("/app/books/end-point-method-validation")
+            .post("/books/end-point-method-validation")
         .then()
             .statusCode(400)
             .body("parameterViolations.message", hasItem("Title cannot be blank"));
@@ -97,7 +96,7 @@ public class BookResourceTest {
             .body("{\"title\": \"some book\", \"author\": \"me\", \"pages\":5}")
             .header("Content-Type", "application/json")
         .when()
-            .post("/app/books/service-method-validation")
+            .post("/books/service-method-validation")
         .then()
             .statusCode(200)
             .body("success", is(true), "message", containsString("Book is valid!"));
@@ -109,7 +108,7 @@ public class BookResourceTest {
             .body("{\"author\": \"me\", \"pages\":5}")
             .header("Content-Type", "application/json")
         .when()
-            .post("/app/books/service-method-validation")
+            .post("/books/service-method-validation")
         .then()
             .body("success", is(false), "message", containsString("Title"));
     }

@@ -1,33 +1,26 @@
 package org.acme.websocket;
 
-import org.jboss.shamrock.test.ShamrockTest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.shamrock.test.junit.ShamrockTest;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-
+import javax.websocket.*;
 import java.net.URI;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
-import javax.websocket.ClientEndpoint;
-import javax.websocket.ContainerProvider;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-
-@RunWith(ShamrockTest.class)
+@ShamrockTest
 public class ChatTestCase {
 
     private static final LinkedBlockingDeque<String> MESSAGES = new LinkedBlockingDeque<>();
 
     @Test
-    public void testWebsocketChat() throws Exception{
+    public void testWebsocketChat() throws Exception {
         Session session = ContainerProvider.getWebSocketContainer().connectToServer(Client.class, new URI("ws://localhost:8080/chat/stu"));
-        Assert.assertEquals("CONNECT", MESSAGES.poll(10, TimeUnit.SECONDS));
-        Assert.assertEquals("User stu joined", MESSAGES.poll(10, TimeUnit.SECONDS));
+        Assertions.assertEquals("CONNECT", MESSAGES.poll(10, TimeUnit.SECONDS));
+        Assertions.assertEquals("User stu joined", MESSAGES.poll(10, TimeUnit.SECONDS));
         session.getAsyncRemote().sendText("hello world");
-        Assert.assertEquals(">> stu: hello world", MESSAGES.poll(10, TimeUnit.SECONDS));
+        Assertions.assertEquals(">> stu: hello world", MESSAGES.poll(10, TimeUnit.SECONDS));
 
 
     }

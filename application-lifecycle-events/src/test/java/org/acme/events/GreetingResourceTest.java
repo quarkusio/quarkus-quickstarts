@@ -1,19 +1,18 @@
 package org.acme.events;
 
-import org.jboss.shamrock.test.ShamrockTest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.shamrock.test.junit.ShamrockTest;
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
-@RunWith(ShamrockTest.class)
+@ShamrockTest
 public class GreetingResourceTest {
 
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/app/hello")
+          .when().get("/hello")
           .then()
              .statusCode(200)
              .body(is("hello"));
