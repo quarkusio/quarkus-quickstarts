@@ -61,7 +61,7 @@ public class BookResource {
 
 
     public static class Result {
-        
+
         private String message;
         private boolean success;
 
