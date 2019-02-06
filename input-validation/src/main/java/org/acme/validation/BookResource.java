@@ -1,19 +1,14 @@
 package org.acme.validation;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.Validator;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Path("/books")
 public class BookResource {
@@ -64,22 +59,23 @@ public class BookResource {
         }
     }
 
+
     public static class Result {
         
+        private String message;
+        private boolean success;
+
         Result(String message) {
             this.success = true;
             this.message = message;
         }
-        
+
         Result(Set<? extends ConstraintViolation<?>> violations) {
             this.success = false;
             this.message = violations.stream()
                     .map(cv -> cv.getMessage())
                     .collect(Collectors.joining(", "));
         }
-        
-        private String message;
-        private boolean success;
 
         public String getMessage() {
             return message;

@@ -1,4 +1,4 @@
-package org.acme.config;
+package org.acme.spring.di;
 
 import org.jboss.shamrock.test.junit.ShamrockTest;
 import org.junit.jupiter.api.Test;
@@ -12,10 +12,10 @@ public class GreetingResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/greeting")
-          .then()
-             .statusCode(200)
-             .body(is("hello shamrock!"));
+            .when().get("/greeting")
+            .then()
+                .statusCode(200)
+                .body(is("HELLO WORLD!"));
     }
 
 }
