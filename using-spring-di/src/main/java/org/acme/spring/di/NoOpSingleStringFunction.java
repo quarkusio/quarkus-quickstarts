@@ -18,7 +18,7 @@ package org.acme.spring.di;
 
 import org.springframework.stereotype.Component;
 
-@Component("noop")
+@Component("noopFunction")
 public class NoOpSingleStringFunction implements StringFunction {
 
     @Override
