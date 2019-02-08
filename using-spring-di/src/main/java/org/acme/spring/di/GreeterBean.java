@@ -27,11 +27,11 @@ public class GreeterBean {
     private final MessageProducer messageProducer;
 
     @Autowired
-    @Qualifier("noop")
+    @Qualifier("noopFunction")
     private StringFunction noopStringFunction;
 
     @Autowired
-    @Qualifier("cap")
+    @Qualifier("capitalizeFunction")
     private StringFunction capitalizerStringFunction;
 
     @Value("${greeting.suffix:!}")
