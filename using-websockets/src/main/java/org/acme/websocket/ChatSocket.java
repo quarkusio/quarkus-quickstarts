@@ -10,11 +10,17 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.websocket.Session;
 
-@ServerEndpoint("/chat/{username}")     
+@ServerEndpoint("/chat/{username}")
 @ApplicationScoped
 public class ChatSocket {
+
+    Logger LOG = LoggerFactory.getLogger(ChatSocket.class);
 
     Map<String, Session> sessions = new ConcurrentHashMap<>();
 
@@ -33,6 +39,7 @@ public class ChatSocket {
     @OnError
     public void onError(Session session, @PathParam("username") String username, Throwable throwable) {
         sessions.remove(username);
+        LOG.error("onError", throwable);
         broadcast("User " + username + " left on error: " + throwable);
     }
 
