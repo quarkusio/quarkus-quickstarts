@@ -1,5 +1,6 @@
 package org.acme.websocket;
 
+import org.jboss.shamrock.test.common.http.TestHTTPResource;
 import org.jboss.shamrock.test.junit.ShamrockTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,15 +15,17 @@ public class ChatTestCase {
 
     private static final LinkedBlockingDeque<String> MESSAGES = new LinkedBlockingDeque<>();
 
+    @TestHTTPResource("/chat/stu")
+    URI uri;
+
     @Test
     public void testWebsocketChat() throws Exception {
-        Session session = ContainerProvider.getWebSocketContainer().connectToServer(Client.class, new URI("ws://localhost:8080/chat/stu"));
-        Assertions.assertEquals("CONNECT", MESSAGES.poll(10, TimeUnit.SECONDS));
-        Assertions.assertEquals("User stu joined", MESSAGES.poll(10, TimeUnit.SECONDS));
-        session.getAsyncRemote().sendText("hello world");
-        Assertions.assertEquals(">> stu: hello world", MESSAGES.poll(10, TimeUnit.SECONDS));
-
-
+        try(Session session = ContainerProvider.getWebSocketContainer().connectToServer(Client.class, uri)) {
+            Assertions.assertEquals("CONNECT", MESSAGES.poll(10, TimeUnit.SECONDS));
+            Assertions.assertEquals("User stu joined", MESSAGES.poll(10, TimeUnit.SECONDS));
+            session.getAsyncRemote().sendText("hello world");
+            Assertions.assertEquals(">> stu: hello world", MESSAGES.poll(10, TimeUnit.SECONDS));
+        }
     }
 
     @ClientEndpoint
