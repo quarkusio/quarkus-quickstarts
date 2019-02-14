@@ -15,7 +15,7 @@ public class CountriesResource {
 
     @Inject
     @RestClient
-    private CountriesService countriesService;
+    CountriesService countriesService;
 
 
     @GET
