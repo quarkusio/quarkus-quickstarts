@@ -7,7 +7,7 @@
     <artifactId>using-spring-di</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <shamrock.version>0.8.0</shamrock.version>
+        <shamrock.version>0.9.1</shamrock.version>
         <spring.version>5.1.4.RELEASE</spring.version>
         <surefire.version>2.22.0</surefire.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
