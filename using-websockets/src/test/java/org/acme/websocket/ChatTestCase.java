@@ -20,13 +20,12 @@ public class ChatTestCase {
 
     @Test
     public void testWebsocketChat() throws Exception {
-        Session session = ContainerProvider.getWebSocketContainer().connectToServer(Client.class, uri);
-        Assertions.assertEquals("CONNECT", MESSAGES.poll(10, TimeUnit.SECONDS));
-        Assertions.assertEquals("User stu joined", MESSAGES.poll(10, TimeUnit.SECONDS));
-        session.getAsyncRemote().sendText("hello world");
-        Assertions.assertEquals(">> stu: hello world", MESSAGES.poll(10, TimeUnit.SECONDS));
-
-
+        try(Session session = ContainerProvider.getWebSocketContainer().connectToServer(Client.class, uri)) {
+            Assertions.assertEquals("CONNECT", MESSAGES.poll(10, TimeUnit.SECONDS));
+            Assertions.assertEquals("User stu joined", MESSAGES.poll(10, TimeUnit.SECONDS));
+            session.getAsyncRemote().sendText("hello world");
+            Assertions.assertEquals(">> stu: hello world", MESSAGES.poll(10, TimeUnit.SECONDS));
+        }
     }
 
     @ClientEndpoint
