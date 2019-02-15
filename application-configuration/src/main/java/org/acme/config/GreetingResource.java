@@ -15,15 +15,15 @@ public class GreetingResource {
 
     @Inject
     @ConfigProperty(name = "greeting.message")
-    private String message;
+    String message;
 
     @Inject
     @ConfigProperty(name = "greeting.suffix", defaultValue="!")
-    private String suffix;
+    String suffix;
 
     @Inject
     @ConfigProperty(name = "greeting.name")
-    private Optional<String> name;
+    Optional<String> name;
 
 
     @GET

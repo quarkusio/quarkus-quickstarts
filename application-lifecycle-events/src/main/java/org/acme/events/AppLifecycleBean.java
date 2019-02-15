@@ -17,14 +17,15 @@ public class AppLifecycleBean {
     /**
      * Inject a bean used in the callbacks.
      */
-    @Inject MyOtherBean bean;
+    @Inject
+    MyOtherBean bean;
 
     void onStart(@Observes StartupEvent ev) {
-        LOGGER.info("The application is starting...{}", bean.hello());          
+        LOGGER.info("The application is starting...{}", bean.hello());
     }
 
     void onStop(@Observes ShutdownEvent ev) {
         LOGGER.info("The application is stopping... {}", bean.bye());
     }
-    
+
 }

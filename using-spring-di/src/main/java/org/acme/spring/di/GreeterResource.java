@@ -27,7 +27,7 @@ import javax.ws.rs.core.MediaType;
 public class GreeterResource {
 
     @Autowired
-    private GreeterBean greeterBean;
+    GreeterBean greeterBean;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
