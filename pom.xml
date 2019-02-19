@@ -21,5 +21,6 @@
         <module>using-opentracing</module>
         <module>using-spring-di</module>
         <module>rest-client</module>
+        <module>getting-started-knative</module>
     </modules>
 </project>
