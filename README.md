@@ -8,6 +8,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Getting Started - Async](./getting-started-async): Illustrate how to use `CompletionStage` to handle asynchronous actions
 * [Getting Started - Native](./getting-started-native): Packaging of the application into a native executable
 * [Getting Started - Kubernetes](./getting-started-kubernetes): Deployment of the application to Kubernetes and/or OpenShift
+* [Getting Started - Knative](./getting-started-knative): Deployment of the Knative service to Kubernetes and/or OpenShift
 * [Application Configuration](./application-configuration): How to configure your application
 * [JSON REST services](./rest-json): How to write JSON REST services
 * [Hibernate ORM and RESTEasy](./hibernate-resteasy): Exposing a CRUD service over REST using Hibernate ORM to connect to a PostgreSQL database
