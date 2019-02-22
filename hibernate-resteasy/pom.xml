@@ -9,7 +9,6 @@
 
     <properties>
         <shamrock.version>1.0.0.Alpha1-SNAPSHOT</shamrock.version>
-        <resteasy.version>4.0.0.Beta8</resteasy.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -44,6 +43,11 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.shamrock</groupId>
+            <artifactId>shamrock-resteasy-jsonb-deployment</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shamrock</groupId>
             <artifactId>shamrock-arc-deployment</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -51,16 +55,6 @@
             <groupId>org.jboss.shamrock</groupId>
             <artifactId>shamrock-jdbc-postgresql-deployment</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-json-p-provider</artifactId>
-            <version>${resteasy.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jackson2-provider</artifactId>
-            <version>${resteasy.version}</version>
         </dependency>
 
         <!-- Testing: -->
