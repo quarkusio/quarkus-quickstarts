@@ -1,7 +1,7 @@
 package org.acme.quickstart;
 
 
-import org.jboss.shamrock.test.junit.SubstrateTest;
+import io.quarkus.test.junit.SubstrateTest;
 
 @SubstrateTest
 public class GreetingResourceIT extends GreetingResourceTest {

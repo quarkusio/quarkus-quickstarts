@@ -1,4 +1,4 @@
-package org.jboss.shamrock;
+package io.quarkus;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;

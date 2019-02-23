@@ -1,4 +1,4 @@
-package org.jboss.shamrock;
+package io.quarkus;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

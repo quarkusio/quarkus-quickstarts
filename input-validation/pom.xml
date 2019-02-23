@@ -7,7 +7,7 @@
   <artifactId>input-validation</artifactId>
   <version>1.0-SNAPSHOT</version>
   <properties>
-    <shamrock.version>1.0.0.Alpha1-SNAPSHOT</shamrock.version>
+    <quarkus.version>1.0.0.Alpha1-SNAPSHOT</quarkus.version>
     <surefire.version>2.22.0</surefire.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -17,9 +17,9 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.jboss.shamrock</groupId>
-        <artifactId>shamrock-bom</artifactId>
-        <version>${shamrock.version}</version>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-bom</artifactId>
+        <version>${quarkus.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -28,16 +28,16 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.jboss.shamrock</groupId>
-      <artifactId>shamrock-resteasy-jsonb-deployment</artifactId>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy-jsonb-deployment</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.shamrock</groupId>
-      <artifactId>shamrock-hibernate-validator-deployment</artifactId>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-hibernate-validator-deployment</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.shamrock</groupId>
-      <artifactId>shamrock-junit5</artifactId>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-junit5</artifactId>
     </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>
@@ -53,9 +53,9 @@
         <version>${surefire.version}</version>
       </plugin>
       <plugin>
-        <groupId>org.jboss.shamrock</groupId>
-        <artifactId>shamrock-maven-plugin</artifactId>
-        <version>${shamrock.version}</version>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-maven-plugin</artifactId>
+        <version>${quarkus.version}</version>
         <executions>
           <execution>
             <goals>
@@ -72,9 +72,9 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.jboss.shamrock</groupId>
-            <artifactId>shamrock-maven-plugin</artifactId>
-            <version>${shamrock.version}</version>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-maven-plugin</artifactId>
+            <version>${quarkus.version}</version>
             <executions>
               <execution>
                 <goals>
@@ -116,10 +116,10 @@
       <name>Maven Central</name>
       <url>http://repo.maven.apache.org/maven2</url>
     </repository>
-    <!-- Forgot the password? see https://github.com/protean-project/hibernate-protean/wiki/Protean-Nexus-credentials -->
+    <!-- Forgot the password? see https://github.com/quarkus-project/hibernate-quarkus/wiki/Quarkus-Nexus-credentials -->
     <repository>
-      <id>protean-nexus-release</id>
-      <name>Protean AWS Nexus - Releases</name>
+      <id>quarkus-nexus-release</id>
+      <name>Quarkus AWS Nexus - Releases</name>
       <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/releases/</url>
       <layout>default</layout>
       <releases>
@@ -130,10 +130,10 @@
         <enabled>false</enabled>
       </snapshots>
     </repository>
-    <!-- Forgot the password? see https://github.com/protean-project/hibernate-protean/wiki/Protean-Nexus-credentials -->
+    <!-- Forgot the password? see https://github.com/quarkus-project/hibernate-quarkus/wiki/Quarkus-Nexus-credentials -->
     <repository>
-      <id>protean-nexus-snapshot</id>
-      <name>Protean AWS Nexus - Snapshots</name>
+      <id>quarkus-nexus-snapshot</id>
+      <name>Quarkus AWS Nexus - Snapshots</name>
       <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/snapshots/</url>
       <layout>default</layout>
       <releases>
@@ -164,8 +164,8 @@
       <url>http://repo.maven.apache.org/maven2</url>
     </pluginRepository>
     <pluginRepository>
-      <id>protean-nexus-release</id>
-      <name>Protean AWS Nexus - Releases</name>
+      <id>quarkus-nexus-release</id>
+      <name>Quarkus AWS Nexus - Releases</name>
       <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/releases/</url>
       <layout>default</layout>
       <releases>
@@ -176,10 +176,10 @@
         <enabled>false</enabled>
       </snapshots>
     </pluginRepository>
-    <!-- Forgot the password? see https://github.com/protean-project/hibernate-protean/wiki/Protean-Nexus-credentials -->
+    <!-- Forgot the password? see https://github.com/quarkus-project/hibernate-quarkus/wiki/Quarkus-Nexus-credentials -->
     <pluginRepository>
-      <id>protean-nexus-snapshot</id>
-      <name>Protean AWS Nexus - Snapshots</name>
+      <id>quarkus-nexus-snapshot</id>
+      <name>Quarkus AWS Nexus - Snapshots</name>
       <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/snapshots/</url>
       <layout>default</layout>
       <releases>
