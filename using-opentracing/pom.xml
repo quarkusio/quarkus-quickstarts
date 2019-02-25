@@ -6,7 +6,7 @@
   <artifactId>using-opentracing</artifactId>
   <version>1.0-SNAPSHOT</version>
   <properties>
-    <shamrock.version>1.0.0.Alpha1-SNAPSHOT</shamrock.version>
+    <quarkus.version>1.0.0.Alpha1-SNAPSHOT</quarkus.version>
     <surefire.version>2.22.0</surefire.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,9 +15,9 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.jboss.shamrock</groupId>
-        <artifactId>shamrock-bom</artifactId>
-        <version>${shamrock.version}</version>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-bom</artifactId>
+        <version>${quarkus.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -25,16 +25,16 @@
   </dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>org.jboss.shamrock</groupId>
-      <artifactId>shamrock-resteasy-deployment</artifactId>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy-deployment</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.shamrock</groupId>
-      <artifactId>shamrock-arc-deployment</artifactId>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-arc-deployment</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.shamrock</groupId>
-      <artifactId>shamrock-junit5</artifactId>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-junit5</artifactId>
     </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>
@@ -43,8 +43,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.shamrock</groupId>
-      <artifactId>shamrock-smallrye-opentracing-deployment</artifactId>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-opentracing-deployment</artifactId>
     </dependency>
   </dependencies>
   <build>
@@ -54,9 +54,9 @@
         <version>${surefire.version}</version>
       </plugin>
       <plugin>
-        <groupId>org.jboss.shamrock</groupId>
-        <artifactId>shamrock-maven-plugin</artifactId>
-        <version>${shamrock.version}</version>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-maven-plugin</artifactId>
+        <version>${quarkus.version}</version>
         <executions>
           <execution>
             <goals>
@@ -73,9 +73,9 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.jboss.shamrock</groupId>
-            <artifactId>shamrock-maven-plugin</artifactId>
-            <version>${shamrock.version}</version>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-maven-plugin</artifactId>
+            <version>${quarkus.version}</version>
             <executions>
               <execution>
                 <goals>

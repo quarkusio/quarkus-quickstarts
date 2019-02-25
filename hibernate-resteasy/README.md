@@ -55,7 +55,7 @@ The connection properties of the Agroal datasource are configured in the standar
 
 To run the application in interactive mode (developer mode):
 
->  mvn compile shamrock:dev
+>  mvn compile quarkus:dev
 
 In this mode you can make changes to the code and have the changes immediately applied, by just refreshing your browser.
 

@@ -1,6 +1,6 @@
 # Getting Started Guides
 
-This repository contains a set of examples about the Shamrock framework.
+This repository contains a set of examples about the Quarkus framework.
 
 * [Getting Started](./getting-started): Application creation, Rest endpoint, Dependency Injection, Test, Packaging
 * [Getting Started - Async](./getting-started-async): Illustrate how to use `CompletionStage` to handle asynchronous actions
@@ -14,7 +14,7 @@ This repository contains a set of examples about the Shamrock framework.
 * [Validation and JSON](./input-validation): How to consume and produce JSON payloads and how to validate the user input with Bean Validation
 * [REST Client](./rest-client): How to use MicroProfile's REST Client
 
-There is documentation published at <http://10.0.144.40/nfs/protean/index.html> (docs' [sources are here](https://github.com/jbossas/protean-shamrock/tree/master/docs/src/main/asciidoc)).
+There is documentation published at <http://10.0.144.40/nfs/quarkus/index.html> (docs' [sources are here](https://github.com/jbossas/quarkus/tree/master/docs/src/main/asciidoc)).
 
 ## Prerequisites
 
