@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Legume REST service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css"/>
+    <!-- Load AngularJS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+      var app = angular.module("LegumeManagement", []);
+
+      //Controller Part
+      app.controller("LegumeManagementController", function ($scope, $http) {
+
+        //Initialize page with default data which is blank in this example
+        $scope.legumes = [];
+
+        //Now load the data from server
+        _refreshPageData();
+
+        /* Private Methods */
+        //HTTP GET- get all legumes collection
+        function _refreshPageData() {
+          $http({
+            method: 'GET',
+            url: '/legumes'
+          }).then(function successCallback(response) {
+            $scope.legumes = response.data;
+          }, function errorCallback(response) {
+            console.log(response.statusText);
+          });
+        }
+
+        function _success(response) {
+          _refreshPageData();
+        }
+
+        function _error(response) {
+          alert(response.data.message || response.statusText);
+        }
+      });
+    </script>
+</head>
+<body ng-app="LegumeManagement" ng-controller="LegumeManagementController">
+
+<div class="container">
+    <h1>REST Service - Legume</h1>
+
+    <h3>Legume List</h3>
+    <div class="row">
+        <div class="col-4">Name</div>
+        <div class="col-8">Description</div>
+    </div>
+    <div class="row" ng-repeat="legume in legumes">
+        <div class="col-4">{{ legume.name }}</div>
+        <div class="col-8">{{ legume.description }}</div>
+    </div>
+</div>
+
+</body>
+</html>

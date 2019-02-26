@@ -22,5 +22,6 @@
         <module>using-opentracing</module>
         <module>using-spring-di</module>
         <module>rest-client</module>
+        <module>rest-json</module>
     </modules>
 </project>
