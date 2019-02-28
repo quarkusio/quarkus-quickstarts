@@ -22,5 +22,6 @@
         <module>using-opentracing</module>
         <module>using-spring-di</module>
         <module>rest-client</module>
+        <module>kafka-quickstart</module>
     </modules>
 </project>
