@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Fruit REST service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css"/>
+    <!-- Load AngularJS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+      var app = angular.module("FruitManagement", []);
+
+      //Controller Part
+      app.controller("FruitManagementController", function ($scope, $http) {
+
+        //Initialize page with default data which is blank in this example
+        $scope.fruits = [];
+
+        $scope.form = {
+          name: "",
+          description: ""
+        };
+
+        //Now load the data from server
+        _refreshPageData();
+
+        //HTTP POST methods for add fruits
+        $scope.add = function () {
+          var data = { "name": $scope.form.name, "description": $scope.form.description };
+
+          $http({
+            method: "POST",
+            url: '/fruits',
+            data: angular.toJson(data),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(_success, _error);
+        };
+
+        /* Private Methods */
+        //HTTP GET- get all fruits collection
+        function _refreshPageData() {
+          $http({
+            method: 'GET',
+            url: '/fruits'
+          }).then(function successCallback(response) {
+            $scope.fruits = response.data;
+          }, function errorCallback(response) {
+            console.log(response.statusText);
+          });
+        }
+
+        function _success(response) {
+          _refreshPageData();
+          _clearForm();
+        }
+
+        function _error(response) {
+          alert(response.data.message || response.statusText);
+        }
+
+        //Clear the form
+        function _clearForm() {
+          $scope.form.name = "";
+          $scope.form.description = "";
+        }
+      });
+    </script>
+</head>
+<body ng-app="FruitManagement" ng-controller="FruitManagementController">
+
+<div class="container">
+    <h1>REST Service - Fruit</h1>
+
+    <h3>Add a fruit</h3>
+    <form ng-submit="add()">
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="Name" ng-model="form.name" size="60"/></div>
+        </div>
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="Description" ng-model="form.description" size="60"/></div>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+
+    <h3>Fruit List</h3>
+    <div class="row">
+        <div class="col-4">Name</div>
+        <div class="col-8">Description</div>
+    </div>
+    <div class="row" ng-repeat="fruit in fruits">
+        <div class="col-4">{{ fruit.name }}</div>
+        <div class="col-8">{{ fruit.description }}</div>
+    </div>
+</div>
+
+</body>
+</html>
