@@ -23,5 +23,6 @@
         <module>using-spring-di</module>
         <module>rest-client</module>
         <module>kafka-quickstart</module>
+        <module>rest-json</module>
     </modules>
 </project>
