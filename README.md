@@ -10,6 +10,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Getting Started - Kubernetes](./getting-started-kubernetes): Deployment of the application to Kubernetes and/or OpenShift
 * [Application Configuration](./application-configuration): How to configure your application
 * [Hibernate ORM and RESTEasy](./hibernate-resteasy): Exposing a CRUD service over REST using Hibernate ORM to connect to a PostgreSQL database
+* [Panache and RESTEasy](./panache-resteasy): Exposing a CRUD service over REST using Panache to connect to a PostgreSQL database
 * [Scheduling periodic tasks](./scheduling-periodic-tasks): How to schedule periodic jobs
 * [Using Web Sockets](./using-websockets): Demonstrate how to use web sockets and serve static assets
 * [Startup and Shutdown actions](./application-lifecycle-events): Explains how to execute code when the application starts and stops

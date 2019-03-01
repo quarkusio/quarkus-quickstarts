@@ -16,6 +16,7 @@
         <module>getting-started-native</module>
         <module>getting-started-kubernetes</module>
         <module>hibernate-resteasy</module>
+        <module>panache-resteasy</module>
         <module>input-validation</module>
         <module>scheduling-periodic-tasks</module>
         <module>using-websockets</module>
