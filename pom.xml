@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.shamrock.quickstarts</groupId>
+    <groupId>io.quarkus.quickstarts</groupId>
     <artifactId>quickstart-projects</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -15,11 +15,13 @@
         <module>getting-started-async</module>
         <module>getting-started-native</module>
         <module>getting-started-kubernetes</module>
+        <module>hibernate-resteasy</module>
         <module>input-validation</module>
         <module>scheduling-periodic-tasks</module>
         <module>using-websockets</module>
         <module>using-opentracing</module>
         <module>using-spring-di</module>
         <module>rest-client</module>
+        <module>rest-json</module>
     </modules>
 </project>

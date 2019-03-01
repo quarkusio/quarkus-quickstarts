@@ -2,18 +2,18 @@
  <mirrors>
     <mirror>
       <id>jboss-public-repository-group</id>
-      <mirrorOf>*,!protean-nexus-release,!protean-nexus-snapshot</mirrorOf>
+      <mirrorOf>*,!quarkus-nexus-release,!quarkus-nexus-snapshot</mirrorOf>
       <name>jboss</name>
       <url>http://repository.jboss.org/nexus/content/groups/developer/</url>
     </mirror>
   </mirrors>
   <profiles>
     <profile>
-      <id>protean</id>
+      <id>quarkus</id>
       <repositories>        
         <repository>
-            <id>protean-nexus-release</id>
-            <name>Protean AWS Nexus - Releases</name>
+            <id>quarkus-nexus-release</id>
+            <name>Quarkus AWS Nexus - Releases</name>
             <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/releases/</url>
             <layout>default</layout>
             <releases>
@@ -25,8 +25,8 @@
             </snapshots>
         </repository>
         <repository>
-            <id>protean-nexus-snapshot</id>
-            <name>Protean AWS Nexus - Snapshots</name>
+            <id>quarkus-nexus-snapshot</id>
+            <name>Quarkus AWS Nexus - Snapshots</name>
             <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/snapshots/</url>
             <layout>default</layout>
             <releases>
@@ -43,8 +43,8 @@
 
       <pluginRepositories>        
         <pluginRepository>
-            <id>protean-nexus-release</id>
-            <name>Protean AWS Nexus - Releases</name>
+            <id>quarkus-nexus-release</id>
+            <name>Quarkus AWS Nexus - Releases</name>
             <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/releases/</url>
             <layout>default</layout>
             <releases>
@@ -56,8 +56,8 @@
             </snapshots>
         </pluginRepository>
         <pluginRepository>
-            <id>protean-nexus-snapshot</id>
-            <name>Protean AWS Nexus - Snapshots</name>
+            <id>quarkus-nexus-snapshot</id>
+            <name>Quarkus AWS Nexus - Snapshots</name>
             <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/snapshots/</url>
             <layout>default</layout>
             <releases>
@@ -74,6 +74,6 @@
     </profile>
   </profiles>
   <activeProfiles>
-    <activeProfile>protean</activeProfile>
+    <activeProfile>quarkus</activeProfile>
   </activeProfiles>
 </settings>

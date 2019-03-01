@@ -1,6 +1,6 @@
 package org.acme.spring.di;
 
-import org.jboss.shamrock.test.junit.SubstrateTest;
+import io.quarkus.test.junit.SubstrateTest;
 
 @SubstrateTest
 public class GreetingResourceIT extends GreetingResourceTest {

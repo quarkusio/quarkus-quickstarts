@@ -28,14 +28,14 @@ public class GreeterBean {
 
     @Autowired
     @Qualifier("noopFunction")
-    private StringFunction noopStringFunction;
+    StringFunction noopStringFunction;
 
     @Autowired
     @Qualifier("capitalizeFunction")
-    private StringFunction capitalizerStringFunction;
+    StringFunction capitalizerStringFunction;
 
     @Value("${greeting.suffix:!}")
-    private String suffix;
+    String suffix;
 
     public GreeterBean(MessageProducer messageProducer) {
         this.messageProducer = messageProducer;

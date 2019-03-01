@@ -1,7 +1,7 @@
 package org.acme.websocket;
 
-import org.jboss.shamrock.test.common.http.TestHTTPResource;
-import org.jboss.shamrock.test.junit.ShamrockTest;
+import io.quarkus.test.common.http.TestHTTPResource;
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ import java.net.URI;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
-@ShamrockTest
+@QuarkusTest
 public class ChatTestCase {
 
     private static final LinkedBlockingDeque<String> MESSAGES = new LinkedBlockingDeque<>();

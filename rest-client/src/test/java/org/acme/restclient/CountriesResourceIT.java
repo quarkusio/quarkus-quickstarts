@@ -1,6 +1,6 @@
 package org.acme.restclient;
 
-import org.jboss.shamrock.test.junit.SubstrateTest;
+import io.quarkus.test.junit.SubstrateTest;
 
 @SubstrateTest
 public class CountriesResourceIT extends CountriesResourceTest {

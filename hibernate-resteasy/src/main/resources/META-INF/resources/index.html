@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>CRUD Mission - Quarkus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css"/>
+    <style>
+        input[type=number] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            -webkit-transition: .5s;
+            transition: .5s;
+            outline: 0;
+            font-family: 'Open Sans', serif;
+        }
+    </style>
+    <!-- Load AngularJS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+      var app = angular.module("FruitManagement", []);
+
+      //Controller Part
+      app.controller("FruitManagementController", function ($scope, $http) {
+
+        //Initialize page with default data which is blank in this example
+        $scope.fruits = [];
+
+        $scope.form = {
+          id: -1,
+          name: ""
+        };
+
+        //Now load the data from server
+        _refreshPageData();
+
+        //HTTP POST/PUT methods for add/edit fruits
+        $scope.update = function () {
+          var method = "";
+          var url = "";
+          var data = {};
+          if ($scope.form.id == -1) {
+            //Id is absent so add fruits - POST operation
+            method = "POST";
+            url = '/fruits';
+            data.name = $scope.form.name;
+          } else {
+            //If Id is present, it's edit operation - PUT operation
+            method = "PUT";
+            url = '/fruits/' + $scope.form.id;
+            data.name = $scope.form.name;
+          }
+
+          $http({
+            method: method,
+            url: url,
+            data: angular.toJson(data),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(_success, _error);
+        };
+
+        //HTTP DELETE- delete fruit by id
+        $scope.remove = function (fruit) {
+          $http({
+            method: 'DELETE',
+            url: '/fruits/' + fruit.id
+          }).then(_success, _error);
+        };
+
+        //In case of edit fruits, populate form with fruit data
+        $scope.edit = function (fruit) {
+          $scope.form.name = fruit.name;
+          $scope.form.id = fruit.id;
+        };
+
+          /* Private Methods */
+        //HTTP GET- get all fruits collection
+        function _refreshPageData() {
+          $http({
+            method: 'GET',
+            url: '/fruits'
+          }).then(function successCallback(response) {
+            $scope.fruits = response.data;
+          }, function errorCallback(response) {
+            console.log(response.statusText);
+          });
+        }
+
+        function _success(response) {
+          _refreshPageData();
+          _clearForm()
+        }
+
+        function _error(response) {
+          alert(response.data.message || response.statusText);
+        }
+
+        //Clear the form
+        function _clearForm() {
+          $scope.form.name = "";
+          $scope.form.id = -1;
+        }
+      });
+    </script>
+</head>
+<body ng-app="FruitManagement" ng-controller="FruitManagementController">
+
+<div class="container">
+    <h1>CRUD Mission - Quarkus</h1>
+    <p>This application demonstrates how a Quarkus application implements a CRUD endpoint to manage fruits.
+        This management interface invokes the CRUD service endpoint, which interacts with a database using JPA and several other well known libraries.
+    </p>
+    <p>Behind the scenes, we have:
+        <ul>
+            <li>Hibernate ORM taking care of all CRUD operations</li>
+            <li>RESTEasy powering the REST API</li>
+            <li>ArC, a CDI based dependency injection framework</li>
+            <li>the Narayana Transaction Manager coordinating all transactions</li>
+            <li>Agroal, the high performance Datasource implementation</li>
+            <li>Infinispan used as Hibernate 2nd level caching: enabled on both entities and queries</li>
+            <li>The Undertow webserver</li>
+            <li>Some magic bytecode generation plugged in the compiler...</li>
+        </ul>
+    </p>
+
+    <h3>Add/Edit a fruit</h3>
+    <form ng-submit="update()">
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="Name" ng-model="form.name" size="60"/></div>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+
+    <h3>Fruit List</h3>
+    <div class="row">
+        <div class="col-2">Name</div>
+    </div>
+    <div class="row" ng-repeat="fruit in fruits">
+        <div class="col-2">{{ fruit.name }}</div>
+        <div class="col-8"><a ng-click="edit( fruit )" class="btn">Edit</a> <a ng-click="remove( fruit )" class="btn">Remove</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
