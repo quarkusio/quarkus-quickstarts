@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: shamrock-quickstart-knative
+  name: quarkus-quickstart-knative
 spec:
   runLatest:
     configuration:
