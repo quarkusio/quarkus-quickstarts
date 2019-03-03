@@ -1,6 +1,7 @@
 # Contributing guide
 
-**Want to contributeto quickstarts? That's awesome!**
+**Want to contribute to quickstarts? That's awesome!**
+
 We try to make it easy, and all contributions, even the smaller ones, are more than welcome.
 This includes bug reports, fixes, documentation, new quickstarts...
 
@@ -8,11 +9,11 @@ But first, please read this page.
 
 ## Reporting an issue
 
-This project uses Github issues to manage the issues. Open an issue directly in Github.
+This project uses GitHub issues to manage the issues. Open an issue directly in GitHub.
 
 ## Before you contribute and structure of the repository
 
-To contribute, use Github Pull Requests, from your **own** fork.
+To contribute, use GitHub Pull Requests, from your **own** fork.
 
 * The `master` branch uses the latest release of Quarkus.
 * The `development` branch uses a snapshot version of Quarkus.
@@ -22,7 +23,7 @@ Depending on your contribution, you may want to target the `master` or `developm
 * If your changes require a snapshot version of Quarkus -> `development`
 * If your changes impact the documentation -> `development`
 * If your changes are just a hot fix and do not require an update of Quarkus or the documentation -> `master`
-* For pull reuqest depending on feature not yet merged in Quarkus, prepend the title with "[DO NOT MERGE]"
+* For pull requests depending on features not yet merged in Quarkus, prepend the title with "[DO NOT MERGE]"
 
 ### Code reviews
 
