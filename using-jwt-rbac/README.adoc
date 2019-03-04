@@ -1,0 +1,4 @@
+= Using Smallrye-JWT Quickstart
+
+This quickstart project is the code part of the Quarkus Smallrye-JWT guide. It contains
+the final solution as well as the
