@@ -13,6 +13,7 @@ This repository contains a set of examples about the Quarkus framework.
 * [Startup and Shutdown actions](./application-lifecycle-events): Explains how to execute code when the application starts and stops
 * [Validation and JSON](./input-validation): How to consume and produce JSON payloads and how to validate the user input with Bean Validation
 * [REST Client](./rest-client): How to use MicroProfile's REST Client
+* [Infinispan Client](./infinispan-client): How to use Infinispan Client. Covers creating caches and simple get/put
 
 There is documentation published at <http://10.0.144.40/nfs/quarkus/index.html> (docs' [sources are here](https://github.com/jbossas/quarkus/tree/master/docs/src/main/asciidoc)).
 
