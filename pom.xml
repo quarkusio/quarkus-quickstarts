@@ -23,5 +23,6 @@
         <module>using-spring-di</module>
         <module>rest-client</module>
         <module>rest-json</module>
+        <module>infinispan-client</module>
     </modules>
 </project>

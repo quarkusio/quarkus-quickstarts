@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Harry Potter Magic Tricks!</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+
+    <style>
+        #log {
+            resize: none;
+            overflow: hidden;
+            background: gray;
+            color: aliceblue;
+            padding: 1em;
+            font-family: Courier;
+            font-size: small;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-pf" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+            <p><strong>Harry Potter - Hogwarts Magic Monitoring</strong></p>
+        </a>
+    </div>
+</nav>
+<div class="container">
+    <div class="row" id="info">
+        <h2>Do you wanna read about a character ? Id from 0-64</h2>
+        <div><a href="/harry-potter/0"> Display Character By Id</a></div>
+        <div><a href="/harry-potter/query?term=Harr">Search term in the name or bio</a></div>
+    </div>
+
+    <h2>Monitoring magic</h2>
+    <div class="row" id="log">
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+
+<script type="text/javascript">
+    var connected = false;
+    var socket;
+
+    $(document).ready(function () {
+        if (!connected) {
+            socket = new WebSocket("ws://" + location.host + "/harry-potter/hogwarts");
+            socket.onopen = function () {
+                connected = true;
+                console.log("Connected to Hogwarts web socket");
+            };
+            socket.onmessage = function (m) {
+                console.log(m.data);
+                $("#log").append(m.data + '</br>');
+            };
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+package quickstart;
+
+message HPCharacter {
+    required int32 id = 1;
+    required string name = 2;
+    required string bio = 3;
+    required int32 type = 4;
+}
+
+message HPSpell {
+    required int32 id = 1;
+    required string name = 2;
+    required string type = 3;
+    required string desc = 4;
+}
+
+message HPMagic {
+    required string id = 1;
+    required string author = 2;
+    required string spell = 3;
+    required bool hogwarts = 4;
+}
