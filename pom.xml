@@ -24,5 +24,6 @@
         <module>rest-client</module>
         <module>kafka-quickstart</module>
         <module>rest-json</module>
+        <module>getting-started-knative</module>
     </modules>
 </project>

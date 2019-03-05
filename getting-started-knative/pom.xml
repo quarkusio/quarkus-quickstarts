@@ -1,48 +1,24 @@
-<?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" 
-  xmlns="http://maven.apache.org/POM/4.0.0" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>org.acme</groupId>
-  <artifactId>rest-json</artifactId>
+  <artifactId>quarkus-quickstart-knative</artifactId>
   <version>1.0-SNAPSHOT</version>
+
   <properties>
     <quarkus.version>0.10.0</quarkus.version>
     <surefire.version>2.22.0</surefire.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <rest-assured.version>3.3.0</rest-assured.version>
+    <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>io.quarkus</groupId>
-        <artifactId>quarkus-bom</artifactId>
-        <version>${quarkus.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 
-  <dependencies>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy-jsonb-deployment</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-junit5</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <version>3.3.0</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
   <build>
+    <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -65,8 +41,60 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>${build-helper-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>add-resource</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>add-resource</goal>
+            </goals>
+            <configuration>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/src/main/knative</directory>
+                  <targetPath>${project.build.directory}/knative</targetPath>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy-deployment</artifactId>
+      <scope>provided</scope>
+      <version>${quarkus.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-arc-deployment</artifactId>
+      <scope>provided</scope>
+      <version>${quarkus.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-junit5</artifactId>
+      <version>${quarkus.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>3.3.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
   <profiles>
     <profile>
       <id>native</id>
@@ -83,24 +111,6 @@
                 </goals>
                 <configuration>
                   <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <version>2.22.1</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>integration-test</goal>
-                  <goal>verify</goal>
-                </goals>
-                <configuration>
-                  <systemProperties>
-                    <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                  </systemProperties>
                 </configuration>
               </execution>
             </executions>
@@ -143,7 +153,8 @@
       </releases>
       <snapshots>
         <enabled>true</enabled>
-        <!-- 10 minutes. Or enforce refresh by using -U option to Maven -->
+        <!-- 10 minutes. Or enforce refresh by using -U option to 
+            Maven -->
         <updatePolicy>daily</updatePolicy>
       </snapshots>
     </repository>
@@ -189,7 +200,8 @@
       </releases>
       <snapshots>
         <enabled>true</enabled>
-        <!-- 10 minutes. Or enforce refresh by using -U option to Maven -->
+        <!-- 10 minutes. Or enforce refresh by using -U option to 
+            Maven -->
         <updatePolicy>daily</updatePolicy>
       </snapshots>
     </pluginRepository>
