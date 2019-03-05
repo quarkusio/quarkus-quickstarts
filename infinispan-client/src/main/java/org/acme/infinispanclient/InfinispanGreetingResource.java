@@ -15,7 +15,7 @@ public class InfinispanGreetingResource {
 
    @Inject
    @Remote("mycache")
-   private RemoteCache<String, String> cache;
+   RemoteCache<String, String> cache;
 
    @GET
    @Produces(MediaType.TEXT_PLAIN)

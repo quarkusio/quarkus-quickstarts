@@ -1,21 +1,23 @@
 # Quarkus demo: Infinispan Client
 
-This example showcases how to use Infinispan client with Quarkus. 
+This example showcases how to use the Infinispan client with Quarkus. 
 
-# Run infinispan server
+# Start the Infinispan server
 
-- Running with docker `docker run -it -p 11222:11222 jboss/infinispan-server:latest`
-- Download the server from `http://www.infinsispan.org` and run `./bin/standalone.sh`
+- Running with Docker `docker run -it -p 11222:11222 jboss/infinispan-server:latest`
+- Download the server from `http://www.infinispan.org/` and run `./bin/standalone.sh`
 
 Infinispan server listens in ```localhost:8080``` for REST endpoints.
 
-The quickstart configured another http port in the [microprofile configuration file](/src/main/resources/META-INF/microprofile-config.properties) 
+To avoid conflicts, the quickstart configures another HTTP port in the [configuration file](/src/main/resources/application.properties) 
 with the following property:
-`quarkus.http.port=8081`
+```
+quarkus.http.port=8081
+```
 
 # Run the demo
 
 - Run `mvn clean package` and then `java -jar ./target/quarkus-quickstart-runner.jar`
 - In dev mode `mvn clean compile quarkus:dev`
 
-Go to `http://localhost:8081/infinispan` and display the message
+Go to `http://localhost:8081/infinispan`, it should show you a message coming from the Infinispan server.

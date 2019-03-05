@@ -17,11 +17,11 @@ public class InfinispanClientApp {
    private static final Logger LOGGER = LoggerFactory.getLogger("InfinispanClientApp");
 
    @Inject
-   private RemoteCacheManager cacheManager;
+   RemoteCacheManager cacheManager;
 
    void onStart(@Observes StartupEvent ev) {
       LOGGER.info("Create or get cache named mycache with the default configuration");
       RemoteCache<Object, Object> cache = cacheManager.administration().getOrCreateCache("mycache", "default");
-      cache.put("hello", "Hello World, Infinispan is up");
+      cache.put("hello", "Hello World, Infinispan is up!");
    }
 }
