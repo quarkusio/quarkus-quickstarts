@@ -21,3 +21,6 @@ graph-output.dot
 *.iml
 .idea
 .factorypath
+
+settings.xml
+shamrock.log

@@ -3,7 +3,8 @@
 **Want to contributeto quickstarts? That's awesome!**
 We try to make it easy, and all contributions, even the smaller ones, are more than welcome.
 This includes bug reports, fixes, documentation, new quickstarts...
-But first, read this page (including the small print at the end).
+
+But first, please read this page.
 
 ## Reporting an issue
 
@@ -36,7 +37,7 @@ Please make sure to monitor the output of the build and act accordingly.
 
 * All quickstarts must contain unit tests,
 * All quickstarts supporting the native mode must contain native tests,
-* If your quicstart does not work in native mode, write a comment in the pull request,
+* If your quickstart does not work in native mode, point it out in the pull request,
 * New quickstarts must be listed in the [README.md](./README.md) page
 
 ## Build

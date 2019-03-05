@@ -59,7 +59,11 @@ public class BookResource {
         }
     }
 
+
     public static class Result {
+
+        private String message;
+        private boolean success;
 
         Result(String message) {
             this.success = true;
@@ -72,9 +76,6 @@ public class BookResource {
                     .map(cv -> cv.getMessage())
                     .collect(Collectors.joining(", "));
         }
-
-        private String message;
-        private boolean success;
 
         public String getMessage() {
             return message;
