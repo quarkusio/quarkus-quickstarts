@@ -21,6 +21,7 @@
         <module>using-websockets</module>
         <module>using-opentracing</module>
         <module>using-spring-di</module>
+        <module>using-jwt-rbac</module>
         <module>rest-client</module>
         <module>kafka-quickstart</module>
         <module>rest-json</module>
