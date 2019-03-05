@@ -18,6 +18,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [REST Client](./rest-client): How to use MicroProfile's REST Client
 * [OpenTracing and Jaeger](./using-opentracing): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
 * [Spring DI compatibility layer](./using-spring-di): How to use our Spring Dependency Injection compatibility layer
+* [Infinispan Client](./infinispan-client): How to use Infinispan Client. Covers creating caches and simple get/put
 
 There is documentation published at <http://10.0.144.40/nfs/quarkus/index.html> (docs' [sources are here](https://github.com/jbossas/quarkus/tree/master/docs/src/main/asciidoc)).
 
