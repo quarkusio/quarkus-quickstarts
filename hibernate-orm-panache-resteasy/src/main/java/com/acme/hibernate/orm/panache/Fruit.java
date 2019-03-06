@@ -1,10 +1,10 @@
-package io.quarkus;
+package com.acme.hibernate.orm.panache;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import io.quarkus.panache.jpa.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 @Entity
 @Cacheable

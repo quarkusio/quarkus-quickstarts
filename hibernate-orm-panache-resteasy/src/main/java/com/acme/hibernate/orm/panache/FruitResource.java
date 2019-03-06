@@ -1,4 +1,4 @@
-package io.quarkus;
+package com.acme.hibernate.orm.panache;
 
 import java.util.List;
 
