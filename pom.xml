@@ -24,5 +24,6 @@
         <module>rest-client</module>
         <module>rest-json</module>
         <module>getting-started-knative</module>
+        <module>getting-started-testing</module>
     </modules>
 </project>
