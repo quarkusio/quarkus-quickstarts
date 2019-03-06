@@ -20,7 +20,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [OpenTracing and Jaeger](./using-opentracing): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
 * [Spring DI compatibility layer](./using-spring-di): How to use our Spring Dependency Injection compatibility layer
 
-There is documentation published at <http://10.0.144.40/nfs/quarkus/index.html> (docs' [sources are here](https://github.com/jbossas/quarkus/tree/master/docs/src/main/asciidoc)).
+There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/jbossas/quarkus/tree/master/docs/src/main/asciidoc)).
 
 ## Prerequisites
 
