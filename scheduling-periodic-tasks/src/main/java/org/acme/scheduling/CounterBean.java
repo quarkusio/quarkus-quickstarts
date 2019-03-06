@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import io.quarkus.scheduler.api.Scheduled;
+import io.quarkus.scheduler.Scheduled;
 
 @ApplicationScoped
 public class CounterBean {
