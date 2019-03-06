@@ -1,4 +1,4 @@
-package io.quarkus;
+package com.acme.hibernate.orm;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

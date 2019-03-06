@@ -1,4 +1,4 @@
-package io.quarkus;
+package com.acme.hibernate.orm;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
