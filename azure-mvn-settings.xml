@@ -10,24 +10,11 @@
   <profiles>
     <profile>
       <id>quarkus</id>
-      <repositories>        
+      <repositories>
         <repository>
-            <id>quarkus-nexus-release</id>
-            <name>Quarkus AWS Nexus - Releases</name>
-            <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/releases/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>quarkus-nexus-snapshot</id>
-            <name>Quarkus AWS Nexus - Snapshots</name>
-            <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/snapshots/</url>
+            <id>oss-nexus-snapshot</id>
+            <name>OSS Snapshots</name>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
@@ -41,24 +28,11 @@
         </repository>
       </repositories>
 
-      <pluginRepositories>        
+      <pluginRepositories>
         <pluginRepository>
-            <id>quarkus-nexus-release</id>
-            <name>Quarkus AWS Nexus - Releases</name>
-            <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/releases/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>quarkus-nexus-snapshot</id>
-            <name>Quarkus AWS Nexus - Snapshots</name>
-            <url>http://ec2-18-234-117-118.compute-1.amazonaws.com:8081/nexus/content/repositories/snapshots/</url>
+            <id>oss-nexus-snapshot</id>
+            <name>OSS - Snapshots</name>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
