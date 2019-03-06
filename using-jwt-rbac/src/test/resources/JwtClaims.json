@@ -1,0 +1,19 @@
+{
+    "iss": "https://quarkus.io/using-jwt-rbac",
+    "jti": "a-123",
+    "sub": "jdoe-using-jwt-rbac",
+    "upn": "jdoe@quarkus.io",
+    "preferred_username": "jdoe",
+    "aud": "using-jwt-rbac",
+    "birthdate": "2001-07-13",
+    "roleMappings": {
+        "group1": "Group1MappedRole",
+        "group2": "Group2MappedRole"
+    },
+    "groups": [
+        "Echoer",
+        "Tester",
+        "Subscriber",
+        "group2"
+    ]
+}
