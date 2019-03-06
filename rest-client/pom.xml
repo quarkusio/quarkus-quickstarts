@@ -30,11 +30,11 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jsonb-deployment</artifactId>
+            <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-rest-client-deployment</artifactId>
+            <artifactId>quarkus-smallrye-rest-client</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
