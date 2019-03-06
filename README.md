@@ -11,7 +11,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Getting Started - Knative](./getting-started-knative): Deployment of the Knative service to Kubernetes and/or OpenShift
 * [Application Configuration](./application-configuration): How to configure your application
 * [JSON REST services](./rest-json): How to write JSON REST services
-* [Hibernate ORM and RESTEasy](./hibernate-resteasy): Exposing a CRUD service over REST using Hibernate ORM to connect to a PostgreSQL database
+* [Hibernate ORM and RESTEasy](./hibernate-orm-resteasy): Exposing a CRUD service over REST using Hibernate ORM to connect to a PostgreSQL database
+* [Hibernate ORM with Panache and RESTEasy](./hibernate-orm-panache-resteasy): Exposing a CRUD service over REST using Panache to connect to a PostgreSQL database
 * [Scheduling periodic tasks](./scheduling-periodic-tasks): How to schedule periodic jobs
 * [Using Web Sockets](./using-websockets): Demonstrate how to use web sockets and serve static assets
 * [Startup and Shutdown actions](./application-lifecycle-events): Explains how to execute code when the application starts and stops
