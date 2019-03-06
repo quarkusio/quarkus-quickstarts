@@ -5,8 +5,8 @@ with a front-end based on Angular so you can play with it from your browser.
 
 While the code is surprisingly simple, under the hood this is using:
  - RESTEasy to expose the REST endpoints
- - Hibernate ORM to perform the CRUD operations on the Database
- - A PostgreSQL database; see below to run one via docker
+ - Hibernate ORM to perform the CRUD operations on the database
+ - A PostgreSQL database; see below to run one via Docker
  - ArC, the CDI inspired dependency injection tool with zero overhead
  - The high performance Agroal connection pool
  - Infinispan based caching
@@ -42,14 +42,14 @@ the checked out sources of this demo:
 
 ### Prepare a PostgreSQL instance
 
-First we will need a PostgreSQL database; you can launch one easily if you have docker installed:
+First we will need a PostgreSQL database; you can launch one easily if you have Docker installed:
 
 > docker run --ulimit memlock=-1:-1 -it --rm=true --memory-swappiness=0 --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:10.5
 
 Alternatively you can setup a PostgreSQL instance in any another way.
 
 The connection properties of the Agroal datasource are configured in the standard Quarkus configuration file, which you will find in
-`src/main/resources/application.properties`]
+`src/main/resources/application.properties`.
 
 ### Run Quarkus in developer mode
 
