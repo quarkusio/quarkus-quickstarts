@@ -7,7 +7,7 @@
     <artifactId>using-spring-di</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <quarkus.version>999-SNAPSHOT</quarkus.version>
+        <quarkus.version>0.11.0</quarkus.version>
         <spring.version>5.1.4.RELEASE</spring.version>
         <surefire.version>2.22.0</surefire.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
