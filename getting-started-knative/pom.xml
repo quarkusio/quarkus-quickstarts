@@ -16,6 +16,17 @@
     <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-bom</artifactId>
+        <version>${quarkus.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <finalName>${project.artifactId}</finalName>
@@ -71,21 +82,15 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-deployment</artifactId>
-      <scope>provided</scope>
-      <version>${quarkus.version}</version>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc-deployment</artifactId>
-      <scope>provided</scope>
-      <version>${quarkus.version}</version>
     </dependency>
 
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
-      <version>${quarkus.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>
