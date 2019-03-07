@@ -20,4 +20,4 @@ COPY --from=nativebuilder /tmp/quarkus-knative-runner /work/application
 RUN chmod -R 775 /work
 EXPOSE 8080
 WORKDIR /work/
-ENTRYPOINT ["./application","-Dshamrock.http.host=0.0.0.0"]
+ENTRYPOINT ["./application","-Dquarkus.http.host=0.0.0.0"]
