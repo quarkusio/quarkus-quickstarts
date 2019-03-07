@@ -16,7 +16,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Scheduling periodic tasks](./scheduling-periodic-tasks): How to schedule periodic jobs
 * [Using Web Sockets](./using-websockets): Demonstrate how to use web sockets and serve static assets
 * [Startup and Shutdown actions](./application-lifecycle-events): Explains how to execute code when the application starts and stops
-* [Input Validation with REST Services](./input-validation): How to validate the user input of REST services with Bean Validation
+* [Input Validation with REST Services](./validation): How to validate the user input of REST services with Bean Validation
 * [REST Client](./rest-client): How to use MicroProfile's REST Client
 * [OpenTracing and Jaeger](./using-opentracing): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
 * [Spring DI compatibility layer](./using-spring-di): How to use our Spring Dependency Injection compatibility layer
