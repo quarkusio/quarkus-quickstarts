@@ -23,4 +23,4 @@ graph-output.dot
 .factorypath
 
 settings.xml
-shamrock.log
+quarkus.log
