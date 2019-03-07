@@ -29,5 +29,6 @@
         <module>rest-json</module>
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
+        <module>microprofile-fault-tolerance</module>
     </modules>
 </project>
