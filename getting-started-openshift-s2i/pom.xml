@@ -27,6 +27,13 @@
     </dependencyManagement>
 
     <build>
+        <!-- This finalName is required because we can't use a * in .s2i/environment's JAVA_APP_JAR=app-runner.jar;
+             and otherwise the S2I Java Builder can't figure out which JAR to pick.
+
+             TODO https://github.com/quarkusio/quarkus/pull/1345 will probably fix that, so when that's gone in and is released,
+             then this (and JAVA_APP_JAR in .s2i/environment) can probably be removed again (to be tested). -->
+        <finalName>${project.artifactId}</finalName>
+
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -41,9 +48,6 @@
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <version>${quarkus.version}</version>
-                <configuration>
-                    <uberJar>true</uberJar>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>

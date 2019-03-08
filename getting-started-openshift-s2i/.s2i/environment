@@ -1,1 +1,8 @@
+JAVA_APP_JAR=app-runner.jar
+# This ^^^ requires <finalName>${project.artifactId} in pom.xml
+# TODO This can probably be removed again in the future, see matching TODO in pom.xml
+
+ARTIFACT_COPY_ARGS="-p -r lib/ $JAVA_APP_JAR"
+# This ^^^ is required because without <uberJar>true we need all lib/** in /deployments/
+
 JAVA_OPTIONS=-Dquarkus.http.host=0.0.0.0
