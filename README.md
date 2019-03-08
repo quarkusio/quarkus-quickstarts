@@ -7,7 +7,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Getting Started](./getting-started): Application creation, Rest endpoint, Dependency Injection, Test, Packaging
 * [Getting Started - Async](./getting-started-async): Illustrate how to use `CompletionStage` to handle asynchronous actions
 * [Getting Started - Native](./getting-started-native): Packaging of the application into a native executable
-* [Getting Started - Kubernetes](./getting-started-kubernetes): Deployment of the application to Kubernetes and/or OpenShift
+* [Getting Startied -OpenShift S2I](./getting-started-openshift-s2i): Deployment of the application to OpenShift with S2I
+* [Getting Started - Kubernetes/OpenShift via Dockerfile](./getting-started-kubernetes): Deployment of the application to Kubernetes and/or OpenShift
 * [Getting Started - Knative](./getting-started-knative): Deployment of the Knative service to Kubernetes and/or OpenShift
 * [Application Configuration](./application-configuration): How to configure your application
 * [JSON REST services](./rest-json): How to write JSON REST services

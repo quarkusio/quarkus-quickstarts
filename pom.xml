@@ -14,6 +14,7 @@
         <module>getting-started</module>
         <module>getting-started-async</module>
         <module>getting-started-native</module>
+        <module>getting-started-openshift-s2i</module>
         <module>getting-started-kubernetes</module>
         <module>hibernate-orm-resteasy</module>
         <module>hibernate-orm-panache-resteasy</module>
