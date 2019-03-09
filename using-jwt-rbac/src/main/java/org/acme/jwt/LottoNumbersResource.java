@@ -13,10 +13,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.eclipse.microprofile.jwt.Claim;
 import org.eclipse.microprofile.jwt.Claims;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+// Required for native image until https://github.com/quarkusio/quarkus/issues/1292 is fixed
+@RegisterForReflection
 @Dependent
 public class LottoNumbersResource {
     @Inject
