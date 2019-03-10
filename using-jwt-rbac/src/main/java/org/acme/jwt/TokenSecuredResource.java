@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.inject.spi.CDI;
@@ -56,7 +57,7 @@ public class TokenSecuredResource {
 
     @GET()
     @Path("deny-all")
-    @PermitAll
+    @DenyAll
     @Produces(MediaType.TEXT_PLAIN)
     public String helloShouldDeny(@Context SecurityContext ctx) {
         Principal caller =  ctx.getUserPrincipal();
