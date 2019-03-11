@@ -22,7 +22,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Spring DI compatibility layer](./using-spring-di): How to use our Spring Dependency Injection compatibility layer
 * [Infinispan Client](./infinispan-client): How to use Infinispan Client. Covers creating caches and simple get/put.
 
-There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/jbossas/quarkus/tree/master/docs/src/main/asciidoc)).
+There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
 
 ## Prerequisites
 
