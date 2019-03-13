@@ -91,6 +91,7 @@
               socket.onmessage =function(m) {
                   console.log("Got message: " + m.data);
                   $("#chat").append(m.data + "\n");
+                  scrollToBottom();
               };
           }
       };
