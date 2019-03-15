@@ -5,7 +5,12 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile -t quarkus/getting-started .
+# mvn docker:build
+#
+# or
+#
+# docker build -t quarkus/getting-started .
+#
 #
 # Then run the container using:
 #
