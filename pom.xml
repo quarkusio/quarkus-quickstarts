@@ -30,5 +30,6 @@
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
         <module>microprofile-fault-tolerance</module>
+        <module>microprofile-health</module>
     </modules>
 </project>
