@@ -43,12 +43,12 @@ Please make sure to monitor the output of the build and act accordingly.
 
 ## Build
 
-* Clone the repository: `git clone https://github.com/jbossas/quarkus-quickstarts.git`
+* Clone the repository: `git clone https://github.com/quarkusio/quarkus-quickstarts.git`
 * Navigate to the directory: `cd quarkus-quickstarts`
 * Invoke `mvn clean verify -Pnative` from the root directory
 
 ```bash
-git clone https://github.com/jbossas/quarkus-quickstarts.git
+git clone https://github.com/quarkusio/quarkus-quickstarts.git
 cd quarkus-quickstarts
 mvn clean verify -Pnative
 # Wait... success!

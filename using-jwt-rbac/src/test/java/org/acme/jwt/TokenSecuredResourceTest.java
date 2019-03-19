@@ -67,7 +67,7 @@ public class TokenSecuredResourceTest {
                 .when()
                 .get("/secured/deny-all").andReturn();
 
-        Assertions.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
+        Assertions.assertEquals(HttpURLConnection.HTTP_FORBIDDEN, response.getStatusCode());
         String replyString = response.body().asString();
         System.out.println(replyString);
     }
