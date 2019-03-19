@@ -29,5 +29,6 @@
         <module>getting-started-testing</module>
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>
+        <module>microprofile-metrics</module>
     </modules>
 </project>
