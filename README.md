@@ -22,6 +22,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [MicroProfile Metrics](./microprofile-metrics): How to use MicroProfile Metrics
 * [Spring DI compatibility layer](./using-spring-di): How to use our Spring Dependency Injection compatibility layer
 * [Infinispan Client](./infinispan-client): How to use Infinispan Client. Covers creating caches and simple get/put.
+* [Going Reactive with Eclipse Vert.x](./going-reactive-with-vertx): How to use the Vert.x extension to build reactive applications
 
 There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
 
