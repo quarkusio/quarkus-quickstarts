@@ -31,13 +31,13 @@ import io.vertx.axle.core.eventbus.Message;
 public class MessagingResource {
 
     @Inject
-    io.vertx.axle.core.Vertx vertx;
+    io.vertx.axle.core.eventbus.EventBus eventBus;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("{name}/messaging")
     public CompletionStage<String> greeting(@PathParam("name") String name) {
-        CompletionStage<Message<String>> greeting = vertx.eventBus().send("greeting", name);
+        CompletionStage<Message<String>> greeting = eventBus.send("greeting", name);
         return greeting.thenApply(Message::body);
     }
 }

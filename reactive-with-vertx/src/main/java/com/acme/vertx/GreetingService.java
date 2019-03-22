@@ -26,7 +26,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import io.quarkus.vertx.ConsumeEvent;
-import io.vertx.axle.core.Vertx;
+import io.vertx.core.Vertx;
 
 @ApplicationScoped
 public class GreetingService {
