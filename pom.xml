@@ -30,6 +30,6 @@
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
-        <module>reactive-with-vertx</module>
+        <module>using-vertx</module>
     </modules>
 </project>

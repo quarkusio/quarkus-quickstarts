@@ -1,7 +1,9 @@
+package org.acme.vertx;
+
 import io.quarkus.test.junit.SubstrateTest;
 
 @SubstrateTest
-public class NativeGreetingEndpointIT extends GreetingEndpointTest {
+class EventResourceIT extends GreetingResourceTest {
 
     // Runs the same tests as the parent class
 

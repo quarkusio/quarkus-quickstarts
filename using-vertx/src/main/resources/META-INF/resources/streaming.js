@@ -1,5 +1,5 @@
 if (!!window.EventSource) {
-    var eventSource = new EventSource("/hello/Tim/streaming");
+    var eventSource = new EventSource("/hello/Quarkus/streaming");
     eventSource.onmessage = function (event) {
         var container = document.getElementById("container");
         var paragraph = document.createElement("p");
