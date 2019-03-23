@@ -10,8 +10,7 @@ import java.util.concurrent.CompletionStage;
 public class GreetingService {
 
     @ConsumeEvent("greeting")
-    CompletionStage<String> consume(String name) {
-        return CompletableFuture
-                .supplyAsync(name::toUpperCase);
+    public String greeting(String name) {
+        return "Hello " + name;
     }
 }

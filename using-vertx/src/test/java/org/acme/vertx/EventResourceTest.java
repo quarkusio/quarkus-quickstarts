@@ -13,6 +13,6 @@ import static org.hamcrest.CoreMatchers.startsWith;
                 .when().get("/async/Quarkus")
                 .then()
                 .statusCode(200)
-                .body(startsWith("QUARKUS"));
+                .body(startsWith("Hello Quarkus"));
     }
 }
