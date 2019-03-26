@@ -48,8 +48,6 @@
     </dependencies>
 
     <build>
-        <!-- required because we can't use a *-runner.jar in .s2i/environment's JAVA_APP_JAR -->
-        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
