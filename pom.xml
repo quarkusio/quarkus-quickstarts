@@ -11,6 +11,7 @@
     <modules>
         <module>application-configuration</module>
         <module>application-lifecycle-events</module>
+        <module>camel-java</module>
         <module>getting-started</module>
         <module>getting-started-async</module>
         <module>hibernate-orm-resteasy</module>
