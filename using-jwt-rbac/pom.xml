@@ -64,6 +64,7 @@
     </dependency>
   </dependencies>
   <build>
+    <finalName>${project.name}</finalName>
     <plugins>
       <plugin>
         <groupId>io.quarkus</groupId>
@@ -91,11 +92,6 @@
   <profiles>
     <profile>
       <id>native</id>
-      <activation>
-        <property>
-          <name>native</name>
-        </property>
-      </activation>
       <build>
         <plugins>
           <plugin>
@@ -114,6 +110,7 @@
             </executions>
           </plugin>
           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
             <version>${surefire-plugin.version}</version>
             <executions>

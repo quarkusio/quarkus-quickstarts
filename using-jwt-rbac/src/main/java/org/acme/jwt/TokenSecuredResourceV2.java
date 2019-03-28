@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,6 +19,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
  * Version 2 of the TokenSecuredResource
  */
 @Path("/secured-v2")
+@RequestScoped
 public class TokenSecuredResourceV2 {
 
     @Inject

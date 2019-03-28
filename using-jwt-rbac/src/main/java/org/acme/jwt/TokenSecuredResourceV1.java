@@ -3,6 +3,7 @@ package org.acme.jwt;
 import java.security.Principal;
 
 import javax.annotation.security.PermitAll;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,6 +18,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
  * Version 1 of the TokenSecuredResource
  */
 @Path("/secured-v1")
+@RequestScoped
 public class TokenSecuredResourceV1 {
 
     @Inject
