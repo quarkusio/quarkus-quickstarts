@@ -20,6 +20,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [MicroProfile Health](./microprofile-health): How to use MicroProfile Health
 * [MicroProfile Fault Tolerance](./microprofile-fault-tolerance): How to use MicroProfile Fault Tolerance
 * [MicroProfile Metrics](./microprofile-metrics): How to use MicroProfile Metrics
+* [MicroProfile JWT RBAC](./using-jwt-rbac): How to use MicroProfile JWT RBAC
 * [Spring DI compatibility layer](./using-spring-di): How to use our Spring Dependency Injection compatibility layer
 * [Infinispan Client](./infinispan-client): How to use Infinispan Client. Covers creating caches and simple get/put.
 
