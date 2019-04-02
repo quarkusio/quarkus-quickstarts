@@ -20,6 +20,7 @@
         <module>validation</module>
         <module>scheduling-periodic-tasks</module>
         <module>using-websockets</module>
+        <module>using-openapi-swaggerui</module>
         <module>using-opentracing</module>
         <module>using-spring-di</module>
         <module>using-jwt-rbac</module>
@@ -31,5 +32,6 @@
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
+        <module>using-vertx</module>
     </modules>
 </project>

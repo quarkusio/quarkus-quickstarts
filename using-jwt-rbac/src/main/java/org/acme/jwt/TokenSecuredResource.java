@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.json.JsonString;
@@ -23,6 +24,7 @@ import org.eclipse.microprofile.jwt.Claims;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 @Path("/secured")
+@RequestScoped
 public class TokenSecuredResource {
 
     @Inject

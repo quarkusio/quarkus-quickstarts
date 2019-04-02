@@ -20,8 +20,10 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [MicroProfile Health](./microprofile-health): How to use MicroProfile Health
 * [MicroProfile Fault Tolerance](./microprofile-fault-tolerance): How to use MicroProfile Fault Tolerance
 * [MicroProfile Metrics](./microprofile-metrics): How to use MicroProfile Metrics
+* [MicroProfile JWT RBAC](./using-jwt-rbac): How to use MicroProfile JWT RBAC
 * [Spring DI compatibility layer](./using-spring-di): How to use our Spring Dependency Injection compatibility layer
-* [Infinispan Client](./infinispan-client): How to use Infinispan Client. Covers creating caches and simple get/put.
+* [Infinispan Client](./infinispan-client): How to use Infinispan Client. Covers creating caches and simple get/put
+* [Using Vert.x](./using-vertx): How to use the Vert.x extension
 * [Camel java route](./camel-java): How to use a Camel java route
 
 There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
@@ -30,4 +32,4 @@ There is documentation published at <https://quarkus.io> (docs' [sources are her
 
 * [Maven 3.5.3+](https://maven.apache.org/install.html)
 * [Java - OpenJDK 1.8+](https://adoptopenjdk.net/)
-* [GraalVM rc12+](https://www.graalvm.org/)
+* [GraalVM rc14+](https://www.graalvm.org/)

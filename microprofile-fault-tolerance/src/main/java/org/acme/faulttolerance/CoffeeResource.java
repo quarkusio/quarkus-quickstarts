@@ -31,7 +31,7 @@ public class CoffeeResource {
     private static final Logger LOGGER = Logger.getLogger(CoffeeResource.class);
 
     @Inject
-    private CoffeeRepositoryService coffeeRepository;
+    CoffeeRepositoryService coffeeRepository;
 
     private AtomicLong counter = new AtomicLong(0);
 
