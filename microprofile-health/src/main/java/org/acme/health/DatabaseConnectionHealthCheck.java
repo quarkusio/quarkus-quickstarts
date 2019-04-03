@@ -13,7 +13,7 @@ import javax.enterprise.context.ApplicationScoped;
 public class DatabaseConnectionHealthCheck implements HealthCheck {
 
     @ConfigProperty(name = "database.up", defaultValue = "false")
-    private boolean databaseUp;
+    boolean databaseUp;
 
     @Override
     public HealthCheckResponse call() {
