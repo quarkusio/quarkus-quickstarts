@@ -35,10 +35,6 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-arc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-vertx</artifactId>
         </dependency>
         <dependency>
@@ -48,7 +44,6 @@
         <dependency>
             <groupId>io.smallrye.reactive</groupId>
             <artifactId>smallrye-axle-web-client</artifactId>
-            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -58,7 +53,6 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>3.2.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
