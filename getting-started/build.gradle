@@ -3,6 +3,10 @@ plugins {
     id 'io.quarkus.gradle.plugin' version '0.12.0'
 }
 
+test {
+    useJUnitPlatform()
+}
+
 repositories {
      mavenCentral()
      maven { url 'http://repository.jboss.org/nexus/content/groups/public' }
