@@ -71,6 +71,7 @@
     </plugins>
   </build>
   <profiles>
+    <!-- native does not work for now
     <profile>
       <id>native</id>
       <build>
@@ -93,5 +94,6 @@
         </plugins>
       </build>
     </profile>
+    -->
   </profiles>
 </project>
