@@ -41,7 +41,7 @@ Please make sure to monitor the output of the build and act accordingly.
 * If your quickstart does not work in native mode, point it out in the pull request,
 * New quickstarts must be listed in the [README.md](./README.md) page
 
-## Build
+## Build with Maven
 
 * Clone the repository: `git clone https://github.com/quarkusio/quarkus-quickstarts.git`
 * Navigate to the directory: `cd quarkus-quickstarts`
@@ -53,6 +53,14 @@ cd quarkus-quickstarts
 mvn clean verify -Pnative
 # Wait... success!
 ```
+
+## Build with Gradle
+
+Clone like above, and build e.g. `getting-started` using:
+
+    ../gradlew build
+
+You'll find the `*-runner.jar` in `build` (not `build/libs`).
 
 ## The small print
 
