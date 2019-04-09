@@ -1,16 +1,16 @@
 plugins {
     id 'java'
-    id 'io.quarkus.gradle.plugin' version '0.12.0'
+    id 'io.quarkus'
 }
 
 repositories {
+     mavenLocal()
      mavenCentral()
-     maven { url 'http://repository.jboss.org/nexus/content/groups/public' }
 }
 
 dependencies {
-    implementation group: 'io.quarkus', name: 'quarkus-resteasy', version:'0.12.0'
+    implementation group: 'io.quarkus', name: 'quarkus-resteasy', version: quarkusVersion
 
-    testCompile group: 'io.quarkus', name: 'quarkus-junit5', version:'0.12.0'
+    testCompile group: 'io.quarkus', name: 'quarkus-junit5', version: quarkusVersion
     testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.3.0'
 }

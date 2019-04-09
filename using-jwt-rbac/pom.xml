@@ -6,7 +6,7 @@
   <artifactId>using-jwt-rbac</artifactId>
   <version>1.0-SNAPSHOT</version>
   <properties>
-    <surefire-plugin.version>2.22.0</surefire-plugin.version>
+    <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <nimbus-jose-jwt.version>6.7</nimbus-jose-jwt.version>
     <quarkus.version>0.13.0</quarkus.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -9,6 +9,9 @@
 
     <properties>
         <quarkus.version>0.13.0</quarkus.version>
+        <surefire-plugin.version>2.22.1</surefire-plugin.version>
+        <compiler-plugin.version>3.8.0</compiler-plugin.version>
+        <docker-plugin.version>0.28.0</docker-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -57,7 +60,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>${compiler-plugin.version}</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -68,7 +71,7 @@
             <plugin>
                 <!-- you need this specific version to integrate with the other build helpers -->
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>${surefire-plugin.version}</version>
             </plugin>
             <plugin>
                 <!-- This is what injects the magic Quarkus bytecode -->
@@ -87,7 +90,7 @@
                 <!-- Automatically start PostgreSQL for integration testing - requires Docker -->
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.28.0</version>
+                <version>${docker-plugin.version}</version>
                 <configuration>
                     <images>
                         <image>
@@ -167,7 +170,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.22.1</version>
+                        <version>${surefire-plugin.version}</version>
                         <executions>
                             <execution>
                                 <goals>
