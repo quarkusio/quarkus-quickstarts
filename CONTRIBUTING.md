@@ -18,12 +18,11 @@ To contribute, use GitHub Pull Requests, from your **own** fork.
 * The `master` branch uses the latest release of Quarkus.
 * The `development` branch uses a snapshot version of Quarkus.
 
-Depending on your contribution, you may want to target the `master` or `development` branch. Here are a few rules:
+All contributions must target the `development` branch. The `master` branch is reset for each release.
 
-* If your changes require a snapshot version of Quarkus -> `development`
-* If your changes impact the documentation -> `development`
-* If your changes are just a hot fix and do not require an update of Quarkus or the documentation -> `master`
-* For pull requests depending on features not yet merged in Quarkus, prepend the title with "[DO NOT MERGE]"
+**All changes made only to the `master` branch will be definitely lost.**
+
+For pull requests depending on features not yet merged in Quarkus, prepend the title with "[DO NOT MERGE]".
 
 ### Code reviews
 
