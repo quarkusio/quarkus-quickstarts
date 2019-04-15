@@ -22,4 +22,4 @@ RUN chmod -R 775 /work && cd work && ./copy_ldd.sh application build
 
 FROM scratch
 COPY --from=lddpackage /work/build /
-ENTRYPOINT ["./application","-Dquarkus.http.host=0.0.0.0"]
+ENTRYPOINT ["/app/application","-Dquarkus.http.host=0.0.0.0"]
