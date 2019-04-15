@@ -3,7 +3,7 @@ COPY . /project
 WORKDIR /project
 RUN mvn -Duser.home=/builder/home -B install
 
-FROM quay.io/quarkus/centos-quarkus-native-image:graalvm-1.0.0-rc15 as nativebuilder
+FROM swd847/centos-graal-native-image-rc12 as nativebuilder
 COPY --from=builder /project/target /project/
 WORKDIR /project
 RUN  /opt/graalvm/bin/native-image -J-Djava.util.logging.manager=org.jboss.logmanager.LogManager \
@@ -14,10 +14,12 @@ RUN  /opt/graalvm/bin/native-image -J-Djava.util.logging.manager=org.jboss.logma
      -H:-SpawnIsolates -H:-JNI --no-server -H:-UseServiceLoaderFeature -H:+StackTrace \
      && cp  -v quarkus-quickstart-knative-runner /tmp/quarkus-knative-runner
 
-FROM registry.fedoraproject.org/fedora-minimal
+FROM  registry.fedoraproject.org/fedora-minimal as lddpackage
 RUN mkdir -p /work
 COPY --from=nativebuilder /tmp/quarkus-knative-runner /work/application
-RUN chmod -R 775 /work
-EXPOSE 8080
-WORKDIR /work/
-ENTRYPOINT ["./application","-Dquarkus.http.host=0.0.0.0"]
+COPY ./copy_ldd.sh /work
+RUN chmod -R 775 /work && cd work && ./copy_ldd.sh application build
+
+FROM scratch
+COPY --from=lddpackage /work/build /
+CMD ["/app/application","-Dquarkus.http.host=0.0.0.0"]
