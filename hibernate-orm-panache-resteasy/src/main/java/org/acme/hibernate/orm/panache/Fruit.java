@@ -1,4 +1,4 @@
-package com.acme.hibernate.orm.panache;
+package org.acme.hibernate.orm.panache;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
