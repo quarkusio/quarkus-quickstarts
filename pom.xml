@@ -32,5 +32,6 @@
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
         <module>using-vertx</module>
+        <module>using-keycloak</module>
     </modules>
 </project>
