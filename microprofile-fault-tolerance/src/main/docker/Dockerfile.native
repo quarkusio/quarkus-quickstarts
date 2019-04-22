@@ -5,7 +5,7 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native -t quarkus/microprofile-fault-tolerance .
+# docker build -f src/main/docker/Dockerfile -t quarkus/microprofile-fault-tolerance .
 #
 # Then run the container using:
 #
