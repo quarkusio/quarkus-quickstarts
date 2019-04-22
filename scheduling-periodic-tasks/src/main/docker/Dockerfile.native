@@ -5,7 +5,7 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile -t quarkus/scheduling-periodic-tasks .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/scheduling-periodic-tasks .
 #
 # Then run the container using:
 #
