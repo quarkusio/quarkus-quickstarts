@@ -5,7 +5,7 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile -t quarkus/using-opentracing .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/using-opentracing .
 #
 # Then run the container using:
 #
