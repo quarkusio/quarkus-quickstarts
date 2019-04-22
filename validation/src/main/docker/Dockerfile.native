@@ -5,7 +5,7 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile -t quarkus/validation .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/validation .
 #
 # Then run the container using:
 #

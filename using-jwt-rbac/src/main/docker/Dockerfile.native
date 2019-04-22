@@ -5,7 +5,7 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile -t quarkus/using-jwt-rbac .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/using-jwt-rbac .
 #
 # Then run the container using:
 #
