@@ -5,7 +5,7 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile -t quarkus/camel-java .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/camel-java .
 #
 # Then run the container using:
 #

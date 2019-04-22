@@ -5,7 +5,7 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile -t quarkus/quarkus-quickstart-async .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/quarkus-quickstart-async .
 #
 # Then run the container using:
 #
