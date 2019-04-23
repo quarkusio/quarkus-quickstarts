@@ -3,6 +3,12 @@ plugins {
     id 'io.quarkus'
 }
 
+test {
+    useJUnitPlatform()
+
+    exclude '**/*IT*' // TODO https://github.com/quarkusio/quarkus/issues/1930
+}
+
 repositories {
      mavenLocal()
      mavenCentral()
