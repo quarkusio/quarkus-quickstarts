@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 public class GreetingResource {
 
     @Inject
-    private GreetingService service;
+    GreetingService service;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)

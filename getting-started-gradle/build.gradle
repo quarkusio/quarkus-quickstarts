@@ -15,25 +15,34 @@ dependencies {
     testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.3.0'
 }
 
+test {
+    useJUnitPlatform()
+}
+
 sourceSets {
-    integrationTest {
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
+    test {
+        java.srcDir 'src/test/java/unit'
+    }
+    integration {
+        java.srcDir 'src/test/java/integration'
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
     }
 }
 
 configurations {
-    integrationTestImplementation.extendsFrom implementation
-    integrationTestRuntimeOnly.extendsFrom runtimeOnly
+    integrationCompile.extendsFrom testCompile
+    integrationRuntime.extendsFrom testRuntime
 }
 
 task integrationTest(type: Test) {
     description = 'Runs integration tests.'
     group = 'verification'
 
-    testClassesDirs = sourceSets.integrationTest.output.classesDirs
-    classpath = sourceSets.integrationTest.runtimeClasspath
-    mustRunAfter test
+    testClassesDirs = sourceSets.integration.output.classesDirs
+    classpath = sourceSets.integration.runtimeClasspath
+    shouldRunAfter test
 }
 
 check.dependsOn integrationTest
+

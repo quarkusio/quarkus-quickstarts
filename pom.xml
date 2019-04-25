@@ -13,6 +13,7 @@
         <module>application-lifecycle-events</module>
         <module>camel-java</module>
         <module>getting-started</module>
+        <module>getting-started-gradle</module>
         <module>getting-started-async</module>
         <module>hibernate-orm-resteasy</module>
         <module>hibernate-orm-panache-resteasy</module>
