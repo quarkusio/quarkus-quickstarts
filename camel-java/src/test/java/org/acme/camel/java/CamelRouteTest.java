@@ -29,11 +29,13 @@ public class CamelRouteTest {
         try (BufferedReader r = Files.newBufferedReader(logPath, StandardCharsets.UTF_8)) {
             while (System.currentTimeMillis() <= deadline) {
                 final String line = r.readLine();
-                if (line != null && line.contains(CamelRoute.I_AM_ALIVE_MESSAGE)) {
+                if (line == null) {
+                    /* More lines may appear later */
+                    Thread.sleep(100);
+                } else if (line.contains(CamelRoute.I_AM_ALIVE_MESSAGE)) {
                     /* test passed */
                     return;
                 }
-                Thread.sleep(100);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
