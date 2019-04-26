@@ -31,4 +31,4 @@ There is documentation published at <https://quarkus.io> (docs' [sources are her
 
 * [Maven 3.5.3+](https://maven.apache.org/install.html)
 * [Java - OpenJDK 1.8+](https://adoptopenjdk.net/)
-* [GraalVM rc14+](https://www.graalvm.org/)
+* [GraalVM rc15+](https://www.graalvm.org/)
