@@ -13,7 +13,6 @@ buildNumber.properties
 
 .gradle/
 build/
-out/
 .gradletasknamecache
 
 *.log

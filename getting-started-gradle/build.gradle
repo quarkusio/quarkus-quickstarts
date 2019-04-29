@@ -21,10 +21,10 @@ test {
 
 sourceSets {
     test {
-        java.srcDir 'src/test/java/unit'
+        java.srcDir 'src/test/java'
     }
     integration {
-        java.srcDir 'src/test/java/integration'
+        java.srcDir 'src/it/java'
         compileClasspath += main.output + test.output
         runtimeClasspath += main.output + test.output
     }
@@ -45,4 +45,3 @@ task integrationTest(type: Test) {
 }
 
 check.dependsOn integrationTest
-

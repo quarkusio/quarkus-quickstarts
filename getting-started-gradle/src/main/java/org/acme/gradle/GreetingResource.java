@@ -1,4 +1,4 @@
-package quickstart;
+package org.acme.gradle;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

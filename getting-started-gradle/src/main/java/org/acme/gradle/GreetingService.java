@@ -1,4 +1,4 @@
-package quickstart;
+package org.acme.gradle;
 
 import javax.enterprise.context.ApplicationScoped;
 
