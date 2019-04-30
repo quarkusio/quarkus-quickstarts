@@ -1,6 +1,6 @@
 # Quarkus demo: Camel java route
 
-This example showcases how to use the Camel java route with Quarkus. 
+This example showcases how to use the Camel java route with Quarkus.
 
 # Run the demo
 

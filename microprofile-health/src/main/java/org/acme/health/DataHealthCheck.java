@@ -9,7 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 @Health
 @ApplicationScoped
 public class DataHealthCheck implements HealthCheck {
-    
+
     @Override
     public HealthCheckResponse call() {
         return HealthCheckResponse.named("Health check with data")

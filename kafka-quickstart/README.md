@@ -9,11 +9,11 @@ First you need a Kafka cluster. You can follow the instructions from the [Apache
 
 ## Start the application
 
-The application can be started using: 
+The application can be started using:
 
 ```bash
 mvn compile quarkus:dev
-```  
+```
 
 Then, open your browser to `http://localhost:8080/prices.html`, and you should see a fluctuating price.
 
@@ -37,4 +37,4 @@ You can compile the application into a native binary using:
 
 and run with:
 
-`./target/kafka-quickstart-1.0-SNAPSHOT-runner` 
+`./target/kafka-quickstart-1.0-SNAPSHOT-runner`

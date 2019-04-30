@@ -14,7 +14,7 @@ public class CountriesResourceTest {
         given()
           .when().get("/country/name/greece")
           .then()
-             .statusCode(200)  
+             .statusCode(200)
              .body("$.size()", is(1),
                      "[0].alpha2Code", is("GR"),
                      "[0].capital", is("Athens"),
