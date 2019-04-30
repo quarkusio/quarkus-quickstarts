@@ -23,7 +23,7 @@ public class CamelLifecycle {
 
     @Inject
     CamelRuntime runtime;
-    
+
     @Inject
     CamelContext context;
 

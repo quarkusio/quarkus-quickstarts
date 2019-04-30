@@ -19,5 +19,5 @@ public class CounterBean {
     void increment() {
         counter.incrementAndGet();
     }
-    
+
 }

@@ -136,7 +136,7 @@ if exist %WRAPPER_JAR% (
 	)
     echo Couldn't find %WRAPPER_JAR%, downloading it ...
 	echo Downloading from: %DOWNLOAD_URL%
-	
+
     powershell -Command "&{"^
 		"$webclient = new-object System.Net.WebClient;"^
 		"if (-not ([string]::IsNullOrEmpty('%MVNW_USERNAME%') -and [string]::IsNullOrEmpty('%MVNW_PASSWORD%'))) {"^

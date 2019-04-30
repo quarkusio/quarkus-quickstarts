@@ -1,6 +1,6 @@
 # Quarkus demo: Infinispan Client
 
-This example showcases how to use the Infinispan client with Quarkus. 
+This example showcases how to use the Infinispan client with Quarkus.
 
 # Start the Infinispan server
 
@@ -18,7 +18,7 @@ You **won't need to do this in production**, but for Docker for Mac users we hav
 
 Infinispan Server listens in `localhost:8080` for REST endpoints.
 
-To avoid conflicts, the quickstart configures another HTTP port in the [configuration file](/src/main/resources/application.properties) 
+To avoid conflicts, the quickstart configures another HTTP port in the [configuration file](/src/main/resources/application.properties)
 with the following property:
 
 `
