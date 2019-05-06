@@ -1,3 +1,5 @@
+package org.acme.hibernate.orm;
+
 import io.quarkus.test.junit.SubstrateTest;
 
 @SubstrateTest
