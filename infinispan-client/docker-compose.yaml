@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  mynetwork:
+    driver: bridge
+
+services:
+  infinispan-server:
+    image: jboss/infinispan-server:10.0.0.Beta3
+    environment:
+      - APP_USER=user
+      - APP_PASS=changeme
+    ports:
+      - "11222:11222"
+    container_name: infinispan
+    networks:
+      - mynetwork
+  client-app:
+    image: quarkus/infinispan-client
+    ports:
+      - "8081:8081"
+    container_name: client
+    depends_on:
+      - infinispan-server
+    networks:
+      - mynetwork
+    command: >
+      /bin/sh -c "
+        echo Waiting for Infinispan service start ...;
+        while ! curl --silent --output /dev/null --fail-early --user user:changeme http://infinispan:8080;
+        do
+          sleep 1;
+        done;
+        echo Infinispan service started!;
+        ./application -Dquarkus.http.host=0.0.0.0 -Dquarkus.infinispan-client.server-list=infinispan:11222
+      "

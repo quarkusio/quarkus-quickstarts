@@ -25,9 +25,24 @@ with the following property:
 quarkus.http.port=8081
 `
 
-# Run the demo
+# Run the demo on dev mode
 
 - Run `mvn clean package` and then `java -jar ./target/quarkus-quickstart-runner.jar`
 - In dev mode `mvn clean compile quarkus:dev`
 
 Go to `http://localhost:8081/infinispan`, it should show you a message coming from the Infinispan server.
+
+
+# Use Docker compose with the native image
+
+Once you built a docker image using the `Dockerfile.native`, you might want to test this
+container connecting to a running Infinispan image.
+
+Infinispan needs to be properly started to test this locally, and the containers must be in the same network.
+
+For that, we have provided a docker-compose file. The Infinispan Server container is started first, and the client 
+waits for it. This is done this way for local testing purposes. 
+
+Run and wait for start `docker-compose up`
+
+Go to `http://localhost:8081/infinispan` 
