@@ -63,7 +63,7 @@ public class FruitResource {
     @GET
     public CompletionStage<Response> get() {
         return Fruit.findAll(client)
-                .thenApply(fruits -> fruits.isEmpty() ? Response.noContent() : Response.ok(fruits))
+                .thenApply(Response::ok)
                 .thenApply(ResponseBuilder::build);
     }
 
