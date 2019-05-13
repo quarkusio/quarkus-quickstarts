@@ -92,7 +92,7 @@
           </plugin>
           <plugin>
             <artifactId>maven-failsafe-plugin</artifactId>
-            <version>${surefire-plugin.version}</version>
+            <version>${surefire.version}</version>
             <executions>
               <execution>
                 <goals>
