@@ -1,7 +1,19 @@
+// this block is necessary to make enforcedPlatform work for Quarkus plugin available
+// only locally (snapshot) that is also importing the Quarkus BOM
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath "io.quarkus:quarkus-gradle-plugin:${quarkusVersion}"
+    }
+}
+
 plugins {
     id 'java'
-    id 'io.quarkus'
 }
+
+apply plugin: 'io.quarkus'
 
 repositories {
      mavenLocal()
@@ -9,8 +21,9 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'io.quarkus', name: 'quarkus-resteasy', version: quarkusVersion
+    implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
+    implementation 'io.quarkus:quarkus-resteasy'
 
-    testCompile group: 'io.quarkus', name: 'quarkus-junit5', version: quarkusVersion
-    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.3.0'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
 }
