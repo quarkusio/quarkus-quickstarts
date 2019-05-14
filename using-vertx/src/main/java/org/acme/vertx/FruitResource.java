@@ -22,6 +22,7 @@ import java.util.concurrent.CompletionStage;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
@@ -32,8 +33,8 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import io.reactiverse.axle.pgclient.PgPool;
 
 @Path("fruits")
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class FruitResource {
 
     @Inject
