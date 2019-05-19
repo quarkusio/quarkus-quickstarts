@@ -19,6 +19,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [OpenTracing and Jaeger](./using-opentracing): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
 * [MicroProfile Health](./microprofile-health): How to use MicroProfile Health
 * [MicroProfile Fault Tolerance](./microprofile-fault-tolerance): How to use MicroProfile Fault Tolerance
+* [MicroPofile messaging MQTT](./microprofile-messaging-mqtt): How to interact with MQTT using MicroProfile reactive messaging
 * [MicroProfile Metrics](./microprofile-metrics): How to use MicroProfile Metrics
 * [MicroProfile JWT RBAC](./using-jwt-rbac): How to use MicroProfile JWT RBAC
 * [Keycloak Security](./using-keycloak): How to use [Keycloak](https://www.keycloak.org)
