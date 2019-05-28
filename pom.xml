@@ -35,5 +35,6 @@
         <module>microprofile-metrics</module>
         <module>using-vertx</module>
         <module>using-keycloak</module>
+        <module>hibernate-search-elasticsearch</module>
     </modules>
 </project>
