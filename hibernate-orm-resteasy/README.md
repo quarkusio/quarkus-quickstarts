@@ -15,7 +15,7 @@ While the code is surprisingly simple, under the hood this is using:
 ## Requirements
 
 To compile and run this demo you will need:
-- GraalVM `1.0 rc12`
+- GraalVM - see [our Building native image guide](https://quarkus.io/guides/building-native-image-guide)
 - Apache Maven `3.5.3+`
 
 In addition, you will need either a PostgreSQL database, or Docker to run one.
