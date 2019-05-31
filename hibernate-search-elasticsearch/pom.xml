@@ -1,17 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.acme</groupId>
-    <artifactId>hibernate-orm-resteasy</artifactId>
+    <artifactId>hibernate-search-elasticsearch</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <quarkus.version>999-SNAPSHOT</quarkus.version>
+
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
         <compiler-plugin.version>3.8.0</compiler-plugin.version>
         <docker-plugin.version>0.28.0</docker-plugin.version>
+        <elasticsearch-maven-plugin.version>6.12</elasticsearch-maven-plugin.version>
+        <elasticsearch-server.version>7.0.1</elasticsearch-server.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -31,15 +34,11 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-orm</artifactId>
+            <artifactId>quarkus-hibernate-orm-panache</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-agroal</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy</artifactId>
+            <artifactId>quarkus-hibernate-search-elasticsearch</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -50,7 +49,7 @@
             <artifactId>quarkus-jdbc-postgresql</artifactId>
         </dependency>
 
-        <!-- Testing: -->
+        <!-- Testing -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
@@ -72,12 +71,10 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <!-- the parameters=true option is critical so that RESTEasy works fine -->
                     <parameters>true</parameters>
                 </configuration>
             </plugin>
             <plugin>
-                <!-- you need this specific version to integrate with the other build helpers -->
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire-plugin.version}</version>
                 <configuration>
@@ -87,7 +84,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <!-- This is what injects the magic Quarkus bytecode -->
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <version>${quarkus.version}</version>
@@ -107,7 +103,7 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>postgres:10.5</name>
+                            <name>postgres:11.3</name>
                             <alias>postgresql</alias>
                             <run>
                                 <env>
@@ -154,12 +150,40 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Automatically start Elasticsearch for integration testing -->
+            <plugin>
+                <groupId>com.github.alexcojocaru</groupId>
+                <artifactId>elasticsearch-maven-plugin</artifactId>
+                <version>${elasticsearch-maven-plugin.version}</version>
+                <configuration>
+                    <version>${elasticsearch-server.version}</version>
+                    <timeout>90</timeout>
+                    <pathConf>${project.build.directory}/test-classes/elasticsearch-maven-plugin/configuration/</pathConf>
+                    <pathInitScript>${project.build.directory}/test-classes/elasticsearch-maven-plugin/init/init.script</pathInitScript>
+                    <autoCreateIndex>true</autoCreateIndex>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start-elasticsearch</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>runforked</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-elasticsearch</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <profiles>
         <profile>
-            <!-- Optionally activate this profile to compile the demo into native! -->
             <id>native</id>
             <activation>
                 <property>
@@ -231,6 +255,22 @@
                                                 </versionRange>
                                                 <goals>
                                                     <goal>start</goal>
+                                                    <goal>stop</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <ignore></ignore>
+                                            </action>
+                                        </pluginExecution>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>com.github.alexcojocaru</groupId>
+                                                <artifactId>elasticsearch-maven-plugin</artifactId>
+                                                <versionRange>
+                                                    [${elasticsearch-maven-plugin.version},)
+                                                </versionRange>
+                                                <goals>
+                                                    <goal>runforked</goal>
                                                     <goal>stop</goal>
                                                 </goals>
                                             </pluginExecutionFilter>

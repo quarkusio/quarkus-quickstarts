@@ -1,0 +1,122 @@
+package org.acme.hibernate.search.elasticsearch;
+
+import java.util.List;
+
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import org.acme.hibernate.search.elasticsearch.model.Author;
+import org.acme.hibernate.search.elasticsearch.model.Book;
+import org.hibernate.search.mapper.orm.Search;
+
+import io.quarkus.runtime.StartupEvent;
+
+@Path("/library")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class LibraryResource {
+
+    @Inject
+    EntityManager em;
+
+    @Transactional
+    void onStart(@Observes StartupEvent ev) throws InterruptedException {
+        // only reindex if we imported some content
+        if (Book.count() > 0) {
+            Search.getSearchSession(em)
+                    .createIndexer()
+                    .startAndWait();
+        }
+    }
+
+    @PUT
+    @Path("book")
+    @Transactional
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void addBook(@FormParam("title") String title, @FormParam("authorId") Long authorId) {
+        Author author = Author.findById(authorId);
+        if (author == null) {
+            return;
+        }
+
+        Book book = new Book();
+        book.title = title;
+        book.author = author;
+        book.persist();
+    }
+
+    @DELETE
+    @Path("book/{id}")
+    @Transactional
+    public void deleteBook(@PathParam("id") Long id) {
+        Book book = Book.findById(id);
+        if (book != null) {
+            book.author.books.remove(book);
+            book.delete();
+        }
+    }
+
+    @PUT
+    @Path("author")
+    @Transactional
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void addAuthor(@FormParam("firstName") String firstName, @FormParam("lastName") String lastName) {
+        Author author = new Author();
+        author.firstName = firstName;
+        author.lastName = lastName;
+        author.persist();
+    }
+
+    @POST
+    @Path("author/{id}")
+    @Transactional
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void updateAuthor(@PathParam("id") Long id, @FormParam("firstName") String firstName, @FormParam("lastName") String lastName) {
+        Author author = Author.findById(id);
+        if (author == null) {
+            return;
+        }
+        author.firstName = firstName;
+        author.lastName = lastName;
+        author.persist();
+    }
+
+    @DELETE
+    @Path("author/{id}")
+    @Transactional
+    public void deleteAuthor(@PathParam("id") Long id) {
+        Author author = Author.findById(id);
+        if (author != null) {
+            author.delete();
+        }
+    }
+
+    @GET
+    @Path("author/search")
+    @Transactional
+    public List<Author> searchAuthors(@QueryParam("pattern") String pattern) {
+        return Search.getSearchSession(em)
+                .search(Author.class)
+                .predicate(f ->
+                    pattern == null || pattern.trim().isEmpty() ?
+                            f.matchAll() :
+                            f.simpleQueryString()
+                                .onFields("firstName", "lastName", "books.title").matching(pattern)
+                )
+                .sort(f -> f.byField("lastName_sort").then().byField("firstName_sort"))
+                .fetchHits();
+    }
+}
