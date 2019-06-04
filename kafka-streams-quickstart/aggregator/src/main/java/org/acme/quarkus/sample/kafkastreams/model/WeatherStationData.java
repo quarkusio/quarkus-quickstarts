@@ -1,0 +1,39 @@
+package org.acme.quarkus.sample.kafkastreams.model;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
+public class WeatherStationData {
+
+    public int stationId;
+    public String stationName;
+    public double min = Double.MAX_VALUE;
+    public double max = Double.MIN_VALUE;
+    public int count;
+    public double avg;
+
+    private WeatherStationData(int stationId, String stationName, double min, double max, int count, double avg) {
+        this.stationId = stationId;
+        this.stationName = stationName;
+        this.min = min;
+        this.max = max;
+        this.count = count;
+        this.avg = avg;
+    }
+
+    public static WeatherStationData from(Aggregation aggregation) {
+        double avg = BigDecimal.valueOf(aggregation.sum / aggregation.count)
+                .setScale(1, RoundingMode.HALF_UP).doubleValue();
+
+        return new WeatherStationData(
+                aggregation.stationId,
+                aggregation.stationName,
+                aggregation.min,
+                aggregation.max,
+                aggregation.count,
+                avg);
+    }
+}
