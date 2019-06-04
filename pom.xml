@@ -38,5 +38,6 @@
         <module>using-vertx</module>
         <module>using-keycloak</module>
         <module>hibernate-search-elasticsearch</module>
+        <module>using-kogito</module>
     </modules>
 </project>
