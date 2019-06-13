@@ -101,6 +101,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>${docker-plugin.version}</version>
                 <configuration>
+                    <skip>${skipTests}</skip>
                     <images>
                         <image>
                             <name>postgres:11.3</name>
@@ -156,6 +157,7 @@
                 <artifactId>elasticsearch-maven-plugin</artifactId>
                 <version>${elasticsearch-maven-plugin.version}</version>
                 <configuration>
+                    <skip>${skipTests}</skip>
                     <version>${elasticsearch-server.version}</version>
                     <timeout>90</timeout>
                     <pathConf>${project.build.directory}/test-classes/elasticsearch-maven-plugin/configuration/</pathConf>

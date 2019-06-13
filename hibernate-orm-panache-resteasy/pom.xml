@@ -97,6 +97,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>${docker-plugin.version}</version>
                 <configuration>
+                    <skip>${skipTests}</skip>
                     <images>
                         <image>
                             <name>postgres:10.5</name>
