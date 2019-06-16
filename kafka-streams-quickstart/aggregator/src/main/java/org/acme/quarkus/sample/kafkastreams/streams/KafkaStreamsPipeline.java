@@ -1,11 +1,15 @@
 package org.acme.quarkus.sample.kafkastreams.streams;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -86,17 +90,20 @@ public class KafkaStreamsPipeline {
 
         builder.stream(
                         TEMPERATURE_VALUES_TOPIC,
-                        Consumed.with(Serdes.Integer(), Serdes.Double())
+                        Consumed.with(Serdes.Integer(), Serdes.String())
                 )
                 .join(
                         stations,
-                        (stationId, temperatureValue) -> stationId,
-                        (Double temperatureValue, WeatherStation station) -> new TemperatureMeasurement(station.id, station.name, temperatureValue)
+                        (stationId, timestampAndValue) -> stationId,
+                        (timestampAndValue, station) -> {
+                            String[] parts = timestampAndValue.split(";");
+                            return new TemperatureMeasurement(station.id, station.name, Instant.parse(parts[0]), Double.valueOf(parts[1]));
+                        }
                 )
                 .groupByKey()
                 .aggregate(
                         Aggregation::new,
-                        (Integer key, TemperatureMeasurement value, Aggregation aggregate) -> aggregate.updateFrom(value),
+                        (stationId, value, aggregtion) -> aggregtion.updateFrom(value),
                         Materialized.<Integer, Aggregation> as(storeSupplier)
                             .withKeySerde(Serdes.Integer())
                             .withValueSerde(aggregationSerde)
@@ -171,25 +178,19 @@ public class KafkaStreamsPipeline {
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
 
         try (AdminClient adminClient = AdminClient.create(config)) {
-            AtomicBoolean topicsCreated = new AtomicBoolean(false);
-
-            while (topicsCreated.get() == false) {
+            while (true) {
                 ListTopicsResult topics = adminClient.listTopics();
-                topics.names().whenComplete((t, e) -> {
-                    if (e != null) {
-                        throw new RuntimeException(e);
-                    } else if (t.contains(WEATHER_STATIONS_TOPIC) && t.contains(TEMPERATURE_VALUES_TOPIC)) {
-                        topicsCreated.set(true);
-                    }
-                });
+                Set<String> topicNames = topics.names().get(60, TimeUnit.SECONDS);
+
+                if (topicNames.contains(WEATHER_STATIONS_TOPIC) && topicNames.contains(TEMPERATURE_VALUES_TOPIC)) {
+                    return;
+                }
 
                 LOG.info("Waiting for topics {} and {} to be created", WEATHER_STATIONS_TOPIC, TEMPERATURE_VALUES_TOPIC);
-                try {
-                    Thread.sleep(1_000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                Thread.sleep(1_000);
             }
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            throw new RuntimeException(e);
         }
     }
 }

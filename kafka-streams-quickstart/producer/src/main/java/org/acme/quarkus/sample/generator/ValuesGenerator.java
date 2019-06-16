@@ -2,6 +2,7 @@ package org.acme.quarkus.sample.generator;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -37,14 +38,18 @@ public class ValuesGenerator {
                     new WeatherStation(2, "Snowdonia", 5),
                     new WeatherStation(3, "Boston", 11),
                     new WeatherStation(4, "Tokio", 16),
-                    new WeatherStation(5, "Cusco", 12)
+                    new WeatherStation(5, "Cusco", 12),
+                    new WeatherStation(6, "Svalbard", -7),
+                    new WeatherStation(7, "Porthsmouth", 11),
+                    new WeatherStation(8, "Oslo", 7),
+                    new WeatherStation(9, "Marrakesh", 20)
             ));
 
 
     @Outgoing("temperature-values")
-    public Flowable<KafkaMessage<Integer, Double>> generate() {
+    public Flowable<KafkaMessage<Integer, String>> generate() {
 
-        return Flowable.interval(1, TimeUnit.SECONDS)
+        return Flowable.interval(500, TimeUnit.MILLISECONDS)
                 .map(tick -> {
                     WeatherStation station = stations.get(random.nextInt(stations.size()));
                     double temperature = new BigDecimal(random.nextGaussian() * 15 + station.averageTemperature)
@@ -52,7 +57,7 @@ public class ValuesGenerator {
                             .doubleValue();
 
                     LOG.info("station: {}, temperature: {}", station.name, temperature);
-                    return KafkaMessage.of(station.id, temperature);
+                    return KafkaMessage.of(station.id, Instant.now() + ";" + temperature);
                 });
     }
 

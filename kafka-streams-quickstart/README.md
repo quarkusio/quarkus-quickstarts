@@ -59,7 +59,7 @@ kafkacat -b kafka:9092 -C -o beginning -q \
         -t temperatures-aggregated
 ```
 
-You also can obtain the current aggregated state for a given weather station using _http_,
+You also can obtain the current aggregated state for a given weather station using _httpie_,
 which will invoke an Kafka Streams interactive query for that value:
 
 ```bash
