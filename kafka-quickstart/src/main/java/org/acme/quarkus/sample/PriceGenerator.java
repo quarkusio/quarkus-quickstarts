@@ -16,7 +16,7 @@ public class PriceGenerator {
 
     private Random random = new Random();
 
-    @Outgoing("topic-price")
+    @Outgoing("generated-price")
     public Flowable<Integer> generate() {
         return Flowable.interval(5, TimeUnit.SECONDS)
                 .map(tick -> random.nextInt(100));
