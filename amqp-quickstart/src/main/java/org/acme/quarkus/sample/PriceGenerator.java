@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * A bean producing random prices every 5 seconds.
- * The prices are written to a Kafka topic (prices). The Kafka configuration is specified in the application configuration.
+ * The prices are written to a AMQP queue (prices). The AMQP configuration is specified in the application configuration.
  */
 @ApplicationScoped
 public class PriceGenerator {
