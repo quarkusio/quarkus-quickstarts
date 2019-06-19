@@ -109,10 +109,12 @@ Content-Type: application/json
 Date: Tue, 11 Jun 2019 19:16:31 GMT
 
 {
-    "id": 1,
-    "max": 49.96072870492197,
-    "min": 0.05763795979973341,
-    "name": "Boston"
+    "avg": 15.7,
+    "count": 11,
+    "max": 31.0,
+    "min": 3.3,
+    "stationId": 1,
+    "stationName": "Hamburg"
 }
 ```
 
