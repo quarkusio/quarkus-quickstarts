@@ -52,8 +52,8 @@
     </dependency>
     <dependency>
       <groupId>io.smallrye.reactive</groupId>
-      <artifactId>smallrye-reactive-messaging-mqtt</artifactId>
-      <version>0.0.6</version>
+      <artifactId>smallrye-reactive-messaging-mqtt-1.0</artifactId>
+      <version>0.0.10</version>
     </dependency>
   </dependencies>
   <build>
