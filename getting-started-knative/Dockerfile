@@ -14,7 +14,7 @@ RUN  /opt/graalvm/bin/native-image -J-Djava.util.logging.manager=org.jboss.logma
      -H:-SpawnIsolates -H:-JNI --no-server -H:-UseServiceLoaderFeature -H:+StackTrace \
      && cp  -v quarkus-quickstart-knative-runner /tmp/quarkus-knative-runner
 
-FROM registry.fedoraproject.org/fedora-minimal
+FROM registry.access.redhat.com/ubi8/ubi-minimal
 RUN mkdir -p /work
 COPY --from=nativebuilder /tmp/quarkus-knative-runner /work/application
 RUN chmod -R 775 /work
