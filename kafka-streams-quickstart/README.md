@@ -23,8 +23,7 @@ for a given station using Kafka Streams interactive queries.
 To build the _producer_ and _aggregator_ applications, run
 
 ```bash
-mvn clean package -f producer/pom.xml
-mvn clean package -f aggregator/pom.xml
+mvn clean package
 ```
 
 ## Running
