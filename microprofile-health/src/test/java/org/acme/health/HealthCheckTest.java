@@ -18,13 +18,13 @@ public class HealthCheckTest {
             .get("/health")
         .then()
             .statusCode(200)
-            .body("outcome", is("UP"))
+            .body("status", is("UP"))
             .body("checks.size()", is(3))
                 .body("checks.name", everyItem(anyOf(
-                    is("Simple health check"), 
-                    is("Database connection health check"), 
+                    is("Simple health check"),
+                    is("Database connection health check"),
                     is("Health check with data"))))
-                .body("checks.state", everyItem(is("UP")))
+                .body("checks.status", everyItem(is("UP")))
                     .body("checks.data.foo[0]", is("fooValue"))
                     .body("checks.data.bar[0]", is("barValue"));
     }
