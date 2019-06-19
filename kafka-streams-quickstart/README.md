@@ -30,20 +30,21 @@ mvn clean package -f aggregator/pom.xml
 ## Running
 
 A Docker Compose file is provided for running all the components.
-Start all containers besides _producer_ by running
+Start all containers by running
 
 ```bash
-docker-compose up --build --scale producer=0
-```
-
-Once all containers are up, launch the _producer_ application
-(this deferred start is currently needed due to [an issue](https://github.com/smallrye/smallrye-reactive-messaging/issues/128)) in the SmallRye Reactive Messaging component):
-
-```bash
-docker-compose up -d
+docker-compose up --build
 ```
 
 You should see log statements about messages being sent to the "temperature-values" topic.
+Due to an [an issue](https://github.com/smallrye/smallrye-reactive-messaging/issues/128) in the SmallRye Reactive Messaging component it might be that the _producer_ application isn't sending events if it was started before Apache Kafka was up.
+In this case, simply restart the _producer_:
+
+```bash
+docker-compose stop producer && docker-compose start producer
+```
+
+
 Now run an instance of the _debezium/tooling_ image which comes with several useful tools such as _kafkacat_ and _httpie_:
 
 ```bash
@@ -163,7 +164,6 @@ configured to be accessible from your host system
 docker-compose -f docker-compose-local.yaml up
 
 mvn compile quarkus:dev -f producer/pom.xml
-mvn compile quarkus:dev -Dquarkus.http.port=8081 \
-        -f aggregator/pom.xml \
-        -Dorg.acme.quarkus.sample.kafkastreams.bootstrap.servers=localhost:9092
+
+mvn compile quarkus:dev -Dquarkus.http.port=8081 -f aggregator/pom.xml
 ```

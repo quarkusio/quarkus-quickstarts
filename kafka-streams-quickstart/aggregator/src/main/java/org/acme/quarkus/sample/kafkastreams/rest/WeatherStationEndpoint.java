@@ -2,6 +2,7 @@ package org.acme.quarkus.sample.kafkastreams.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.acme.quarkus.sample.kafkastreams.streams.GetWeatherStationDataResult;
 import org.acme.quarkus.sample.kafkastreams.streams.KafkaStreamsPipeline;
+import org.acme.quarkus.sample.kafkastreams.streams.PipelineMetadata;
 
 @ApplicationScoped
 @Path("/weather-stations")
@@ -46,7 +48,7 @@ public class WeatherStationEndpoint {
     @GET
     @Path("/meta-data")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getMetaData() {
+    public List<PipelineMetadata> getMetaData() {
         return pipeline.getMetaData();
     }
 

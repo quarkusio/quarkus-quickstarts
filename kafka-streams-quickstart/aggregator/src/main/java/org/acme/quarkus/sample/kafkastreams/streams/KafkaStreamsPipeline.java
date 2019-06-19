@@ -2,6 +2,7 @@ package org.acme.quarkus.sample.kafkastreams.streams;
 
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -23,6 +24,7 @@ import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.ListTopicsResult;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -55,7 +57,7 @@ public class KafkaStreamsPipeline {
 
     private static final Logger LOG = LoggerFactory.getLogger(KafkaStreamsPipeline.class);
 
-    @ConfigProperty(name="org.acme.quarkus.sample.kafkastreams.bootstrap.servers", defaultValue="localhost:9092")
+    @ConfigProperty(name="org.acme.quarkus.sample.kafkastreams.bootstrap.servers")
     String bootstrapServers;
 
     @ConfigProperty(name="HOSTNAME")
@@ -128,11 +130,17 @@ public class KafkaStreamsPipeline {
         executor.shutdown();
     }
 
-    public String getMetaData() {
+    public List<PipelineMetadata> getMetaData() {
         return streams.allMetadataForStore(WEATHER_STATIONS_STORE)
                 .stream()
-                .map(m -> "host: " + m.hostInfo().host() + ":" + m.hostInfo().port() + " - " + m.topicPartitions())
-                .collect(Collectors.joining("\n"));
+                .map(m -> new PipelineMetadata(
+                        m.hostInfo().host() + ":" + m.hostInfo().port(),
+                        m.topicPartitions()
+                            .stream()
+                            .map(TopicPartition::toString)
+                            .collect(Collectors.toSet()))
+                )
+                .collect(Collectors.toList());
     }
 
     public GetWeatherStationDataResult getWeatherStationData(int id) {
