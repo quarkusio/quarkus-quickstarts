@@ -35,8 +35,7 @@ services:
       context: producer
       dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
     environment:
-      SMALLRYE_MESSAGING_SINK_WEATHER_STATIONS_BOOTSTRAP_SERVERS: kafka:9092
-      SMALLRYE_MESSAGING_SINK_TEMPERATURE_VALUES_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
   aggregator:
     image: quarkus-quickstarts/kafka-streams-aggregator:1.0
