@@ -1,8 +1,8 @@
 package org.acme.quarkus.sample.kafkastreams.model;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-@RegisterForReflection
 public class Aggregation {
 
     public int stationId;
@@ -11,6 +11,7 @@ public class Aggregation {
     public double max = Double.MIN_VALUE;
     public int count;
     public double sum;
+    public double avg;
 
     public Aggregation updateFrom(TemperatureMeasurement measurement) {
         stationId = measurement.stationId;
@@ -18,6 +19,8 @@ public class Aggregation {
 
         count++;
         sum += measurement.value;
+        avg = BigDecimal.valueOf(sum / count)
+                .setScale(1, RoundingMode.HALF_UP).doubleValue();
 
         min = Math.min(min, measurement.value);
         max = Math.max(max, measurement.value);

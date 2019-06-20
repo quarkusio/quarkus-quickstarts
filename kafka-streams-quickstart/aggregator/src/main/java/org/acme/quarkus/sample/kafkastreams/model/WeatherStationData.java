@@ -1,11 +1,5 @@
 package org.acme.quarkus.sample.kafkastreams.model;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import io.quarkus.runtime.annotations.RegisterForReflection;
-
-@RegisterForReflection
 public class WeatherStationData {
 
     public int stationId;
@@ -25,15 +19,12 @@ public class WeatherStationData {
     }
 
     public static WeatherStationData from(Aggregation aggregation) {
-        double avg = BigDecimal.valueOf(aggregation.sum / aggregation.count)
-                .setScale(1, RoundingMode.HALF_UP).doubleValue();
-
         return new WeatherStationData(
                 aggregation.stationId,
                 aggregation.stationName,
                 aggregation.min,
                 aggregation.max,
                 aggregation.count,
-                avg);
+                aggregation.avg);
     }
 }

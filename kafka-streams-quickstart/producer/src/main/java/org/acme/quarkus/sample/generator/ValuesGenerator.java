@@ -50,6 +50,7 @@ public class ValuesGenerator {
     public Flowable<KafkaMessage<Integer, String>> generate() {
 
         return Flowable.interval(500, TimeUnit.MILLISECONDS)
+                .onBackpressureDrop()
                 .map(tick -> {
                     WeatherStation station = stations.get(random.nextInt(stations.size()));
                     double temperature = new BigDecimal(random.nextGaussian() * 15 + station.averageTemperature)
