@@ -106,7 +106,7 @@ public class KafkaStreamsPipeline {
                 .groupByKey()
                 .aggregate(
                         Aggregation::new,
-                        (stationId, value, aggregtion) -> aggregtion.updateFrom(value),
+                        (stationId, value, aggregation) -> aggregation.updateFrom(value),
                         Materialized.<Integer, Aggregation> as(storeSupplier)
                             .withKeySerde(Serdes.Integer())
                             .withValueSerde(aggregationSerde)
