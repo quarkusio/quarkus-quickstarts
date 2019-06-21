@@ -4,7 +4,7 @@ This example showcases the use of Quarkus dev mode with a multi-module applicati
 
 # Run the demo
 
-- Run `mvn clean package` or  `./gradlew build`
+- Run `mvn clean install` or  `./gradlew build`
 - Start dev mode `mvn quarkus:dev -pl getting-started-app` or  `./gradlew getting-started-app:quarkusDev`
 - Open your browser to `http://localhost:8080/hello/greeting/you`, it should display "hello you"
 - Do a change in [GreetingService](./getting-started-services/src/main/java/org/acme/quickstart/GreetingService.java)
