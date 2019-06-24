@@ -43,9 +43,8 @@ public class Fruit {
     public static CompletionStage<List<Fruit>> findAll(PgPool client) {
         return client.query("SELECT id, name FROM fruits ORDER BY name ASC").thenApply(pgRowSet -> {
             List<Fruit> list = new ArrayList<>(pgRowSet.size());
-            PgIterator pgIterator = pgRowSet.iterator();
-            while (pgIterator.hasNext()) {
-                list.add(from(pgIterator.next()));
+            for (Row row : pgRowSet) {
+                list.add(from(row));
             }
             return list;
         });
