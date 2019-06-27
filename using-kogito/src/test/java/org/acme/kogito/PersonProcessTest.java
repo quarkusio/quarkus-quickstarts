@@ -14,12 +14,11 @@ import io.restassured.http.ContentType;
 @QuarkusTest
 public class PersonProcessTest {
 
-	  @Inject
+    @Inject
     Application application;
 
     @Test
     public void testAdult() {
-
         given()
                .body("{\"person\": {\"name\":\"John Quark\", \"age\": 20}}")
                .contentType(ContentType.JSON)
@@ -32,7 +31,6 @@ public class PersonProcessTest {
 
     @Test
     public void testChild() {
-
         given()
                .body("{\"person\": {\"name\":\"Jenny Quark\", \"age\": 15}}")
                .contentType(ContentType.JSON)
