@@ -6,7 +6,11 @@
   <artifactId>mongo-client</artifactId>
   <version>1.0-SNAPSHOT</version>
   <properties>
+<<<<<<< HEAD:using-mongodb-client/pom.xml
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+=======
+    <quarkus.version>0.18.0</quarkus.version>
+>>>>>>> [RELEASE] - Bump version to 0.18.0:camel-java/pom.xml
     <surefire-plugin.version>2.22.0</surefire-plugin.version>
     <quarkus.version>0.21.1</quarkus.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

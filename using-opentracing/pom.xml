@@ -6,7 +6,11 @@
   <artifactId>using-opentracing</artifactId>
   <version>1.0-SNAPSHOT</version>
   <properties>
+<<<<<<< HEAD
     <quarkus.version>0.21.1</quarkus.version>
+=======
+    <quarkus.version>0.18.0</quarkus.version>
+>>>>>>> [RELEASE] - Bump version to 0.18.0
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

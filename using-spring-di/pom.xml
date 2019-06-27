@@ -7,7 +7,11 @@
     <artifactId>using-spring-di</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
+<<<<<<< HEAD
         <quarkus.version>0.21.1</quarkus.version>
+=======
+        <quarkus.version>0.18.0</quarkus.version>
+>>>>>>> [RELEASE] - Bump version to 0.18.0
         <spring.version>5.1.4.RELEASE</spring.version>
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
