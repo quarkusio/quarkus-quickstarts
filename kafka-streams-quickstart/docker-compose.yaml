@@ -43,4 +43,4 @@ services:
       context: aggregator
       dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
     environment:
-      ORG_ACME_QUARKUS_SAMPLE_KAFKASTREAMS_BOOTSTRAP_SERVERS: kafka:9092
+      QUARKUS_KAFKA_STREAMS_BOOTSTRAP_SERVERS: kafka:9092
