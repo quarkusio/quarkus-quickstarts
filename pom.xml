@@ -39,5 +39,6 @@
         <module>using-keycloak</module>
         <module>hibernate-search-elasticsearch</module>
         <module>using-kogito</module>
+        <module>jni</module>
     </modules>
 </project>
