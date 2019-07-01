@@ -2,7 +2,7 @@
 
 This repository contains a set of examples about the Quarkus framework.
 
-There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
+The documentation for these quickstarts is published at <https://quarkus.io> (you can find [the documentation sources here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
 
 ## Prerequisites
 
