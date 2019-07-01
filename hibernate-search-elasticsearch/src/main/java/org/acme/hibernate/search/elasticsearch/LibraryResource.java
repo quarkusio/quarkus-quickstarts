@@ -36,8 +36,8 @@ public class LibraryResource {
     void onStart(@Observes StartupEvent ev) throws InterruptedException {
         // only reindex if we imported some content
         if (Book.count() > 0) {
-            Search.getSearchSession(em)
-                    .createIndexer()
+            Search.session(em)
+                    .massIndexer()
                     .startAndWait();
         }
     }
@@ -108,7 +108,7 @@ public class LibraryResource {
     @Path("author/search")
     @Transactional
     public List<Author> searchAuthors(@QueryParam("pattern") String pattern) {
-        return Search.getSearchSession(em)
+        return Search.session(em)
                 .search(Author.class)
                 .predicate(f ->
                     pattern == null || pattern.trim().isEmpty() ?
