@@ -2,6 +2,18 @@
 
 This repository contains a set of examples about the Quarkus framework.
 
+There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
+
+## Prerequisites
+
+A guide on getting started with Quarkus can be found [here](https://quarkus.io/get-started/), but a brief summary of Quarkus prerequisites can be found below:
+
+* [Maven 3.5.3+](https://maven.apache.org/install.html)
+* [Java - OpenJDK 8 or 11](https://adoptopenjdk.net/)
+* For the GraalVM requirements, see our [Building native image guide](https://quarkus.io/guides/building-native-image-guide)
+
+## Quarkus Examples
+
 See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 
 * [Getting Started](./getting-started): Application creation, Rest endpoint, Dependency Injection, Test, Packaging
@@ -14,7 +26,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Scheduling periodic tasks](./scheduling-periodic-tasks): How to schedule periodic jobs
 * [Using Web Sockets](./using-websockets): Demonstrate how to use web sockets and serve static assets
 * [Startup and Shutdown actions](./application-lifecycle-events): Explains how to execute code when the application starts and stops
-* [Validation with Hibernate Validator](./validation): How to use Hibernate Validator/Bean Validation in your REST services 
+* [Validation with Hibernate Validator](./validation): How to use Hibernate Validator/Bean Validation in your REST services
 * [REST Client](./rest-client): How to use MicroProfile's REST Client
 * [OpenTracing and Jaeger](./using-opentracing): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
 * [MicroProfile Health](./microprofile-health): How to use MicroProfile Health
@@ -28,11 +40,3 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Using Vert.x](./using-vertx): How to use the Vert.x extension
 * [Camel java route](./camel-java): How to use a Camel java route
 * [Kogito](./using-kogito): How to use Kogito for business process automation with Drools and jBPM
-
-There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
-
-## Prerequisites
-
-* [Maven 3.5.3+](https://maven.apache.org/install.html)
-* [Java - OpenJDK 1.8+](https://adoptopenjdk.net/)
-* For the GraalVM requirements, see our [Building native image guide](https://quarkus.io/guides/building-native-image-guide)
