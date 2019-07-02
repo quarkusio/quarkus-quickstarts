@@ -7,6 +7,8 @@ Learn how to measure the test coverage of your application. This guide covers:
 * Separating the execution of your Unit Tests and Integration Tests
 * Consolidating the coverage for all your tests
 
+Please note that code coverage is not supported in native mode
+
 ## Prerequisites
 
 To complete this guide, you need:
@@ -319,7 +321,52 @@ During the execution of the generation of the report, you may have noticed a war
 [WARNING] Execution data for class org/acme/quickstart/GreetingResource does not match.
 ```
 
-It seems that Quarkus and Jacoco step on each other's toes. What happens is that Quarkus transforms the JAX-RS resources (and also the Panache files). This happened here, just before the execution of the integration tests:
+It seems that Quarkus and Jacoco step on each other's toes. What happens is that Quarkus transforms the JAX-RS resources (and also the Panache files).
+You may have noticed that ```GreetingResource``` was not written in the simplest way like:
+
+```Java
+...
+@Path("/hello")
+public class GreetingResource {
+
+    @Inject
+    GreetingService service;
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/greeting/{name}")
+    public String greeting(@PathParam("name") String name) {
+        return service.greeting(name);
+    }
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "hello";
+    }
+}
+```
+
+Above, the constructor is implicit and we use injection to have an instance of ```GreetingService```. Note that, with this code relying on an implicit constructor, the coverage would have been reported properly by Jacoco.
+Instead, we introduced a Constructor based injection:
+
+```Java
+...
+@Path("/hello")
+public class GreetingResource {
+
+    private final GreetingService service;
+
+    @Inject
+    public GreetingResource(GreetingService service) {
+        this.service = service;
+    }
+...
+}
+```
+
+Some might say that this approach is preferable since the field can be *final* like this. Anyway, in some cases you might need an explicit constructor. And, in that case, the coverage is not reported properly by Jacoco.
+This is because Quarkus generates a constructor without any parameter and does some bycode manipulations in order to add it to the class. It is what happened here, just before the execution of the integration tests:
 
 ```bash
 [INFO] --- quarkus-maven-plugin:0.16.0:build (default) @ getting-started-testing ---
@@ -425,7 +472,7 @@ and three for the integration tests too:
 </project>
 ```
 
-It also requires a small change in surefire configuration:
+It also requires a small change in surefire configuration. Note below that we specified ```jacoco-agent.destfile``` as a system property in the default case (unit tests) and for the integration tests.
 
 ```XML
 <project>
@@ -471,7 +518,7 @@ Let's now check the generated report that can be found in ```target/site/jacoco-
 
 So, finally, let's improve the setup even further and let's merge the two execution files (*jacoco-ut.exec* and *jacoco-it.exec*) into one consolidated report and generate a consolidated report that will show the coverage of all your tests combined.
 
-You should end up with something like this:
+You should end up with something like this (note the addition of the ```merge-results``` and ```post-merge-report``` executions):
 
 ```XML
 <project>
@@ -608,4 +655,4 @@ You should end up with something like this:
 ## Conclusion
 
 You now have all the information you need to study the coverage of your tests!
-But remember, some code that is not covered is certinaly not well tested. But some code that is covered is not necessarily *well* tested. Make sure to right good tests!
+But remember, some code that is not covered is certinaly not well tested. But some code that is covered is not necessarily *well* tested. Make sure to write good tests!
