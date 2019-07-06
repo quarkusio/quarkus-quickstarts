@@ -7,7 +7,7 @@ Learn how to measure the test coverage of your application. This guide covers:
 * Separating the execution of your Unit Tests and Integration Tests
 * Consolidating the coverage for all your tests
 
-Please note that code coverage is not supported in native mode
+Please note that code coverage is not supported in native mode.
 
 ## Prerequisites
 
@@ -32,7 +32,9 @@ The solution is located in the tests-with-coverage directory.
 
 ## Starting from a simple project and two tests
 
-Let's start with an application that looks like the content of the guide *getting-started-testing* but with a few modifications for the sake of the example.
+Let's start from an empty application that we'll create thanks to the Quarkus maven plugin: ```mvn io.quarkus:quarkus-maven-plugin:create -DprojectGroupId=org.acme -DprojectArtifactId=tests-with-coverage```
+We'll now, progressively add all the elements necessary to have an application that is properly covered with tests.
+
 First, an application serving a hello endpoint:
 
 ```Java
@@ -199,7 +201,8 @@ We're now able to distinguish unit tests and integration tests. Now, let's bind 
 </project>
 ```
 
-Now can now run only the JUnits via the command ```mvn clean test```. Or you can all the tests via the command ```mvn clean verify``` (but you can notice that the two tests are ran at different times).
+This way, the ```QuarkusTest```instances will are ran during the ```integration-test```maven phase while the other JUnit tests will still be ran during the ```test``` phase.
+You can all the tests via the command ```mvn clean verify``` (and you will notice that the two tests are ran at different times).
 
 ## Measuring the coverage of JUnits using Jacoco
 
