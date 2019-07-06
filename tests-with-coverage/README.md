@@ -17,7 +17,7 @@ To complete this guide, you need:
 * an IDE
 * JDK 1.8+ installed with JAVA_HOME configured appropriately
 * Apache Maven 3.5.3+
-* Having completed the guide [Geeting started testing](https://quarkus.io/guides/getting-started-testing)
+* Having completed the [Testing your application guide](https://quarkus.io/guides/getting-started-testing)
 
 ## Architecture
 
