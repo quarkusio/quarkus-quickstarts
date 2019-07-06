@@ -22,7 +22,7 @@ To complete this guide, you need:
 ## Architecture
 
 The application built in this guide is just a JAX-RS endpoint (hello world) that relies on dependency injection to use a service.
-Service will be tested thanks to JUnit 5 and Endpoint will be tested via a ```@QuarkusTest``` annotation.
+The service will be tested with JUnit 5 and the endpoint will be annotated via a `@QuarkusTest` annotation.
 
 ## Solution
 
