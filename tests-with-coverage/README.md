@@ -472,7 +472,7 @@ and a similar setup for the integration tests too:
 </project>
 ```
 
-It also requires a small change in surefire configuration. Note below that we specified ```jacoco-agent.destfile``` as a system property in the default case (unit tests) and for the integration tests.
+It also requires a small change in the Surefire configuration. Note below that we specified ```jacoco-agent.destfile``` as a system property in the default case (unit tests) and for the integration tests.
 
 ```XML
 <project>
