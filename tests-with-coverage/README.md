@@ -150,7 +150,7 @@ One will be our example of a Unit Test and one will be our example of Integratio
 ## Separating executions for Unit Tests and Integration Tests
 
 You may want to consider that JUnits and QuarkusTests are two different kind of tests and that they deserve to be separated. This way you could run them separately, in different cases or some more often than the others.
-In order to do so, we'll use a feature of JUnit 5 that allow us to tag some tests. Let's tag ```GreetingResourceTest.java``` and specify that it is an Integration Test:
+In order to do so, we'll use a feature of JUnit 5 that allows us to tag some tests. Let's tag ```GreetingResourceTest.java``` and specify that it is an Integration Test:
 
 ```Java
 import org.junit.jupiter.api.Tag;
