@@ -321,7 +321,7 @@ During the execution of the generation of the report, you may have noticed a war
 [WARNING] Execution data for class org/acme/quickstart/GreetingResource does not match.
 ```
 
-It seems that Quarkus and Jacoco step on each other's toes. What happens is that Quarkus transforms the JAX-RS resources (and also the Panache files).
+It seems that Quarkus and JaCoCo step on each other's toes. What happens is that Quarkus transforms the JAX-RS resources (and also the Panache files).
 You may have noticed that ```GreetingResource``` was not written in the simplest way like:
 
 ```Java
