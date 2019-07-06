@@ -201,7 +201,7 @@ We're now able to distinguish unit tests and integration tests. Now, let's bind 
 
 Now can now run only the JUnits via the command ```mvn clean test```. Or you can all the tests via the command ```mvn clean verify``` (but you can notice that the two tests are ran at different times).
 
-## Measuring the coverage of JUnits using Jacoco
+## Measuring the coverage of JUnit tests using JaCoCo
 
 It is now time to introduce Jacoco to measure the coverage. The straightforward way to add Jacoco to your build is to reference the plugin in your pom.xml.
 
