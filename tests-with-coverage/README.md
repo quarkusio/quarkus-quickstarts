@@ -405,7 +405,7 @@ Then let's configure three jacoco plugin goals for unit tests:
 * One to restore the original classes during the *prepare-package* phase (after the tests are ran)
 * One to generate the report during the *verify* phase (the report generation requires the original classes to have been restored)
 
-and three for the integration tests too:
+and a similar setup for the integration tests too:
 
 ```XML
 <project>
