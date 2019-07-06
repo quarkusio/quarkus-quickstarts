@@ -378,7 +378,7 @@ As a consequence, Jacoco does not recognize the classes when it wants to create 
 
 ## Instrumenting the classes instead
 
-Jacoco has two modes. The first one is based on an agent and instruments classes on-the-fly. Unfortunately, this is incompatible with the dynamic classfile transformations that Quarkus does. But there is a second mode called [offline instrumentation](https://www.eclemma.org/jacoco/trunk/doc/offline.html). Classes are pre-instrumented in advance via the *jacoco:instrument* Maven goal and during their usage (when the tests are ran), *jacocoagent.jar* must be added in the classpath.
+JaCoCo has two modes. The first one is based on an agent and instruments classes on-the-fly. Unfortunately, this is incompatible with the dynamic classfile transformations that Quarkus does. But there is a second mode called [offline instrumentation](https://www.eclemma.org/jacoco/trunk/doc/offline.html). Classes are pre-instrumented in advance via the *jacoco:instrument* Maven goal and during their usage (when the tests are ran), *jacocoagent.jar* must be added in the classpath.
 Once the tests have been executed, it is recommended to restore the original classes using the *jacoco:restore-instrumented-classes* Maven goal.
 
 Let's first add the dependency on *jacocoagent.jar*:
