@@ -348,7 +348,7 @@ public class GreetingResource {
 ```
 
 Above, the constructor is implicit and we use injection to have an instance of ```GreetingService```. Note that, with this code relying on an implicit constructor, the coverage would have been reported properly by Jacoco.
-Instead, we introduced a Constructor based injection:
+Instead, we introduced a constructor based injection:
 
 ```Java
 ...
