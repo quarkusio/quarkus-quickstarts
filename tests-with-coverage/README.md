@@ -374,7 +374,7 @@ This is because Quarkus generates a constructor without any parameter and does s
 ...
 ```
 
-As a consequence, Jacoco does not recognize the classes when it wants to create its report. But wait... there is a solution.
+As a consequence, JaCoCo does not recognize the classes when it wants to create its report. But wait... there is a solution.
 
 ## Instrumenting the classes instead
 
