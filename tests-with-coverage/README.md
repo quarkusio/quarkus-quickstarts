@@ -203,7 +203,7 @@ Now can now run only the JUnits via the command ```mvn clean test```. Or you can
 
 ## Measuring the coverage of JUnit tests using JaCoCo
 
-It is now time to introduce Jacoco to measure the coverage. The straightforward way to add Jacoco to your build is to reference the plugin in your pom.xml.
+It is now time to introduce JaCoCo to measure the coverage. The straightforward way to add JaCoCo to your build is to reference the plugin in your `pom.xml`.
 
 ```XML
     <properties>
