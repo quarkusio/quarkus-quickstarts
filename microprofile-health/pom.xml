@@ -5,15 +5,16 @@
   <groupId>org.acme</groupId>
   <artifactId>microprofile-health</artifactId>
   <version>1.0-SNAPSHOT</version>
-  
+
   <properties>
     <quarkus.version>999-SNAPSHOT</quarkus.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -25,7 +26,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  
+
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -46,7 +47,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
+
   <build>
     <plugins>
       <plugin>
