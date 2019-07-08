@@ -1,14 +1,14 @@
 package org.acme.health;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
+import org.eclipse.microprofile.health.Readiness;
 
 import javax.enterprise.context.ApplicationScoped;
 
-@Health
+@Readiness
 @ApplicationScoped
 public class DatabaseConnectionHealthCheck implements HealthCheck {
 
@@ -26,7 +26,7 @@ public class DatabaseConnectionHealthCheck implements HealthCheck {
         } catch (IllegalStateException e) {
             // cannot access the database
             responseBuilder.down()
-                    .withData("error", e.getMessage());
+                .withData("error", e.getMessage()); // pass the exception message
         }
 
         return responseBuilder.build();
