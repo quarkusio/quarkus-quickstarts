@@ -40,5 +40,6 @@
         <module>hibernate-search-elasticsearch</module>
         <module>using-kogito</module>
         <module>using-mongodb-client</module>
+        <module>neo4j-quickstart</module>
     </modules>
 </project>
