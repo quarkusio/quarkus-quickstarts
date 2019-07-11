@@ -10,10 +10,14 @@
 
     <properties>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <quarkus.version>0.21.1</quarkus.version>
 =======
         <quarkus.version>0.18.0</quarkus.version>
 >>>>>>> [RELEASE] - Bump version to 0.18.0
+=======
+        <quarkus.version>0.19.1</quarkus.version>
+>>>>>>> [RELEASE] - Bump version to 0.19.1
         <compiler-plugin.version>3.8.0</compiler-plugin.version>
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
         <docker-plugin.version>0.28.0</docker-plugin.version>
