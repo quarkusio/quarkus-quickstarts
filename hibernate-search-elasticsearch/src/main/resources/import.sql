@@ -1,5 +1,5 @@
-INSERT INTO author(id, firstname, lastname) VALUES (nextval('hibernate_sequence'), 'John', 'Irving')
-INSERT INTO author(id, firstname, lastname) VALUES (nextval('hibernate_sequence'), 'Paul', 'Auster')
+INSERT INTO author(id, firstname, lastname) VALUES (nextval('hibernate_sequence'), 'John', 'Irving');
+INSERT INTO author(id, firstname, lastname) VALUES (nextval('hibernate_sequence'), 'Paul', 'Auster');
 
 INSERT INTO book(id, title, author_id) VALUES (nextval('hibernate_sequence'), 'The World According to Garp', 1);
 INSERT INTO book(id, title, author_id) VALUES (nextval('hibernate_sequence'), 'The Hotel New Hampshire', 1);
