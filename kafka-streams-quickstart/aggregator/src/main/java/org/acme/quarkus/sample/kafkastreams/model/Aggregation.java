@@ -3,6 +3,9 @@ package org.acme.quarkus.sample.kafkastreams.model;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class Aggregation {
 
     public int stationId;

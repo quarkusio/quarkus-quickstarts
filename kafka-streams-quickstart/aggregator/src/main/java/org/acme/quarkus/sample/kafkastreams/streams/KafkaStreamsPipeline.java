@@ -85,7 +85,7 @@ public class KafkaStreamsPipeline {
         JsonbSerde<WeatherStation> weatherStationSerde = new JsonbSerde<>(WeatherStation.class);
         JsonbSerde<Aggregation> aggregationSerde = new JsonbSerde<>(Aggregation.class);
 
-        KeyValueBytesStoreSupplier storeSupplier = Stores.inMemoryKeyValueStore(WEATHER_STATIONS_STORE);
+        KeyValueBytesStoreSupplier storeSupplier = Stores.persistentKeyValueStore(WEATHER_STATIONS_STORE);
 
         GlobalKTable<Integer, WeatherStation> stations = builder.globalTable(
                 WEATHER_STATIONS_TOPIC,
