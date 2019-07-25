@@ -42,6 +42,39 @@ public class FruitResource {
         return entity;
     }
 
+    @GET
+    @Path("-/{name}")
+    @Transactional
+    public Fruit getToSave(@PathParam String name) {
+    	Long id = Fruit.count();    	
+		Fruit entity = new Fruit(name);
+		entity.id = id;
+		entity.persistAndFlush();
+        return entity;
+    }
+
+    @GET
+    @Path("{id}/{name}")
+    @Transactional
+    public Fruit getToUpdate(@PathParam Long id, @PathParam String name) {
+        Fruit entity = Fruit.findById(id);
+		entity.name = name;
+		entity.persistAndFlush();
+        return entity;
+    }
+
+    @GET
+    @Path("{id}/-")
+    @Transactional
+    public Response getToDelete(@PathParam Long id) {
+        Fruit entity = Fruit.findById(id);
+        if (entity == null) {
+            throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
+        }
+        entity.delete();
+        return Response.status(204).build();
+    }
+    
     @POST
     @Transactional
     public Response create(Fruit fruit) {
