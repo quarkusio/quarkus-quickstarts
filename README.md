@@ -26,7 +26,6 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Spring DI compatibility layer](./using-spring-di): How to use our Spring Dependency Injection compatibility layer
 * [Infinispan Client](./infinispan-client): How to use Infinispan Client. Covers creating caches and simple get/put
 * [Using Vert.x](./using-vertx): How to use the Vert.x extension
-* [Camel java route](./camel-java): How to use a Camel java route
 * [Kogito](./using-kogito): How to use Kogito for business process automation with Drools and jBPM
 
 There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
