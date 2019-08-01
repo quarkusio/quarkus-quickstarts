@@ -32,7 +32,6 @@ class PriceResourceTest {
         source.open();
         await().atMost(100000, MILLISECONDS).until(() -> received.size() == 3);
 
-
         assertEquals(Arrays.asList(0.88, 1.76, 2.64), received);
     }
 }
