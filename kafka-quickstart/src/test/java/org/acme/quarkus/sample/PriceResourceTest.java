@@ -7,10 +7,12 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.sse.SseEventSource;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
@@ -23,16 +25,13 @@ class PriceResourceTest {
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(PRICES_SSE_ENDPOINT);
 
-        List<Double> received = new ArrayList<>();
+        List<Double> received = new CopyOnWriteArrayList<>();
 
-        try (SseEventSource source = SseEventSource.target(target).build()) {
-            source.register(inboundSseEvent -> received.add(Double.valueOf(inboundSseEvent.readData())));
-            source.open();
-            Thread.sleep(500); // Consume events for just 500 ms
-        } catch (InterruptedException e) {
-            System.out.println("Something went wrong!");
+        SseEventSource source = SseEventSource.target(target).build();
+        source.register(inboundSseEvent -> received.add(Double.valueOf(inboundSseEvent.readData())));
+        source.open();
+        await().atMost(100000, MILLISECONDS).until(() -> received.size() == 3);
 
-        }
 
         assertEquals(Arrays.asList(0.88, 1.76, 2.64), received);
     }
