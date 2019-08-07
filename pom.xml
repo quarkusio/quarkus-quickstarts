@@ -23,6 +23,7 @@
         <module>using-opentracing</module>
         <module>using-spring-di</module>
         <module>using-spring-web</module>
+        <module>using-spring-data-jpa</module>
         <module>using-jwt-rbac</module>
         <module>rest-client</module>
         <module>kafka-quickstart</module>
