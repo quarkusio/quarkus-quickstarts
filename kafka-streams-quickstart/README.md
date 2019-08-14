@@ -35,15 +35,6 @@ Start all containers by running
 docker-compose up --build
 ```
 
-You should see log statements about messages being sent to the "temperature-values" topic.
-Due to an [an issue](https://github.com/smallrye/smallrye-reactive-messaging/issues/128) in the SmallRye Reactive Messaging component it might be that the _producer_ application isn't sending events if it was started before Apache Kafka was up.
-In this case, simply restart the _producer_:
-
-```bash
-docker-compose stop producer && docker-compose start producer
-```
-
-
 Now run an instance of the _debezium/tooling_ image which comes with several useful tools such as _kafkacat_ and _httpie_:
 
 ```bash
@@ -139,8 +130,7 @@ To run the _producer_ and _aggregator_ applications as native binaries via Graal
 first run the Maven builds using the `native` profile:
 
 ```bash
-mvn clean package -f producer/pom.xml -Pnative -Dnative-image.container-runtime=docker
-mvn clean package -f aggregator/pom.xml -Pnative -Dnative-image.container-runtime=docker
+mvn clean package -Pnative -Dnative-image.container-runtime=docker
 ```
 
 Then create an environment variable named `QUARKUS_MODE` and with value set to "native":
