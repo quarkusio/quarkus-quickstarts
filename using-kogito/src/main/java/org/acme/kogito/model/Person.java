@@ -2,9 +2,7 @@ package org.acme.kogito.model;
 
 import java.io.Serializable;
 
-public class Person implements Serializable {
-
-	private static final long serialVersionUID = -571683427125356701L;
+public class Person {
 
 	private String name;
 	private int age;
