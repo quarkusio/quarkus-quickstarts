@@ -27,4 +27,4 @@ It will generate three separate reports:
 
 ## Learn more
 
-If you want to know more about this quickstart and understand all about, it please read the guide that can be found [here](https://github.com/quarkusio/quarkus/blob/master/docs/src/main/asciidoc/tests-with-coverage-guide.adoc). 
+For more in-depth information please see [Quarkus - Measuring the coverage of your tests](https://github.com/quarkusio/quarkus/blob/master/docs/src/main/asciidoc/tests-with-coverage-guide.adoc) guide.
