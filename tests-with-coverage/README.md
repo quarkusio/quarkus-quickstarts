@@ -16,7 +16,7 @@ You need:
 * JDK 1.8+ installed with JAVA_HOME configured appropriately
 * Apache Maven 3.5.3+
 
-This way, the ```QuarkusTest``` instances will be executed as part of the ```integration-test``` build phase while the other JUnit tests will still be ran during the ```test``` phase. You can run all the tests with the command mvn clean verify (and you will notice that two tests are ran in different phases).
+This way, the ```QuarkusTest``` instances will be executed as part of the ```integration-test``` build phase while the other JUnit tests will still be ran during the ```test``` phase.
 
 You can all the tests via the command ```mvn clean verify``` (and you will notice that the two tests are ran at different times).
 
