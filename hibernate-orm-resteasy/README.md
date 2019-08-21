@@ -92,11 +92,11 @@ After getting a cup of coffee, you'll be able to run this binary directly:
 
 > ./target/hibernate-orm-resteasy-1.0-SNAPSHOT-runner
 
-    Please brace yourself: don't choke on that fresh cup of coffee you just got.
+Please brace yourself: don't choke on that fresh cup of coffee you just got.
     
-    Now observe the time it took to boot, and remember: that time was mostly spent to generate the tables in your database and import the initial data.
+Now observe the time it took to boot, and remember: that time was mostly spent to generate the tables in your database and import the initial data.
     
-    Next, maybe you're ready to measure how much memory this service is consuming.
+Next, maybe you're ready to measure how much memory this service is consuming.
 
 N.B. This implies all dependencies have been compiled to native;
 that's a whole lot of stuff: from the bytecode enhancements that Hibernate ORM
