@@ -20,7 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 
-import io.reactiverse.axle.pgclient.*;
+import io.vertx.axle.pgclient.PgPool;
+import io.vertx.axle.sqlclient.Row;
+import io.vertx.axle.sqlclient.RowSet;
+import io.vertx.axle.sqlclient.Tuple;
 
 public class Fruit {
 
@@ -52,7 +55,7 @@ public class Fruit {
 
     public static CompletionStage<Fruit> findById(PgPool client, Long id) {
         return client.preparedQuery("SELECT id, name FROM fruits WHERE id = $1", Tuple.of(id))
-                .thenApply(PgRowSet::iterator)
+                .thenApply(RowSet::iterator)
                 .thenApply(iterator -> iterator.hasNext() ? from(iterator.next()) : null);
     }
 

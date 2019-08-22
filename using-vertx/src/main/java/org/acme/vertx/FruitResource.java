@@ -30,7 +30,7 @@ import javax.ws.rs.core.Response.Status;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-import io.reactiverse.axle.pgclient.PgPool;
+import io.vertx.axle.pgclient.PgPool;
 
 @Path("fruits")
 @Produces(MediaType.APPLICATION_JSON)
