@@ -41,5 +41,6 @@
         <module>using-kogito</module>
         <module>using-mongodb-client</module>
         <module>neo4j-quickstart</module>
+        <module>dynamodb-client</module>
     </modules>
 </project>
