@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: build-bot
-secrets:
-  - name: container-registry-secrets
-  - name: deploy-key
