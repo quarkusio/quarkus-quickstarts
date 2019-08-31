@@ -29,6 +29,7 @@
         <module>kafka-streams-quickstart</module>
         <module>amqp-quickstart</module>
         <module>rest-json</module>
+        <module>rest-json-static-resource</module>
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
         <module>microprofile-messaging-mqtt</module>
