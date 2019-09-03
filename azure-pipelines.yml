@@ -19,5 +19,5 @@ jobs:
     displayName: 'Maven Build'
     inputs:
       goals: 'verify'
-      options: '--settings azure-mvn-settings.xml -Pquarkus -Dnative-image.docker-build -Pnative -Dnative-image.xmx=4g'
+      options: '--settings azure-mvn-settings.xml -B -Pquarkus -Dnative-image.docker-build -Pnative -Dnative-image.xmx=4g'
 
