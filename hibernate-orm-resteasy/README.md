@@ -59,8 +59,8 @@ To run the application in interactive mode (developer mode):
 
 In this mode you can make changes to the code and have the changes immediately applied, by just refreshing your browser.
 
-    Hot reload works even when modifying your JPA entities.
-    Try it! Even the database schema will be updated on the fly.
+Hot reload works even when modifying your JPA entities.
+Try it! Even the database schema will be updated on the fly.
 
 ### Run Quarkus in JVM mode
 
@@ -74,8 +74,8 @@ Then run it:
 
 > java -jar ./target/hibernate-orm-resteasy-1.0-SNAPSHOT-runner.jar
 
-    Have a look at how fast it boots.
-    Or measure total native memory consumption...
+Have a look at how fast it boots.
+Or measure total native memory consumption...
 
 ### Run Quarkus as a native application
 

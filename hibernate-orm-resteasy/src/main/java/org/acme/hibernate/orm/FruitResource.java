@@ -3,6 +3,7 @@ package org.acme.hibernate.orm;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
@@ -17,6 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 @Path("fruits")
@@ -24,6 +26,8 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 @Produces("application/json")
 @Consumes("application/json")
 public class FruitResource {
+
+    private static final Logger LOGGER = Logger.getLogger(FruitResource.class.getName());
 
     @Inject
     EntityManager entityManager;
@@ -91,12 +95,23 @@ public class FruitResource {
 
         @Override
         public Response toResponse(Exception exception) {
+            LOGGER.error("Failed to handle request", exception);
+
             int code = 500;
             if (exception instanceof WebApplicationException) {
                 code = ((WebApplicationException) exception).getResponse().getStatus();
             }
+
+            JsonObjectBuilder entityBuilder = Json.createObjectBuilder()
+                    .add("exceptionType", exception.getClass().getName())
+                    .add("code", code);
+
+            if (exception.getMessage() != null) {
+                    entityBuilder.add("error", exception.getMessage());
+            }
+
             return Response.status(code)
-                    .entity(Json.createObjectBuilder().add("error", exception.getMessage()).add("code", code).build())
+                    .entity(entityBuilder.build())
                     .build();
         }
 

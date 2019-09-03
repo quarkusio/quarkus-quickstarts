@@ -4,8 +4,9 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNot.not;
 
-import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 public class FruitsEndpointTest {
@@ -39,6 +40,28 @@ public class FruitsEndpointTest {
                     not( containsString("Cherry") ),
                     containsString("Apple"),
                     containsString("Banana")
+              );
+
+        //Create the Pear:
+        given()
+              .when()
+                  .body("{\"name\" : \"Pear\"}")
+                  .contentType("application/json")
+                  .post("/fruits")
+              .then()
+                  .statusCode(201)
+              ;
+
+        //List all, cherry should be missing now:
+        given()
+              .when().get("/fruits")
+              .then()
+              .statusCode(200)
+              .body(
+                    not( containsString("Cherry") ),
+                    containsString("Apple"),
+                    containsString("Banana"),
+                    containsString("Pear")
               );
     }
 
