@@ -22,7 +22,6 @@ public class ReactiveFruitResource {
 
     @POST
     public CompletionStage<List<Fruit>>  add(Fruit fruit) {
-        fruitService.add(fruit);
-        return list();
+        return fruitService.add(fruit).thenCompose(x -> list());
     }
 }
