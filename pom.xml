@@ -32,7 +32,7 @@
         <module>rest-json</module>
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
-        <module>microprofile-messaging-mqtt</module>
+        <module>mqtt-quickstart</module>
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
