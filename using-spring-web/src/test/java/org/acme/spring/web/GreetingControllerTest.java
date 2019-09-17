@@ -1,4 +1,4 @@
-package org.acme.spring;
+package org.acme.spring.web;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
