@@ -44,5 +44,6 @@
         <module>neo4j-quickstart</module>
         <module>dynamodb-client</module>
         <module>using-oauth2-rbac</module>
+        <module>artemis-jms</module>
     </modules>
 </project>

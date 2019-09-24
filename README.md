@@ -14,7 +14,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Scheduling periodic tasks](./scheduling-periodic-tasks): How to schedule periodic jobs
 * [Using Web Sockets](./using-websockets): Demonstrate how to use web sockets and serve static assets
 * [Startup and Shutdown actions](./application-lifecycle-events): Explains how to execute code when the application starts and stops
-* [Validation with Hibernate Validator](./validation): How to use Hibernate Validator/Bean Validation in your REST services 
+* [Validation with Hibernate Validator](./validation): How to use Hibernate Validator/Bean Validation in your REST services
 * [REST Client](./rest-client): How to use MicroProfile's REST Client
 * [OpenTracing and Jaeger](./using-opentracing): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
 * [MicroProfile Health](./microprofile-health): How to use MicroProfile Health
@@ -27,6 +27,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Infinispan Client](./infinispan-client): How to use Infinispan Client. Covers creating caches and simple get/put
 * [Using Vert.x](./using-vertx): How to use the Vert.x extension
 * [Kogito](./using-kogito): How to use Kogito for business process automation with Drools and jBPM
+* [Artemis JMS](./artemis-jms): How to use the Artemis JMS extension
 
 There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
 
