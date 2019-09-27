@@ -15,16 +15,15 @@
  */
 package org.acme.keycloak;
 
+import io.quarkus.security.identity.SecurityIdentity;
+import org.jboss.resteasy.annotations.cache.NoCache;
+
 import javax.annotation.security.RolesAllowed;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.jboss.resteasy.annotations.cache.NoCache;
-import org.keycloak.KeycloakSecurityContext;
 
 /**
  * @author <a href="mailto:psilva@redhat.com">Pedro Igor</a>
@@ -33,8 +32,7 @@ import org.keycloak.KeycloakSecurityContext;
 public class UsersResource {
 
     @Inject
-    @RequestScoped
-    KeycloakSecurityContext keycloakSecurityContext;
+    SecurityIdentity identity;
 
     @GET
     @RolesAllowed("user")
@@ -42,15 +40,15 @@ public class UsersResource {
     @Produces(MediaType.APPLICATION_JSON)
     @NoCache
     public User me() {
-        return new User(keycloakSecurityContext);
+        return new User(identity);
     }
 
     public class User {
 
         private final String userName;
 
-        User(KeycloakSecurityContext securityContext) {
-            this.userName = securityContext.getToken().getPreferredUsername();
+        User(SecurityIdentity identity) {
+            this.userName = identity.getPrincipal().getName();
         }
 
         public String getUserName() {
