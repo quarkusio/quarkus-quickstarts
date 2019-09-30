@@ -9,12 +9,12 @@ import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.json.JsonString;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
@@ -27,6 +27,9 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 @RequestScoped
 public class TokenSecuredResource {
 
+    @Context
+    ResourceContext resourceContext;
+    
     @Inject
     JsonWebToken jwt;
     @Inject
@@ -123,6 +126,6 @@ public class TokenSecuredResource {
      */
     @Path("/lotto")
     public LottoNumbersResource lotto() {
-        return CDI.current().select(LottoNumbersResource.class).get();
+        return resourceContext.getResource(LottoNumbersResource.class);
     }
 }
