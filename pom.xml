@@ -45,5 +45,6 @@
         <module>dynamodb-client</module>
         <module>using-oauth2-rbac</module>
         <module>artemis-jms</module>
+        <module>using-reactive-routes</module>
     </modules>
 </project>
