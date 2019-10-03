@@ -203,6 +203,9 @@
                                 <goals>
                                     <goal>native-image</goal>
                                 </goals>
+                                <configuration>
+                                    <enableHttpUrlHandler>true</enableHttpUrlHandler>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
