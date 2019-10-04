@@ -37,7 +37,7 @@
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
         <module>using-vertx</module>
-        <module>using-keycloak</module>
+        <module>using-openid-connect</module>
         <module>hibernate-search-elasticsearch</module>
         <module>using-kogito</module>
         <module>using-mongodb-client</module>
