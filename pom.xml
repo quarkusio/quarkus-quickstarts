@@ -37,7 +37,7 @@
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
         <module>using-vertx</module>
-        <module>using-keycloak</module>
+        <module>using-openid-connect</module>
         <module>hibernate-search-elasticsearch</module>
         <module>using-kogito</module>
         <module>using-mongodb-client</module>
@@ -46,5 +46,6 @@
         <module>using-oauth2-rbac</module>
         <module>artemis-jms</module>
         <module>using-reactive-routes</module>
+        <module>using-software-transactional-memory</module>
     </modules>
 </project>

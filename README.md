@@ -28,6 +28,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Using Vert.x](./using-vertx): How to use the Vert.x extension
 * [Kogito](./using-kogito): How to use Kogito for business process automation with Drools and jBPM
 * [Artemis JMS](./artemis-jms): How to use the Artemis JMS extension
+* [Using STM](./using-software-transactional-memory): How to use the Narayana Software Transactional Memory extension
 
 There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
 
