@@ -21,9 +21,14 @@ Infinispan Server listens in `localhost:8080` for REST endpoints.
 To avoid conflicts, the quickstart configures another HTTP port in the [configuration file](/src/main/resources/application.properties) 
 with the following property:
 
-`
+```
 quarkus.http.port=8081
-`
+```
+
+If you use an older version of `http://www.infinispan.org/` or ``Red Hat Data Grid``, you might need to:
+
+- Create a file called `hotrod-client.properties` under `src/main/resources/META-INF/`
+- Configure the following property: `infinispan.client.hotrod.protocol_version=2.5`
 
 # Run the demo on dev mode
 
