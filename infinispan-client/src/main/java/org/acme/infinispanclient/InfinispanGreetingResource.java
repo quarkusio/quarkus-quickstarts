@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.infinispan.client.hotrod.RemoteCache;
 
-import io.quarkus.infinispan.client.runtime.Remote;
+import io.quarkus.infinispan.client.Remote;
 
 @Path("/infinispan")
 public class InfinispanGreetingResource {
