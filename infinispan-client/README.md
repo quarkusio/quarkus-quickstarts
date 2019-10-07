@@ -25,6 +25,10 @@ with the following property:
 quarkus.http.port=8081
 `
 
+If you use an older version of `http://www.infinispan.org/` or `Red Hat Data Grid` you might need to do
+- Created a file called `hotrod-client.properties` under `src/main/resources/META-INF/`
+- Configured the following property: `infinispan.client.hotrod.protocol_version=2.5`
+
 # Run the demo on dev mode
 
 - Run `mvn clean package` and then `java -jar ./target/quarkus-quickstart-runner.jar`
