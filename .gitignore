@@ -31,3 +31,4 @@ quarkus.log
 
 bin/
 .DS_Store
+ObjectStore
