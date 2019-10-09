@@ -8,14 +8,14 @@ public class AnalysisConfigurer implements ElasticsearchAnalysisConfigurer {
     @Override
     public void configure(ElasticsearchAnalysisConfigurationContext context) {
         context.analyzer("name").custom()
-                .withTokenizer("standard")
-                .withTokenFilters("asciifolding", "lowercase");
+                .tokenizer("standard")
+                .tokenFilters("asciifolding", "lowercase");
 
         context.analyzer("english").custom()
-                .withTokenizer("standard")
-                .withTokenFilters("asciifolding", "lowercase", "porter_stem");
+                .tokenizer("standard")
+                .tokenFilters("asciifolding", "lowercase", "porter_stem");
 
         context.normalizer("sort").custom()
-                .withTokenFilters("asciifolding", "lowercase");
+                .tokenFilters("asciifolding", "lowercase");
     }
 }

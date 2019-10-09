@@ -114,9 +114,9 @@ public class LibraryResource {
                     pattern == null || pattern.trim().isEmpty() ?
                             f.matchAll() :
                             f.simpleQueryString()
-                                .onFields("firstName", "lastName", "books.title").matching(pattern)
+                                .fields("firstName", "lastName", "books.title").matching(pattern)
                 )
-                .sort(f -> f.byField("lastName_sort").then().byField("firstName_sort"))
-                .fetchHits();
+                .sort(f -> f.field("lastName_sort").then().field("firstName_sort"))
+                .fetchAllHits();
     }
 }
