@@ -1,6 +1,7 @@
 package org.acme.quarkus.sample;
 
-import io.smallrye.reactive.messaging.annotations.Stream;
+import io.smallrye.reactive.messaging.annotations.Channel;
+import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
 
 import javax.inject.Inject;
@@ -8,7 +9,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import org.jboss.resteasy.annotations.SseElementType;
 
 /**
  * A simple resource retrieving the "in-memory" "my-data-stream" and sending the items to a server sent event.
@@ -17,7 +17,7 @@ import org.jboss.resteasy.annotations.SseElementType;
 public class PriceResource {
 
     @Inject
-    @Stream("my-data-stream") Publisher<Double> prices;
+    @Channel("my-data-stream") Publisher<Double> prices;
 
     @GET
     @Path("/stream")

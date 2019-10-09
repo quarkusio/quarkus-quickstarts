@@ -1,6 +1,6 @@
 package org.acme.quarkus.sample;
 
-import io.smallrye.reactive.messaging.annotations.Stream;
+import io.smallrye.reactive.messaging.annotations.Channel;
 import org.reactivestreams.Publisher;
 
 import javax.inject.Inject;
@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 public class PriceResource {
 
     @Inject
-    @Stream("my-data-stream") Publisher<Double> prices;
+    @Channel("my-data-stream") Publisher<Double> prices;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
