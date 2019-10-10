@@ -48,5 +48,6 @@
         <module>artemis-jms</module>
         <module>using-reactive-routes</module>
         <module>using-software-transactional-memory</module>
+        <module>elytron-security-jdbc</module>
     </modules>
 </project>
