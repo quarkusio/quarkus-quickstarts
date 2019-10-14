@@ -1,6 +1,7 @@
 package org.acme.hibernate.search.elasticsearch;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -107,16 +108,17 @@ public class LibraryResource {
     @GET
     @Path("author/search")
     @Transactional
-    public List<Author> searchAuthors(@QueryParam("pattern") String pattern) {
+    public List<Author> searchAuthors(@QueryParam("pattern") String pattern,
+            @QueryParam("size") Optional<Integer> size) {
         return Search.session(em)
                 .search(Author.class)
                 .predicate(f ->
                     pattern == null || pattern.trim().isEmpty() ?
                             f.matchAll() :
                             f.simpleQueryString()
-                                .onFields("firstName", "lastName", "books.title").matching(pattern)
+                                .fields("firstName", "lastName", "books.title").matching(pattern)
                 )
-                .sort(f -> f.byField("lastName_sort").then().byField("firstName_sort"))
-                .fetchHits();
+                .sort(f -> f.field("lastName_sort").then().field("firstName_sort"))
+                .fetchHits(size.orElse(20));
     }
 }
