@@ -49,5 +49,6 @@
         <module>using-reactive-routes</module>
         <module>using-software-transactional-memory</module>
         <module>elytron-security-jdbc</module>
+        <module>apache-tika</module>
     </modules>
 </project>
