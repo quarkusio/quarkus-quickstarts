@@ -25,7 +25,6 @@ public class ChatSocket {
     @OnOpen
     public void onOpen(Session session, @PathParam("username") String username) {
         sessions.put(username, session);
-        broadcast("User " + username + " joined");
     }
 
     @OnClose
@@ -43,7 +42,11 @@ public class ChatSocket {
 
     @OnMessage
     public void onMessage(String message, @PathParam("username") String username) {
-        broadcast(">> " + username + ": " + message);
+        if (message.equalsIgnoreCase("_ready_")) {
+            broadcast("User " + username + " joined");
+        } else {
+            broadcast(">> " + username + ": " + message);
+        }
     }
 
     private void broadcast(String message) {
