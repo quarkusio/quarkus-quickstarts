@@ -1,8 +1,9 @@
 package org.acme.jwt;
 
-import static net.minidev.json.parser.JSONParser.DEFAULT_PERMISSIVE_MODE;
-
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -12,21 +13,14 @@ import java.security.PublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
-import java.util.Date;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.jwt.Claims;
-
-import com.nimbusds.jose.JOSEObjectType;
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.JWSHeader;
-import com.nimbusds.jose.JWSSigner;
-import com.nimbusds.jose.crypto.RSASSASigner;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.SignedJWT;
-
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
+import org.jose4j.jws.AlgorithmIdentifiers;
+import org.jose4j.jws.JsonWebSignature;
+import org.jose4j.jwt.JwtClaims;
+import org.jose4j.jwt.NumericDate;
 
 /**
  * Utilities for generating a JWT for testing
@@ -52,64 +46,38 @@ public class TokenUtils {
         PrivateKey pk = readPrivateKey("/privateKey.pem");
         return generateTokenString(pk, "/privateKey.pem", jsonResName, timeClaims);
     }
-
-    /**
-     * Utility method to generate a JWT string from a JSON resource file that is signed by the privateKey.pem
-     * test resource key, possibly with invalid fields.
-     *
-     * @param pk - the private key to sign the token with
-     * @param kid - the kid claim to assign to the token
-     * @param jsonResName - name of test resources file
-     * @param timeClaims - used to return the exp, iat, auth_time claims
-     * @return the JWT string
-     * @throws Exception on parse failure
-     */
-    public static String generateTokenString(PrivateKey pk, String kid, String jsonResName, Map<String, Long> timeClaims) throws Exception {
-        InputStream contentIS = TokenUtils.class.getResourceAsStream(jsonResName);
-        if (contentIS == null) {
-            throw new IllegalStateException("Failed to find resource: " + jsonResName);
-        }
-        byte[] tmp = new byte[4096];
-        int length = contentIS.read(tmp);
-        byte[] content = new byte[length];
-        System.arraycopy(tmp, 0, content, 0, length);
-
-        JSONParser parser = new JSONParser(DEFAULT_PERMISSIVE_MODE);
-        JSONObject jwtContent = parser.parse(content, JSONObject.class);
+    
+    public static String generateTokenString(PrivateKey privateKey, String kid, 
+    		String jsonResName, Map<String, Long> timeClaims) throws Exception {
+        
+    	JwtClaims claims = JwtClaims.parse(readTokenContent(jsonResName));
         long currentTimeInSecs = currentTimeInSecs();
-        long exp = currentTimeInSecs + 300;
-        // If exp was passed in, use it
-        if (timeClaims.containsKey(Claims.exp.name())) {
-            exp = timeClaims.get(Claims.exp.name());
+        long exp = timeClaims != null && timeClaims.containsKey(Claims.exp.name()) 
+        		? timeClaims.get(Claims.exp.name()) : currentTimeInSecs + 300;
+        
+        claims.setIssuedAt(NumericDate.fromSeconds(currentTimeInSecs));
+        claims.setClaim(Claims.auth_time.name(), NumericDate.fromSeconds(currentTimeInSecs));
+        claims.setExpirationTime(NumericDate.fromSeconds(exp));
+        
+        for (Map.Entry<String, Object> entry : claims.getClaimsMap().entrySet()) {
+            System.out.printf("\tAdded claim: %s, value: %s\n", entry.getKey(), entry.getValue());
         }
-        System.out.printf("Setting exp: %d / %s\n", exp, new Date(1000*exp));
-        long iat = currentTimeInSecs;
-        long authTime = currentTimeInSecs;
-        jwtContent.put(Claims.exp.name(), exp);
-        jwtContent.put(Claims.iat.name(), iat);
-        jwtContent.put(Claims.auth_time.name(), authTime);
-        // Return the token time values if requested
-        if (timeClaims != null) {
-            timeClaims.put(Claims.iat.name(), iat);
-            timeClaims.put(Claims.auth_time.name(), authTime);
-            timeClaims.put(Claims.exp.name(), exp);
+        
+        JsonWebSignature jws = new JsonWebSignature();
+        jws.setPayload(claims.toJson());
+        jws.setKey(privateKey);
+        jws.setKeyIdHeaderValue(kid);
+        jws.setHeader("typ", "JWT");
+        jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
+        
+        return jws.getCompactSerialization();
+    }
+    
+    private static String readTokenContent(String jsonResName) throws IOException {
+    	InputStream contentIS = TokenUtils.class.getResourceAsStream(jsonResName);
+        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(contentIS))) {
+            return buffer.lines().collect(Collectors.joining("\n"));
         }
-
-        // Create RSA-signer with the private key
-        JWSSigner signer = new RSASSASigner(pk);
-        JWTClaimsSet claimsSet = JWTClaimsSet.parse(jwtContent);
-        for (String claim : claimsSet.getClaims().keySet()) {
-            Object claimValue = claimsSet.getClaim(claim);
-            System.out.printf("\tAdded claim: %s, value: %s\n", claim, claimValue);
-        }
-        JWSAlgorithm alg = JWSAlgorithm.RS256;
-        JWSHeader jwtHeader = new JWSHeader.Builder(alg)
-                .keyID(kid)
-                .type(JOSEObjectType.JWT)
-                .build();
-        SignedJWT signedJWT = new SignedJWT(jwtHeader, claimsSet);
-        signedJWT.sign(signer);
-        return signedJWT.serialize();
     }
 
     /**
