@@ -45,7 +45,7 @@ public class LottoNumbersResource {
             remaining --;
         }
         LottoNumbers winners = new LottoNumbers();
-        winners.setNumbers(numbers);
+        winners.numbers = numbers;
         return winners;
     }
 }
