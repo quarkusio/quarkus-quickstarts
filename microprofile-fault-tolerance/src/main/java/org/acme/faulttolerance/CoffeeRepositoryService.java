@@ -47,7 +47,7 @@ public class CoffeeRepositoryService {
             return Collections.emptyList();
         }
         return coffeeList.values().stream()
-                .filter(coffee -> !id.equals(coffee.getId()))
+                .filter(coffee -> !id.equals(coffee.id))
                 .limit(2)
                 .collect(Collectors.toList());
     }
@@ -55,7 +55,7 @@ public class CoffeeRepositoryService {
     @CircuitBreaker(requestVolumeThreshold = 4)
     public Integer getAvailability(Coffee coffee) {
         maybeFail();
-        return availability.get(coffee.getId());
+        return availability.get(coffee.id);
     }
 
     private void maybeFail() {
