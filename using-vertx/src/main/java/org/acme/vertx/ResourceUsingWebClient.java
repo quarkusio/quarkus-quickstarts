@@ -10,9 +10,11 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
+
 import java.util.concurrent.CompletionStage;
 
 @Path("/swapi")
@@ -33,7 +35,7 @@ public class ResourceUsingWebClient {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public CompletionStage<JsonObject> getStarWarsCharacter(@PathParam("id") int id) {
+    public CompletionStage<JsonObject> getStarWarsCharacter(@PathParam int id) {
         return client.get("/api/people/" + id)
                 .send()
                 .thenApply(resp -> {

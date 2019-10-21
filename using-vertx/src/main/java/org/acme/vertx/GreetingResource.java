@@ -9,9 +9,10 @@ import java.util.concurrent.CompletionStage;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import io.vertx.core.Vertx;
 
@@ -24,7 +25,7 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("{name}")
-    public CompletionStage<String> greeting(@PathParam("name") String name) {
+    public CompletionStage<String> greeting(@PathParam String name) {
         // When complete, return the content to the client
         CompletableFuture<String> future = new CompletableFuture<>();
 
