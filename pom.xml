@@ -39,6 +39,7 @@
         <module>microprofile-metrics</module>
         <module>using-vertx</module>
         <module>using-openid-connect</module>
+        <module>keycloak-authorization</module>
         <module>hibernate-search-elasticsearch</module>
         <module>using-kogito</module>
         <module>using-mongodb-client</module>
