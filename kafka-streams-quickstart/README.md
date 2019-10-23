@@ -32,15 +32,13 @@ A Docker Compose file is provided for running all the components.
 Start all containers by running
 
 ```bash
-docker-compose up --build
+docker-compose up -d --build
 ```
 
 Now run an instance of the _debezium/tooling_ image which comes with several useful tools such as _kafkacat_ and _httpie_:
 
 ```bash
-docker run --tty --rm -i \
-        --network kafka-streams-quickstart_default \
-        debezium/tooling:1.0
+docker run --tty --rm -i --network ks debezium/tooling:1.0
 ```
 
 In the tooling container, run _kafkacat_ to examine the results of the streaming pipeline:

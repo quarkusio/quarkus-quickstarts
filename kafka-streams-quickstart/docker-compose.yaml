@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.5'
 
 services:
   zookeeper:
@@ -11,6 +11,8 @@ services:
       - "2181:2181"
     environment:
       LOG_DIR: /tmp/logs
+    networks:
+      - kafkastreams-network
 
   kafka:
     image: strimzi/kafka:0.11.3-kafka-2.1.0
@@ -28,6 +30,8 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_NUM_PARTITIONS: 3
+    networks:
+      - kafkastreams-network
 
   producer:
     image: quarkus-quickstarts/kafka-streams-producer:1.0
@@ -36,6 +40,8 @@ services:
       dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    networks:
+      - kafkastreams-network
 
   aggregator:
     image: quarkus-quickstarts/kafka-streams-aggregator:1.0
@@ -44,3 +50,9 @@ services:
       dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
     environment:
       QUARKUS_KAFKA_STREAMS_BOOTSTRAP_SERVERS: kafka:9092
+    networks:
+      - kafkastreams-network
+
+networks:
+  kafkastreams-network:
+    name: ks
