@@ -22,8 +22,8 @@ public class MultipartClientResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String sendFile() throws Exception {
         MultipartBody body = new MultipartBody();
-        body.setName("greeting.txt");
-        body.setFile(new ByteArrayInputStream("HELLO WORLD".getBytes()));
+        body.fileName = "greeting.txt";
+        body.file = new ByteArrayInputStream("HELLO WORLD".getBytes());
         return service.sendMultipartData(body);
     }
 }
