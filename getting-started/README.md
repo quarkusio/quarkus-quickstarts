@@ -49,7 +49,9 @@ This command will leave Quarkus running in the foreground listening on port 8080
 ### Run Quarkus in JVM mode
 
 When you're done iterating in developer mode, you can run the application as a
-conventional jar file. First compile it:
+conventional jar file.
+
+First compile it:
 
 > ./mvnw package
 
@@ -63,7 +65,7 @@ Have a look at how fast it boots, or measure the total native memory consumption
 
 You can also create a native executable from this application without making any
 source code changes. A native executable removes the dependency on the JVM:
-everything needed to run the application on the target platform is included in 
+everything needed to run the application on the target platform is included in
 the executable, allowing the application to run with minimal resource overhead.
 
 Compiling a native executable takes a bit longer, as GraalVM performs additional
