@@ -1,47 +1,47 @@
+# Quarkus demo: Using Spring Data and JPA
+
 ## Requirements
 
 To compile and run this demo you will need:
-- GraalVM - see [our Building native image guide](https://quarkus.io/guides/building-native-image-guide)
-- Apache Maven `3.5.3+`
+
+- JDK 1.8+
+- GraalVM
 
 In addition, you will need either a PostgreSQL database, or Docker to run one.
 
-If you don't have GraalVM installed, you can download it here:
+### Configuring GraalVM and JDK 1.8+
 
-<https://github.com/oracle/graal/releases>
+Make sure that both the `GRAALVM_HOME` and `JAVA_HOME` environment variables have
+been set, and that a JDK 1.8+ `java` command is on the path.
 
-Installing GraalVM is very similar to installing any other JDK:
-just unpack it, add it to your path, and point the `JAVA_HOME`
-and `GRAALVM_HOME` environment variables to it.
-
-You should then use this JDK to run the Maven build.
-
+See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image-guide)
+for help setting up your environment.
 
 ## Building the demo
 
-After having set GraalVM as your JVM, launch the Maven build on
-the checked out sources of this demo:
+Launch the Maven build on the checked out sources of this demo:
 
-> mvn package
+> ./mvnw package
 
 ## Running the demo
 
 ### Prepare a PostgreSQL instance
 
-First we will need a PostgreSQL database; you can launch one easily if you have Docker installed:
+Make sure you have a PostgreSQL instance running. To set up a PostgreSQL database with Docker:
 
 > docker run --ulimit memlock=-1:-1 -it --rm=true --memory-swappiness=0 --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:11.5
 
-Alternatively you can setup a PostgreSQL instance in any another way.
-
-The connection properties of the Agroal datasource are configured in the standard Quarkus configuration file, which you will find in
+Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file,
 `src/main/resources/application.properties`.
 
 ### Run Quarkus in developer mode
 
-To run the application in interactive mode (developer mode):
+The Maven Quarkus plugin provides a development mode that supports
+live coding. To try this out:
 
->  mvn compile quarkus:dev
+> ./mvnw compile quarkus:dev
+
+This command will leave Quarkus running in the foreground listening on port 8080.
 
 In this mode you can make changes to the code and have the changes immediately applied, by just refreshing your browser.
 
@@ -50,11 +50,12 @@ In this mode you can make changes to the code and have the changes immediately a
 
 ### Run Quarkus in JVM mode
 
-When you're done playing with "dev-mode" you can run it as a standard Java application.
+When you're done iterating in developer mode, you can run the application as a
+conventional jar file.
 
 First compile it:
 
-> mvn package
+> ./mvnw package
 
 Then run it:
 
@@ -65,14 +66,16 @@ Then run it:
 
 ### Run Quarkus as a native application
 
-This same demo can be compiled into native code: no modifications required.
+You can also create a native executable from this application without making any
+source code changes. A native executable removes the dependency on the JVM:
+everything needed to run the application on the target platform is included in
+the executable, allowing the application to run with minimal resource overhead.
 
-This implies that you no longer need to install a JVM on your production environment, as the runtime technology is included in the produced binary, and optimized to run with minimal resource overhead.
+Compiling a native executable takes a bit longer, as GraalVM performs additional
+steps to remove unnecessary codepaths. Use the  `native` profile to compile a
+native executable:
 
-Compilation will take a bit longer, so this step is disabled by default;
-let's build again by enabling the `native` profile:
-
-> mvn package -Dnative
+> ./mvnw package -Dnative
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 

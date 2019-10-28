@@ -24,6 +24,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [MicroProfile JWT RBAC](./using-jwt-rbac): How to use MicroProfile JWT RBAC
 * [Keycloak Security](./using-keycloak): How to use [Keycloak](https://www.keycloak.org)
 * [Spring DI compatibility layer](./using-spring-di): How to use our Spring Dependency Injection compatibility layer
+* [Spring Data extension](./using-spring-data-jpa): How to the Quarkus extension for the Spring Data API
+* [Spring Web extension](./using-spring-web): How to the Quarkus extension for the Spring Web API
 * [Infinispan Client](./infinispan-client): How to use Infinispan Client. Covers creating caches and simple get/put
 * [Using Vert.x](./using-vertx): How to use the Vert.x extension
 * [Kogito](./using-kogito): How to use Kogito for business process automation with Drools and jBPM
@@ -32,8 +34,12 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 
 There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
 
-## Prerequisites
+## Requirements
 
-* [Maven 3.5.3+](https://maven.apache.org/install.html)
-* [Java - OpenJDK 1.8+](https://adoptopenjdk.net/)
-* For the GraalVM requirements, see our [Building native image guide](https://quarkus.io/guides/building-native-image-guide)
+To compile and run these demos you will need:
+
+- JDK 1.8+
+- GraalVM
+
+See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image-guide)
+for help setting up your environment.
