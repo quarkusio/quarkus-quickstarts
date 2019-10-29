@@ -1,8 +1,8 @@
 package org.acme.metrics;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class PrimeNumberCheckerIT extends PrimeNumberCheckerTest {
 
 }

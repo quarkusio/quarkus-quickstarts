@@ -29,9 +29,9 @@ package org.acme.hibernate.search.elasticsearch.service;
  * limitations under the License.
  */
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class LibraryResourceInGraalIT extends LibraryResourceTest {
 
 }

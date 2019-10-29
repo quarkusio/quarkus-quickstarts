@@ -16,9 +16,9 @@
 
 package org.acme.vertx;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class NativeFruitsEndpointIT extends FruitsEndpointTest {
 
     // Runs the same tests as the parent class

@@ -1,8 +1,8 @@
 package org.acme.spring.di;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class GreetingResourceIT extends GreetingResourceTest {
 
 }
