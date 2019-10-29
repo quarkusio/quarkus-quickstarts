@@ -23,7 +23,7 @@ public class JdbcSecurityRealmTest {
 
     @Container
     public static final PostgreSQLContainer DATABASE = new PostgreSQLContainer<>()
-            .withDatabaseName("elytron-security-jdbc")
+            .withDatabaseName("elytron_security_jdbc")
             .withUsername("quarkus")
             .withPassword("quarkus")
             .withExposedPorts(5432)
