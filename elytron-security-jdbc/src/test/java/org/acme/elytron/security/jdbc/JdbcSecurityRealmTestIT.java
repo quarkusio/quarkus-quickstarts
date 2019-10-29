@@ -1,7 +1,7 @@
 package org.acme.elytron.security.jdbc;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class JdbcSecurityRealmTestIT extends JdbcSecurityRealmTest {
 }

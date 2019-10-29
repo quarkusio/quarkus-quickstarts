@@ -4,10 +4,10 @@ import static io.restassured.RestAssured.get;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 import org.junit.jupiter.api.Test;
 
-@SubstrateTest
+@NativeImageTest
 public class CoffeeResourceIT {
 
     @Test

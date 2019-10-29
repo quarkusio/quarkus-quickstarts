@@ -1,8 +1,8 @@
 package org.acme.quarkus.sample;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class RouteIT extends RouteTest {
 
 }

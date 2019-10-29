@@ -1,7 +1,7 @@
 package org.acme.health;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class HealthCheckIT extends HealthCheckTest {
 }

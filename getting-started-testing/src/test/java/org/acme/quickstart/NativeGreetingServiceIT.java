@@ -1,9 +1,9 @@
 package org.acme.quickstart;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 import org.junit.jupiter.api.Disabled;
 
-@SubstrateTest
+@NativeImageTest
 @Disabled("java.lang.NullPointerException in native mode")
 public class NativeGreetingServiceIT extends GreetingServiceTest {
 
