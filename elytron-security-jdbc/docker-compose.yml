@@ -5,6 +5,5 @@ services:
     container_name: "elytron-security-jdbc-database"
     ports:
       - "5432:5432"
-    # tag::adocVolumePostgres[]
     volumes:
       - ./import.sql:/docker-entrypoint-initdb.d/init.sql
