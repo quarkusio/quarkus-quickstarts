@@ -1,10 +1,10 @@
 package org.acme.keycloak.authorization;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
 /**
  * @author <a href="mailto:psilva@redhat.com">Pedro Igor</a>
  */
-@SubstrateTest
+@NativeImageTest
 public class NativePolicyEnforcerIT extends PolicyEnforcerTest {
 }
