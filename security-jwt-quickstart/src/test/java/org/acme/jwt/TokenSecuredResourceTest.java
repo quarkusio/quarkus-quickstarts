@@ -42,10 +42,9 @@ public class TokenSecuredResourceTest {
           .get("/secured/permit-all")
           .andReturn();
 
-        System.out.printf("+++ testHelloEndpoint, response: %s\n", response.asString());
         response.then()
           .statusCode(200)
-          .body(containsString("hello + anonymous, isSecure: false"));
+          .body(containsString("hello + anonymous, isSecure: false, authScheme: null, hasJWT: false"));
     }
 
     @Test
@@ -55,9 +54,9 @@ public class TokenSecuredResourceTest {
                 .when()
                 .get("/secured/roles-allowed").andReturn();
 
-        Assertions.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
-        String replyString = response.body().asString();
-        System.out.println(replyString);
+        response.then()
+          .statusCode(200)
+          .body(containsString("hello + jdoe@quarkus.io, isSecure: false, authScheme: Bearer, hasJWT: true"));
     }
 
     @Test
@@ -68,8 +67,6 @@ public class TokenSecuredResourceTest {
                 .get("/secured/deny-all").andReturn();
 
         Assertions.assertEquals(HttpURLConnection.HTTP_FORBIDDEN, response.getStatusCode());
-        String replyString = response.body().asString();
-        System.out.println(replyString);
     }
 
     @Test
@@ -78,10 +75,8 @@ public class TokenSecuredResourceTest {
                 .oauth2(token)
                 .when()
                 .get("/secured/winners").andReturn();
-
-        Assertions.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
-        String replyString = response.body().asString();
-        System.out.println(replyString);
+        
+        Assertions.assertFalse(response.body().asString().isEmpty());
     }
 
     @Test
@@ -92,8 +87,7 @@ public class TokenSecuredResourceTest {
                 .get("/secured/winners2").andReturn();
 
         Assertions.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
-        String replyString = response.body().asString();
-        System.out.println(replyString);
+        Assertions.assertFalse(response.body().asString().isEmpty());
     }
 
     @Test
@@ -107,9 +101,7 @@ public class TokenSecuredResourceTest {
         String replyString = response.body().asString();
         JsonReader jsonReader = Json.createReader(new StringReader(replyString));
         JsonObject reply = jsonReader.readObject();
-        System.out.println(reply);
         LottoNumbers numbers = response.as(LottoNumbers.class);
-        System.out.println(numbers);
+        Assertions.assertFalse(numbers.numbers.isEmpty());
     }
-
 }
