@@ -119,7 +119,7 @@ conventional jar file. First compile it:
 
 Then run it:
 
-> java -jar ./target/security-keycloak-authorization-quickstart-runner.jar
+> java -jar ./target/security-keycloak-authorization-quickstart-1.0-SNAPSHOT-runner.jar
 
 Have a look at how fast it boots, or measure the total native memory consumption.
 

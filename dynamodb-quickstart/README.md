@@ -57,7 +57,7 @@ aws dynamodb create-table --table-name QuarkusFruits \
 
 # Run the demo on dev mode
 
-- Run `mvn clean package` and then `java -jar ./target/dynamodb-client-1.0-SNAPSHOT-runner.jar`
+- Run `mvn clean package` and then `java -jar ./target/dynamodb-quickstart-1.0-SNAPSHOT-runner.jar`
 - In dev mode `mvn clean compile quarkus:dev`
 
 Go to `http://localhost:8080/fruits.html`, it should show a simple App to manage list of Fruits. 
@@ -73,7 +73,7 @@ You can compile the application into a native binary using:
 
 and run with:
 
-`./target/dynamodb-client-1.0-SNAPSHOT-runner` 
+`./target/dynamodb-quickstart-1.0-SNAPSHOT-runner` 
 
 
 # Running native in container

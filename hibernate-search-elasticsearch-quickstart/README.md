@@ -87,7 +87,7 @@ Thus your PostgreSQL and Elasticsearch containers need to be stopped.
 
 Then run it:
 
-> java -jar ./target/hibernate-search-elasticsearch-1.0-SNAPSHOT-runner.jar
+> java -jar ./target/hibernate-search-elasticsearch-quickstart-1.0-SNAPSHOT-runner.jar
 
     Have a look at how fast it boots.
     Or measure total native memory consumption...
@@ -107,7 +107,7 @@ native executable:
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 
-> ./target/hibernate-search-elasticsearch-1.0-SNAPSHOT-runner
+> ./target/hibernate-search-elasticsearch-quickstart-1.0-SNAPSHOT-runner
 
     Please brace yourself: don't choke on that fresh cup of coffee you just got.
     
