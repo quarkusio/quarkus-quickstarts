@@ -9,47 +9,47 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>application-configuration</module>
-        <module>application-lifecycle-events</module>
+        <module>amqp-quickstart</module>
+        <module>config-quickstart</module>
+        <module>dynamodb-quickstart</module>
         <module>getting-started</module>
         <module>getting-started-async</module>
-        <module>hibernate-orm-resteasy</module>
-        <module>hibernate-orm-panache-resteasy</module>
-        <module>infinispan-client</module>
-        <module>validation</module>
-        <module>scheduling-periodic-tasks</module>
-        <module>using-websockets</module>
-        <module>using-openapi-swaggerui</module>
-        <module>using-opentracing</module>
-        <module>using-spring-di</module>
-        <module>using-spring-web</module>
-        <module>using-spring-data-jpa</module>
-        <module>using-jwt-rbac</module>
-        <module>rest-client</module>
-        <module>rest-client-multipart</module>
-        <module>kafka-quickstart</module>
-        <module>kafka-streams-quickstart</module>
-        <module>amqp-quickstart</module>
-        <module>rest-json</module>
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
-        <module>microprofile-messaging-mqtt</module>
-        <module>microprofile-fault-tolerance</module>
-        <module>microprofile-health</module>
-        <module>microprofile-metrics</module>
-        <module>using-vertx</module>
-        <module>using-openid-connect</module>
-        <module>hibernate-search-elasticsearch</module>
-        <module>using-kogito</module>
-        <module>using-mongodb-client</module>
-        <module>mongodb-panache</module>
+        <module>hibernate-orm-quickstart</module>
+        <module>hibernate-orm-panache-quickstart</module>
+        <module>hibernate-search-elasticsearch-quickstart</module>
+        <module>infinispan-client-quickstart</module>
+        <module>jms-quickstart</module>
+        <module>kafka-quickstart</module>
+        <module>kafka-streams-quickstart</module>
+        <module>kogito-quickstart</module>
+        <module>lifecycle-quickstart</module>
+        <module>microprofile-fault-tolerance-quickstart</module>
+        <module>microprofile-health-quickstart</module>
+        <module>microprofile-metrics-quickstart</module>
+        <module>mongodb-quickstart</module>
+        <module>mongodb-panache-quickstart</module>
+        <module>mqtt-quickstart</module>
         <module>neo4j-quickstart</module>
-        <module>dynamodb-client</module>
-        <module>using-oauth2-rbac</module>
-        <module>artemis-jms</module>
-        <module>using-reactive-routes</module>
-        <module>using-software-transactional-memory</module>
-        <module>elytron-security-jdbc</module>
-        <module>apache-tika</module>
+        <module>openapi-swaggerui-quickstart</module>
+        <module>opentracing-quickstart</module>
+        <module>reactive-routes-quickstart</module>
+        <module>rest-client-quickstart</module>
+        <module>rest-client-multipart-quickstart</module>
+        <module>rest-json-quickstart</module>
+        <module>scheduler-quickstart</module>
+        <module>security-jdbc-quickstart</module>
+        <module>security-jwt-quickstart</module>
+        <module>security-oauth2-quickstart</module>
+        <module>security-openid-connect-quickstart</module>
+        <module>software-transactional-memory-quickstart</module>
+        <module>spring-di-quickstart</module>
+        <module>spring-web-quickstart</module>
+        <module>spring-data-jpa-quickstart</module>
+        <module>tika-quickstart</module>
+        <module>validation-quickstart</module>
+        <module>vertx-quickstart</module>
+        <module>websockets-quickstart</module>
     </modules>
 </project>
