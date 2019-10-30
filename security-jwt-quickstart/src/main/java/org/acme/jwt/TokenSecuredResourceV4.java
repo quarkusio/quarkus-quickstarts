@@ -52,7 +52,7 @@ public class TokenSecuredResourceV4 {
     public String helloRolesAllowed(@Context SecurityContext ctx) {
         Principal caller =  ctx.getUserPrincipal();
         String name = caller == null ? "anonymous" : caller.getName();
-        boolean hasJWT = jwt != null;
+        boolean hasJWT = jwt.getClaimNames() != null;
         String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s, hasJWT: %s", name, ctx.isSecure(), ctx.getAuthenticationScheme(), hasJWT);
         return helloReply;
     }
