@@ -37,4 +37,4 @@ You can compile the application into a native binary using:
 
 and run with:
 
-`./target/artemis-jms-1.0-SNAPSHOT-runner`
+`./target/jms-quickstart-1.0-SNAPSHOT-runner`
