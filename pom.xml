@@ -23,7 +23,6 @@
         <module>jms-quickstart</module>
         <module>kafka-quickstart</module>
         <module>kafka-streams-quickstart</module>
-        <module>keycloak-authorization-quickstart</module>
         <module>kogito-quickstart</module>
         <module>lifecycle-quickstart</module>
         <module>microprofile-fault-tolerance-quickstart</module>
@@ -42,6 +41,7 @@
         <module>scheduler-quickstart</module>
         <module>security-jdbc-quickstart</module>
         <module>security-jwt-quickstart</module>
+        <module>security-keycloak-authorization-quickstart</module>
         <module>security-oauth2-quickstart</module>
         <module>security-openid-connect-quickstart</module>
         <module>security-openid-connect-web-authentication-quickstart</module>
