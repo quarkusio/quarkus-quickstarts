@@ -48,6 +48,7 @@
         <module>spring-di-quickstart</module>
         <module>spring-web-quickstart</module>
         <module>spring-data-jpa-quickstart</module>
+        <module>tests-with-coverage-quickstart</module>
         <module>tika-quickstart</module>
         <module>validation-quickstart</module>
         <module>vertx-quickstart</module>
