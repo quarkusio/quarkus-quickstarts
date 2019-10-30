@@ -16,7 +16,6 @@
         <module>getting-started-async</module>
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
-<<<<<<< HEAD
         <module>hibernate-orm-quickstart</module>
         <module>hibernate-orm-panache-quickstart</module>
         <module>hibernate-search-elasticsearch-quickstart</module>
