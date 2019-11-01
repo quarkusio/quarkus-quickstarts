@@ -26,7 +26,7 @@ In addition, you will need either a PostgreSQL database, or Docker to run one.
 Make sure that both the `GRAALVM_HOME` and `JAVA_HOME` environment variables have
 been set, and that a JDK 1.8+ `java` command is on the path.
 
-See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image-guide)
+See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image)
 for help setting up your environment.
 
 ## Building the demo

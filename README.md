@@ -58,4 +58,4 @@ To compile and run these demos you will need:
 - JDK 8 or 11+
 - GraalVM
 
-See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image-guide) for help setting up your environment.
+See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image) for help setting up your environment.
