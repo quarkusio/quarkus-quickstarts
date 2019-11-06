@@ -1,7 +1,5 @@
 package org.acme.rest.json;
 
-import java.util.Objects;
-
 public class Fruit {
 
     public String name;
