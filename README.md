@@ -33,6 +33,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [OpenTracing and Jaeger](./opentracing-quickstart): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
 * [Reactive Routes](./reactive-routes-quickstart): How to use Reactive Routes in Quarkus
 * [REST Client](./rest-client-quickstart): How to use MicroProfile's REST Client
+* [REST Client Kotlin](./rest-client-kotlin-quickstart): How to use MicroProfile's REST Client, kotlin version
 * [REST Client Multipart](./rest-client-multipart-quickstart): Handle multipart with MicroProfile's REST Client
 * [JSON REST services](./rest-json-quickstart): How to write JSON REST services
 * [Scheduling periodic tasks](./scheduler-quickstart): How to schedule periodic jobs
