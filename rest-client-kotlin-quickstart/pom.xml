@@ -4,13 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.acme</groupId>
   <artifactId>code-with-quarkus</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <properties>
     <maven.compiler.parameters>true</maven.compiler.parameters>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <surefire-plugin.version>2.22.0</surefire-plugin.version>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <quarkus.version>1.0.0.CR1</quarkus.version>
+    <quarkus.version>999-SNAPSHOT</quarkus.version>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <kotlin.version>1.3.21</kotlin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
