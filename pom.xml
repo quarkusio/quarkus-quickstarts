@@ -36,6 +36,7 @@
         <module>opentracing-quickstart</module>
         <module>reactive-routes-quickstart</module>
         <module>rest-client-quickstart</module>
+        <module>rest-client-kotlin-quickstart</module>
         <module>rest-client-multipart-quickstart</module>
         <module>rest-json-quickstart</module>
         <module>scheduler-quickstart</module>
