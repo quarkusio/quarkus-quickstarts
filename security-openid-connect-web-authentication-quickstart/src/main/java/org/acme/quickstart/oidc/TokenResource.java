@@ -12,7 +12,7 @@ import java.util.Map;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import io.quarkus.oidc.IdToken;
-import io.quarkus.oidc.runtime.RefreshToken;
+import io.quarkus.oidc.RefreshToken;
 
 @Path("/tokens")
 public class TokenResource {
