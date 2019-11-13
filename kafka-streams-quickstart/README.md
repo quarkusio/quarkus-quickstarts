@@ -152,7 +152,7 @@ configured to be accessible from your host system
 
 docker-compose -f docker-compose-local.yaml up
 
-mvn compile quarkus:dev -f producer/pom.xml
+mvn quarkus:dev -f producer/pom.xml
 
-mvn compile quarkus:dev -Dquarkus.http.port=8081 -f aggregator/pom.xml
+mvn quarkus:dev -Dquarkus.http.port=8081 -f aggregator/pom.xml
 ```

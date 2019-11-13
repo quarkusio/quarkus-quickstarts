@@ -63,7 +63,7 @@ For more details, see the Keycloak documentation about how to https://www.keyclo
 The Maven Quarkus plugin provides a development mode that supports
 live coding. To try this out:
 
-> ./mvnw compile quarkus:dev
+> ./mvnw quarkus:dev
 
 This command will leave Quarkus running in the foreground listening on port 8080.
 

@@ -33,7 +33,7 @@ Launch the Maven build on the checked out sources of this demo:
 The Maven Quarkus plugin provides a development mode that supports
 live coding. To try this out:
 
-> ./mvnw compile quarkus:dev
+> ./mvnw quarkus:dev
 
 This command will leave Quarkus running in the foreground listening on port 8080.
 

@@ -12,7 +12,7 @@ First you need a Kafka cluster. You can follow the instructions from the [Apache
 The application can be started using: 
 
 ```bash
-mvn compile quarkus:dev
+mvn quarkus:dev
 ```  
 
 Then, open your browser to `http://localhost:8080/prices.html`, and you should see a fluctuating price.

@@ -51,7 +51,7 @@ Connection properties for the Agroal datasource are defined in the standard Quar
 The Maven Quarkus plugin provides a development mode that supports
 live coding. To try this out:
 
-> ./mvnw compile quarkus:dev
+> ./mvnw quarkus:dev
 
 In this mode you can make changes to the code and have the changes immediately applied, by just refreshing your browser.
 
