@@ -21,7 +21,7 @@ Once the database is up you can start your Quarkus application.
 The application can be started using: 
 
 ```bash
-mvn compile quarkus:dev
+mvn quarkus:dev
 ```  
 
 ## Test the application

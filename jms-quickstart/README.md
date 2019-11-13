@@ -14,7 +14,7 @@ docker run -it --rm -p 8161:8161 -p 61616:61616 -e ARTEMIS_USERNAME=quarkus -e A
 The application can be started using:
 
 ```bash
-mvn compile quarkus:dev
+mvn quarkus:dev
 ```
 
 Then, open your browser to `http://localhost:8080/prices.html`, and you should see a button to fetch the last price.

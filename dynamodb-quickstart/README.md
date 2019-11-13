@@ -58,7 +58,7 @@ aws dynamodb create-table --table-name QuarkusFruits \
 # Run the demo on dev mode
 
 - Run `mvn clean package` and then `java -jar ./target/dynamodb-quickstart-1.0-SNAPSHOT-runner.jar`
-- In dev mode `mvn clean compile quarkus:dev`
+- In dev mode `mvn clean quarkus:dev`
 
 Go to `http://localhost:8080/fruits.html`, it should show a simple App to manage list of Fruits. 
 You can add fruits to the list via the form.
