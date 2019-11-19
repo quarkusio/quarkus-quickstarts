@@ -2,6 +2,7 @@ package org.acme.quickstart;
 
 import javax.inject.Inject;
 
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +15,7 @@ public class GreetingServiceTest {
     GreetingService service;
 
     @Test
+    @DisabledOnNativeImage("@Inject in tests doesn't work for native mode")
     public void testGreetingService() {
         Assertions.assertEquals("hello Quarkus", service.greeting("Quarkus"));
     }

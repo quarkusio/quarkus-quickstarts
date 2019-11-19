@@ -8,6 +8,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -91,6 +92,7 @@ public class TokenSecuredResourceTest {
     }
 
     @Test
+    @DisabledOnNativeImage("Doesn't work in the native mode due to a subresource issue")
     public void testLottoWinners() {
         Response response = RestAssured.given().auth()
                 .oauth2(token)
