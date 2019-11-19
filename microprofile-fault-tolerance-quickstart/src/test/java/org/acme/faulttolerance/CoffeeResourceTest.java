@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 import javax.inject.Inject;
 
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ public class CoffeeResourceTest {
     private CoffeeResource coffeeResource;
 
     @Test
+    @DisabledOnNativeImage("@Inject in tests doesn't work for native mode")
     public void testCoffeeList() {
         coffeeResource.resetCounter();
         coffeeResource.setFailRatio(0f);
@@ -37,6 +39,7 @@ public class CoffeeResourceTest {
     }
 
     @Test
+    @DisabledOnNativeImage("@Inject in tests doesn't work for native mode")
     public void testCoffeeDetail() {
         coffeeResource.setFailRatio(0f);
         get("/coffee/1")
