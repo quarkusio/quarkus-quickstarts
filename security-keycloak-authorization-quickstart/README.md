@@ -47,7 +47,7 @@ Launch the Maven build on the checked out sources of this demo:
 To start a Keycloak Server you can use Docker and just run the following command:
 
 ```bash
-docker run --name keycloak -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8180:8080 quay.io/keycloak/keycloak
+docker run --name keycloak -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8180:8080 quay.io/keycloak/keycloak:7.0.1
 ```
 
 You should be able to access your Keycloak Server at http://localhost:8180/auth[localhost:8180/auth].
