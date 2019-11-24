@@ -53,6 +53,7 @@
         <module>quartz-quickstart</module>
         <module>qute-quickstart</module>
         <module>reactive-routes-quickstart</module>
+        <module>redis-quickstart</module>
         <module>rest-client-quickstart</module>
         <module>rest-client-multipart-quickstart</module>
         <module>rest-json-quickstart</module>

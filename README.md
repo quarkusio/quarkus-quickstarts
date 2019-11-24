@@ -98,5 +98,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [gRPC Plain text Quickstart](./grpc-plain-text-quickstart): How to use Quarkus gRPC extension with plain text communication
 * [gRPC TLS Quickstart](./grpc-tls-quickstart): How to use Quarkus gRPC extension with TLS communication
 
+* [Using Vert.x Redis Client](./redis-quickstart): Demonstrate how to use Vert.x Redis Client
+
+
 There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
 
