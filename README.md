@@ -43,6 +43,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Spring DI compatibility layer](./spring-di-quickstart): How to use our Spring Dependency Injection compatibility layer
 * [Spring Data extension](./spring-data-jpa-quickstart): How to the Quarkus extension for the Spring Data API
 * [Spring Web extension](./spring-web-quickstart): How to the Quarkus extension for the Spring Web API
+* [Spring Security extension](./spring-security-quickstart): How to the Quarkus extension for the Spring Security API
 * [Using STM](./software-transactional-memory-quickstart): How to use the Narayana Software Transactional Memory extension
 * [Apache Tika](./tika-quickstart): Extract metadata and content from your documents
 * [Validation with Hibernate Validator](./validation-quickstart): How to use Hibernate Validator/Bean Validation in your REST services
