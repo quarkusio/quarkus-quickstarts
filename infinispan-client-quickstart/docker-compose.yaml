@@ -6,10 +6,10 @@ networks:
 
 services:
   infinispan-server:
-    image: jboss/infinispan-server:10.0.0.Beta3
+    image: infinispan/server:latest
     environment:
-      - APP_USER=user
-      - APP_PASS=changeme
+      - USER=Titus Bramble
+      - PASS=Shambles
     ports:
       - "11222:11222"
     container_name: infinispan
@@ -27,7 +27,7 @@ services:
     command: >
       /bin/sh -c "
         echo Waiting for Infinispan service start ...;
-        while ! curl --silent --output /dev/null --fail-early --user user:changeme http://infinispan:8080;
+        while ! curl --silent --output /dev/null --fail-early --user 'Titus Bramble:Shambles' http://infinispan:11222/rest/v2/server;
         do
           sleep 1;
         done;
