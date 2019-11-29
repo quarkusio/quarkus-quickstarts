@@ -17,17 +17,16 @@ class InfinispanGreetingResourceTest {
 
     @Container
     public static final GenericContainer INFINISPAN = new FixedHostPortGenericContainer(
-            "jboss/infinispan-server:10.0.0.Beta3")
+            "jboss/infinispan-server:latest")
             .withFixedExposedPort(11222, 11222)
-            .withEnv("APP_USER", "user")
-            .withEnv("APP_PASS", "changeme")
-            .waitingFor(Wait.forLogMessage(".* started in .*", 1));
+            .withEnv("USER", "Titus Bramble")
+            .withEnv("PASS", "Shambles")
+            .waitingFor(Wait.forLogMessage(".*Infinispan Server .* started in .*", 1));
 
     @Test
     public void test() {
         RestAssured
                 .given()
-                .auth().basic("user", "changeme")
                 .get("/infinispan")
                 .then()
                 .statusCode(200)
