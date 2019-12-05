@@ -1,6 +1,7 @@
 # Quarkus demo: Quartz scheduling
 
-This is a demo scheduling application exposing one Rest API `tasks` to visualise executed jobs which run every 10 seconds. 
+This is an application demoing a clustered scheduler.
+It exposes a REST API `tasks` to visualize the executed jobs which run every 10 seconds. 
 
 ## Requirements
 
