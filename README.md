@@ -32,6 +32,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [OpenAPI and Swagger UI](./openapi-swaggerui-quickstart): Use OpenAPI and Swagger UI to expose your REST API and test your REST services
 * [OpenTracing and Jaeger](./opentracing-quickstart): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
 * [Quartz](./quartz-quickstart): How to schedule periodic clustered jobs
+* [Qute](./qute-quickstart): How to use the Qute templating engine in Quarkus
 * [Reactive Routes](./reactive-routes-quickstart): How to use Reactive Routes in Quarkus
 * [REST Client](./rest-client-quickstart): How to use MicroProfile's REST Client
 * [REST Client Multipart](./rest-client-multipart-quickstart): Handle multipart with MicroProfile's REST Client
