@@ -42,8 +42,9 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Security with OAuth2 opaque tokens](./security-oauth2-quickstart): How to use our security layer with OAuth2 opaque tokens
 * [Security with OpenId Connect](./security-openid-connect-quickstart): How to use OpenId Connect and [Keycloak](https://www.keycloak.org)
 * [Spring DI compatibility layer](./spring-di-quickstart): How to use our Spring Dependency Injection compatibility layer
-* [Spring Data extension](./spring-data-jpa-quickstart): How to the Quarkus extension for the Spring Data API
-* [Spring Web extension](./spring-web-quickstart): How to the Quarkus extension for the Spring Web API
+* [Spring Data extension](./spring-data-jpa-quickstart): How to use the Quarkus extension for the Spring Data API
+* [Spring Web extension](./spring-web-quickstart): How to use the Quarkus extension for the Spring Web API
+* [Spring Security extension](./spring-security-quickstart): How to use the Quarkus extension for the Spring Security API
 * [Using STM](./software-transactional-memory-quickstart): How to use the Narayana Software Transactional Memory extension
 * [Apache Tika](./tika-quickstart): Extract metadata and content from your documents
 * [Validation with Hibernate Validator](./validation-quickstart): How to use Hibernate Validator/Bean Validation in your REST services
