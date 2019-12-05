@@ -35,6 +35,7 @@
         <module>openapi-swaggerui-quickstart</module>
         <module>opentracing-quickstart</module>
         <module>quartz-quickstart</module>
+        <module>qute-quickstart</module>
         <module>reactive-routes-quickstart</module>
         <module>rest-client-quickstart</module>
         <module>rest-client-multipart-quickstart</module>
