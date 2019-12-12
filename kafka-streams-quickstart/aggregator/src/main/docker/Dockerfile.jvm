@@ -14,9 +14,9 @@
 # docker run -i --rm -p 8080:8080 quarkus/kafka-streams-quickstart-producer-jvm
 #
 ###
-FROM fabric8/java-centos-openjdk8-jdk
-ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-ENV AB_ENABLED=jmx_exporter
+FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
+RUN microdnf install java-1.8.0-openjdk-headless && microdnf clean all
+
 COPY target/lib/* /deployments/lib/
 COPY target/*-runner.jar /deployments/app.jar
-ENTRYPOINT [ "/deployments/run-java.sh" ]
+ENTRYPOINT [ "java", "-jar", "/deployments/app.jar", "-Dquarkus.http.host=0.0.0.0", "-Djava.util.logging.manager=org.jboss.logmanager.LogManager" ]
