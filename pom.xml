@@ -13,9 +13,9 @@
         <module>cache-quickstart</module>
         <module>config-quickstart</module>
         <module>dynamodb-quickstart</module>
-        <module>extension-quickstart</module>
         <module>getting-started</module>
         <module>getting-started-async</module>
+        <module>getting-started-extension</module>
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
         <module>hibernate-orm-quickstart</module>
