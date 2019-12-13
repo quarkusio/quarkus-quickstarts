@@ -22,6 +22,7 @@
         <module>getting-started-async</module>
         <module>getting-started-reactive</module>
         <module>getting-started-reactive-crud</module>
+        <module>getting-started-extension</module>
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
         <module>hibernate-orm-quickstart</module>
