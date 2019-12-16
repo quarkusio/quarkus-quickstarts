@@ -9,6 +9,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -22,7 +23,7 @@ public class CodeFlowTest {
 
     @Test
     public void testCodeFlowNoConsent() throws IOException {
-        try (final WebClient webClient = new WebClient()) {
+        try (final WebClient webClient = createWebClient()) {
             HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 
             assertEquals("Log in to quarkus", page.getTitleText());
@@ -45,7 +46,7 @@ public class CodeFlowTest {
 
     @Test
     public void testTokenTimeoutLogout() throws IOException, InterruptedException {
-        try (final WebClient webClient = new WebClient()) {
+        try (final WebClient webClient = createWebClient()) {
             HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 
             assertEquals("Log in to quarkus", page.getTitleText());
@@ -75,7 +76,7 @@ public class CodeFlowTest {
 
     @Test
     public void testTokenInjection() throws IOException {
-        try (final WebClient webClient = new WebClient()) {
+        try (final WebClient webClient = createWebClient()) {
             HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 
             assertEquals("Log in to quarkus", page.getTitleText());
@@ -100,4 +101,14 @@ public class CodeFlowTest {
     private Cookie getSessionCookie(WebClient webClient) {
         return webClient.getCookieManager().getCookie("q_session");
     }
+
+    private WebClient createWebClient() {
+        WebClient webClient = new WebClient();
+
+        webClient.setCssErrorHandler(new SilentCssErrorHandler());
+
+        return webClient;
+    }
+
+
 }
