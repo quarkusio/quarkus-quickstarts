@@ -23,7 +23,7 @@ public class EventResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("{name}")
     public CompletionStage<String> greeting(@PathParam String name) {
-        return bus.<String>send("greeting", name)
+        return bus.<String>request("greeting", name)
                 .thenApply(Message::body);
     }
 }
