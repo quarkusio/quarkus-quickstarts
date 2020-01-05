@@ -25,7 +25,7 @@
       <dependency>
           <groupId>io.projectreactor</groupId>
           <artifactId>reactor-bom</artifactId>
-          <version>Californium-SR4</version>
+          <version>Dysprosium-RELEASE</version>
           <type>pom</type>
           <scope>import</scope>
       </dependency>
