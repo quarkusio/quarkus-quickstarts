@@ -388,7 +388,7 @@
       "surrogateAuthRequired": false,
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "secret",
       "redirectUris": [],
       "webOrigins": [],
       "notBefore": 0,
@@ -473,7 +473,7 @@
       "surrogateAuthRequired": false,
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "c41b709a-a012-4c69-89d7-4f926dba0619",
       "redirectUris": [],
       "webOrigins": [],
       "notBefore": 0,
@@ -511,7 +511,7 @@
       "surrogateAuthRequired": false,
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "a951803a-79c7-46a6-8197-e32835286971",
       "redirectUris": [],
       "webOrigins": [],
       "notBefore": 0,
@@ -551,7 +551,7 @@
       "surrogateAuthRequired": false,
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "0136c3ef-0dfd-4b13-a6d0-2c8b6358edec",
       "redirectUris": [
         "/realms/quarkus/account/*"
       ],
@@ -591,7 +591,7 @@
       "surrogateAuthRequired": false,
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "e1f7edd7-e15c-43b4-8736-ff8204d16836",
       "redirectUris": [],
       "webOrigins": [],
       "notBefore": 0,
@@ -631,7 +631,7 @@
       "surrogateAuthRequired": false,
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "e571b211-2550-475d-b87f-116ff54091ee",
       "redirectUris": [
         "/admin/quarkus/console/*"
       ],
@@ -1314,9 +1314,9 @@
         "providerId": "aes-generated",
         "subComponents": {},
         "config": {
-          "priority": [
-            "100"
-          ]
+          "kid" : [ "b04473d3-8395-4016-b455-19a9e951106b" ],
+          "secret" : [ "x68mMOVdz3qKWzltzReV0g" ],
+          "priority": [ "100" ]
         }
       },
       {
@@ -1325,9 +1325,9 @@
         "providerId": "rsa-generated",
         "subComponents": {},
         "config": {
-          "priority": [
-            "100"
-          ]
+          "privateKey" : [ "MIIEowIBAAKCAQEAn5T13suF8mlS+pJXp0U1bto41nW55wpcs+Rps8ZVCRyJKWqzwSCYnI7lm0rB2wBpAAO4OPoj1zlmVoFmBPsDU9Xf7rjsJb5LIzIQDCZY44aSDZt6RR+gakPiQvlzHyW/RozYpngDJF7TsTD7rdRF1xQ4RprfBF8fwK/xsU7pxbeom5xDHZhz3fiw8s+7UdbmnazDHfAjU58aUrLGgVRfUsuoHjtsptYlOIXEifaeMetXZE+HhqLYRHQPDap5fbBJl773Trosn7N9nmzN4x1xxGj9So21WC5UboQs9sAIVgizc4omjZ5Y4RN9HLH7G4YwJctNntzmnJhDui9zAO+zSQIDAQABAoIBADi+F7rTtVoft0Cfnok8o6Y58/HVxHdxiMryUd95iy0FN4RBi48FTx6D9QKFz25Ws/8sU2n3D51srIXf1u24b1N0/f39RQKaqk7mcyxOylaEuBQcj5pah4ihgKd92UBfBKdKV5LBo6RgD3e2yhbiHr8+UlBQqzH7vOef6Bm6zIbfmi3N88swAJhP0YizRZFklsbmLsK6nkwyro00CHJvPVKSBbM+ad+/zIBsLw56MvNngB5TuFguUgoljd6M1T2z4utmZGlTUqrfE1onAVLJZoGnRohyIr7dJEg6YxWR70PxsgmkDKyeRvet9P1trO0n+OSprusfrC3cHJStabap1V0CgYEA1A/CtsqTnjdYYsB19eumZgdpzUgNc/YEAzZ/OWb8yTLoB2ncci+63A1rXHUXAqJFY7vtjn5mxv7SuASNbUrzq+6KfZvC1x9XEtnczqT/ypunNfxmIZuj8Nuu6vtURguZ8kPPwdkI8toTizRFeRE5ZDBvoQryiEVYugfHaHT5vzsCgYEAwKWODwquI0Lv9BuwdNVrBXQpkKh3ZfYOA7i9xvhxlM7xUu8OMCwwCPn3r7vrW5APjTqX4h330mJ44SLEs+7gbCUs4BbJBLA6g0ChlHa9PTkxp6tk2nDF/B34fxiZSRkE85L+d+at0Dc3hnlzLCJCzJawGpoPniPU9e4w0p4dN0sCgYAsGnMGjS8SUrRhJWHjGXVr9tK8TOXvXhULjgP7rj2Yoqu7Dvs4DFEyft/7RKbad2EzEtyfLA64CDtO5jN7rYDsGxpWcVSeZPg5BXJ0z8AbJTArfCjJiJMZ/rZsTIUEZFlKF2xYBolj6JLz+pUQTtK+0YwF1D8ItFN1rTR9twZSDQKBgQC6sPXNX+VH6LuPTjIf1x8CxwLs3EXxOpV0R9kp9GRl+HJnk6GlT30xhcThufQo5KAdllXQXIhoiuNoEoCbevhj9Vbax1oBQCNERSMRNEzKAx46xd9TzYwgeo7x5E3QR/3DaoVOfu+cY5ZcrF/PulgP2kxJS1mtQD5GIpGP2oinpwKBgGqiqTFPqRcelx76vBvTU+Jp1zM62T4AotbMrSQR/oUvqHe5Ytj/SbZx+wbbHAiyGgV700Mosyviik83YEAbR3kdOPjgYvAJJW2Y3jEMdQ7MwriXz8XLh5BGmYfVjkSOJXed9ua9WlYLKOJeXXv191BbDvrx5NXuJyVVU4vJx3YZ" ],
+          "certificate" : [ "MIICnTCCAYUCBgFp4EYIrjANBgkqhkiG9w0BAQsFADASMRAwDgYDVQQDDAdwcm90ZWFuMB4XDTE5MDQwMjIyNTYxOVoXDTI5MDQwMjIyNTc1OVowEjEQMA4GA1UEAwwHcHJvdGVhbjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJ+U9d7LhfJpUvqSV6dFNW7aONZ1uecKXLPkabPGVQkciSlqs8EgmJyO5ZtKwdsAaQADuDj6I9c5ZlaBZgT7A1PV3+647CW+SyMyEAwmWOOGkg2bekUfoGpD4kL5cx8lv0aM2KZ4AyRe07Ew+63URdcUOEaa3wRfH8Cv8bFO6cW3qJucQx2Yc934sPLPu1HW5p2swx3wI1OfGlKyxoFUX1LLqB47bKbWJTiFxIn2njHrV2RPh4ai2ER0Dw2qeX2wSZe+9066LJ+zfZ5szeMdccRo/UqNtVguVG6ELPbACFYIs3OKJo2eWOETfRyx+xuGMCXLTZ7c5pyYQ7ovcwDvs0kCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAVtmRKDb4OK5iSA46tagMBkp6L7WuPpCWuHGWwobEP+BecYsShW7zP3s12oA8SNSwbhvu0CRqgzxhuypgf3hKQFVU153Erv4hzkj+8S0s5LR/ZE7tDNY2lzJ3yQKXy3Md7EkuzzvOZ50MTrcSKAanWq/ZW1OTnrtGymj5zGJnTg7mMnJzEIGePxkvPu/QdchiPBLqxfZYm1jsFGY25djOC3N/KmVcRVmPRGuu6D8tBFHlKoPfZYPdbMvsvs24aupHKRcZ+ofTCpK+2Qo8c0pSSqeEYHGmuGqC6lC6ozxtxSABPO9Q1R1tZBU7Kg5HvXUwwmoVS3EGub46YbHqbmWMLg==" ],
+          "priority" : [ "100" ]
         }
       },
       {
@@ -1336,12 +1336,10 @@
         "providerId": "hmac-generated",
         "subComponents": {},
         "config": {
-          "priority": [
-            "100"
-          ],
-          "algorithm": [
-            "HS256"
-          ]
+          "kid" : [ "96afd00e-85cf-4d35-b18e-061d3813d8b2" ],
+          "secret" : [ "qBFGKdUGf6xDgKphnRfoFzIzaFHJW4bYnZ9MinPFzN38X5_ctq-2u1q5RdZzeJukXvk2biHB8_s3DxWmmLZFsA" ],
+          "priority": [ "100" ],
+          "algorithm": [ "HS256" ]
         }
       }
     ]
@@ -1981,6 +1979,95 @@
     "waitIncrementSeconds": "60",
     "offlineSessionMaxLifespanEnabled": "false"
   },
+  "users" : [ {
+    "id" : "af134cab-f41c-4675-b141-205f975db679",
+    "username" : "admin",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "NICTtwsvSxJ5hL8hLAuleDUv9jwZcuXgxviMXvR++cciyPtiIEStEaJUyfA9DOir59awjPrHOumsclPVjNBplA==",
+      "salt" : "T/2P5o5oxFJUEk68BRURRg==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1554245879354,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "admin", "user" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "eb4123a3-b722-4798-9af5-8957f823657a",
+    "username" : "alice",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "A3okqV2T/ybXTVEgKfosoSjP8Yc9IZbFP/SY4cEd6hag7TABQrQ6nUSuwagGt96l8cw1DTijO75PqX6uiTXMzw==",
+      "salt" : "sl4mXx6T9FypPH/s9TngfQ==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1554245879116,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "user" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "1eed6a8e-a853-4597-b4c6-c4c2533546a0",
+    "username" : "jdoe",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "JV3DUNLjqOadjbBOtC4rvacQI553CGaDGAzBS8MR5ReCr7SwF3E6CsW3T7/XO8ITZAsch8+A/6loeuCoVLLJrg==",
+      "salt" : "uCbOH7HZtyDtMd0E9DG/nw==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1554245879227,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "confidential", "user" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "948c59ec-46ed-4d99-aa43-02900029b930",
+    "createdTimestamp" : 1554245880023,
+    "username" : "service-account-backend-service",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "email" : "service-account-backend-service@placeholder.org",
+    "serviceAccountClientId" : "backend-service",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access" ],
+    "clientRoles" : {
+      "backend-service" : [ "uma_protection" ],
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ],
   "keycloakVersion": "8.0.1",
   "userManagedAccessAllowed": false
 }
