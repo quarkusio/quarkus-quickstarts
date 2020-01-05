@@ -30,7 +30,7 @@ public class FruitResource {
     @Inject
     Driver driver;
 
-    @GET    
+    @GET
     public CompletionStage<Response> get() {
         AsyncSession session = driver.asyncSession(); // <1>
         return session
@@ -49,10 +49,10 @@ public class FruitResource {
     public CompletionStage<Response> create(Fruit fruit) {
         AsyncSession session = driver.asyncSession();
         return session
-            .writeTransactionAsync(tx -> 
-                tx.runAsync("CREATE (f:Fruit {name: $name}) RETURN f", Values.parameters("name", fruit.name))
+            .writeTransactionAsync(tx -> tx
+                .runAsync("CREATE (f:Fruit {name: $name}) RETURN f", Values.parameters("name", fruit.name))
+                .thenCompose(fn -> fn.singleAsync())
             )
-            .thenCompose(fn -> fn.singleAsync())
             .thenApply(record -> Fruit.from(record.get("f").asNode()))
             .thenCompose(persistedFruit -> session.closeAsync().thenApply(signal -> persistedFruit))
             .thenApply(persistedFruit -> Response
@@ -66,16 +66,16 @@ public class FruitResource {
     public CompletionStage<Response> getSingle(@PathParam("id") Long id) {
         AsyncSession session = driver.asyncSession();
         return session
-            .readTransactionAsync(tx -> 
-                tx.runAsync("MATCH (f:Fruit) WHERE id(f) = $id RETURN f", Values.parameters("id", id))
+            .readTransactionAsync(tx -> tx
+                .runAsync("MATCH (f:Fruit) WHERE id(f) = $id RETURN f", Values.parameters("id", id))
+                .thenCompose(fn -> fn.singleAsync())
         )
-        .thenCompose(fn -> fn.singleAsync())
-        .handle((record, exception) -> {            
-            if(exception != null) {                
+        .handle((record, exception) -> {
+            if(exception != null) {
                 Throwable source = exception;
                 if(exception instanceof CompletionException) {
                     source = ((CompletionException)exception).getCause();
-                }                
+                }
                 Status status = Status.INTERNAL_SERVER_ERROR;
                 if(source instanceof NoSuchRecordException) {
                     status = Status.NOT_FOUND;
@@ -83,8 +83,8 @@ public class FruitResource {
                 return Response.status(status).build();
             } else  {
                 return Response.ok(Fruit.from(record.get("f").asNode())).build();
-            }            
-        })        
+            }
+        })
         .thenCompose(response -> session.closeAsync().thenApply(signal -> response));
     }
 
@@ -94,10 +94,10 @@ public class FruitResource {
 
         AsyncSession session = driver.asyncSession();
         return session
-            .writeTransactionAsync(tx -> 
-                tx.runAsync("MATCH (f:Fruit) WHERE id(f) = $id DELETE f", Values.parameters("id", id))
+            .writeTransactionAsync(tx -> tx
+                .runAsync("MATCH (f:Fruit) WHERE id(f) = $id DELETE f", Values.parameters("id", id))
+                .thenCompose(fn -> fn.consumeAsync())
             )
-            .thenCompose(fn -> fn.consumeAsync())
             .thenCompose(response -> session.closeAsync())
             .thenApply(signal -> Response.noContent().build());
     }
