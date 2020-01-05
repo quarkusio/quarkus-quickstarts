@@ -54,9 +54,9 @@ public class FruitResource {
             )
             .thenCompose(fn -> fn.singleAsync())
             .thenApply(record -> Fruit.from(record.get("f").asNode()))
-            .thenCompose(persistedFruid -> session.closeAsync().thenApply(signal -> persistedFruid))
-            .thenApply(persistedFruid -> Response
-                .created(URI.create("/fruits/" + persistedFruid.id))
+            .thenCompose(persistedFruit -> session.closeAsync().thenApply(signal -> persistedFruit))
+            .thenApply(persistedFruit -> Response
+                .created(URI.create("/fruits/" + persistedFruit.id))
                 .build()
             );
     }
