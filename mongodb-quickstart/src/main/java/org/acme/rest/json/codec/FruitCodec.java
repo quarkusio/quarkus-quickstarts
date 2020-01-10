@@ -1,6 +1,6 @@
 package org.acme.rest.json.codec;
 
-import com.mongodb.MongoClient;
+import com.mongodb.MongoClientSettings;
 import org.acme.rest.json.Fruit;
 import org.bson.*;
 import org.bson.codecs.Codec;
@@ -15,7 +15,7 @@ public class FruitCodec implements CollectibleCodec<Fruit> {
     private final Codec<Document> documentCodec;
 
     public FruitCodec() {
-        this.documentCodec = MongoClient.getDefaultCodecRegistry().get(Document.class);
+        this.documentCodec = MongoClientSettings.getDefaultCodecRegistry().get(Document.class);
     }
 
     @Override
