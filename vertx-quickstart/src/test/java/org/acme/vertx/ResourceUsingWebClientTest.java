@@ -10,12 +10,12 @@ import static org.hamcrest.CoreMatchers.containsString;
 class ResourceUsingWebClientTest {
 
     @Test
-    void testLuke() {
+    void testBananaData() {
         given()
-                .when().get("/swapi/1")
+                .when().get("/fruit-data/banana")
                 .then()
                 .statusCode(200)
-                .body(containsString("Luke Skywalker"));
+                .body(containsString("Musaceae"));
     }
 
 }
