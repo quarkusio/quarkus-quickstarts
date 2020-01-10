@@ -17,7 +17,7 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import java.util.concurrent.CompletionStage;
 
-@Path("/swapi")
+@Path("/fruit-data")
 public class ResourceUsingWebClient {
 
 
@@ -29,14 +29,14 @@ public class ResourceUsingWebClient {
     @PostConstruct
     void initialize() {
         this.client = WebClient.create(vertx,
-                new WebClientOptions().setDefaultHost("swapi.co").setDefaultPort(443).setSsl(true));
+                new WebClientOptions().setDefaultHost("fruityvice.com").setDefaultPort(443).setSsl(true).setTrustAll(true));
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{id}")
-    public CompletionStage<JsonObject> getStarWarsCharacter(@PathParam int id) {
-        return client.get("/api/people/" + id)
+    @Path("/{name}")
+    public CompletionStage<JsonObject> getFruitData(@PathParam("name") String name) {
+        return client.get("/api/fruit/" + name)
                 .send()
                 .thenApply(resp -> {
                     if (resp.statusCode() == 200) {
