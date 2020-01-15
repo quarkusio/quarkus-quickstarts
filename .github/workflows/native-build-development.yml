@@ -39,7 +39,7 @@ jobs:
             -Dquarkus.native.container-build=true \
             -pl "!software-transactional-memory-quickstart"
 
-      - name: Report Success
+      - name: Report
         if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}

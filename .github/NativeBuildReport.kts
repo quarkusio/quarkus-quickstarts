@@ -21,34 +21,36 @@ if (status == "cancelled") {
     System.exit(0)
 }
 
-val ISSUE_TITLE = "Quickstarts Native Build failed against Quarkus Master"
+val ISSUE_TITLE = "[CI] - Quickstarts Native Build failed against Quarkus Master"
 val REPO = "quarkusio/quarkus-quickstarts"
 
 val github = GitHubBuilder().withOAuthToken(token).build()
-val repository = github.getRepository("quarkusio/quarkus-quickstarts")
-val issues = repository.getIssues(GHIssueState.OPEN)
-val existingIssue = issues.firstOrNull { i -> i.getTitle() == ISSUE_TITLE}
+val repository = github.getRepository("quarkusio/quarkus")
+val issues = repository.getIssues(GHIssueState.ALL)
+
+val issue = issues.firstOrNull { i -> i.getTitle() == ISSUE_TITLE}
 
 val quickstartsCommit = getRepositoryCommit(".")
 val quarkusCommit = getRepositoryCommit("quarkus")
 if (succeed) {
-    if (existingIssue != null) {
+    if (issue != null  && isOpen(issue)) {
         // close issue with a comment
-        val comment = existingIssue.comment("""
+        val comment = issue.comment("""
             Build fixed with:
 
             * Quarkus commit: ${quarkusCommit}
-            * Quickstarts commit: ${quickstartsCommit}               
+            * Quickstarts commit: ${quickstartsCommit}  
+            * Link to build: https://github.com/quarkusio/quarkus-quickstarts/actions
 
         """.trimIndent())        
-        existingIssue.close()
-        println("Comment added on issue ${existingIssue.getHtmlUrl()} - ${comment.getHtmlUrl()}, the issue has also been closed")
+        issue.close()
+        println("Comment added on issue ${issue.getHtmlUrl()} - ${comment.getHtmlUrl()}, the issue has also been closed")
     } else {
-        println("Nothing to do - the build passed and there are no issue to close")
+        println("Nothing to do - the build passed and the issue is already closed or not created")
     }
 } else  {
     // Build failed
-    if (existingIssue == null) {
+    if (issue == null) {
         // create a new issue
         val newIssue = repository.createIssue(ISSUE_TITLE)
             .body("""
@@ -58,21 +60,41 @@ if (succeed) {
                 The build failed with:
 
                 * Quarkus commit: ${quarkusCommit}
-                * Quickstarts commit: ${quickstartsCommit}               
+                * Quickstarts commit: ${quickstartsCommit}     
+                * Link to build: https://github.com/quarkusio/quarkus-quickstarts/actions 
+                         
+                This issue will be closed when the build gets fixed. It will be re-opened if it fails again later.
+                Do not close the issue yourself (it will be re-opened automatically)
+                You can subscribe and monitor the status.
 
             """.trimIndent())
-            .create()
+                .label("area/infra")
+                .create()
         println("New issue created: ${newIssue.getTitle()} - ${newIssue.getHtmlUrl()}")    
     } else {
-        // comment on issue
-        val comment = existingIssue.comment("""
+        if (isOpen(issue)) {
+            val comment = issue.comment("""
             Build still failing with:
 
             * Quarkus commit: ${quarkusCommit}
             * Quickstarts commit: ${quickstartsCommit}   
+            * Link to build: https://github.com/quarkusio/quarkus-quickstarts/actions
 
         """.trimIndent())
-        println("Comment added on issue ${existingIssue.getHtmlUrl()} - ${comment.getHtmlUrl()}")
+            println("Comment added on issue ${issue.getHtmlUrl()} - ${comment.getHtmlUrl()}")
+        } else {
+            issue.reopen()
+            val comment = issue.comment("""
+            Unfortunately, the build fails again:
+
+            * Quarkus commit: ${quarkusCommit}
+            * Quickstarts commit: ${quickstartsCommit}   
+            * Link to build: https://github.com/quarkusio/quarkus-quickstarts/actions
+
+        """.trimIndent())
+            println("Comment added on issue ${issue.getHtmlUrl()} - ${comment.getHtmlUrl()}, the issue has been re-opened.")
+
+        }
 
     }
 }
@@ -97,5 +119,9 @@ fun String.runCommand(workingDir: String): String {
         e.printStackTrace()
         return ""
     }
+}
+
+fun isOpen(issue : GHIssue) : Boolean {
+    return issue.getState() == GHIssueState.OPEN
 }
 
