@@ -36,9 +36,7 @@ jobs:
       - name: Build Quickstart with native
         run: |
           mvn -B clean install -Pnative \
-            -Dquarkus.native.container-build=true \
-            -pl "!software-transactional-memory-quickstart"
-
+            -Dquarkus.native.container-build=true
       - name: Report
         if: always()
         env:
