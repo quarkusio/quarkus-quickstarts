@@ -99,6 +99,7 @@
                                 </goals>
                                 <configuration>
                                     <enableHttpUrlHandler>true</enableHttpUrlHandler>
+                                    <enableAllSecurityServices>true</enableAllSecurityServices>
                                 </configuration>
                             </execution>
                         </executions>
