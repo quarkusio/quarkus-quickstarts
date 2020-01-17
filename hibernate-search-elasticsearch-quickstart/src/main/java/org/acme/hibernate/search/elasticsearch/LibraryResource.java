@@ -57,6 +57,9 @@ public class LibraryResource {
         book.title = title;
         book.author = author;
         book.persist();
+
+        author.books.add(book);
+        author.persist();
     }
 
     @DELETE
@@ -110,7 +113,7 @@ public class LibraryResource {
     @Transactional
     public List<Author> searchAuthors(@QueryParam String pattern,
             @QueryParam Optional<Integer> size) {
-        return Search.session(em)
+        List<Author> authors = Search.session(em)
                 .search(Author.class)
                 .predicate(f ->
                     pattern == null || pattern.trim().isEmpty() ?
@@ -120,5 +123,6 @@ public class LibraryResource {
                 )
                 .sort(f -> f.field("lastName_sort").then().field("firstName_sort"))
                 .fetchHits(size.orElse(20));
+        return authors;
     }
 }
