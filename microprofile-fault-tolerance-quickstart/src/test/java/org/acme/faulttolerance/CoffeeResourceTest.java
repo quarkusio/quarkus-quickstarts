@@ -4,6 +4,7 @@ import static io.restassured.RestAssured.get;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.StringContains.containsString;
 
 import javax.inject.Inject;
 
@@ -65,7 +66,7 @@ public class CoffeeResourceTest {
         get("/coffee/1/availability").then()
                 .statusCode(500).body(is("RuntimeException: Service failed."));
         get("/coffee/1/availability").then()
-                .statusCode(500).body(is("CircuitBreakerOpenException: getAvailability"));
+                .statusCode(500).body(containsString("CircuitBreakerOpenException"));
     }
 
     @Test
