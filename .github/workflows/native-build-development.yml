@@ -1,0 +1,55 @@
+---
+name: "Native Test - development"
+
+# Adding the dispatch event to allow restarting the build on demand
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  repository_dispatch:
+
+jobs:
+  build_with_native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: development
+
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Install JDK 8
+        uses: joschi/setup-jdk@v1.0.0
+        with:
+          java-version: 'openjdk8'
+
+      - name: Build Quarkus master
+        run: |
+          git clone https://github.com/quarkusio/quarkus.git \
+          && cd quarkus \
+          && mvn -B clean install -DskipTests -DskipITs
+
+      - name: Build Quickstart with native
+        run: |
+          mvn -B clean install -Pnative \
+            -Dquarkus.native.container-build=true
+      - name: Report
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
+          STATUS: ${{ job.status }}
+        run: |
+          sudo apt-get update -o Dir::Etc::sourcelist="sources.list" \
+            -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+          sudo apt-get install -y gnupg2 gnupg-agent
+          echo Installing SDKMAN
+          curl -s "https://get.sdkman.io" | bash
+          source ~/.sdkman/bin/sdkman-init.sh && \
+          sdk install kotlin 1.3.61 && \
+          sdk install kscript 2.9.0
+
+          kscript .github/NativeBuildReport.kts ${GITHUB_TOKEN} ${STATUS}
