@@ -17,8 +17,8 @@ val ISSUE_NUMBER=6588
 val REPO = "quarkusio/quarkus"
 
 // Handle status. Possible values are success, failure, or cancelled.
-val succeed = status == "success";
-if (status == "cancelled") {
+val succeed = status.equals("success", ignoreCase = true);
+if (status.equals("cancelled", ignoreCase = true)) {
     println("Job status is `cancelled` - exiting")
     System.exit(0)
 }
