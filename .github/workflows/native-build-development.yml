@@ -36,7 +36,9 @@ jobs:
       - name: Build Quickstart with native
         run: |
           mvn -B clean install -Pnative \
-            -Dquarkus.native.container-build=true
+            -Dquarkus.native.container-build=true \
+            -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-native-image:19.3.1-java8 \
+            -pl '!rest-client-quickstart'
       - name: Report
         if: always()
         env:

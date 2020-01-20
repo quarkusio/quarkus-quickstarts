@@ -6,8 +6,11 @@ on:
       - development
 
 jobs:
-  build_java8:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        java: [ 8, 11 ]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/cache@v1
@@ -16,29 +19,10 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: Install JDK 8
+      - name: Install JDK{{ matrix.java }}
         uses: joschi/setup-jdk@v1.0.0
         with:
-          java-version: 'openjdk8'
-      - name: Build Quarkus master
-        run: git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B clean install -DskipTests -DskipITs
-      - name: Build with Maven
-        run: mvn -B clean install
-
-  build_java11:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-      - name: Install JDK 11
-        uses: joschi/setup-jdk@v1.0.0
-        with:
-          java-version: 'openjdk11'
+          java-version: openjdk${{ matrix.java }}
       - name: Build Quarkus master
         run: git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B clean install -DskipTests -DskipITs
       - name: Build with Maven
