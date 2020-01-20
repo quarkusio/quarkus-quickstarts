@@ -22,6 +22,7 @@ if (status.equals("cancelled", ignoreCase = true)) {
     println("Job status is `cancelled` - exiting")
     System.exit(0)
 }
+println("The CI build had status ${status}.")
 
 val github = GitHubBuilder().withOAuthToken(token).build()
 val repository = github.getRepository(REPO)

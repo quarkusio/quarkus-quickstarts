@@ -51,5 +51,5 @@ jobs:
           source ~/.sdkman/bin/sdkman-init.sh && \
           sdk install kotlin 1.3.61 && \
           sdk install kscript 2.9.0
-
+          echo "The report step got status: ${STATUS}"
           kscript .github/NativeBuildReport.kts ${GITHUB_TOKEN} ${STATUS}
