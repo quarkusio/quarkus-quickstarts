@@ -1,9 +1,6 @@
 package org.acme.jwt;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -14,13 +11,11 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.jwt.Claims;
-import org.jose4j.jws.AlgorithmIdentifiers;
-import org.jose4j.jws.JsonWebSignature;
-import org.jose4j.jwt.JwtClaims;
-import org.jose4j.jwt.NumericDate;
+
+import io.smallrye.jwt.build.Jwt;
+import io.smallrye.jwt.build.JwtClaimsBuilder;
 
 /**
  * Utilities for generating a JWT for testing
@@ -50,36 +45,18 @@ public class TokenUtils {
     public static String generateTokenString(PrivateKey privateKey, String kid, 
     		String jsonResName, Map<String, Long> timeClaims) throws Exception {
         
-    	JwtClaims claims = JwtClaims.parse(readTokenContent(jsonResName));
+    	JwtClaimsBuilder claims = Jwt.claims(jsonResName);
         long currentTimeInSecs = currentTimeInSecs();
         long exp = timeClaims != null && timeClaims.containsKey(Claims.exp.name()) 
         		? timeClaims.get(Claims.exp.name()) : currentTimeInSecs + 300;
         
-        claims.setIssuedAt(NumericDate.fromSeconds(currentTimeInSecs));
-        claims.setClaim(Claims.auth_time.name(), NumericDate.fromSeconds(currentTimeInSecs));
-        claims.setExpirationTime(NumericDate.fromSeconds(exp));
+        claims.issuedAt(currentTimeInSecs);
+        claims.claim(Claims.auth_time.name(), currentTimeInSecs);
+        claims.expiresAt(exp);
         
-        for (Map.Entry<String, Object> entry : claims.getClaimsMap().entrySet()) {
-            System.out.printf("\tAdded claim: %s, value: %s\n", entry.getKey(), entry.getValue());
-        }
-        
-        JsonWebSignature jws = new JsonWebSignature();
-        jws.setPayload(claims.toJson());
-        jws.setKey(privateKey);
-        jws.setKeyIdHeaderValue(kid);
-        jws.setHeader("typ", "JWT");
-        jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
-        
-        return jws.getCompactSerialization();
+        return claims.jws().signatureKeyId(kid).sign(privateKey);
     }
     
-    private static String readTokenContent(String jsonResName) throws IOException {
-    	InputStream contentIS = TokenUtils.class.getResourceAsStream(jsonResName);
-        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(contentIS))) {
-            return buffer.lines().collect(Collectors.joining("\n"));
-        }
-    }
-
     /**
      * Read a PEM encoded private key from the classpath
      *
