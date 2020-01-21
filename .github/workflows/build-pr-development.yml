@@ -19,11 +19,11 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: Install JDK{{ matrix.java }}
+      - name: Install JDK {{ matrix.java }}
         uses: joschi/setup-jdk@v1.0.0
         with:
           java-version: openjdk${{ matrix.java }}
       - name: Build Quarkus master
         run: git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B clean install -DskipTests -DskipITs
       - name: Build with Maven
-        run: mvn -B clean install
+        run: export LANG=en_US && mvn -B clean install
