@@ -20,8 +20,6 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 @Dependent
 public class LottoNumbersResource {
     @Inject
-    JsonWebToken jwt;
-    @Inject
     @Claim(standard = Claims.birthdate)
     Optional<JsonString> birthdate;
 

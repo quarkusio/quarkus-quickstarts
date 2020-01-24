@@ -5,8 +5,6 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 
 import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 
 import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
@@ -101,8 +99,7 @@ public class TokenSecuredResourceTest {
 
         Assertions.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
         String replyString = response.body().asString();
-        JsonReader jsonReader = Json.createReader(new StringReader(replyString));
-        JsonObject reply = jsonReader.readObject();
+        Json.createReader(new StringReader(replyString)).readObject();
         LottoNumbers numbers = response.as(LottoNumbers.class);
         Assertions.assertFalse(numbers.numbers.isEmpty());
     }
