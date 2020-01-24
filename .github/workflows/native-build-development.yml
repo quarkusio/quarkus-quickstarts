@@ -29,9 +29,9 @@ jobs:
 
       - name: Build Quarkus master
         run: |
-          git clone https://github.com/quarkusio/quarkus.git \
-          && cd quarkus \
-          && mvn -B clean install -DskipTests -DskipITs
+          git clone https://github.com/quarkusio/quarkus.git
+          cd quarkus
+          mvn -B clean install -DskipTests -DskipITs
 
       - name: Build Quickstart with native
         run: |
@@ -39,6 +39,25 @@ jobs:
             -Dquarkus.native.container-build=true \
             -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-native-image:19.3.1-java8 \
             -pl '!rest-client-quickstart'
+
+      - name: Check RSS
+        env:
+          QUICKSTART_VERSION: "1.0-SNAPSHOT"
+          RSS_THRESHOLD: "25000"
+          START_TIME_THRESHOLD: "1000"
+        run: |
+          getting-started/target/getting-started-${QUICKSTART_VERSION}-runner -Xmx2m > server.log &
+          sleep 2
+          ps --no-headers  -C getting-started-${QUICKSTART_VERSION}-runner -o rss > rss.out
+          rss=$(< rss.out)
+          echo "Threshold (kB): ${RSS_THRESHOLD}"
+          echo "RSS (kB): $rss"
+          startTime=$(grep -oP "started in \K([0-9]*\.[0-9]*)" server.log)
+          startTimeMs=$(echo "$startTime*1000/1" | bc)
+          echo "Start time Threshold (ms): ${START_TIME_THRESHOLD}"
+          echo "Start time (ms): $startTimeMs"
+          [ "$rss" -lt "${RSS_THRESHOLD}" ] && [ "$startTimeMs" -lt "${START_TIME_THRESHOLD}" ] && exit 0 || exit 1
+
       - name: Report
         if: always()
         env:
