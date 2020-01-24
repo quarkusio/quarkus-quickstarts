@@ -43,7 +43,7 @@ public class UsersResource {
         return new User(identity);
     }
 
-    public class User {
+    public static class User {
 
         private final String userName;
 
