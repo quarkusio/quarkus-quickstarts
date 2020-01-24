@@ -15,10 +15,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.util.Cookie;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-@ExtendWith(KeycloakServer.class)
+@QuarkusTestResource(KeycloakServer.class)
 public class CodeFlowTest {
 
     @Test

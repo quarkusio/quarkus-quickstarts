@@ -1,42 +1,26 @@
 package org.acme.quarkus.sample;
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.KafkaContainer;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.awaitility.Awaitility.await;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.sse.SseEventSource;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
+@QuarkusTestResource(KafkaResource.class)
 class PriceResourceTest {
 
     private static final String PRICES_SSE_ENDPOINT = "http://localhost:8081/prices/stream";
-
-    private static final KafkaContainer KAFKA = new KafkaContainer();
-
-    @BeforeAll
-    public static void configureKafkaLocation() {
-        KafkaContainer KAFKA = new KafkaContainer();
-        KAFKA.start();
-        System.setProperty("kafka.bootstrap.servers", KAFKA.getBootstrapServers());
-    }
-
-    @AfterAll
-    public static void clearKafkaLocation() {
-        System.clearProperty("kafka.bootstrap.servers");
-        KAFKA.close();
-    }
 
     @Test
     void testPricesEventStream() {
