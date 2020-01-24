@@ -1,6 +1,7 @@
 package org.acme.restclient.multipart;
 
 import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 
 import javax.inject.Inject;
 import javax.ws.rs.POST;
@@ -23,7 +24,7 @@ public class MultipartClientResource {
     public String sendFile() throws Exception {
         MultipartBody body = new MultipartBody();
         body.fileName = "greeting.txt";
-        body.file = new ByteArrayInputStream("HELLO WORLD".getBytes());
+        body.file = new ByteArrayInputStream("HELLO WORLD".getBytes(StandardCharsets.UTF_8));
         return service.sendMultipartData(body);
     }
 }

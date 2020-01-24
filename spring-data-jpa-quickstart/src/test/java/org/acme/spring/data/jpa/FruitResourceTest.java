@@ -44,7 +44,7 @@ class FruitResourceTest {
                 );
 
         //Create a new Fruit
-        String idOfNewFruit = given()
+        given()
                 .when().post("/fruits/name/Orange/color/Orange")
                 .then()
                 .statusCode(200)
