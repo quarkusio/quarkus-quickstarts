@@ -1,6 +1,5 @@
 package org.acme.quarkus.greeting;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,7 @@ import java.io.IOException;
 public class GreetingServlet extends HttpServlet { // <1>
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { // <2>
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException { // <2>
         resp.getWriter().write("Hello");
     }
 }

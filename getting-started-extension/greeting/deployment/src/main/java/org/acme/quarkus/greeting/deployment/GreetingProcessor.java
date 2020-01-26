@@ -15,10 +15,10 @@ class GreetingProcessor {
     }
 
     @BuildStep
-    ServletBuildItem createServlet() {
+    ServletBuildItem createServlet() { // <1>
         ServletBuildItem servletBuildItem = ServletBuildItem.builder("greeting", GreetingServlet.class.getName())
                 .addMapping("/greeting")
-                .build();
+                .build(); // <2>
         return servletBuildItem;
     }
 

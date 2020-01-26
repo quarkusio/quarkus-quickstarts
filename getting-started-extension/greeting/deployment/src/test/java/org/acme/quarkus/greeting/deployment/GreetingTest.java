@@ -4,6 +4,7 @@ import io.quarkus.test.QuarkusUnitTest;
 import io.restassured.RestAssured;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -11,13 +12,13 @@ import static org.hamcrest.Matchers.containsString;
 
 public class GreetingTest {
 
-  @RegisterExtension
-  static final QuarkusUnitTest config = new QuarkusUnitTest()
-    .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
+    @RegisterExtension
+    static final QuarkusUnitTest config = new QuarkusUnitTest()
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)); // <1>
 
-  @Test
-  public void shouldGreet() {
-    RestAssured.when().get("/greeting").then().statusCode(200).body(containsString("Hello"));
-  }
+    @Test
+    public void testGreeting() {
+        RestAssured.when().get("/greeting").then().statusCode(200).body(containsString("Hello")); // <2>
+    }
 
 }

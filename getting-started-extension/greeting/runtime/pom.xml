@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>quarkus-greeting</artifactId>
+    <artifactId>quarkus-greeting</artifactId>  <!--1-->
     <name>Greeting Extension - Runtime</name>
 
     <dependencies>
@@ -24,7 +24,7 @@
         <plugins>
             <plugin>
                 <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
+                <artifactId>quarkus-bootstrap-maven-plugin</artifactId>  <!--2-->
                 <version>${quarkus.version}</version>
                 <executions>
                     <execution>
@@ -46,7 +46,7 @@
                     <annotationProcessorPaths>
                         <path>
                             <groupId>io.quarkus</groupId>
-                            <artifactId>quarkus-extension-processor</artifactId>
+                            <artifactId>quarkus-extension-processor</artifactId> <!--3-->
                             <version>${quarkus.version}</version>
                         </path>
                     </annotationProcessorPaths>

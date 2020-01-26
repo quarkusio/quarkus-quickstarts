@@ -14,7 +14,7 @@
     <name>Greeting Extension - Parent</name>
 
     <packaging>pom</packaging>
-    <modules>
+    <modules> <!--1-->
         <module>deployment</module>
         <module>runtime</module>
     </modules>

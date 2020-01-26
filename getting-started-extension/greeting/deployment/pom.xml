@@ -10,13 +10,13 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>quarkus-greeting-deployment</artifactId>
+    <artifactId>quarkus-greeting-deployment</artifactId> <!--1-->
     <name>Greeting Extension - Deployment</name>
 
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-core-deployment</artifactId>
+            <artifactId>quarkus-core-deployment</artifactId> <!--2-->
             <version>${quarkus.version}</version>
         </dependency>
         <dependency>
@@ -30,12 +30,12 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5-internal</artifactId>
+            <artifactId>quarkus-junit5-internal</artifactId> <!--1-->
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
+            <artifactId>rest-assured</artifactId> <!--2-->
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -49,7 +49,7 @@
                     <annotationProcessorPaths>
                         <path>
                             <groupId>io.quarkus</groupId>
-                            <artifactId>quarkus-extension-processor</artifactId>
+                            <artifactId>quarkus-extension-processor</artifactId>  <!--3-->
                             <version>${quarkus.version}</version>
                         </path>
                     </annotationProcessorPaths>
