@@ -72,7 +72,7 @@ Compiling a native executable takes a bit longer, as GraalVM performs additional
 steps to remove unnecessary codepaths. Use the  `native` profile to compile a
 native executable:
 
-> ./mvnw package -Dnative
+> ./mvnw package -Pnative -Dquarkus.native.container-build=true
 
 After getting a cup of coffee, you'll be able to run this executable directly:
 
