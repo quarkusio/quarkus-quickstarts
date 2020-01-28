@@ -4,7 +4,6 @@ import io.quarkus.test.QuarkusUnitTest;
 import io.restassured.RestAssured;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -17,7 +16,7 @@ public class GreetingTest {
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)); // <1>
 
     @Test
-    public void testGreeting() {
+    public void testGreet() {
         RestAssured.when().get("/greeting").then().statusCode(200).body(containsString("Hello")); // <2>
     }
 
