@@ -13,6 +13,10 @@
     <artifactId>quarkus-greeting-deployment</artifactId> <!--1-->
     <name>Greeting Extension - Deployment</name>
 
+    <properties>
+        <maven.surefire.version>3.0.0-M4</maven.surefire.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -62,7 +66,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M4</version>
+                <version>${maven.surefire.version}</version>
                 <configuration>
                     <systemProperties>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
