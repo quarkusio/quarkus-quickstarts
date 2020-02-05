@@ -12,3 +12,4 @@ OpenDocument Format:
 curl -v -X POST -H "Content-type: application/vnd.oasis.opendocument.text" --data-binary @target/classes/quarkus.odt http://localhost:8080/parse/text
 
 
+Quarkus guide: https://quarkus.io/guides/tika
