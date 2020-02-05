@@ -25,8 +25,7 @@ public class WeatherForecastResource {
         List<String> dailyForecasts = Arrays.asList(
                 service.getDailyForecast(LocalDate.now().plusDays(daysInFuture), city),
                 service.getDailyForecast(LocalDate.now().plusDays(daysInFuture + 1L), city),
-                service.getDailyForecast(LocalDate.now().plusDays(daysInFuture + 2L), city)
-        );
+                service.getDailyForecast(LocalDate.now().plusDays(daysInFuture + 2L), city));
         long executionEnd = System.currentTimeMillis();
         return new WeatherForecast(dailyForecasts, executionEnd - executionStart);
     }

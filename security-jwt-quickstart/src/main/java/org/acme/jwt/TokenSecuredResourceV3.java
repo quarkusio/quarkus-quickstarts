@@ -8,7 +8,6 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.json.JsonString;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -34,21 +33,23 @@ public class TokenSecuredResourceV3 {
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     public String hello(@Context SecurityContext ctx) {
-        Principal caller =  ctx.getUserPrincipal();
+        Principal caller = ctx.getUserPrincipal();
         String name = caller == null ? "anonymous" : caller.getName();
-        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s", name, ctx.isSecure(), ctx.getAuthenticationScheme());
+        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s", name, ctx.isSecure(),
+                ctx.getAuthenticationScheme());
         return helloReply;
     }
 
     @GET()
     @Path("roles-allowed")
-    @RolesAllowed({"Echoer", "Subscriber"})
+    @RolesAllowed({ "Echoer", "Subscriber" })
     @Produces(MediaType.TEXT_PLAIN)
     public String helloRolesAllowed(@Context SecurityContext ctx) {
-        Principal caller =  ctx.getUserPrincipal();
+        Principal caller = ctx.getUserPrincipal();
         String name = caller == null ? "anonymous" : caller.getName();
         boolean hasJWT = jwt.getClaimNames() != null;
-        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s, hasJWT: %s", name, ctx.isSecure(), ctx.getAuthenticationScheme(), hasJWT);
+        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s, hasJWT: %s", name, ctx.isSecure(),
+                ctx.getAuthenticationScheme(), hasJWT);
         return helloReply;
     }
 
@@ -65,13 +66,13 @@ public class TokenSecuredResourceV3 {
             String bdayString = jwt.getClaim(Claims.birthdate.name());
             LocalDate bday = LocalDate.parse(bdayString);
             numbers.add(bday.getDayOfMonth());
-            remaining --;
+            remaining--;
         }
         // Fill remaining picks with random numbers
-        while(remaining > 0) {
+        while (remaining > 0) {
             int pick = (int) Math.rint(64 * Math.random() + 1);
             numbers.add(pick);
-            remaining --;
+            remaining--;
         }
         return numbers.toString();
     }

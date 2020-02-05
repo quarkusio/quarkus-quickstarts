@@ -51,7 +51,7 @@ public class ChatSocket {
 
     private void broadcast(String message) {
         sessions.values().forEach(s -> {
-            s.getAsyncRemote().sendObject(message, result ->  {
+            s.getAsyncRemote().sendObject(message, result -> {
                 if (result.getException() != null) {
                     System.out.println("Unable to send message: " + result.getException());
                 }

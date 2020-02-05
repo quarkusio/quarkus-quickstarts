@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.jwt.Claim;
 import org.eclipse.microprofile.jwt.Claims;
-import org.eclipse.microprofile.jwt.JsonWebToken;
 
 @Dependent
 public class LottoNumbersResource {
@@ -35,12 +34,12 @@ public class LottoNumbersResource {
             JsonString bdayString = birthdate.get();
             LocalDate bday = LocalDate.parse(bdayString.getString());
             numbers.add(bday.getDayOfMonth());
-            remaining --;
+            remaining--;
         }
-        while(remaining > 0) {
+        while (remaining > 0) {
             int pick = (int) Math.rint(64 * Math.random());
             numbers.add(pick);
-            remaining --;
+            remaining--;
         }
         LottoNumbers winners = new LottoNumbers();
         winners.numbers = numbers;

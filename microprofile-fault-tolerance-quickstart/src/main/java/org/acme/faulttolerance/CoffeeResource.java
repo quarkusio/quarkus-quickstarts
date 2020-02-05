@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -138,7 +139,6 @@ public class CoffeeResource {
         // safe bet, return something that everybody likes
         return Collections.singletonList(coffeeRepository.getCoffeeById(1));
     }
-
 
     private void maybeFail(String failureLogMessage) {
         // introduce some artificial failures

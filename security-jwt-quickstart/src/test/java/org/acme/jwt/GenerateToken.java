@@ -12,7 +12,7 @@ public class GenerateToken {
     /**
      *
      * @param args - [0]: optional name of classpath resource for json document of claims to add; defaults to "/JwtClaims.json"
-     *             [1]: optional time in seconds for expiration of generated token; defaults to 300
+     *        [1]: optional time in seconds for expiration of generated token; defaults to 300
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {

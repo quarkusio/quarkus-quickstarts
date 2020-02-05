@@ -1,10 +1,11 @@
 package org.acme.openapi.swaggerui;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Set;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 @Path("/fruits")
 @Produces(MediaType.APPLICATION_JSON)

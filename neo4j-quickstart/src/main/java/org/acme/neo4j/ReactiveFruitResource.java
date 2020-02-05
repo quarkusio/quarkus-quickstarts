@@ -25,7 +25,7 @@ public class ReactiveFruitResource {
     @GET
     @Produces(MediaType.SERVER_SENT_EVENTS)
     public Publisher<String> get() {
-        return Flux.using(driver::rxSession, session -> session.readTransaction(tx -> {            
+        return Flux.using(driver::rxSession, session -> session.readTransaction(tx -> {
             RxResult result = tx.run("MATCH (f:Fruit) RETURN f.name as name ORDER BY f.name");
             return Flux.from(result.records()).map(record -> record.get("name").asString());
         }), RxSession::close);

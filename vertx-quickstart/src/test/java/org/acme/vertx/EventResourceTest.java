@@ -1,14 +1,17 @@
 package org.acme.vertx;
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.startsWith;
 
-@QuarkusTest class EventResourceTest {
+import org.junit.jupiter.api.Test;
 
-    @Test void testEventBusGreeter() {
+import io.quarkus.test.junit.QuarkusTest;
+
+@QuarkusTest
+class EventResourceTest {
+
+    @Test
+    void testEventBusGreeter() {
         given()
                 .when().get("/async/Quarkus")
                 .then()

@@ -1,10 +1,11 @@
 package org.acme.quarkus.sample;
 
-import io.smallrye.reactive.messaging.annotations.Broadcast;
+import javax.enterprise.context.ApplicationScoped;
+
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
-import javax.enterprise.context.ApplicationScoped;
+import io.smallrye.reactive.messaging.annotations.Broadcast;
 
 /**
  * A bean consuming data from the "prices" Kafka topic and applying some conversion.

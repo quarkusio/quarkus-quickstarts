@@ -1,8 +1,8 @@
 package org.acme.quickstart.stm;
 
-import org.jboss.stm.Container;
-
 import javax.enterprise.context.ApplicationScoped;
+
+import org.jboss.stm.Container;
 
 @ApplicationScoped
 class FlightServiceFactory {

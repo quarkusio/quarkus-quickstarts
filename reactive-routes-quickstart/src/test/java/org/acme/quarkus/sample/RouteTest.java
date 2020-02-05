@@ -1,10 +1,11 @@
 package org.acme.quarkus.sample;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.core.Is.is;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
 
 @QuarkusTest
 public class RouteTest {
@@ -34,6 +35,5 @@ public class RouteTest {
                 .statusCode(200)
                 .body(is("Hello from my route"));
     }
-
 
 }

@@ -43,30 +43,27 @@ public class TopologyProducer {
                 Consumed.with(Serdes.Integer(), weatherStationSerde));
 
         builder.stream(
-                        TEMPERATURE_VALUES_TOPIC,
-                        Consumed.with(Serdes.Integer(), Serdes.String())
-                )
+                TEMPERATURE_VALUES_TOPIC,
+                Consumed.with(Serdes.Integer(), Serdes.String()))
                 .join(
                         stations,
                         (stationId, timestampAndValue) -> stationId,
                         (timestampAndValue, station) -> {
                             String[] parts = timestampAndValue.split(";");
-                            return new TemperatureMeasurement(station.id, station.name, Instant.parse(parts[0]), Double.valueOf(parts[1]));
-                        }
-                )
+                            return new TemperatureMeasurement(station.id, station.name, Instant.parse(parts[0]),
+                                    Double.valueOf(parts[1]));
+                        })
                 .groupByKey()
                 .aggregate(
                         Aggregation::new,
                         (stationId, value, aggregation) -> aggregation.updateFrom(value),
                         Materialized.<Integer, Aggregation> as(storeSupplier)
-                            .withKeySerde(Serdes.Integer())
-                            .withValueSerde(aggregationSerde)
-                )
+                                .withKeySerde(Serdes.Integer())
+                                .withValueSerde(aggregationSerde))
                 .toStream()
                 .to(
                         TEMPERATURES_AGGREGATED_TOPIC,
-                        Produced.with(Serdes.Integer(), aggregationSerde)
-                );
+                        Produced.with(Serdes.Integer(), aggregationSerde));
 
         return builder.build();
     }

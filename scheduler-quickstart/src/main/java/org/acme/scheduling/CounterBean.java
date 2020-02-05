@@ -16,12 +16,12 @@ public class CounterBean {
         return counter.get();
     }
 
-    @Scheduled(every="10s")
+    @Scheduled(every = "10s")
     void increment() {
         counter.incrementAndGet();
     }
-    
-    @Scheduled(cron="0 15 10 * * ?")
+
+    @Scheduled(cron = "0 15 10 * * ?")
     void cronJob(ScheduledExecution execution) {
         counter.incrementAndGet();
         System.out.println(execution.getScheduledFireTime());

@@ -1,15 +1,13 @@
 package org.acme.quarkus.sample;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import io.quarkus.vertx.web.Route;
-import io.quarkus.vertx.web.RoutingExchange;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.RoutingContext;
 
-import javax.enterprise.context.ApplicationScoped;
-
 @ApplicationScoped
 public class MyDeclarativeRoutes {
-
 
     @Route(path = "/", methods = HttpMethod.GET)
     public void handle(RoutingContext rc) {

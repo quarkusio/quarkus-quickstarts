@@ -1,5 +1,8 @@
 package org.acme.spring.data.jpa;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -8,9 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
-
-import java.util.List;
-import java.util.Optional;
 
 @Path("/fruits")
 public class FruitResource {
@@ -26,7 +26,6 @@ public class FruitResource {
     public Iterable<Fruit> findAll() {
         return fruitRepository.findAll();
     }
-
 
     @DELETE
     @Path("{id}")

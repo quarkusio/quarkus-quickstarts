@@ -1,6 +1,9 @@
 package org.acme.quickstart.stm;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -11,10 +14,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/stm")
 @RequestScoped
@@ -42,8 +43,7 @@ public class FlightResource {
     public CompletionStage<String> bookingCount() {
         return CompletableFuture.supplyAsync(
                 () -> getInfo(factory.getInstance()),
-                executor
-        );
+                executor);
     }
 
     @POST

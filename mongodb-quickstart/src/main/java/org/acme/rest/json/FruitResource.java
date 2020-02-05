@@ -15,7 +15,8 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 public class FruitResource {
 
-    @Inject FruitService fruitService;
+    @Inject
+    FruitService fruitService;
 
     @GET
     public List<Fruit> list() {

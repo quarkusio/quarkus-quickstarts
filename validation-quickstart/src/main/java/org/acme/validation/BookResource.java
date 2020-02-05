@@ -1,5 +1,8 @@
 package org.acme.validation;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -7,8 +10,6 @@ import javax.validation.Valid;
 import javax.validation.Validator;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Path("/books")
 public class BookResource {
@@ -58,7 +59,6 @@ public class BookResource {
             return new Result(e.getConstraintViolations());
         }
     }
-
 
     public static class Result {
 

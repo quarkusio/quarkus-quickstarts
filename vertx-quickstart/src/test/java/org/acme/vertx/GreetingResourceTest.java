@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
 
-@QuarkusTest class GreetingResourceTest {
+@QuarkusTest
+class GreetingResourceTest {
 
-    @Test void testGreeter() {
+    @Test
+    void testGreeter() {
         given()
                 .when().get("/hello/Quarkus")
                 .then()

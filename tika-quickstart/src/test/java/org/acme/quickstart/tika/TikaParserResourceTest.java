@@ -2,7 +2,6 @@ package org.acme.quickstart.tika;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.containsString;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -16,27 +15,27 @@ public class TikaParserResourceTest {
 
     @Test
     public void testHelloQuarkusPdfFormat() throws Exception {
-    	checkText("application/pdf", "pdf");
+        checkText("application/pdf", "pdf");
     }
 
     @Test
     public void testHelloQuarkusOdfFormat() throws Exception {
-    	checkText("application/vnd.oasis.opendocument.text", "odt");
+        checkText("application/vnd.oasis.opendocument.text", "odt");
     }
 
     private void checkText(String contentType, String extension) throws Exception {
         given()
-          .when().header("Content-Type", contentType)
-                 .body(readQuarkusFile("quarkus." + extension))
-                 .post("/parse/text")
-          .then()
-             .statusCode(200)
-             .body(is("Hello Quarkus"));
+                .when().header("Content-Type", contentType)
+                .body(readQuarkusFile("quarkus." + extension))
+                .post("/parse/text")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Quarkus"));
     }
-    
+
     private byte[] readQuarkusFile(String fileName) throws Exception {
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName)) {
-            return readBytes(is);    
+            return readBytes(is);
         }
     }
 

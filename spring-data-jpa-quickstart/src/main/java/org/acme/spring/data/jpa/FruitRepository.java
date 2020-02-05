@@ -1,8 +1,8 @@
 package org.acme.spring.data.jpa;
 
-import org.springframework.data.repository.CrudRepository;
-
 import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
 
 public interface FruitRepository extends CrudRepository<Fruit, Long> {
 
