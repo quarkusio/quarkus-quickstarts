@@ -8,7 +8,7 @@ public class Fruit {
 
     public String name;
 
-    public static Fruit from(Node node) {        
+    public static Fruit from(Node node) {
         return new Fruit(node.id(), node.get("name").asString());
     }
 

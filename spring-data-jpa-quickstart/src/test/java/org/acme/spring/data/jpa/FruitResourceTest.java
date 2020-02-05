@@ -1,13 +1,14 @@
 package org.acme.spring.data.jpa;
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.core.IsNot.not;
+
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 class FruitResourceTest {
@@ -22,15 +23,13 @@ class FruitResourceTest {
                 .body(
                         containsString("Cherry"),
                         containsString("Apple"),
-                        containsString("Banana")
-                );
+                        containsString("Banana"));
 
         //Delete the Cherry:
         given()
                 .when().delete("/fruits/1")
                 .then()
-                .statusCode(204)
-        ;
+                .statusCode(204);
 
         //List all, cherry should be missing now:
         given()
@@ -40,8 +39,7 @@ class FruitResourceTest {
                 .body(
                         not(containsString("Cherry")),
                         containsString("Apple"),
-                        containsString("Banana")
-                );
+                        containsString("Banana"));
 
         //Create a new Fruit
         given()
@@ -60,8 +58,7 @@ class FruitResourceTest {
                 .body(
                         not(containsString("Cherry")),
                         containsString("Apple"),
-                        containsString("Orange")
-                );
+                        containsString("Orange"));
     }
 
     @Test
@@ -80,8 +77,7 @@ class FruitResourceTest {
                 .statusCode(200)
                 .body(
                         containsString("Apple"),
-                        containsString("Strawberry")
-                );
+                        containsString("Strawberry"));
 
         //Find by color that matches
         given()
@@ -106,8 +102,7 @@ class FruitResourceTest {
                 .body("size()", is(1))
                 .body(
                         containsString("Black"),
-                        containsString("Avocado")
-                );
+                        containsString("Avocado"));
     }
 
 }

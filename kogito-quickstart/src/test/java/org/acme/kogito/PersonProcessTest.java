@@ -20,24 +20,24 @@ public class PersonProcessTest {
     @Test
     public void testAdult() {
         given()
-               .body("{\"person\": {\"name\":\"John Quark\", \"age\": 20}}")
-               .contentType(ContentType.JSON)
-          .when()
-               .post("/persons")
-          .then()
-             .statusCode(200)
-             .body("person.adult", is(true));
+                .body("{\"person\": {\"name\":\"John Quark\", \"age\": 20}}")
+                .contentType(ContentType.JSON)
+                .when()
+                .post("/persons")
+                .then()
+                .statusCode(200)
+                .body("person.adult", is(true));
     }
 
     @Test
     public void testChild() {
         given()
-               .body("{\"person\": {\"name\":\"Jenny Quark\", \"age\": 15}}")
-               .contentType(ContentType.JSON)
-          .when()
-               .post("/persons")
-          .then()
-             .statusCode(200)
-             .body("person.adult", is(false));
+                .body("{\"person\": {\"name\":\"Jenny Quark\", \"age\": 15}}")
+                .contentType(ContentType.JSON)
+                .when()
+                .post("/persons")
+                .then()
+                .statusCode(200)
+                .body("person.adult", is(false));
     }
 }

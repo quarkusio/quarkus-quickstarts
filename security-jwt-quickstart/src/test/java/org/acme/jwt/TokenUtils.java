@@ -41,22 +41,23 @@ public class TokenUtils {
         PrivateKey pk = readPrivateKey("/privateKey.pem");
         return generateTokenString(pk, "/privateKey.pem", jsonResName, timeClaims);
     }
-    
-    public static String generateTokenString(PrivateKey privateKey, String kid, 
-    		String jsonResName, Map<String, Long> timeClaims) throws Exception {
-        
-    	JwtClaimsBuilder claims = Jwt.claims(jsonResName);
+
+    public static String generateTokenString(PrivateKey privateKey, String kid,
+            String jsonResName, Map<String, Long> timeClaims) throws Exception {
+
+        JwtClaimsBuilder claims = Jwt.claims(jsonResName);
         long currentTimeInSecs = currentTimeInSecs();
-        long exp = timeClaims != null && timeClaims.containsKey(Claims.exp.name()) 
-        		? timeClaims.get(Claims.exp.name()) : currentTimeInSecs + 300;
-        
+        long exp = timeClaims != null && timeClaims.containsKey(Claims.exp.name())
+                ? timeClaims.get(Claims.exp.name())
+                : currentTimeInSecs + 300;
+
         claims.issuedAt(currentTimeInSecs);
         claims.claim(Claims.auth_time.name(), currentTimeInSecs);
         claims.expiresAt(exp);
-        
+
         return claims.jws().signatureKeyId(kid).sign(privateKey);
     }
-    
+
     /**
      * Read a PEM encoded private key from the classpath
      *

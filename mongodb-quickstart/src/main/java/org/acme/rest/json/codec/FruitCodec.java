@@ -1,6 +1,7 @@
 package org.acme.rest.json.codec;
 
-import com.mongodb.MongoClientSettings;
+import java.util.UUID;
+
 import org.acme.rest.json.Fruit;
 import org.bson.*;
 import org.bson.codecs.Codec;
@@ -8,7 +9,7 @@ import org.bson.codecs.CollectibleCodec;
 import org.bson.codecs.DecoderContext;
 import org.bson.codecs.EncoderContext;
 
-import java.util.UUID;
+import com.mongodb.MongoClientSettings;
 
 public class FruitCodec implements CollectibleCodec<Fruit> {
 

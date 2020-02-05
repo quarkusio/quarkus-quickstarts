@@ -1,21 +1,22 @@
 package org.acme.jwt;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
+
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 
 import javax.json.Json;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.containsString;
+import io.quarkus.test.junit.DisabledOnNativeImage;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 
 /**
  * Tests of the TokenSecuredResource REST endpoints
@@ -37,13 +38,13 @@ public class TokenSecuredResourceTest {
     @Test
     public void testHelloEndpoint() {
         Response response = given()
-          .when()
-          .get("/secured/permit-all")
-          .andReturn();
+                .when()
+                .get("/secured/permit-all")
+                .andReturn();
 
         response.then()
-          .statusCode(200)
-          .body(containsString("hello + anonymous, isSecure: false, authScheme: null, hasJWT: false"));
+                .statusCode(200)
+                .body(containsString("hello + anonymous, isSecure: false, authScheme: null, hasJWT: false"));
     }
 
     @Test
@@ -54,8 +55,8 @@ public class TokenSecuredResourceTest {
                 .get("/secured/roles-allowed").andReturn();
 
         response.then()
-          .statusCode(200)
-          .body(containsString("hello + jdoe@quarkus.io, isSecure: false, authScheme: Bearer, hasJWT: true"));
+                .statusCode(200)
+                .body(containsString("hello + jdoe@quarkus.io, isSecure: false, authScheme: Bearer, hasJWT: true"));
     }
 
     @Test
@@ -74,7 +75,7 @@ public class TokenSecuredResourceTest {
                 .oauth2(token)
                 .when()
                 .get("/secured/winners").andReturn();
-        
+
         Assertions.assertFalse(response.body().asString().isEmpty());
     }
 

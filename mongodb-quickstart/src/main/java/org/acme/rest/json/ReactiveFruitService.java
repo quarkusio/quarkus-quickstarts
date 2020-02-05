@@ -1,13 +1,15 @@
 package org.acme.rest.json;
 
-import io.quarkus.mongodb.ReactiveMongoClient;
-import io.quarkus.mongodb.ReactiveMongoCollection;
-import org.bson.Document;
+import java.util.List;
+import java.util.concurrent.CompletionStage;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.List;
-import java.util.concurrent.CompletionStage;
+
+import org.bson.Document;
+
+import io.quarkus.mongodb.ReactiveMongoClient;
+import io.quarkus.mongodb.ReactiveMongoCollection;
 
 @ApplicationScoped
 public class ReactiveFruitService {
@@ -15,7 +17,7 @@ public class ReactiveFruitService {
     @Inject
     ReactiveMongoClient mongoClient;
 
-    public CompletionStage<List<Fruit>> list(){
+    public CompletionStage<List<Fruit>> list() {
         return getCollection().find().map(doc -> {
             Fruit fruit = new Fruit();
             fruit.setName(doc.getString("name"));
@@ -24,14 +26,14 @@ public class ReactiveFruitService {
         }).toList().run();
     }
 
-    public CompletionStage<Void> add(Fruit fruit){
+    public CompletionStage<Void> add(Fruit fruit) {
         Document document = new Document()
                 .append("name", fruit.getName())
                 .append("description", fruit.getDescription());
         return getCollection().insertOne(document);
     }
 
-    private ReactiveMongoCollection<Document> getCollection(){
+    private ReactiveMongoCollection<Document> getCollection() {
         return mongoClient.getDatabase("fruit").getCollection("fruit");
     }
 }

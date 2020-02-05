@@ -1,5 +1,7 @@
 package org.acme.oauth2;
 
+import java.security.Principal;
+
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
@@ -8,7 +10,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
-import java.security.Principal;
 
 @Path("/secured")
 public class TokenSecuredResource {
@@ -18,20 +19,22 @@ public class TokenSecuredResource {
     @Produces(MediaType.TEXT_PLAIN)
     @PermitAll
     public String hello(@Context SecurityContext ctx) {
-        Principal caller =  ctx.getUserPrincipal();
+        Principal caller = ctx.getUserPrincipal();
         String name = caller == null ? "anonymous" : caller.getName();
-        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s", name, ctx.isSecure(), ctx.getAuthenticationScheme());
+        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s", name, ctx.isSecure(),
+                ctx.getAuthenticationScheme());
         return helloReply;
     }
 
     @GET()
     @Path("roles-allowed")
-    @RolesAllowed({"READER", "WRITER"})
+    @RolesAllowed({ "READER", "WRITER" })
     @Produces(MediaType.TEXT_PLAIN)
     public String helloRolesAllowed(@Context SecurityContext ctx) {
-        Principal caller =  ctx.getUserPrincipal();
+        Principal caller = ctx.getUserPrincipal();
         String name = caller == null ? "anonymous" : caller.getName();
-        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s", name, ctx.isSecure(), ctx.getAuthenticationScheme());
+        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s", name, ctx.isSecure(),
+                ctx.getAuthenticationScheme());
         return helloReply;
     }
 }

@@ -24,7 +24,7 @@ public class InteractiveQueries {
 
     private static final Logger LOG = LoggerFactory.getLogger(InteractiveQueries.class);
 
-    @ConfigProperty(name="hostname")
+    @ConfigProperty(name = "hostname")
     String host;
 
     @Inject
@@ -36,10 +36,9 @@ public class InteractiveQueries {
                 .map(m -> new PipelineMetadata(
                         m.hostInfo().host() + ":" + m.hostInfo().port(),
                         m.topicPartitions()
-                            .stream()
-                            .map(TopicPartition::toString)
-                            .collect(Collectors.toSet()))
-                )
+                                .stream()
+                                .map(TopicPartition::toString)
+                                .collect(Collectors.toSet())))
                 .collect(Collectors.toList());
     }
 
@@ -47,25 +46,21 @@ public class InteractiveQueries {
         StreamsMetadata metadata = streams.metadataForKey(
                 TopologyProducer.WEATHER_STATIONS_STORE,
                 id,
-                Serdes.Integer().serializer()
-        );
+                Serdes.Integer().serializer());
 
         if (metadata == null || metadata == StreamsMetadata.NOT_AVAILABLE) {
             LOG.warn("Found no metadata for key {}", id);
             return GetWeatherStationDataResult.notFound();
-        }
-        else if (metadata.host().equals(host)) {
+        } else if (metadata.host().equals(host)) {
             LOG.info("Found data for key {} locally", id);
             Aggregation result = getWeatherStationStore().get(id);
 
             if (result != null) {
                 return GetWeatherStationDataResult.found(WeatherStationData.from(result));
-            }
-            else {
+            } else {
                 return GetWeatherStationDataResult.notFound();
             }
-        }
-        else {
+        } else {
             LOG.info("Found data for key {} on remote host {}:{}", id, metadata.host(), metadata.port());
             return GetWeatherStationDataResult.foundRemotely(metadata.host(), metadata.port());
         }

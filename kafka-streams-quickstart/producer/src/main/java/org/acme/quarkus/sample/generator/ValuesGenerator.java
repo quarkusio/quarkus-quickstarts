@@ -42,9 +42,7 @@ public class ValuesGenerator {
                     new WeatherStation(6, "Svalbard", -7),
                     new WeatherStation(7, "Porthsmouth", 11),
                     new WeatherStation(8, "Oslo", 7),
-                    new WeatherStation(9, "Marrakesh", 20)
-            ));
-
+                    new WeatherStation(9, "Marrakesh", 20)));
 
     @Outgoing("temperature-values")
     public Flowable<KafkaMessage<Integer, String>> generate() {
@@ -65,8 +63,8 @@ public class ValuesGenerator {
     @Outgoing("weather-stations")
     public Flowable<KafkaMessage<Integer, String>> weatherStations() {
         List<KafkaMessage<Integer, String>> stationsAsJson = stations.stream()
-            .map(s -> KafkaMessage.of(s.id, "{ \"id\" : " + s.id + ", \"name\" : \"" + s.name + "\" }"))
-            .collect(Collectors.toList());
+                .map(s -> KafkaMessage.of(s.id, "{ \"id\" : " + s.id + ", \"name\" : \"" + s.name + "\" }"))
+                .collect(Collectors.toList());
 
         return Flowable.fromIterable(stationsAsJson);
     };

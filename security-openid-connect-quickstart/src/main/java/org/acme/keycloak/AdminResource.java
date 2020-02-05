@@ -15,13 +15,13 @@
  */
 package org.acme.keycloak;
 
-import io.quarkus.security.Authenticated;
-
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import io.quarkus.security.Authenticated;
 
 /**
  * @author <a href="mailto:psilva@redhat.com">Pedro Igor</a>

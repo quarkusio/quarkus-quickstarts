@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
+
 import javax.enterprise.context.ApplicationScoped;
 
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
@@ -22,7 +23,6 @@ public class CoffeeRepositoryService {
     private Map<Integer, Integer> availability = new HashMap<>();
 
     private AtomicLong counter = new AtomicLong(0);
-
 
     public CoffeeRepositoryService() {
         coffeeList.put(1, new Coffee(1, "Fernandez Espresso", "Colombia", 23));

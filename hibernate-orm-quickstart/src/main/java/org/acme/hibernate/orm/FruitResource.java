@@ -35,7 +35,7 @@ public class FruitResource {
     @GET
     public Fruit[] get() {
         return entityManager.createNamedQuery("Fruits.findAll", Fruit.class)
-              .getResultList().toArray(new Fruit[0]);
+                .getResultList().toArray(new Fruit[0]);
     }
 
     @GET
@@ -107,7 +107,7 @@ public class FruitResource {
                     .add("code", code);
 
             if (exception.getMessage() != null) {
-                    entityBuilder.add("error", exception.getMessage());
+                entityBuilder.add("error", exception.getMessage());
             }
 
             return Response.status(code)

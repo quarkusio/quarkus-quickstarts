@@ -1,9 +1,9 @@
 package org.acme.quarkus.sample;
 
-import io.quarkus.vertx.http.runtime.filters.Filters;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+
+import io.quarkus.vertx.http.runtime.filters.Filters;
 
 @ApplicationScoped
 public class MyFilter {

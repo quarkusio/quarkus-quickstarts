@@ -1,20 +1,22 @@
 package org.acme.rest.json;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
-
 @ApplicationScoped
 public class CodecFruitService {
 
-    @Inject MongoClient mongoClient;
+    @Inject
+    MongoClient mongoClient;
 
-    public List<Fruit> list(){
+    public List<Fruit> list() {
         List<Fruit> list = new ArrayList<>();
         MongoCursor<Fruit> cursor = getCollection().find().iterator();
 
@@ -28,11 +30,11 @@ public class CodecFruitService {
         return list;
     }
 
-    public void add(Fruit fruit){
+    public void add(Fruit fruit) {
         getCollection().insertOne(fruit);
     }
 
-    private MongoCollection<Fruit> getCollection(){
+    private MongoCollection<Fruit> getCollection() {
         return mongoClient.getDatabase("fruit").getCollection("fruit", Fruit.class);
     }
 }

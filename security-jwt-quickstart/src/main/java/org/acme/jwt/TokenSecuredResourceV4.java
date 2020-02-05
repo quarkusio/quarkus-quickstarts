@@ -39,21 +39,23 @@ public class TokenSecuredResourceV4 {
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     public String hello(@Context SecurityContext ctx) {
-        Principal caller =  ctx.getUserPrincipal();
+        Principal caller = ctx.getUserPrincipal();
         String name = caller == null ? "anonymous" : caller.getName();
-        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s", name, ctx.isSecure(), ctx.getAuthenticationScheme());
+        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s", name, ctx.isSecure(),
+                ctx.getAuthenticationScheme());
         return helloReply;
     }
 
     @GET()
     @Path("roles-allowed")
-    @RolesAllowed({"Echoer", "Subscriber"})
+    @RolesAllowed({ "Echoer", "Subscriber" })
     @Produces(MediaType.TEXT_PLAIN)
     public String helloRolesAllowed(@Context SecurityContext ctx) {
-        Principal caller =  ctx.getUserPrincipal();
+        Principal caller = ctx.getUserPrincipal();
         String name = caller == null ? "anonymous" : caller.getName();
         boolean hasJWT = jwt.getClaimNames() != null;
-        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s, hasJWT: %s", name, ctx.isSecure(), ctx.getAuthenticationScheme(), hasJWT);
+        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s, hasJWT: %s", name, ctx.isSecure(),
+                ctx.getAuthenticationScheme(), hasJWT);
         return helloReply;
     }
 
@@ -70,13 +72,13 @@ public class TokenSecuredResourceV4 {
             String bdayString = birthdate.get().getString();
             LocalDate bday = LocalDate.parse(bdayString);
             numbers.add(bday.getDayOfMonth());
-            remaining --;
+            remaining--;
         }
         // Fill remaining picks with random numbers
-        while(remaining > 0) {
+        while (remaining > 0) {
             int pick = (int) Math.rint(64 * Math.random() + 1);
             numbers.add(pick);
-            remaining --;
+            remaining--;
         }
         return numbers.toString();
     }

@@ -12,7 +12,6 @@ public class CountResource {
     @Inject
     CounterBean counter;
 
-
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {

@@ -8,10 +8,11 @@ import static org.hamcrest.core.StringContains.containsString;
 
 import javax.inject.Inject;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
-import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.junit.DisabledOnNativeImage;
+import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 public class CoffeeResourceTest {

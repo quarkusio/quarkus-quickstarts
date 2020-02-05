@@ -11,19 +11,20 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.tika.TikaParser;
 import org.jboss.logging.Logger;
+
+import io.quarkus.tika.TikaParser;
 
 @Path("/parse")
 public class TikaParserResource {
     private static final Logger log = Logger.getLogger(TikaParserResource.class);
 
     @Inject
-    TikaParser parser; 
+    TikaParser parser;
 
     @POST
     @Path("/text")
-    @Consumes({"application/pdf", "application/vnd.oasis.opendocument.text"})
+    @Consumes({ "application/pdf", "application/vnd.oasis.opendocument.text" })
     @Produces(MediaType.TEXT_PLAIN)
     public String extractText(InputStream stream) {
         Instant start = Instant.now();
@@ -32,7 +33,7 @@ public class TikaParserResource {
 
         Instant finish = Instant.now();
 
-        log.info(Duration.between(start, finish).toMillis() + " mls have passed"); 
+        log.info(Duration.between(start, finish).toMillis() + " mls have passed");
 
         return text;
     }

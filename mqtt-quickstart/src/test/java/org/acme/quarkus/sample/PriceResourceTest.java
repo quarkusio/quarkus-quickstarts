@@ -1,19 +1,21 @@
 package org.acme.quarkus.sample;
 
-import io.quarkus.test.common.http.TestHTTPResource;
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.net.URI;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.sse.SseEventSource;
-import java.net.URI;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.common.http.TestHTTPResource;
+import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 public class PriceResourceTest {
@@ -24,10 +26,10 @@ public class PriceResourceTest {
     @Test
     public void shouldGetHello() {
         given()
-              .when().get("/prices")
-              .then()
-              .statusCode(200)
-              .body(is("hello"));
+                .when().get("/prices")
+                .then()
+                .statusCode(200)
+                .body(is("hello"));
     }
 
     @Test
@@ -44,7 +46,7 @@ public class PriceResourceTest {
                 priceCount.incrementAndGet();
             });
             source.open();
-            Thread.sleep(15*1000L);
+            Thread.sleep(15 * 1000L);
         } catch (InterruptedException ignored) {
         }
 

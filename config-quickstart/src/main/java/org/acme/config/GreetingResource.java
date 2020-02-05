@@ -15,12 +15,11 @@ public class GreetingResource {
     @ConfigProperty(name = "greeting.message")
     String message;
 
-    @ConfigProperty(name = "greeting.suffix", defaultValue="!")
+    @ConfigProperty(name = "greeting.suffix", defaultValue = "!")
     String suffix;
 
     @ConfigProperty(name = "greeting.name")
     Optional<String> name;
-
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)

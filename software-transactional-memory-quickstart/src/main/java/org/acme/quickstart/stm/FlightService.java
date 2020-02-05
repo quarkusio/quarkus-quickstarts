@@ -7,5 +7,6 @@ import org.jboss.stm.annotations.Transactional;
 @NestedTopLevel
 public interface FlightService {
     int getNumberOfBookings();
+
     void makeBooking(String details);
 }

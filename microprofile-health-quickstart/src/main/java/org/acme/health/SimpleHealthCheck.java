@@ -1,10 +1,10 @@
 package org.acme.health;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Liveness;
-
-import javax.enterprise.context.ApplicationScoped;
 
 @Liveness
 @ApplicationScoped

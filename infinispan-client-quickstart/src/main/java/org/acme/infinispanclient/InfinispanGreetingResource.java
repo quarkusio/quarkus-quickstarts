@@ -13,13 +13,13 @@ import io.quarkus.infinispan.client.Remote;
 @Path("/infinispan")
 public class InfinispanGreetingResource {
 
-   @Inject
-   @Remote("mycache")
-   RemoteCache<String, String> cache;
+    @Inject
+    @Remote("mycache")
+    RemoteCache<String, String> cache;
 
-   @GET
-   @Produces(MediaType.TEXT_PLAIN)
-   public String hello() {
-      return cache.get("hello");
-   }
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return cache.get("hello");
+    }
 }

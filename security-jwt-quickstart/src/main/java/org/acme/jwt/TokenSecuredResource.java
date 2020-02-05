@@ -29,7 +29,7 @@ public class TokenSecuredResource {
 
     @Context
     ResourceContext resourceContext;
-    
+
     @Inject
     JsonWebToken jwt;
     @Inject
@@ -41,22 +41,24 @@ public class TokenSecuredResource {
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     public String hello(@Context SecurityContext ctx) {
-        Principal caller =  ctx.getUserPrincipal();
+        Principal caller = ctx.getUserPrincipal();
         String name = caller == null ? "anonymous" : caller.getName();
         boolean hasJWT = jwt.getClaimNames() != null;
-        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s, hasJWT: %s", name, ctx.isSecure(), ctx.getAuthenticationScheme(), hasJWT);
+        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s, hasJWT: %s", name, ctx.isSecure(),
+                ctx.getAuthenticationScheme(), hasJWT);
         return helloReply;
     }
 
     @GET()
     @Path("roles-allowed")
-    @RolesAllowed({"Echoer", "Subscriber"})
+    @RolesAllowed({ "Echoer", "Subscriber" })
     @Produces(MediaType.TEXT_PLAIN)
     public String helloRolesAllowed(@Context SecurityContext ctx) {
-        Principal caller =  ctx.getUserPrincipal();
+        Principal caller = ctx.getUserPrincipal();
         String name = caller == null ? "anonymous" : caller.getName();
         boolean hasJWT = jwt.getClaimNames() != null;
-        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s, hasJWT: %s", name, ctx.isSecure(), ctx.getAuthenticationScheme(), hasJWT);
+        String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s, hasJWT: %s", name, ctx.isSecure(),
+                ctx.getAuthenticationScheme(), hasJWT);
         return helloReply;
     }
 
@@ -65,7 +67,7 @@ public class TokenSecuredResource {
     @DenyAll
     @Produces(MediaType.TEXT_PLAIN)
     public String helloShouldDeny(@Context SecurityContext ctx) {
-        Principal caller =  ctx.getUserPrincipal();
+        Principal caller = ctx.getUserPrincipal();
         String name = caller == null ? "anonymous" : caller.getName();
         return "hello + " + name;
     }
@@ -83,13 +85,13 @@ public class TokenSecuredResource {
             String bdayString = jwt.getClaim(Claims.birthdate.name());
             LocalDate bday = LocalDate.parse(bdayString);
             numbers.add(bday.getDayOfMonth());
-            remaining --;
+            remaining--;
         }
         // Fill remaining picks with random numbers
-        while(remaining > 0) {
+        while (remaining > 0) {
             int pick = (int) Math.rint(64 * Math.random() + 1);
             numbers.add(pick);
-            remaining --;
+            remaining--;
         }
         return numbers.toString();
     }
@@ -107,19 +109,20 @@ public class TokenSecuredResource {
             String bdayString = birthdate.get().getString();
             LocalDate bday = LocalDate.parse(bdayString);
             numbers.add(bday.getDayOfMonth());
-            remaining --;
+            remaining--;
         }
         // Fill remaining picks with random numbers
-        while(remaining > 0) {
+        while (remaining > 0) {
             int pick = (int) Math.rint(64 * Math.random() + 1);
             numbers.add(pick);
-            remaining --;
+            remaining--;
         }
         return numbers.toString();
     }
 
     /**
      * Illustrate the same functionality as the winners endpoint using a sub-resource that has injected JsonWebToken and
+     * 
      * @Claim values using the {@linkplain CDI#current()} API.
      *
      * @return LottoNumbersResource

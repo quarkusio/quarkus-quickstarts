@@ -1,13 +1,14 @@
 package org.acme.quartz;
 
-import javax.persistence.Entity;
 import java.time.Instant;
+
+import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 @Entity
-@Table(name="TASKS")
+@Table(name = "TASKS")
 public class Task extends PanacheEntity {
     public Instant createdAt;
 

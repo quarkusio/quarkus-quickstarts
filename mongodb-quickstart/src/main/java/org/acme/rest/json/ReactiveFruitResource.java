@@ -1,19 +1,19 @@
 package org.acme.rest.json;
 
+import java.util.List;
+import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
-import java.util.concurrent.CompletionStage;
 
 @Path("/reactive_fruits")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ReactiveFruitResource {
 
-    @Inject ReactiveFruitService fruitService;
-
+    @Inject
+    ReactiveFruitService fruitService;
 
     @GET
     public CompletionStage<List<Fruit>> list() {
@@ -21,7 +21,7 @@ public class ReactiveFruitResource {
     }
 
     @POST
-    public CompletionStage<List<Fruit>>  add(Fruit fruit) {
+    public CompletionStage<List<Fruit>> add(Fruit fruit) {
         return fruitService.add(fruit).thenCompose(x -> list());
     }
 }

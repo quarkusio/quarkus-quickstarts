@@ -35,12 +35,10 @@ public class WeatherStationEndpoint {
 
         if (result.getResult().isPresent()) {
             return Response.ok(result.getResult().get()).build();
-        }
-        else if (result.getHost().isPresent()) {
+        } else if (result.getHost().isPresent()) {
             URI otherUri = getOtherUri(result.getHost().get(), result.getPort().getAsInt(), id);
             return Response.seeOther(otherUri).build();
-        }
-        else {
+        } else {
             return Response.status(Status.NOT_FOUND.getStatusCode(), "No data found for weather station " + id).build();
         }
     }
@@ -55,8 +53,7 @@ public class WeatherStationEndpoint {
     private URI getOtherUri(String host, int port, int id) {
         try {
             return new URI("http://" + host + ":" + port + "/weather-stations/data/" + id);
-        }
-        catch (URISyntaxException e) {
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }

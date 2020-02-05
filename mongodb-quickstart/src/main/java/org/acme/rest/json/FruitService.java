@@ -1,21 +1,24 @@
 package org.acme.rest.json;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import org.bson.Document;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.bson.Document;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 
 @ApplicationScoped
 public class FruitService {
 
-    @Inject MongoClient mongoClient;
+    @Inject
+    MongoClient mongoClient;
 
-    public List<Fruit> list(){
+    public List<Fruit> list() {
         List<Fruit> list = new ArrayList<>();
         MongoCursor<Document> cursor = getCollection().find().iterator();
 
@@ -33,14 +36,14 @@ public class FruitService {
         return list;
     }
 
-    public void add(Fruit fruit){
+    public void add(Fruit fruit) {
         Document document = new Document()
                 .append("name", fruit.getName())
                 .append("description", fruit.getDescription());
         getCollection().insertOne(document);
     }
 
-    private MongoCollection getCollection(){
+    private MongoCollection getCollection() {
         return mongoClient.getDatabase("fruit").getCollection("fruit");
     }
 }
