@@ -8,6 +8,29 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>net.revelc.code.formatter</groupId>
+                    <artifactId>formatter-maven-plugin</artifactId>
+                    <version>2.11.0</version>
+                    <dependencies>
+                        <dependency>
+                            <artifactId>quarkus-ide-config</artifactId>
+                            <groupId>io.quarkus</groupId>
+                            <version>999-SNAPSHOT</version>
+                        </dependency>
+                      </dependencies>
+                    <configuration>
+                        <configFile>eclipse-format.xml</configFile>
+                        <skip>${format.skip}</skip>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
     <modules>
         <module>amqp-quickstart</module>
         <module>cache-quickstart</module>
