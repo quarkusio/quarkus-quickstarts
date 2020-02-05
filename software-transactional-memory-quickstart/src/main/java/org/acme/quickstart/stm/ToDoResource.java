@@ -15,17 +15,18 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.Random;
 
 @Path("/stm")
 @RequestScoped
-public class FlightResource {
+public class ToDoResource {
     ExecutorService executor;
 
     @ConfigProperty(name = "org.acme.quickstart.stm.threadpool.size")
-    int threadPoolSize;;
+    int threadPoolSize;
 
     @Inject
-    FlightServiceFactory factory;
+    ToDoFactory factory;
 
     @PostConstruct
     void postConstruct() {
@@ -39,7 +40,7 @@ public class FlightResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public CompletionStage<String> bookingCount() {
+    public CompletionStage<String> currentTask() {
         return CompletableFuture.supplyAsync(
                 () -> getInfo(factory.getInstance()),
                 executor
@@ -48,29 +49,53 @@ public class FlightResource {
 
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public CompletionStage<String> asynBook() {
+    public CompletionStage<String> asyncAssignTask() {
         return CompletableFuture.supplyAsync(() -> {
-            FlightService flightService = factory.getInstance();
+		ToDo todoManager = factory.getInstance();
 
-            flightService.makeBooking("BA123");
+		todoManager.setToDo(randomTask(), nextTaskID());
 
-            return getInfo(flightService);
+            return getInfo(todoManager);
         }, executor);
     }
 
     @POST
     @Path("sync")
     @Produces(MediaType.TEXT_PLAIN)
-    public String book() {
-        FlightService flightService = factory.getInstance();
+    public String assignTask() {
+        ToDo todoManager = factory.getInstance();
 
-        flightService.makeBooking("BA123");
+	todoManager.setToDo(randomTask(), nextTaskID());
 
-        return getInfo(flightService);
+        return getInfo(todoManager);
     }
 
-    private String getInfo(FlightService flightService) {
+    private String getInfo(ToDo todoManager) {
         return Thread.currentThread().getName()
-                + ":  Booking Count=" + flightService.getNumberOfBookings();
+	    + ":  Next task=" + todoManager.getToDo(taskNumber);
     }
+
+    private String randomTask ()
+    {
+	return tasks[rand.nextInt(tasks.length)];
+    }
+    
+    synchronized private int nextTaskID ()
+    {
+	taskNumber++;
+
+	if (taskNumber >= ToDo.MAX_TASKS)
+	    taskNumber = 0;
+
+	return taskNumber;
+    }
+
+    synchronized private int currentTaskID ()
+    {
+	return taskNumber;
+    }    
+    
+    private static int taskNumber = 0;
+    private static String[] tasks = {"todo - walk the dog", "todo - pay bills", "todo - write some Quarkus code!", "todo - play on PS4", "todo - read book", "todo - work!", "todo - read email"};
+    private static Random rand = new Random();
 }
