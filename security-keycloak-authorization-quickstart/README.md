@@ -50,13 +50,13 @@ To start a Keycloak Server you can use Docker and just run the following command
 docker run --name keycloak -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8180:8080 quay.io/keycloak/keycloak:7.0.1
 ```
 
-You should be able to access your Keycloak Server at http://localhost:8180/auth[localhost:8180/auth].
+You should be able to access your Keycloak Server at [localhost:8180/auth](http://localhost:8180/auth).
 
 Log in as the `admin` user to access the Keycloak Administration Console.
 Username should be `admin` and password `admin`.
 
 Import the [realm configuration file](config/quarkus-realm.json) to create a new realm.
-For more details, see the Keycloak documentation about how to https://www.keycloak.org/docs/latest/server_admin/index.html#_create-realm[create a new realm].
+For more details, see the Keycloak documentation about how to [create a new realm](https://www.keycloak.org/docs/latest/server_admin/index.html#_create-realm).
 
 ### Live coding with Quarkus
 
