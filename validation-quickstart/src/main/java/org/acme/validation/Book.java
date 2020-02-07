@@ -1,6 +1,7 @@
 package org.acme.validation;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Min;
 
 public class Book {
 

@@ -4,7 +4,11 @@ import java.net.URI;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
-import javax.websocket.*;
+import javax.websocket.ClientEndpoint;
+import javax.websocket.Session;
+import javax.websocket.OnOpen;
+import javax.websocket.OnMessage;
+import javax.websocket.ContainerProvider;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

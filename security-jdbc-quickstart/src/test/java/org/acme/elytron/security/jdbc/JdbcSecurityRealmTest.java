@@ -1,6 +1,7 @@
 package org.acme.elytron.security.jdbc;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
 
 import org.apache.http.HttpStatus;
