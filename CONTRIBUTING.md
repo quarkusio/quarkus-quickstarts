@@ -30,12 +30,7 @@ All submissions, including submissions by project members, need to be reviewed b
 
 ### Code formatting
 
-For consistent formatting each PR are validated/checked using Quarkus ide-config code formatting rules. Each project does not have the formatting setup to mimic raw quarkus projects but you can run the following manually at root level to get the formatting done:
-
-```
-mvn -fae -Dproject.build.sourceEncoding=UTF-8 net.revelc.code.formatter:formatter-maven-plugin:2.11.0:format
-mvn -fae -Dproject.build.sourceEncoding=UTF-8 net.revelc.code:impsort-maven-plugin:1.3.2:sort -Dimpsort.groups='java.,javax.,org.,com.' -Dimpsort.staticGroups='*' -Dimpsort.removeUnused=true
-```
+For consistent formatting each PR are validated/checked using Quarkus ide-config code formatting rules. Each project does not have the formatting setup to mimic raw quarkus projects but you can run the `format-quickstarts` manually at root level to get the formatting done.
 
 ### Continuous Integration
 

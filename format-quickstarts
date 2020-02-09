@@ -1,0 +1,2 @@
+mvn -fae -Dproject.build.sourceEncoding=UTF-8 net.revelc.code.formatter:formatter-maven-plugin:2.11.0:format
+mvn -fae -Dproject.build.sourceEncoding=UTF-8 net.revelc.code:impsort-maven-plugin:1.3.2:sort -Dimpsort.gro
