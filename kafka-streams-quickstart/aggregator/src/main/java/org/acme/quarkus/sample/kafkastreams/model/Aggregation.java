@@ -23,7 +23,8 @@ public class Aggregation {
         count++;
         sum += measurement.value;
         avg = BigDecimal.valueOf(sum / count)
-                .setScale(1, RoundingMode.HALF_UP).doubleValue();
+                        .setScale(1, RoundingMode.HALF_UP)
+                        .doubleValue();
 
         min = Math.min(min, measurement.value);
         max = Math.max(max, measurement.value);

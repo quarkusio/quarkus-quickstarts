@@ -26,10 +26,11 @@ public class PriceResourceTest {
     @Test
     public void shouldGetHello() {
         given()
-                .when().get("/prices")
-                .then()
-                .statusCode(200)
-                .body(is("hello"));
+               .when()
+               .get("/prices")
+               .then()
+               .statusCode(200)
+               .body(is("hello"));
     }
 
     @Test
@@ -39,7 +40,8 @@ public class PriceResourceTest {
 
         AtomicInteger priceCount = new AtomicInteger();
 
-        try (SseEventSource source = SseEventSource.target(target).build()) {
+        try (SseEventSource source = SseEventSource.target(target)
+                                                   .build()) {
             source.register(event -> {
                 Double value = event.readData(Double.class);
                 System.out.println("Received price: " + value);

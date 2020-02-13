@@ -35,7 +35,8 @@ public class FruitResource {
     @GET
     public Fruit[] get() {
         return entityManager.createNamedQuery("Fruits.findAll", Fruit.class)
-                .getResultList().toArray(new Fruit[0]);
+                            .getResultList()
+                            .toArray(new Fruit[0]);
     }
 
     @GET
@@ -56,7 +57,9 @@ public class FruitResource {
         }
 
         entityManager.persist(fruit);
-        return Response.ok(fruit).status(201).build();
+        return Response.ok(fruit)
+                       .status(201)
+                       .build();
     }
 
     @PUT
@@ -87,7 +90,8 @@ public class FruitResource {
             throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
         }
         entityManager.remove(entity);
-        return Response.status(204).build();
+        return Response.status(204)
+                       .build();
     }
 
     @Provider
@@ -99,20 +103,22 @@ public class FruitResource {
 
             int code = 500;
             if (exception instanceof WebApplicationException) {
-                code = ((WebApplicationException) exception).getResponse().getStatus();
+                code = ((WebApplicationException) exception).getResponse()
+                                                            .getStatus();
             }
 
             JsonObjectBuilder entityBuilder = Json.createObjectBuilder()
-                    .add("exceptionType", exception.getClass().getName())
-                    .add("code", code);
+                                                  .add("exceptionType", exception.getClass()
+                                                                                 .getName())
+                                                  .add("code", code);
 
             if (exception.getMessage() != null) {
                 entityBuilder.add("error", exception.getMessage());
             }
 
             return Response.status(code)
-                    .entity(entityBuilder.build())
-                    .build();
+                           .entity(entityBuilder.build())
+                           .build();
         }
 
     }

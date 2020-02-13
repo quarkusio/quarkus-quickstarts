@@ -11,15 +11,18 @@ public class MyDeclarativeRoutes {
 
     @Route(path = "/", methods = HttpMethod.GET)
     public void handle(RoutingContext rc) {
-        rc.response().end("hello");
+        rc.response()
+          .end("hello");
     }
 
     @Route(path = "/hello", methods = HttpMethod.GET)
     public void greetings(RoutingContext rc) {
-        String name = rc.request().getParam("name");
+        String name = rc.request()
+                        .getParam("name");
         if (name == null) {
             name = "world";
         }
-        rc.response().end("hello " + name);
+        rc.response()
+          .end("hello " + name);
     }
 }

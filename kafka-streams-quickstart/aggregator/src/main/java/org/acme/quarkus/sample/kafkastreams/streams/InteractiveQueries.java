@@ -32,26 +32,31 @@ public class InteractiveQueries {
 
     public List<PipelineMetadata> getMetaData() {
         return streams.allMetadataForStore(TopologyProducer.WEATHER_STATIONS_STORE)
-                .stream()
-                .map(m -> new PipelineMetadata(
-                        m.hostInfo().host() + ":" + m.hostInfo().port(),
-                        m.topicPartitions()
-                                .stream()
-                                .map(TopicPartition::toString)
-                                .collect(Collectors.toSet())))
-                .collect(Collectors.toList());
+                      .stream()
+                      .map(m -> new PipelineMetadata(
+                              m.hostInfo()
+                               .host() + ":"
+                                      + m.hostInfo()
+                                         .port(),
+                              m.topicPartitions()
+                               .stream()
+                               .map(TopicPartition::toString)
+                               .collect(Collectors.toSet())))
+                      .collect(Collectors.toList());
     }
 
     public GetWeatherStationDataResult getWeatherStationData(int id) {
         StreamsMetadata metadata = streams.metadataForKey(
                 TopologyProducer.WEATHER_STATIONS_STORE,
                 id,
-                Serdes.Integer().serializer());
+                Serdes.Integer()
+                      .serializer());
 
         if (metadata == null || metadata == StreamsMetadata.NOT_AVAILABLE) {
             LOG.warn("Found no metadata for key {}", id);
             return GetWeatherStationDataResult.notFound();
-        } else if (metadata.host().equals(host)) {
+        } else if (metadata.host()
+                           .equals(host)) {
             LOG.info("Found data for key {} locally", id);
             Aggregation result = getWeatherStationStore().get(id);
 

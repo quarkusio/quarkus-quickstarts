@@ -43,6 +43,7 @@ public class GreeterBean {
 
     public String greet(String name) {
         final String initialValue = messageProducer.getPrefix() + " " + name + suffix;
-        return noopStringFunction.andThen(capitalizerStringFunction).apply(initialValue);
+        return noopStringFunction.andThen(capitalizerStringFunction)
+                                 .apply(initialValue);
     }
 }

@@ -18,29 +18,37 @@ public abstract class AbstractService {
     }
 
     protected ScanRequest scanRequest() {
-        return ScanRequest.builder().tableName(getTableName())
-                .attributesToGet(FRUIT_NAME_COL, FRUIT_DESC_COL).build();
+        return ScanRequest.builder()
+                          .tableName(getTableName())
+                          .attributesToGet(FRUIT_NAME_COL, FRUIT_DESC_COL)
+                          .build();
     }
 
     protected PutItemRequest putRequest(Fruit fruit) {
         Map<String, AttributeValue> item = new HashMap<>();
-        item.put(FRUIT_NAME_COL, AttributeValue.builder().s(fruit.getName()).build());
-        item.put(FRUIT_DESC_COL, AttributeValue.builder().s(fruit.getDescription()).build());
+        item.put(FRUIT_NAME_COL, AttributeValue.builder()
+                                               .s(fruit.getName())
+                                               .build());
+        item.put(FRUIT_DESC_COL, AttributeValue.builder()
+                                               .s(fruit.getDescription())
+                                               .build());
 
         return PutItemRequest.builder()
-                .tableName(getTableName())
-                .item(item)
-                .build();
+                             .tableName(getTableName())
+                             .item(item)
+                             .build();
     }
 
     protected GetItemRequest getRequest(String name) {
         Map<String, AttributeValue> key = new HashMap<>();
-        key.put(FRUIT_NAME_COL, AttributeValue.builder().s(name).build());
+        key.put(FRUIT_NAME_COL, AttributeValue.builder()
+                                              .s(name)
+                                              .build());
 
         return GetItemRequest.builder()
-                .tableName(getTableName())
-                .key(key)
-                .attributesToGet(FRUIT_NAME_COL, FRUIT_DESC_COL)
-                .build();
+                             .tableName(getTableName())
+                             .key(key)
+                             .attributesToGet(FRUIT_NAME_COL, FRUIT_DESC_COL)
+                             .build();
     }
 }

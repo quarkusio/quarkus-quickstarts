@@ -1,2 +1,3 @@
-mvn -fae -Dproject.build.sourceEncoding=UTF-8 net.revelc.code.formatter:formatter-maven-plugin:2.11.0:format
-mvn -fae -Dproject.build.sourceEncoding=UTF-8 net.revelc.code:impsort-maven-plugin:1.3.2:sort -Dimpsort.gro
+mvn -fae -Dproject.build.sourceEncoding=UTF-8 net.revelc.code.formatter:formatter-maven-plugin:2.11.0:format -Dconfigfile=`realpath ../quarkus/independent-projects/ide-config/src/main/resources/eclipse-format.xml`
+mvn -fae -Dproject.build.sourceEncoding=UTF-8 net.revelc.code:impsort-maven-plugin:1.3.2:sort -Dimpsort.groups='java.,javax.,org.,com.' -Dimpsort.staticGroups='*' -Dimpsort.removeUnused=true
+

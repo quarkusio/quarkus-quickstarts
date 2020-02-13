@@ -20,7 +20,8 @@ public class FruitService {
 
     public List<Fruit> list() {
         List<Fruit> list = new ArrayList<>();
-        MongoCursor<Document> cursor = getCollection().find().iterator();
+        MongoCursor<Document> cursor = getCollection().find()
+                                                      .iterator();
 
         try {
             while (cursor.hasNext()) {
@@ -38,12 +39,13 @@ public class FruitService {
 
     public void add(Fruit fruit) {
         Document document = new Document()
-                .append("name", fruit.getName())
-                .append("description", fruit.getDescription());
+                                          .append("name", fruit.getName())
+                                          .append("description", fruit.getDescription());
         getCollection().insertOne(document);
     }
 
     private MongoCollection getCollection() {
-        return mongoClient.getDatabase("fruit").getCollection("fruit");
+        return mongoClient.getDatabase("fruit")
+                          .getCollection("fruit");
     }
 }

@@ -55,7 +55,9 @@ public class TokenUtils {
         claims.claim(Claims.auth_time.name(), currentTimeInSecs);
         claims.expiresAt(exp);
 
-        return claims.jws().signatureKeyId(kid).sign(privateKey);
+        return claims.jws()
+                     .signatureKeyId(kid)
+                     .sign(privateKey);
     }
 
     /**
@@ -118,7 +120,8 @@ public class TokenUtils {
 
     private static byte[] toEncodedBytes(final String pemEncoded) {
         final String normalizedPem = removeBeginEnd(pemEncoded);
-        return Base64.getDecoder().decode(normalizedPem);
+        return Base64.getDecoder()
+                     .decode(normalizedPem);
     }
 
     private static String removeBeginEnd(String pem) {

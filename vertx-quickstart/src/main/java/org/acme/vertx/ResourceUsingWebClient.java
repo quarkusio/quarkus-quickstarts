@@ -27,7 +27,10 @@ public class ResourceUsingWebClient {
     @PostConstruct
     void initialize() {
         this.client = WebClient.create(vertx,
-                new WebClientOptions().setDefaultHost("fruityvice.com").setDefaultPort(443).setSsl(true).setTrustAll(true));
+                new WebClientOptions().setDefaultHost("fruityvice.com")
+                                      .setDefaultPort(443)
+                                      .setSsl(true)
+                                      .setTrustAll(true));
     }
 
     @GET
@@ -35,16 +38,16 @@ public class ResourceUsingWebClient {
     @Path("/{name}")
     public CompletionStage<JsonObject> getFruitData(@PathParam("name") String name) {
         return client.get("/api/fruit/" + name)
-                .send()
-                .thenApply(resp -> {
-                    if (resp.statusCode() == 200) {
-                        return resp.bodyAsJsonObject();
-                    } else {
-                        return new JsonObject()
-                                .put("code", resp.statusCode())
-                                .put("message", resp.bodyAsString());
-                    }
-                });
+                     .send()
+                     .thenApply(resp -> {
+                         if (resp.statusCode() == 200) {
+                             return resp.bodyAsJsonObject();
+                         } else {
+                             return new JsonObject()
+                                                    .put("code", resp.statusCode())
+                                                    .put("message", resp.bodyAsString());
+                         }
+                     });
     }
 
 }

@@ -38,8 +38,8 @@ public class LibraryResource {
         // only reindex if we imported some content
         if (Book.count() > 0) {
             Search.session(em)
-                    .massIndexer()
-                    .startAndWait();
+                  .massIndexer()
+                  .startAndWait();
         }
     }
 
@@ -114,12 +114,17 @@ public class LibraryResource {
     public List<Author> searchAuthors(@QueryParam String pattern,
             @QueryParam Optional<Integer> size) {
         List<Author> authors = Search.session(em)
-                .search(Author.class)
-                .predicate(f -> pattern == null || pattern.trim().isEmpty() ? f.matchAll()
-                        : f.simpleQueryString()
-                                .fields("firstName", "lastName", "books.title").matching(pattern))
-                .sort(f -> f.field("lastName_sort").then().field("firstName_sort"))
-                .fetchHits(size.orElse(20));
+                                     .search(Author.class)
+                                     .predicate(f -> pattern == null || pattern.trim()
+                                                                               .isEmpty() ? f.matchAll()
+                                                                                       : f.simpleQueryString()
+                                                                                          .fields("firstName", "lastName",
+                                                                                                  "books.title")
+                                                                                          .matching(pattern))
+                                     .sort(f -> f.field("lastName_sort")
+                                                 .then()
+                                                 .field("firstName_sort"))
+                                     .fetchHits(size.orElse(20));
         return authors;
     }
 }

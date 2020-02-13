@@ -33,7 +33,9 @@ public class TikaParserResource {
 
         Instant finish = Instant.now();
 
-        log.info(Duration.between(start, finish).toMillis() + " mls have passed");
+        log.info(Duration.between(start, finish)
+                         .toMillis()
+                + " mls have passed");
 
         return text;
     }

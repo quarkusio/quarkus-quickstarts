@@ -25,6 +25,7 @@ public class LegumeResource {
 
     @GET
     public Response list() {
-        return Response.ok(legumes).build();
+        return Response.ok(legumes)
+                       .build();
     }
 }

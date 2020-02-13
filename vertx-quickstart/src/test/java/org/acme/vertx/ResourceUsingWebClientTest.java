@@ -13,10 +13,11 @@ class ResourceUsingWebClientTest {
     @Test
     void testBananaData() {
         given()
-                .when().get("/fruit-data/banana")
-                .then()
-                .statusCode(200)
-                .body(containsString("Musaceae"));
+               .when()
+               .get("/fruit-data/banana")
+               .then()
+               .statusCode(200)
+               .body(containsString("Musaceae"));
     }
 
 }

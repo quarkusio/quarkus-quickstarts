@@ -29,10 +29,12 @@ class PriceResourceTest {
 
         List<Double> received = new CopyOnWriteArrayList<>();
 
-        SseEventSource source = SseEventSource.target(target).build();
+        SseEventSource source = SseEventSource.target(target)
+                                              .build();
         source.register(inboundSseEvent -> received.add(Double.valueOf(inboundSseEvent.readData())));
         source.open();
-        await().atMost(100000, MILLISECONDS).until(() -> received.size() == 3);
+        await().atMost(100000, MILLISECONDS)
+               .until(() -> received.size() == 3);
         source.close();
     }
 }

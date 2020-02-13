@@ -26,7 +26,8 @@ public class UserResource {
         private final String userName;
 
         User(SecurityIdentity securityContext) {
-            this.userName = securityContext.getPrincipal().getName();
+            this.userName = securityContext.getPrincipal()
+                                           .getName();
         }
 
         public String getUserName() {

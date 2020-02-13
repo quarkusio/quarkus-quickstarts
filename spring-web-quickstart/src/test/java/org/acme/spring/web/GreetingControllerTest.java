@@ -13,9 +13,10 @@ public class GreetingControllerTest {
     @Test
     public void testGreeting() {
         given()
-                .when().get("/greeting/world")
-                .then()
-                .statusCode(200)
-                .body("message", is("HELLO WORLD!"));
+               .when()
+               .get("/greeting/world")
+               .then()
+               .statusCode(200)
+               .body("message", is("HELLO WORLD!"));
     }
 }

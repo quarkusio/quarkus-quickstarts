@@ -31,8 +31,8 @@ public class TracedResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String chain() {
         ResourceClient resourceClient = RestClientBuilder.newBuilder()
-                .baseUri(uriInfo.getBaseUri())
-                .build(ResourceClient.class);
+                                                         .baseUri(uriInfo.getBaseUri())
+                                                         .build(ResourceClient.class);
         return "chain -> " + exampleBean.bonjour() + " -> " + resourceClient.hello();
     }
 }

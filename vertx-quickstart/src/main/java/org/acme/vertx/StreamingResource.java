@@ -24,8 +24,9 @@ public class StreamingResource {
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @Path("{name}/streaming")
     public Publisher<String> greeting(@PathParam String name) {
-        return ReactiveStreams.fromPublisher(vertx.periodicStream(2000).toPublisher())
-                .map(l -> String.format("Hello %s! (%s)%n", name, new Date()))
-                .buildRs();
+        return ReactiveStreams.fromPublisher(vertx.periodicStream(2000)
+                                                  .toPublisher())
+                              .map(l -> String.format("Hello %s! (%s)%n", name, new Date()))
+                              .buildRs();
     }
 }

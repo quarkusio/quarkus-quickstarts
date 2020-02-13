@@ -10,7 +10,8 @@ public class MyFilter {
 
     public void registerMyFilter(@Observes Filters filters) {
         filters.register(rc -> {
-            rc.response().putHeader("X-Header", "intercepting the request");
+            rc.response()
+              .putHeader("X-Header", "intercepting the request");
             rc.next();
         }, 100);
     }

@@ -14,7 +14,8 @@ public class WeatherForecastService {
         try {
             Thread.sleep(2000L);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+            Thread.currentThread()
+                  .interrupt();
         }
         return date.getDayOfWeek() + " will be " + getDailyResult(date.getDayOfMonth() % 4) + " in " + city;
     }

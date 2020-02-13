@@ -28,12 +28,16 @@ public class CodeFlowTest {
 
             assertEquals("Log in to quarkus", page.getTitleText());
 
-            HtmlForm loginForm = page.getForms().get(0);
+            HtmlForm loginForm = page.getForms()
+                                     .get(0);
 
-            loginForm.getInputByName("username").setValueAttribute("alice");
-            loginForm.getInputByName("password").setValueAttribute("alice");
+            loginForm.getInputByName("username")
+                     .setValueAttribute("alice");
+            loginForm.getInputByName("password")
+                     .setValueAttribute("alice");
 
-            page = loginForm.getInputByName("login").click();
+            page = loginForm.getInputByName("login")
+                            .click();
 
             assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
 
@@ -51,12 +55,16 @@ public class CodeFlowTest {
 
             assertEquals("Log in to quarkus", page.getTitleText());
 
-            HtmlForm loginForm = page.getForms().get(0);
+            HtmlForm loginForm = page.getForms()
+                                     .get(0);
 
-            loginForm.getInputByName("username").setValueAttribute("alice");
-            loginForm.getInputByName("password").setValueAttribute("alice");
+            loginForm.getInputByName("username")
+                     .setValueAttribute("alice");
+            loginForm.getInputByName("password")
+                     .setValueAttribute("alice");
 
-            page = loginForm.getInputByName("login").click();
+            page = loginForm.getInputByName("login")
+                            .click();
 
             assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
 
@@ -81,25 +89,36 @@ public class CodeFlowTest {
 
             assertEquals("Log in to quarkus", page.getTitleText());
 
-            HtmlForm loginForm = page.getForms().get(0);
+            HtmlForm loginForm = page.getForms()
+                                     .get(0);
 
-            loginForm.getInputByName("username").setValueAttribute("alice");
-            loginForm.getInputByName("password").setValueAttribute("alice");
+            loginForm.getInputByName("username")
+                     .setValueAttribute("alice");
+            loginForm.getInputByName("password")
+                     .setValueAttribute("alice");
 
-            page = loginForm.getInputByName("login").click();
+            page = loginForm.getInputByName("login")
+                            .click();
 
             assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
 
             page = webClient.getPage("http://localhost:8081/tokens");
 
-            assertTrue(page.getBody().asText().contains("username"));
-            assertTrue(page.getBody().asText().contains("scopes"));
-            assertTrue(page.getBody().asText().contains("refresh_token: true"));
+            assertTrue(page.getBody()
+                           .asText()
+                           .contains("username"));
+            assertTrue(page.getBody()
+                           .asText()
+                           .contains("scopes"));
+            assertTrue(page.getBody()
+                           .asText()
+                           .contains("refresh_token: true"));
         }
     }
 
     private Cookie getSessionCookie(WebClient webClient) {
-        return webClient.getCookieManager().getCookie("q_session");
+        return webClient.getCookieManager()
+                        .getCookie("q_session");
     }
 
     private WebClient createWebClient() {

@@ -50,7 +50,9 @@ public class FruitResource {
         }
 
         fruit.persist();
-        return Response.ok(fruit).status(201).build();
+        return Response.ok(fruit)
+                       .status(201)
+                       .build();
     }
 
     @PUT
@@ -81,7 +83,8 @@ public class FruitResource {
             throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
         }
         entity.delete();
-        return Response.status(204).build();
+        return Response.status(204)
+                       .build();
     }
 
     @Provider
@@ -91,11 +94,15 @@ public class FruitResource {
         public Response toResponse(Exception exception) {
             int code = 500;
             if (exception instanceof WebApplicationException) {
-                code = ((WebApplicationException) exception).getResponse().getStatus();
+                code = ((WebApplicationException) exception).getResponse()
+                                                            .getStatus();
             }
             return Response.status(code)
-                    .entity(Json.createObjectBuilder().add("error", exception.getMessage()).add("code", code).build())
-                    .build();
+                           .entity(Json.createObjectBuilder()
+                                       .add("error", exception.getMessage())
+                                       .add("code", code)
+                                       .build())
+                           .build();
         }
 
     }

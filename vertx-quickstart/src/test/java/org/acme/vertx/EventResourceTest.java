@@ -13,9 +13,10 @@ class EventResourceTest {
     @Test
     void testEventBusGreeter() {
         given()
-                .when().get("/async/Quarkus")
-                .then()
-                .statusCode(200)
-                .body(startsWith("Hello Quarkus"));
+               .when()
+               .get("/async/Quarkus")
+               .then()
+               .statusCode(200)
+               .body(startsWith("Hello Quarkus"));
     }
 }

@@ -73,8 +73,8 @@ public class BookResource {
         Result(Set<? extends ConstraintViolation<?>> violations) {
             this.success = false;
             this.message = violations.stream()
-                    .map(cv -> cv.getMessage())
-                    .collect(Collectors.joining(", "));
+                                     .map(cv -> cv.getMessage())
+                                     .collect(Collectors.joining(", "));
         }
 
         public String getMessage() {

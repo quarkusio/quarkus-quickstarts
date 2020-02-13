@@ -48,23 +48,27 @@ public class ValuesGenerator {
     public Flowable<KafkaMessage<Integer, String>> generate() {
 
         return Flowable.interval(500, TimeUnit.MILLISECONDS)
-                .onBackpressureDrop()
-                .map(tick -> {
-                    WeatherStation station = stations.get(random.nextInt(stations.size()));
-                    double temperature = new BigDecimal(random.nextGaussian() * 15 + station.averageTemperature)
-                            .setScale(1, RoundingMode.HALF_UP)
-                            .doubleValue();
+                       .onBackpressureDrop()
+                       .map(tick -> {
+                           WeatherStation station = stations.get(random.nextInt(stations.size()));
+                           double temperature = new BigDecimal(random.nextGaussian() * 15 + station.averageTemperature)
+                                                                                                                       .setScale(
+                                                                                                                               1,
+                                                                                                                               RoundingMode.HALF_UP)
+                                                                                                                       .doubleValue();
 
-                    LOG.info("station: {}, temperature: {}", station.name, temperature);
-                    return KafkaMessage.of(station.id, Instant.now() + ";" + temperature);
-                });
+                           LOG.info("station: {}, temperature: {}", station.name, temperature);
+                           return KafkaMessage.of(station.id, Instant.now() + ";" + temperature);
+                       });
     }
 
     @Outgoing("weather-stations")
     public Flowable<KafkaMessage<Integer, String>> weatherStations() {
         List<KafkaMessage<Integer, String>> stationsAsJson = stations.stream()
-                .map(s -> KafkaMessage.of(s.id, "{ \"id\" : " + s.id + ", \"name\" : \"" + s.name + "\" }"))
-                .collect(Collectors.toList());
+                                                                     .map(s -> KafkaMessage.of(s.id,
+                                                                             "{ \"id\" : " + s.id + ", \"name\" : \"" + s.name
+                                                                                     + "\" }"))
+                                                                     .collect(Collectors.toList());
 
         return Flowable.fromIterable(stationsAsJson);
     };

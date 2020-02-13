@@ -18,7 +18,8 @@ public class CodecFruitService {
 
     public List<Fruit> list() {
         List<Fruit> list = new ArrayList<>();
-        MongoCursor<Fruit> cursor = getCollection().find().iterator();
+        MongoCursor<Fruit> cursor = getCollection().find()
+                                                   .iterator();
 
         try {
             while (cursor.hasNext()) {
@@ -35,6 +36,7 @@ public class CodecFruitService {
     }
 
     private MongoCollection<Fruit> getCollection() {
-        return mongoClient.getDatabase("fruit").getCollection("fruit", Fruit.class);
+        return mongoClient.getDatabase("fruit")
+                          .getCollection("fruit", Fruit.class);
     }
 }

@@ -24,6 +24,6 @@ public class EventResource {
     @Path("{name}")
     public CompletionStage<String> greeting(@PathParam String name) {
         return bus.<String> request("greeting", name)
-                .thenApply(Message::body);
+                  .thenApply(Message::body);
     }
 }
