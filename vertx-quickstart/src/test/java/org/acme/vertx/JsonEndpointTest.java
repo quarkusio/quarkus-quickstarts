@@ -16,19 +16,21 @@ class JsonEndpointTest {
     @Test
     void testJsonObject() {
         given()
-                .when().get("/hello/Quarkus/object")
-                .then()
-                .statusCode(200)
-                .body("Hello", is(equalTo("Quarkus")));
+               .when()
+               .get("/hello/Quarkus/object")
+               .then()
+               .statusCode(200)
+               .body("Hello", is(equalTo("Quarkus")));
     }
 
     @Test
     void testJsonArray() {
         given()
-                .when().get("/hello/Quarkus/array")
-                .then()
-                .statusCode(200)
-                .body("", is(equalTo(Arrays.asList("Hello", "Quarkus"))));
+               .when()
+               .get("/hello/Quarkus/array")
+               .then()
+               .statusCode(200)
+               .body("", is(equalTo(Arrays.asList("Hello", "Quarkus"))));
     }
 
 }

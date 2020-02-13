@@ -12,28 +12,32 @@ public class RouteTest {
 
     @Test
     public void testDeclarativeRoutes() {
-        RestAssured.get("/").then()
-                .header("X-Header", "intercepting the request")
-                .statusCode(200)
-                .body(is("hello"));
+        RestAssured.get("/")
+                   .then()
+                   .header("X-Header", "intercepting the request")
+                   .statusCode(200)
+                   .body(is("hello"));
 
-        RestAssured.get("/hello").then()
-                .header("X-Header", "intercepting the request")
-                .statusCode(200)
-                .body(is("hello world"));
+        RestAssured.get("/hello")
+                   .then()
+                   .header("X-Header", "intercepting the request")
+                   .statusCode(200)
+                   .body(is("hello world"));
 
-        RestAssured.get("/hello?name=quarkus").then()
-                .header("X-Header", "intercepting the request")
-                .statusCode(200)
-                .body(is("hello quarkus"));
+        RestAssured.get("/hello?name=quarkus")
+                   .then()
+                   .header("X-Header", "intercepting the request")
+                   .statusCode(200)
+                   .body(is("hello quarkus"));
     }
 
     @Test
     public void testMyRoute() {
-        RestAssured.get("/my-route").then()
-                .header("X-Header", "intercepting the request")
-                .statusCode(200)
-                .body(is("Hello from my route"));
+        RestAssured.get("/my-route")
+                   .then()
+                   .header("X-Header", "intercepting the request")
+                   .statusCode(200)
+                   .body(is("Hello from my route"));
     }
 
 }

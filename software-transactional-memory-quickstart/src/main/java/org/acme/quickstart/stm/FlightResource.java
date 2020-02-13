@@ -70,7 +70,8 @@ public class FlightResource {
     }
 
     private String getInfo(FlightService flightService) {
-        return Thread.currentThread().getName()
+        return Thread.currentThread()
+                     .getName()
                 + ":  Booking Count=" + flightService.getNumberOfBookings();
     }
 }

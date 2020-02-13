@@ -13,9 +13,10 @@ class GreetingResourceTest {
     @Test
     void testGreeter() {
         given()
-                .when().get("/hello/Quarkus")
-                .then()
-                .statusCode(200)
-                .body(startsWith("Hello Quarkus!"));
+               .when()
+               .get("/hello/Quarkus")
+               .then()
+               .statusCode(200)
+               .body(startsWith("Hello Quarkus!"));
     }
 }

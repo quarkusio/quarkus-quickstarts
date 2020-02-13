@@ -30,7 +30,8 @@ public class PersonResource {
     @POST
     public Response create(Person person) {
         person.persist();
-        return Response.status(201).build();
+        return Response.status(201)
+                       .build();
     }
 
     @PUT

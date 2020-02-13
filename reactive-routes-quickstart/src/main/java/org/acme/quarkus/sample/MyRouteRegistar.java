@@ -9,7 +9,9 @@ import io.vertx.ext.web.Router;
 public class MyRouteRegistar {
 
     public void init(@Observes Router router) {
-        router.get("/my-route").handler(rc -> rc.response().end("Hello from my route"));
+        router.get("/my-route")
+              .handler(rc -> rc.response()
+                               .end("Hello from my route"));
     }
 
 }

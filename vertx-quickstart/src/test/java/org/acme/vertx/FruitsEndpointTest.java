@@ -31,29 +31,32 @@ public class FruitsEndpointTest {
     public void testListAllFruits() {
         //List all, should have all 3 fruits the database has initially:
         given()
-                .when().get("/fruits")
-                .then()
-                .statusCode(200)
-                .body(
-                        containsString("Orange"),
-                        containsString("Pear"),
-                        containsString("Apple"));
+               .when()
+               .get("/fruits")
+               .then()
+               .statusCode(200)
+               .body(
+                       containsString("Orange"),
+                       containsString("Pear"),
+                       containsString("Apple"));
 
         //Delete the Orange:
         given()
-                .when().delete("/fruits/1")
-                .then()
-                .statusCode(204);
+               .when()
+               .delete("/fruits/1")
+               .then()
+               .statusCode(204);
 
         //List all, Orange should be missing now:
         given()
-                .when().get("/fruits")
-                .then()
-                .statusCode(200)
-                .body(
-                        not(containsString("Orange")),
-                        containsString("Pear"),
-                        containsString("Apple"));
+               .when()
+               .get("/fruits")
+               .then()
+               .statusCode(200)
+               .body(
+                       not(containsString("Orange")),
+                       containsString("Pear"),
+                       containsString("Apple"));
     }
 
 }

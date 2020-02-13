@@ -21,11 +21,11 @@ public class PriceGenerator {
     @Outgoing("topic-price")
     public Flowable<Integer> generate() {
         return Flowable.interval(5, TimeUnit.SECONDS)
-                .map(tick -> {
-                    int price = random.nextInt(100);
-                    System.out.println("Sending price: " + price);
-                    return price;
-                });
+                       .map(tick -> {
+                           int price = random.nextInt(100);
+                           System.out.println("Sending price: " + price);
+                           return price;
+                       });
     }
 
 }

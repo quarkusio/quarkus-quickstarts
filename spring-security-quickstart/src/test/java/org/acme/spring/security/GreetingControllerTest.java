@@ -12,19 +12,25 @@ public class GreetingControllerTest {
 
     @Test
     public void testHelloEndpointForbidden() {
-        given().auth().preemptive().basic("stuart", "test")
-                .when().get("/greeting")
-                .then()
-                .statusCode(403);
+        given().auth()
+               .preemptive()
+               .basic("stuart", "test")
+               .when()
+               .get("/greeting")
+               .then()
+               .statusCode(403);
     }
 
     @Test
     public void testHelloEndpoint() {
-        given().auth().preemptive().basic("scott", "jb0ss")
-                .when().get("/greeting")
-                .then()
-                .statusCode(200)
-                .body(is("hello"));
+        given().auth()
+               .preemptive()
+               .basic("scott", "jb0ss")
+               .when()
+               .get("/greeting")
+               .then()
+               .statusCode(200)
+               .body(is("hello"));
     }
 
 }

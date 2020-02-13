@@ -74,10 +74,12 @@ public class CoffeeResource {
 
         // if coffee with given id not found, return 404
         if (coffee == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.NOT_FOUND)
+                           .build();
         }
 
-        return Response.ok(coffee).build();
+        return Response.ok(coffee)
+                       .build();
     }
 
     /**
@@ -96,19 +98,23 @@ public class CoffeeResource {
 
         // check that coffee with given id exists, return 404 if not
         if (coffee == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.NOT_FOUND)
+                           .build();
         }
 
         try {
             Integer availability = coffeeRepository.getAvailability(coffee);
             LOGGER.infof("CoffeeResource#availability() invocation #%d returning successfully", invocationNumber);
-            return Response.ok(availability).build();
+            return Response.ok(availability)
+                           .build();
         } catch (RuntimeException e) {
-            String message = e.getClass().getSimpleName() + ": " + e.getMessage();
+            String message = e.getClass()
+                              .getSimpleName()
+                    + ": " + e.getMessage();
             LOGGER.errorf("CoffeeResource#availability() invocation #%d failed: %s", invocationNumber, message);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(message)
-                    .build();
+                           .entity(message)
+                           .build();
         }
     }
 

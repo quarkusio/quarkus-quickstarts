@@ -26,18 +26,20 @@ public class CoffeeResourceTest {
         coffeeResource.resetCounter();
         coffeeResource.setFailRatio(0f);
         get("/coffee")
-                .then()
-                .statusCode(200)
-                .body("id", hasItems(1, 2, 3))
-                .body("countryOfOrigin", hasItems("Colombia", "Bolivia", "Vietnam"));
-        Assertions.assertEquals(1, coffeeResource.getCounter().longValue());
+                      .then()
+                      .statusCode(200)
+                      .body("id", hasItems(1, 2, 3))
+                      .body("countryOfOrigin", hasItems("Colombia", "Bolivia", "Vietnam"));
+        Assertions.assertEquals(1, coffeeResource.getCounter()
+                                                 .longValue());
 
         coffeeResource.resetCounter();
         coffeeResource.setFailRatio(1f);
         get("/coffee")
-                .then()
-                .statusCode(500);
-        Assertions.assertEquals(5, coffeeResource.getCounter().longValue());
+                      .then()
+                      .statusCode(500);
+        Assertions.assertEquals(5, coffeeResource.getCounter()
+                                                 .longValue());
     }
 
     @Test
@@ -45,36 +47,41 @@ public class CoffeeResourceTest {
     public void testCoffeeDetail() {
         coffeeResource.setFailRatio(0f);
         get("/coffee/1")
-                .then()
-                .statusCode(200)
-                .body("id", is(1))
-                .body("countryOfOrigin", is("Colombia"));
+                        .then()
+                        .statusCode(200)
+                        .body("id", is(1))
+                        .body("countryOfOrigin", is("Colombia"));
 
         coffeeResource.setFailRatio(1f);
         get("/coffee/1")
-                .then()
-                .statusCode(500);
+                        .then()
+                        .statusCode(500);
     }
 
     @Test
     public void testAvailability() {
         get("/coffee/1/availability").then()
-                .statusCode(200).body(is("20"));
+                                     .statusCode(200)
+                                     .body(is("20"));
         get("/coffee/1/availability").then()
-                .statusCode(200).body(is("20"));
+                                     .statusCode(200)
+                                     .body(is("20"));
         get("/coffee/1/availability").then()
-                .statusCode(500).body(is("RuntimeException: Service failed."));
+                                     .statusCode(500)
+                                     .body(is("RuntimeException: Service failed."));
         get("/coffee/1/availability").then()
-                .statusCode(500).body(is("RuntimeException: Service failed."));
+                                     .statusCode(500)
+                                     .body(is("RuntimeException: Service failed."));
         get("/coffee/1/availability").then()
-                .statusCode(500).body(containsString("CircuitBreakerOpenException"));
+                                     .statusCode(500)
+                                     .body(containsString("CircuitBreakerOpenException"));
     }
 
     @Test
     public void testRecommendations() {
         get("/coffee/2/recommendations").then()
-                .statusCode(200)
-                .body("id", hasItem(1),
-                        "countryOfOrigin", hasItem("Colombia"));
+                                        .statusCode(200)
+                                        .body("id", hasItem(1),
+                                                "countryOfOrigin", hasItem("Colombia"));
     }
 }

@@ -28,6 +28,10 @@ For pull requests depending on features not yet merged in Quarkus, prepend the t
 
 All submissions, including submissions by project members, need to be reviewed before being merged.
 
+### Code formatting
+
+For consistent formatting each PR are validated/checked using Quarkus ide-config code formatting rules. Each project does not have the formatting setup to mimic raw quarkus projects but you can run the `format-quickstarts` manually at root level to get the formatting done.
+
 ### Continuous Integration
 
 Because we are all humans, the project use a continuous integration approach and each pull request triggers a full build.

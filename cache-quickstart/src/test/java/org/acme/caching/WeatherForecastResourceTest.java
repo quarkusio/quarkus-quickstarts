@@ -13,10 +13,11 @@ public class WeatherForecastResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-                .when().get("/weather")
-                .then()
-                .statusCode(200)
-                .body(containsString("dailyForecasts"));
+               .when()
+               .get("/weather")
+               .then()
+               .statusCode(200)
+               .body(containsString("dailyForecasts"));
     }
 
 }

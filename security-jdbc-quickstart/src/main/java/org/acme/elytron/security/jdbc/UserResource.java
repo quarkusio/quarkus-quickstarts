@@ -16,6 +16,7 @@ public class UserResource {
     @Path("/me")
     @Produces(MediaType.TEXT_PLAIN)
     public String me(@Context SecurityContext securityContext) {
-        return securityContext.getUserPrincipal().getName();
+        return securityContext.getUserPrincipal()
+                              .getName();
     }
 }

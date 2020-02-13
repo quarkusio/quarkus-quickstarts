@@ -49,7 +49,8 @@ public class UsersResource {
         private final String userName;
 
         User(SecurityIdentity identity) {
-            this.userName = identity.getPrincipal().getName();
+            this.userName = identity.getPrincipal()
+                                    .getName();
         }
 
         public String getUserName() {

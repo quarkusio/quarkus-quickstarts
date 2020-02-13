@@ -15,9 +15,11 @@ public class FruitSyncService extends AbstractService {
     DynamoDbClient dynamoDB;
 
     public List<Fruit> findAll() {
-        return dynamoDB.scanPaginator(scanRequest()).items().stream()
-                .map(Fruit::from)
-                .collect(Collectors.toList());
+        return dynamoDB.scanPaginator(scanRequest())
+                       .items()
+                       .stream()
+                       .map(Fruit::from)
+                       .collect(Collectors.toList());
     }
 
     public List<Fruit> add(Fruit fruit) {
@@ -26,6 +28,7 @@ public class FruitSyncService extends AbstractService {
     }
 
     public Fruit get(String name) {
-        return Fruit.from(dynamoDB.getItem(getRequest(name)).item());
+        return Fruit.from(dynamoDB.getItem(getRequest(name))
+                                  .item());
     }
 }

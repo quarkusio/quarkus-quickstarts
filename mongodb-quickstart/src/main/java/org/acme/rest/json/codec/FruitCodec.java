@@ -16,7 +16,8 @@ public class FruitCodec implements CollectibleCodec<Fruit> {
     private final Codec<Document> documentCodec;
 
     public FruitCodec() {
-        this.documentCodec = MongoClientSettings.getDefaultCodecRegistry().get(Document.class);
+        this.documentCodec = MongoClientSettings.getDefaultCodecRegistry()
+                                                .get(Document.class);
     }
 
     @Override
@@ -35,7 +36,8 @@ public class FruitCodec implements CollectibleCodec<Fruit> {
     @Override
     public Fruit generateIdIfAbsentFromDocument(Fruit document) {
         if (!documentHasId(document)) {
-            document.setId(UUID.randomUUID().toString());
+            document.setId(UUID.randomUUID()
+                               .toString());
         }
         return document;
     }

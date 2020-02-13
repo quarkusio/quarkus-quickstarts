@@ -16,7 +16,8 @@ public class ArtemisTestResource implements QuarkusTestResourceLifecycleManager 
     @Override
     public Map<String, String> start() {
         try {
-            FileUtils.deleteDirectory(Paths.get("./target/artemis").toFile());
+            FileUtils.deleteDirectory(Paths.get("./target/artemis")
+                                           .toFile());
             embedded = new EmbeddedActiveMQ();
             embedded.start();
         } catch (Exception e) {

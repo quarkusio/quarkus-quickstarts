@@ -15,9 +15,10 @@ class STMResourceTest {
     @Test
     void testGet() {
         given()
-                .when().get("/stm")
-                .then()
-                .statusCode(200);
+               .when()
+               .get("/stm")
+               .then()
+               .statusCode(200);
     }
 
     @Test
@@ -31,10 +32,11 @@ class STMResourceTest {
     }
 
     private String makeBooking() {
-        return RestAssured.post("/stm").then()
-                .assertThat()
-                .statusCode(200)
-                .extract()
-                .asString();
+        return RestAssured.post("/stm")
+                          .then()
+                          .assertThat()
+                          .statusCode(200)
+                          .extract()
+                          .asString();
     }
 }

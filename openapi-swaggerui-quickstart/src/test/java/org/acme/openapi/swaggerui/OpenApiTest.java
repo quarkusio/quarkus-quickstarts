@@ -13,9 +13,10 @@ public class OpenApiTest {
     @Test
     public void testOpenApi() {
         given()
-                .when().get("/openapi")
-                .then()
-                .statusCode(200)
-                .body(containsString("openapi"));
+               .when()
+               .get("/openapi")
+               .then()
+               .statusCode(200)
+               .body(containsString("openapi"));
     }
 }

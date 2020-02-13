@@ -23,6 +23,7 @@ public class VertxJsonResource {
     @GET
     @Path("{name}/array")
     public JsonArray jsonArray(@PathParam String name) {
-        return new JsonArray().add("Hello").add(name);
+        return new JsonArray().add("Hello")
+                              .add(name);
     }
 }

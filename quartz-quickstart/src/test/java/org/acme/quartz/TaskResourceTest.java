@@ -15,10 +15,11 @@ public class TaskResourceTest {
     public void tasks() throws InterruptedException {
         Thread.sleep(1000); // wait at least a second to have the first task created
         given()
-                .when().get("/tasks")
-                .then()
-                .statusCode(200)
-                .body("size()", is(greaterThanOrEqualTo(1)));
+               .when()
+               .get("/tasks")
+               .then()
+               .statusCode(200)
+               .body("size()", is(greaterThanOrEqualTo(1)));
     }
 
 }

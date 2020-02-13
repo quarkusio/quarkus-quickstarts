@@ -13,10 +13,11 @@ public class GreetingResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-                .when().get("/greeting")
-                .then()
-                .statusCode(200)
-                .body(is("hello quarkus!"));
+               .when()
+               .get("/greeting")
+               .then()
+               .statusCode(200)
+               .body(is("hello quarkus!"));
     }
 
 }

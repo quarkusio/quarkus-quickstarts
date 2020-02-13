@@ -38,7 +38,8 @@ public class PriceProducer implements Runnable {
     @Override
     public void run() {
         try (JMSContext context = connectionFactory.createContext(Session.AUTO_ACKNOWLEDGE)) {
-            context.createProducer().send(context.createQueue("prices"), Integer.toString(random.nextInt(100)));
+            context.createProducer()
+                   .send(context.createQueue("prices"), Integer.toString(random.nextInt(100)));
         }
     }
 }

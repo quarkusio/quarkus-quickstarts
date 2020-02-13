@@ -53,49 +53,52 @@ public class FruitResource {
 
     private void initdb() {
         client.query("DROP TABLE IF EXISTS fruits")
-                .thenCompose(r -> client.query("CREATE TABLE fruits (id SERIAL PRIMARY KEY, name TEXT NOT NULL)"))
-                .thenCompose(r -> client.query("INSERT INTO fruits (name) VALUES ('Orange')"))
-                .thenCompose(r -> client.query("INSERT INTO fruits (name) VALUES ('Pear')"))
-                .thenCompose(r -> client.query("INSERT INTO fruits (name) VALUES ('Apple')"))
-                .toCompletableFuture()
-                .join();
+              .thenCompose(r -> client.query("CREATE TABLE fruits (id SERIAL PRIMARY KEY, name TEXT NOT NULL)"))
+              .thenCompose(r -> client.query("INSERT INTO fruits (name) VALUES ('Orange')"))
+              .thenCompose(r -> client.query("INSERT INTO fruits (name) VALUES ('Pear')"))
+              .thenCompose(r -> client.query("INSERT INTO fruits (name) VALUES ('Apple')"))
+              .toCompletableFuture()
+              .join();
     }
 
     @GET
     public CompletionStage<Response> get() {
         return Fruit.findAll(client)
-                .thenApply(Response::ok)
-                .thenApply(ResponseBuilder::build);
+                    .thenApply(Response::ok)
+                    .thenApply(ResponseBuilder::build);
     }
 
     @GET
     @Path("{id}")
     public CompletionStage<Response> getSingle(@PathParam Long id) {
         return Fruit.findById(client, id)
-                .thenApply(fruit -> fruit != null ? Response.ok(fruit) : Response.status(Status.NOT_FOUND))
-                .thenApply(ResponseBuilder::build);
+                    .thenApply(fruit -> fruit != null ? Response.ok(fruit) : Response.status(Status.NOT_FOUND))
+                    .thenApply(ResponseBuilder::build);
     }
 
     @POST
     public CompletionStage<Response> create(Fruit fruit) {
         return fruit.save(client)
-                .thenApply(id -> URI.create("/fruits/" + id))
-                .thenApply(uri -> Response.created(uri).build());
+                    .thenApply(id -> URI.create("/fruits/" + id))
+                    .thenApply(uri -> Response.created(uri)
+                                              .build());
     }
 
     @PUT
     @Path("{id}")
     public CompletionStage<Response> update(@PathParam Long id, Fruit fruit) {
         return fruit.update(client)
-                .thenApply(updated -> updated ? Status.OK : Status.NOT_FOUND)
-                .thenApply(status -> Response.status(status).build());
+                    .thenApply(updated -> updated ? Status.OK : Status.NOT_FOUND)
+                    .thenApply(status -> Response.status(status)
+                                                 .build());
     }
 
     @DELETE
     @Path("{id}")
     public CompletionStage<Response> delete(@PathParam Long id) {
         return Fruit.delete(client, id)
-                .thenApply(deleted -> deleted ? Status.NO_CONTENT : Status.NOT_FOUND)
-                .thenApply(status -> Response.status(status).build());
+                    .thenApply(deleted -> deleted ? Status.NO_CONTENT : Status.NOT_FOUND)
+                    .thenApply(status -> Response.status(status)
+                                                 .build());
     }
 }

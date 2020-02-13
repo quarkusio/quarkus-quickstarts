@@ -13,9 +13,9 @@ public class DataHealthCheck implements HealthCheck {
     @Override
     public HealthCheckResponse call() {
         return HealthCheckResponse.named("Health check with data")
-                .up()
-                .withData("foo", "fooValue")
-                .withData("bar", "barValue")
-                .build();
+                                  .up()
+                                  .withData("foo", "fooValue")
+                                  .withData("bar", "barValue")
+                                  .build();
     }
 }

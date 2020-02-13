@@ -13,10 +13,11 @@ public class CountResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-                .when().get("/count")
-                .then()
-                .statusCode(200)
-                .body(containsString("count"));
+               .when()
+               .get("/count")
+               .then()
+               .statusCode(200)
+               .body(containsString("count"));
     }
 
 }

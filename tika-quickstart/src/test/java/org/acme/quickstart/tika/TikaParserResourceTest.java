@@ -25,16 +25,18 @@ public class TikaParserResourceTest {
 
     private void checkText(String contentType, String extension) throws Exception {
         given()
-                .when().header("Content-Type", contentType)
-                .body(readQuarkusFile("quarkus." + extension))
-                .post("/parse/text")
-                .then()
-                .statusCode(200)
-                .body(is("Hello Quarkus"));
+               .when()
+               .header("Content-Type", contentType)
+               .body(readQuarkusFile("quarkus." + extension))
+               .post("/parse/text")
+               .then()
+               .statusCode(200)
+               .body(is("Hello Quarkus"));
     }
 
     private byte[] readQuarkusFile(String fileName) throws Exception {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName)) {
+        try (InputStream is = getClass().getClassLoader()
+                                        .getResourceAsStream(fileName)) {
             return readBytes(is);
         }
     }

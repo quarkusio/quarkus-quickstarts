@@ -38,9 +38,9 @@ public class TokenSecuredResourceTest {
     @Test
     public void testHelloEndpoint() {
         Response response = given()
-                .when()
-                .get("/secured/permit-all")
-                .andReturn();
+                                   .when()
+                                   .get("/secured/permit-all")
+                                   .andReturn();
 
         response.then()
                 .statusCode(200)
@@ -50,9 +50,10 @@ public class TokenSecuredResourceTest {
     @Test
     public void testHelloRolesAllowed() {
         Response response = given().auth()
-                .oauth2(token)
-                .when()
-                .get("/secured/roles-allowed").andReturn();
+                                   .oauth2(token)
+                                   .when()
+                                   .get("/secured/roles-allowed")
+                                   .andReturn();
 
         response.then()
                 .statusCode(200)
@@ -62,45 +63,58 @@ public class TokenSecuredResourceTest {
     @Test
     public void testHelloDenyAll() {
         Response response = given().auth()
-                .oauth2(token)
-                .when()
-                .get("/secured/deny-all").andReturn();
+                                   .oauth2(token)
+                                   .when()
+                                   .get("/secured/deny-all")
+                                   .andReturn();
 
         Assertions.assertEquals(HttpURLConnection.HTTP_FORBIDDEN, response.getStatusCode());
     }
 
     @Test
     public void testWinners() {
-        Response response = RestAssured.given().auth()
-                .oauth2(token)
-                .when()
-                .get("/secured/winners").andReturn();
+        Response response = RestAssured.given()
+                                       .auth()
+                                       .oauth2(token)
+                                       .when()
+                                       .get("/secured/winners")
+                                       .andReturn();
 
-        Assertions.assertFalse(response.body().asString().isEmpty());
+        Assertions.assertFalse(response.body()
+                                       .asString()
+                                       .isEmpty());
     }
 
     @Test
     public void testWinnersWithBirthdate() {
-        Response response = RestAssured.given().auth()
-                .oauth2(token)
-                .when()
-                .get("/secured/winners2").andReturn();
+        Response response = RestAssured.given()
+                                       .auth()
+                                       .oauth2(token)
+                                       .when()
+                                       .get("/secured/winners2")
+                                       .andReturn();
 
         Assertions.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
-        Assertions.assertFalse(response.body().asString().isEmpty());
+        Assertions.assertFalse(response.body()
+                                       .asString()
+                                       .isEmpty());
     }
 
     @Test
     @DisabledOnNativeImage("Doesn't work in the native mode due to a subresource issue")
     public void testLottoWinners() {
-        Response response = RestAssured.given().auth()
-                .oauth2(token)
-                .when()
-                .get("/secured/lotto/winners").andReturn();
+        Response response = RestAssured.given()
+                                       .auth()
+                                       .oauth2(token)
+                                       .when()
+                                       .get("/secured/lotto/winners")
+                                       .andReturn();
 
         Assertions.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
-        String replyString = response.body().asString();
-        Json.createReader(new StringReader(replyString)).readObject();
+        String replyString = response.body()
+                                     .asString();
+        Json.createReader(new StringReader(replyString))
+            .readObject();
         LottoNumbers numbers = response.as(LottoNumbers.class);
         Assertions.assertFalse(numbers.numbers.isEmpty());
     }

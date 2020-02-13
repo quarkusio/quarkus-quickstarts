@@ -25,5 +25,9 @@ jobs:
           java-version: openjdk${{ matrix.java }}
       - name: Build Quarkus master
         run: git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B clean install -DskipTests -DskipITs
+      - name: Check Formatting
+        run: |
+          mvn -fae -Dproject.build.sourceEncoding=UTF-8 net.revelc.code.formatter:formatter-maven-plugin:2.11.0:validate
+          mvn -fae -Dproject.build.sourceEncoding=UTF-8 net.revelc.code:impsort-maven-plugin:1.3.2:check -Dimpsort.groups='java.,javax.,org.,com.' -Dimpsort.staticGroups='*' -Dimpsort.removeUnused=true
       - name: Build with Maven
         run: export LANG=en_US && mvn -B clean install
