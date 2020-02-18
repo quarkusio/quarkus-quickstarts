@@ -26,7 +26,7 @@ jobs:
             git grep import | grep '\*;' | grep -E -v '(.mvn/|README.md|CONTRIBUTING.md)'
             exit 1
           fi
-      - name: Install JDK {{ matrix.java }}
+      - name: Install JDK ${{ matrix.java }}
         uses: joschi/setup-jdk@v1.0.0
         with:
           java-version: openjdk${{ matrix.java }}
