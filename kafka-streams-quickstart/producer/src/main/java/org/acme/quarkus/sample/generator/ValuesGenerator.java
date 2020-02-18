@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import io.smallrye.reactive.messaging.kafka.KafkaRecord;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.reactivex.Flowable;
-import io.smallrye.reactive.messaging.kafka.KafkaMessage;
 
 /**
  * A bean producing random temperature data every second.
@@ -45,25 +45,25 @@ public class ValuesGenerator {
                     new WeatherStation(9, "Marrakesh", 20)));
 
     @Outgoing("temperature-values")
-    public Flowable<KafkaMessage<Integer, String>> generate() {
+    public Flowable<KafkaRecord<Integer, String>> generate() {
 
         return Flowable.interval(500, TimeUnit.MILLISECONDS)
                 .onBackpressureDrop()
                 .map(tick -> {
                     WeatherStation station = stations.get(random.nextInt(stations.size()));
-                    double temperature = new BigDecimal(random.nextGaussian() * 15 + station.averageTemperature)
+                    double temperature = BigDecimal.valueOf(random.nextGaussian() * 15 + station.averageTemperature)
                             .setScale(1, RoundingMode.HALF_UP)
                             .doubleValue();
 
                     LOG.info("station: {}, temperature: {}", station.name, temperature);
-                    return KafkaMessage.of(station.id, Instant.now() + ";" + temperature);
+                    return KafkaRecord.of(station.id, Instant.now() + ";" + temperature);
                 });
     }
 
     @Outgoing("weather-stations")
-    public Flowable<KafkaMessage<Integer, String>> weatherStations() {
-        List<KafkaMessage<Integer, String>> stationsAsJson = stations.stream()
-                .map(s -> KafkaMessage.of(s.id, "{ \"id\" : " + s.id + ", \"name\" : \"" + s.name + "\" }"))
+    public Flowable<KafkaRecord<Integer, String>> weatherStations() {
+        List<KafkaRecord<Integer, String>> stationsAsJson = stations.stream()
+                .map(s -> KafkaRecord.of(s.id, "{ \"id\" : " + s.id + ", \"name\" : \"" + s.name + "\" }"))
                 .collect(Collectors.toList());
 
         return Flowable.fromIterable(stationsAsJson);
