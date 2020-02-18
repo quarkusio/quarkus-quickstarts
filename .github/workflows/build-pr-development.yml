@@ -19,6 +19,13 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+      - name: Check Wildcards
+        run: |
+          if [ $(git grep import | grep '\*;' | grep -E -v '(.mvn/|README.md|CONTRIBUTING.md)' | wc -l) != 0 ]; then
+            echo "Please don't use star imports in your Java files: "
+            git grep import | grep '\*;' | grep -E -v '(.mvn/|README.md|CONTRIBUTING.md)'
+            exit 1
+          fi
       - name: Install JDK {{ matrix.java }}
         uses: joschi/setup-jdk@v1.0.0
         with:

@@ -3,7 +3,11 @@ package org.acme.rest.json.codec;
 import java.util.UUID;
 
 import org.acme.rest.json.Fruit;
-import org.bson.*;
+import org.bson.Document;
+import org.bson.BsonWriter;
+import org.bson.BsonValue;
+import org.bson.BsonReader;
+import org.bson.BsonString;
 import org.bson.codecs.Codec;
 import org.bson.codecs.CollectibleCodec;
 import org.bson.codecs.DecoderContext;
