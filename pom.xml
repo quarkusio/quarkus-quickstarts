@@ -12,6 +12,7 @@
         <module>amqp-quickstart</module>
         <module>cache-quickstart</module>
         <module>config-quickstart</module>
+        <module>context-propagation</module>
         <module>dynamodb-quickstart</module>
         <module>getting-started</module>
         <module>getting-started-async</module>
