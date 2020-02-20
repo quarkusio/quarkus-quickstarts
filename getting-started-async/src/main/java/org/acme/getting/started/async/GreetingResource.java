@@ -1,15 +1,14 @@
 package org.acme.getting.started.async;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
+import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.infrastructure.Infrastructure;
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 @Path("/hello")
 public class GreetingResource {
@@ -20,15 +19,14 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/greeting/{name}")
-    public CompletionStage<String> greeting(@PathParam String name) {
+    public Uni<String> greeting(@PathParam String name) {
         return service.greeting(name);
     }
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public CompletionStage<String> hello() {
-        return CompletableFuture.supplyAsync(() -> {
-            return "hello";
-        });
+    public Uni<String> hello() {
+        return Uni.createFrom().item(() -> "hello")
+                .emitOn(Infrastructure.getDefaultExecutor());
     }
 }

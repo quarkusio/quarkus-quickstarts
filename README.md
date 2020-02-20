@@ -5,7 +5,7 @@ This repository contains a set of examples about the Quarkus framework.
 See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 
 * [Getting Started](./getting-started): Application creation, Rest endpoint, Dependency Injection, Test, Packaging
-* [Getting Started - Async](./getting-started-async): Illustrate how to use `CompletionStage` to handle asynchronous actions
+* [Getting Started - Async](./getting-started-async): Illustrate how to use `Uni` to handle asynchronous actions
 * [Getting Started - Knative](./getting-started-knative): Deployment of the Knative service to Kubernetes and/or OpenShift
 * [Getting Started - Testing](./getting-started-testing): How to test your application
 * [Application Configuration](./config-quickstart): How to configure your application
