@@ -17,7 +17,6 @@
 package org.acme.vertx;
 
 import java.net.URI;
-import java.util.concurrent.CompletionStage;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -33,10 +32,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
+import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-import io.vertx.axle.pgclient.PgPool;
+import io.vertx.mutiny.pgclient.PgPool;
 
 @Path("fruits")
 @Produces(MediaType.APPLICATION_JSON)
@@ -59,49 +59,48 @@ public class FruitResource {
 
     private void initdb() {
         client.query("DROP TABLE IF EXISTS fruits")
-                .thenCompose(r -> client.query("CREATE TABLE fruits (id SERIAL PRIMARY KEY, name TEXT NOT NULL)"))
-                .thenCompose(r -> client.query("INSERT INTO fruits (name) VALUES ('Orange')"))
-                .thenCompose(r -> client.query("INSERT INTO fruits (name) VALUES ('Pear')"))
-                .thenCompose(r -> client.query("INSERT INTO fruits (name) VALUES ('Apple')"))
-                .toCompletableFuture()
-                .join();
+                .flatMap(r -> client.query("CREATE TABLE fruits (id SERIAL PRIMARY KEY, name TEXT NOT NULL)"))
+                .flatMap(r -> client.query("INSERT INTO fruits (name) VALUES ('Orange')"))
+                .flatMap(r -> client.query("INSERT INTO fruits (name) VALUES ('Pear')"))
+                .flatMap(r -> client.query("INSERT INTO fruits (name) VALUES ('Apple')"))
+                .await().indefinitely();
     }
 
     @GET
-    public CompletionStage<Response> get() {
+    public Uni<Response> get() {
         return Fruit.findAll(client)
-                .thenApply(Response::ok)
-                .thenApply(ResponseBuilder::build);
+                .onItem().apply(Response::ok)
+                .onItem().apply(ResponseBuilder::build);
     }
 
     @GET
     @Path("{id}")
-    public CompletionStage<Response> getSingle(@PathParam Long id) {
+    public Uni<Response> getSingle(@PathParam Long id) {
         return Fruit.findById(client, id)
-                .thenApply(fruit -> fruit != null ? Response.ok(fruit) : Response.status(Status.NOT_FOUND))
-                .thenApply(ResponseBuilder::build);
+                .onItem().apply(fruit -> fruit != null ? Response.ok(fruit) : Response.status(Status.NOT_FOUND))
+                .onItem().apply(ResponseBuilder::build);
     }
 
     @POST
-    public CompletionStage<Response> create(Fruit fruit) {
+    public Uni<Response> create(Fruit fruit) {
         return fruit.save(client)
-                .thenApply(id -> URI.create("/fruits/" + id))
-                .thenApply(uri -> Response.created(uri).build());
+                .onItem().apply(id -> URI.create("/fruits/" + id))
+                .onItem().apply(uri -> Response.created(uri).build());
     }
 
     @PUT
     @Path("{id}")
-    public CompletionStage<Response> update(@PathParam Long id, Fruit fruit) {
+    public Uni<Response> update(@PathParam Long id, Fruit fruit) {
         return fruit.update(client)
-                .thenApply(updated -> updated ? Status.OK : Status.NOT_FOUND)
-                .thenApply(status -> Response.status(status).build());
+                .onItem().apply(updated -> updated ? Status.OK : Status.NOT_FOUND)
+                .onItem().apply(status -> Response.status(status).build());
     }
 
     @DELETE
     @Path("{id}")
-    public CompletionStage<Response> delete(@PathParam Long id) {
+    public Uni<Response> delete(@PathParam Long id) {
         return Fruit.delete(client, id)
-                .thenApply(deleted -> deleted ? Status.NO_CONTENT : Status.NOT_FOUND)
-                .thenApply(status -> Response.status(status).build());
+                .onItem().apply(deleted -> deleted ? Status.NO_CONTENT : Status.NOT_FOUND)
+                .onItem().apply(status -> Response.status(status).build());
     }
 }

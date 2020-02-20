@@ -1,10 +1,8 @@
 package org.acme.vertx;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.NANOSECONDS;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
+import io.smallrye.mutiny.Uni;
+import io.vertx.core.Vertx;
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -12,9 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
-
-import io.vertx.core.Vertx;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 @Path("/hello")
 public class GreetingResource {
@@ -25,24 +22,16 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("{name}")
-    public CompletionStage<String> greeting(@PathParam String name) {
-        // When complete, return the content to the client
-        CompletableFuture<String> future = new CompletableFuture<>();
-
-        long start = System.nanoTime();
-
-        // Delay reply by 10ms
-        vertx.setTimer(10, l -> {
-            // Compute elapsed time in milliseconds
-            long duration = MILLISECONDS.convert(System.nanoTime() - start, NANOSECONDS);
-
-            // Format message
-            String message = String.format("Hello %s! (%d ms)%n", name, duration);
-
-            // Complete
-            future.complete(message);
+    public Uni<String> greeting(@PathParam String name) {
+        return Uni.createFrom().emitter(emitter -> {
+            long start = System.nanoTime();
+            // Delay reply by 10ms
+            vertx.setTimer(10, l -> {
+                // Compute elapsed time in milliseconds
+                long duration = MILLISECONDS.convert(System.nanoTime() - start, NANOSECONDS);
+                String message = String.format("Hello %s! (%d ms)%n", name, duration);
+                emitter.complete(message);
+            });
         });
-
-        return future;
     }
 }

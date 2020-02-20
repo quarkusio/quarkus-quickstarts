@@ -16,14 +16,14 @@
 
 package org.acme.vertx;
 
+import io.smallrye.mutiny.Uni;
+import io.vertx.mutiny.pgclient.PgPool;
+import io.vertx.mutiny.sqlclient.Row;
+import io.vertx.mutiny.sqlclient.RowSet;
+import io.vertx.mutiny.sqlclient.Tuple;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletionStage;
-
-import io.vertx.axle.pgclient.PgPool;
-import io.vertx.axle.sqlclient.Row;
-import io.vertx.axle.sqlclient.RowSet;
-import io.vertx.axle.sqlclient.Tuple;
 
 public class Fruit {
 
@@ -32,6 +32,7 @@ public class Fruit {
     public String name;
 
     public Fruit() {
+        // default constructor.
     }
 
     public Fruit(String name) {
@@ -43,35 +44,36 @@ public class Fruit {
         this.name = name;
     }
 
-    public static CompletionStage<List<Fruit>> findAll(PgPool client) {
-        return client.query("SELECT id, name FROM fruits ORDER BY name ASC").thenApply(pgRowSet -> {
-            List<Fruit> list = new ArrayList<>(pgRowSet.size());
-            for (Row row : pgRowSet) {
-                list.add(from(row));
-            }
-            return list;
-        });
+    public static Uni<List<Fruit>> findAll(PgPool client) {
+        return client.query("SELECT id, name FROM fruits ORDER BY name ASC")
+                .onItem().apply(pgRowSet -> {
+                    List<Fruit> list = new ArrayList<>(pgRowSet.size());
+                    for (Row row : pgRowSet) {
+                        list.add(from(row));
+                    }
+                    return list;
+                });
     }
 
-    public static CompletionStage<Fruit> findById(PgPool client, Long id) {
+    public static Uni<Fruit> findById(PgPool client, Long id) {
         return client.preparedQuery("SELECT id, name FROM fruits WHERE id = $1", Tuple.of(id))
-                .thenApply(RowSet::iterator)
-                .thenApply(iterator -> iterator.hasNext() ? from(iterator.next()) : null);
+                .onItem().apply(RowSet::iterator)
+                .onItem().apply(iterator -> iterator.hasNext() ? from(iterator.next()) : null);
     }
 
-    public CompletionStage<Long> save(PgPool client) {
+    public Uni<Long> save(PgPool client) {
         return client.preparedQuery("INSERT INTO fruits (name) VALUES ($1) RETURNING (id)", Tuple.of(name))
-                .thenApply(pgRowSet -> pgRowSet.iterator().next().getLong("id"));
+                .onItem().apply(pgRowSet -> pgRowSet.iterator().next().getLong("id"));
     }
 
-    public CompletionStage<Boolean> update(PgPool client) {
+    public Uni<Boolean> update(PgPool client) {
         return client.preparedQuery("UPDATE fruits SET name = $1 WHERE id = $2", Tuple.of(name, id))
-                .thenApply(pgRowSet -> pgRowSet.rowCount() == 1);
+                .onItem().apply(pgRowSet -> pgRowSet.rowCount() == 1);
     }
 
-    public static CompletionStage<Boolean> delete(PgPool client, Long id) {
+    public static Uni<Boolean> delete(PgPool client, Long id) {
         return client.preparedQuery("DELETE FROM fruits WHERE id = $1", Tuple.of(id))
-                .thenApply(pgRowSet -> pgRowSet.rowCount() == 1);
+                .onItem().apply(pgRowSet -> pgRowSet.rowCount() == 1);
     }
 
     private static Fruit from(Row row) {
