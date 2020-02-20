@@ -10,8 +10,8 @@ import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
 
 public abstract class AbstractService {
 
-    public final static String FRUIT_NAME_COL = "fruitName";
-    public final static String FRUIT_DESC_COL = "fruitDescription";
+    public static final String FRUIT_NAME_COL = "fruitName";
+    public static final String FRUIT_DESC_COL = "fruitDescription";
 
     public String getTableName() {
         return "QuarkusFruits";
