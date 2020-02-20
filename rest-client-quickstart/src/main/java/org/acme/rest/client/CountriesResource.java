@@ -9,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
@@ -31,5 +32,12 @@ public class CountriesResource {
     @Produces(MediaType.APPLICATION_JSON)
     public CompletionStage<Set<Country>> nameAsync(@PathParam String name) {
         return countriesService.getByNameAsync(name);
+    }
+
+    @GET
+    @Path("/name-uni/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Uni<Set<Country>> nameMutiny(@PathParam String name) {
+        return countriesService.getByNameAsUni(name);
     }
 }
