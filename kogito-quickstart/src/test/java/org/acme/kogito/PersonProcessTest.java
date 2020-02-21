@@ -14,9 +14,6 @@ import io.restassured.http.ContentType;
 @QuarkusTest
 public class PersonProcessTest {
 
-    @Inject
-    Application application;
-
     @Test
     public void testAdult() {
         given()
