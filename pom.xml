@@ -48,6 +48,7 @@
         <module>security-oauth2-quickstart</module>
         <module>security-openid-connect-quickstart</module>
         <module>security-openid-connect-web-authentication-quickstart</module>
+        <module>security-openid-connect-multi-tenancy</module>
         <module>software-transactional-memory-quickstart</module>
         <module>spring-di-quickstart</module>
         <module>spring-web-quickstart</module>
