@@ -15,13 +15,12 @@ import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-public class CoffeeResourceTest {
+public class CoffeeResourceTest extends BaseTest {
 
     @Inject
     private CoffeeResource coffeeResource;
 
     @Test
-    @DisabledOnNativeImage("@Inject in tests doesn't work for native mode")
     public void testCoffeeList() {
         coffeeResource.resetCounter();
         coffeeResource.setFailRatio(0f);
@@ -41,7 +40,6 @@ public class CoffeeResourceTest {
     }
 
     @Test
-    @DisabledOnNativeImage("@Inject in tests doesn't work for native mode")
     public void testCoffeeDetail() {
         coffeeResource.setFailRatio(0f);
         get("/coffee/1")
@@ -54,27 +52,5 @@ public class CoffeeResourceTest {
         get("/coffee/1")
                 .then()
                 .statusCode(500);
-    }
-
-    @Test
-    public void testAvailability() {
-        get("/coffee/1/availability").then()
-                .statusCode(200).body(is("20"));
-        get("/coffee/1/availability").then()
-                .statusCode(200).body(is("20"));
-        get("/coffee/1/availability").then()
-                .statusCode(500).body(is("RuntimeException: Service failed."));
-        get("/coffee/1/availability").then()
-                .statusCode(500).body(is("RuntimeException: Service failed."));
-        get("/coffee/1/availability").then()
-                .statusCode(500).body(containsString("CircuitBreakerOpenException"));
-    }
-
-    @Test
-    public void testRecommendations() {
-        get("/coffee/2/recommendations").then()
-                .statusCode(200)
-                .body("id", hasItem(1),
-                        "countryOfOrigin", hasItem("Colombia"));
     }
 }

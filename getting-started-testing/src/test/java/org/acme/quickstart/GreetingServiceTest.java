@@ -15,7 +15,6 @@ public class GreetingServiceTest {
     GreetingService service;
 
     @Test
-    @DisabledOnNativeImage("@Inject in tests doesn't work for native mode")
     public void testGreetingService() {
         Assertions.assertEquals("hello Quarkus", service.greeting("Quarkus"));
     }
