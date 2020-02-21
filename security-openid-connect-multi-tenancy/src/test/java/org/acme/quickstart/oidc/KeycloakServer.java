@@ -14,7 +14,7 @@ public class KeycloakServer implements BeforeAllCallback, AfterAllCallback {
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) {
-        keycloak = new FixedHostPortGenericContainer("quay.io/keycloak/keycloak:9.0.0")
+        keycloak = new FixedHostPortGenericContainer("quay.io/keycloak/keycloak:" + System.getProperty("keycloak.version"))
                 .withFixedExposedPort(8180, 8080)
                 .withEnv("KEYCLOAK_USER", "admin")
                 .withEnv("KEYCLOAK_PASSWORD", "admin")

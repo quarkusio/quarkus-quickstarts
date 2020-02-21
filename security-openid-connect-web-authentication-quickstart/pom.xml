@@ -14,7 +14,7 @@
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
-        <keycloak.version>7.0.1</keycloak.version>
+        <keycloak.version>9.0.0</keycloak.version>
         <surefire.version>2.22.0</surefire.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -90,6 +90,7 @@
                 <configuration>
                     <systemProperties>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                        <keycloak.version>${keycloak.version}</keycloak.version>
                     </systemProperties>
                 </configuration>
             </plugin>
@@ -147,6 +148,7 @@
                                         <native.image.path>
                                             ${project.build.directory}/${project.build.finalName}-runner
                                         </native.image.path>
+                                        <keycloak.version>${keycloak.version}</keycloak.version>
                                     </systemProperties>
                                 </configuration>
                             </execution>
