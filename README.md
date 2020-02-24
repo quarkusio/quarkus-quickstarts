@@ -31,6 +31,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Neo4j](./neo4j-quickstart): How to connect to a Neo4j graph datastore
 * [OpenAPI and Swagger UI](./openapi-swaggerui-quickstart): Use OpenAPI and Swagger UI to expose your REST API and test your REST services
 * [OpenTracing and Jaeger](./opentracing-quickstart): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
+* [OptaPlanner](./optaplanner-quickstart): How to use OptaPlanner to optimize business resources
 * [Quartz](./quartz-quickstart): How to schedule periodic clustered jobs
 * [Qute](./qute-quickstart): How to use the Qute templating engine in Quarkus
 * [Reactive Routes](./reactive-routes-quickstart): How to use Reactive Routes in Quarkus
