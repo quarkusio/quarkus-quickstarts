@@ -1,5 +1,6 @@
 package org.acme.neo4j;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 import java.util.Arrays;
@@ -16,7 +17,8 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNot.not;
 
 @QuarkusTest
-class FruitsEndpointTest  {
+@QuarkusTestResource(Neo4jResource.class)
+class FruitsEndpointTest {
 
     private static final Map<String, String> fruitIdMap = new HashMap<>();
     private static final UnaryOperator<String> FRUIT = fruit ->  String.format("{\"name\":\"%s\"}", fruit);
