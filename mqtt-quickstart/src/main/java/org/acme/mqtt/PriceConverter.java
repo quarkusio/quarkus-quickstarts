@@ -20,7 +20,7 @@ public class PriceConverter {
     @Outgoing("my-data-stream")
     @Broadcast
     public double process(byte[] priceRaw) {
-        int priceInUsd = Integer.valueOf(new String(priceRaw));
+        int priceInUsd = Integer.parseInt(new String(priceRaw));
         System.out.println("Receiving price: " + priceInUsd);
         return priceInUsd * CONVERSION_RATE;
     }

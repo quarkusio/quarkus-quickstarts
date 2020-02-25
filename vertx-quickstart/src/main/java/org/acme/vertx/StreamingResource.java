@@ -1,18 +1,15 @@
 package org.acme.vertx;
 
-import java.util.Date;
+import io.smallrye.mutiny.Multi;
+import io.vertx.axle.core.Vertx;
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.eclipse.microprofile.reactive.streams.operators.ReactiveStreams;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
-import org.reactivestreams.Publisher;
-
-import io.vertx.axle.core.Vertx;
+import java.util.Date;
 
 @Path("/hello")
 public class StreamingResource {
@@ -23,9 +20,8 @@ public class StreamingResource {
     @GET
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @Path("{name}/streaming")
-    public Publisher<String> greeting(@PathParam String name) {
-        return ReactiveStreams.fromPublisher(vertx.periodicStream(2000).toPublisher())
-                .map(l -> String.format("Hello %s! (%s)%n", name, new Date()))
-                .buildRs();
+    public Multi<String> greeting(@PathParam String name) {
+        return Multi.createFrom().publisher(vertx.periodicStream(2000).toPublisher())
+                .map(l -> String.format("Hello %s! (%s)%n", name, new Date()));
     }
 }

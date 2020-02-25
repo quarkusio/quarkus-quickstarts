@@ -1,5 +1,7 @@
 package org.acme.mongodb;
 
+import io.smallrye.mutiny.Uni;
+
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 
@@ -20,12 +22,13 @@ public class ReactiveFruitResource {
     ReactiveFruitService fruitService;
 
     @GET
-    public CompletionStage<List<Fruit>> list() {
+    public Uni<List<Fruit>> list() {
         return fruitService.list();
     }
 
     @POST
-    public CompletionStage<List<Fruit>> add(Fruit fruit) {
-        return fruitService.add(fruit).thenCompose(x -> list());
+    public Uni<List<Fruit>> add(Fruit fruit) {
+        return fruitService.add(fruit)
+                .onItem().ignore().andSwitchTo(this::list);
     }
 }

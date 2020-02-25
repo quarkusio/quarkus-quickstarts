@@ -22,13 +22,6 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-          <groupId>io.projectreactor</groupId>
-          <artifactId>reactor-bom</artifactId>
-          <version>Dysprosium-RELEASE</version>
-          <type>pom</type>
-          <scope>import</scope>
-      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
@@ -37,9 +30,9 @@
         <artifactId>quarkus-resteasy</artifactId>
       </dependency>
     <dependency>
-        <groupId>io.projectreactor</groupId>
-        <artifactId>reactor-core</artifactId>
-      </dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy-mutiny</artifactId>
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>

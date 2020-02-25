@@ -5,7 +5,7 @@ This repository contains a set of examples about the Quarkus framework.
 See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 
 * [Getting Started](./getting-started): Application creation, Rest endpoint, Dependency Injection, Test, Packaging
-* [Getting Started - Async](./getting-started-async): Illustrate how to use `CompletionStage` to handle asynchronous actions
+* [Getting Started - Async](./getting-started-async): Illustrate how to use `Uni` to handle asynchronous actions
 * [Getting Started - Knative](./getting-started-knative): Deployment of the Knative service to Kubernetes and/or OpenShift
 * [Getting Started - Testing](./getting-started-testing): How to test your application
 * [Application Configuration](./config-quickstart): How to configure your application
@@ -53,6 +53,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [Validation with Hibernate Validator](./validation-quickstart): How to use Hibernate Validator/Bean Validation in your REST services
 * [Using Vert.x](./vertx-quickstart): How to use the Vert.x extension
 * [Using Web Sockets](./websockets-quickstart): Demonstrate how to use web sockets and serve static assets
+* [Context Propagation](./context-propagation): Demonstrate how to use context propagation in your reactive applications
 
 There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
 
