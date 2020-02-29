@@ -43,20 +43,39 @@ jobs:
       - name: Check RSS
         env:
           QUICKSTART_VERSION: "1.0-SNAPSHOT"
-          RSS_THRESHOLD: "25000"
+          RSS_THRESHOLD: "40000"
           START_TIME_THRESHOLD: "1000"
+          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+          REMOTE_OBJECT_NAME: "pmap.out"
+          API_KEY: ${{ secrets.API_KEY }}
+          SERVICE_INSTANCE_ID: ${{ secrets.SERVICE_INSTANCE_ID }}
+
         run: |
-          getting-started/target/getting-started-${QUICKSTART_VERSION}-runner -Xmx2m > server.log &
+          sudo apt-get update -o Dir::Etc::sourcelist="sources.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+          sudo apt-get install -y gnupg2 gnupg-agent
+          echo Installing SDKMAN
+          curl -s "https://get.sdkman.io" | bash
+          source ~/.sdkman/bin/sdkman-init.sh
+          sdk install jbang
+          getting-started/target/getting-started-${QUICKSTART_VERSION}-runner -Xmx2m -Dquarkus.http.io-threads=1 -Dquarkus.vertx.worker-pool-size=1 > server.log &
           sleep 2
+          appPid=$!
+          pmap -x $appPid > pmap.out
           ps --no-headers  -C getting-started-${QUICKSTART_VERSION}-runner -o rss > rss.out
           rss=$(< rss.out)
-          echo "Threshold (kB): ${RSS_THRESHOLD}"
+          echo "Max RSS Threshold (kB): ${RSS_THRESHOLD}"
           echo "RSS (kB): $rss"
           startTime=$(grep -oP "started in \K([0-9]*\.[0-9]*)" server.log)
           startTimeMs=$(echo "$startTime*1000/1" | bc)
           echo "Start time Threshold (ms): ${START_TIME_THRESHOLD}"
           echo "Start time (ms): $startTimeMs"
+          jbang .github/RssRegression.java ${BUCKET_NAME} ${API_KEY} ${SERVICE_INSTANCE_ID} ${REMOTE_OBJECT_NAME} pmap.old.out pmap.out
           [ "$rss" -lt "${RSS_THRESHOLD}" ] && [ "$startTimeMs" -lt "${START_TIME_THRESHOLD}" ] && exit 0 || exit 1
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: pmap
+          path: pmap.out
 
       - name: Report
         if: always()
