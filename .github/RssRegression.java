@@ -74,7 +74,6 @@ public class RssRegression {
             System.out.println("Regression: " + rssRegression);
 
             System.out.println("Uploading new pmap file to storage: " + bucketFile + " from local: " + oldPmapFile);
-            uploadObject(_cosClient, BUCKET_NAME, bucketFile, newPmapFile);
         }
         _cosClient.shutdown();
 
@@ -82,6 +81,7 @@ public class RssRegression {
             exit(1);
         }
         else {
+            uploadObject(_cosClient, BUCKET_NAME, bucketFile, newPmapFile);
             exit(0);
         }
     }
