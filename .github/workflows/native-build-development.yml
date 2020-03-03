@@ -45,10 +45,10 @@ jobs:
           QUICKSTART_VERSION: "1.0-SNAPSHOT"
           RSS_THRESHOLD: "40000"
           START_TIME_THRESHOLD: "1000"
-          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
           REMOTE_OBJECT_NAME: "pmap.out"
-          API_KEY: ${{ secrets.API_KEY }}
-          SERVICE_INSTANCE_ID: ${{ secrets.SERVICE_INSTANCE_ID }}
+          BUCKET_NAME: ${{ secrets.IBM_COS_BUCKET_NAME }}
+          API_KEY: ${{ secrets.IBM_COS_SERVICE_CREDENTIAL_API_KEY }}
+          SERVICE_INSTANCE_ID: ${{ secrets.IBM_COS_SERVICE_CREDENTIAL_RESOURCE_INSTANCE_ID }}
 
         run: |
           sudo apt-get update -o Dir::Etc::sourcelist="sources.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
