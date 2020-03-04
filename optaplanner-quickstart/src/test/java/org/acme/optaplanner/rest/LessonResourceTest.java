@@ -1,13 +1,10 @@
 package org.acme.optaplanner.rest;
 
-import java.time.DayOfWeek;
-import java.time.LocalTime;
 import java.util.List;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.acme.optaplanner.domain.Lesson;
-import org.acme.optaplanner.domain.Timeslot;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
