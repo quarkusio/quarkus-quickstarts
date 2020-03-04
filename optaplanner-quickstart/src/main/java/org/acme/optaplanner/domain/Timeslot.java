@@ -14,7 +14,6 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 @Entity
 public class Timeslot extends PanacheEntityBase {
 
-//    @PlanningId
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull

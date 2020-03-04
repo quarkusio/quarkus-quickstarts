@@ -12,7 +12,6 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 @Entity
 public class Room extends PanacheEntityBase { // extends PanacheEntityBase because we want to annotate the id
 
-    //    @PlanningId
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
