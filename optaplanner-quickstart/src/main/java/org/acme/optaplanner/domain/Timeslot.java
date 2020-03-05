@@ -10,11 +10,12 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 @Entity
 public class Timeslot extends PanacheEntityBase {
 
-//    @PlanningId
+    @PlanningId
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull

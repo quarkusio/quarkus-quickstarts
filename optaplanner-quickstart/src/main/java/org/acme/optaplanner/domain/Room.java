@@ -8,11 +8,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 @Entity
-public class Room extends PanacheEntityBase { // extends PanacheEntityBase because we want to annotate the id
+public class Room extends PanacheEntityBase {
 
-    //    @PlanningId
+    @PlanningId
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
@@ -40,4 +41,5 @@ public class Room extends PanacheEntityBase { // extends PanacheEntityBase becau
     public String toString() {
         return name;
     }
+
 }
