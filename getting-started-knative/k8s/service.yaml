@@ -1,0 +1,15 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: greeter
+spec:
+  template:
+    spec:
+      containers:
+      - image: dev.local/quarkus-quickstarts/getting-started-knative
+        livenessProbe:
+          httpGet:
+            path: /health/live
+        readinessProbe:
+          httpGet:
+            path: /health/ready

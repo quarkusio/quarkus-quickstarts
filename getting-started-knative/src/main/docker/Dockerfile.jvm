@@ -1,0 +1,35 @@
+# Using multi stage docker build
+# Stage - 1  Prepare the build artifacts 
+
+FROM quay.io/quarkus/centos-quarkus-maven:19.3.1-java8 as build
+
+# If you want to use nexus or any other maven repository manager then
+# uncomment this to point to the repo manager
+# ENV MAVEN_MIRROR_URL http://nexus:8081/nexus/content/groups/public/
+
+USER root
+
+RUN mkdir -p /usr/src/app && \
+    chown -R quarkus /usr/src/app
+
+USER quarkus
+
+# Set the maven mirrors in the maven settings if available
+
+RUN /usr/local/bin/entrypoint-run.sh
+
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+
+WORKDIR /usr/src/app
+
+RUN mvn clean package
+
+# Stage - 2 Prepare the final container image
+
+FROM fabric8/java-alpine-openjdk8-jre
+ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+ENV AB_ENABLED=jmx_exporter
+COPY --from=build /usr/src/app/target/lib/* /deployments/lib/
+COPY --from=build /usr/src/app/target/*-runner.jar /deployments/app.jar
+ENTRYPOINT [ "/deployments/run-java.sh" ]
