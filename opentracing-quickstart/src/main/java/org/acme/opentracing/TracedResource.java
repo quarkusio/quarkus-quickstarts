@@ -9,9 +9,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
+import org.jboss.logging.Logger;
 
 @Path("/")
 public class TracedResource {
+
+    private static final Logger LOG = Logger.getLogger(TracedResource.class);
 
     @Inject
     private FrancophoneService exampleBean;
@@ -23,6 +26,7 @@ public class TracedResource {
     @Path("/hello")
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
+        LOG.info("hello");
         return "hello";
     }
 
