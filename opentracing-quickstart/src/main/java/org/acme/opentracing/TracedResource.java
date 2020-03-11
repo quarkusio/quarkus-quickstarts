@@ -14,7 +14,7 @@ import org.eclipse.microprofile.rest.client.RestClientBuilder;
 public class TracedResource {
 
     @Inject
-    private FrancophoneService exampleBean;
+    FrancophoneService exampleBean;
 
     @Context
     private UriInfo uriInfo;

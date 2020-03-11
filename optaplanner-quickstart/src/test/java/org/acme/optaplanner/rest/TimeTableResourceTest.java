@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TimeTableResourceTest {
 
     @Inject
-    private TimeTableResource timeTableResource;
+    TimeTableResource timeTableResource;
 
     @Test
     @Timeout(600_000)
