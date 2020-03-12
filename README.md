@@ -27,7 +27,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples:
 * [MicroProfile Metrics](./microprofile-metrics-quickstart): How to use MicroProfile Metrics
 * [MongoDB](./mongodb-quickstart): How to connect to a MongoDB datastore
 * [MongoDB with Panache](./mongodb-panache-quickstart): Simplify your MongoDB applications with Panache
-* [MicroPofile Messaging MQTT](./mqtt-quickstart): How to interact with MQTT using MicroProfile reactive messaging
+* [MicroProfile Messaging MQTT](./mqtt-quickstart): How to interact with MQTT using MicroProfile reactive messaging
 * [Neo4j](./neo4j-quickstart): How to connect to a Neo4j graph datastore
 * [OpenAPI and Swagger UI](./openapi-swaggerui-quickstart): Use OpenAPI and Swagger UI to expose your REST API and test your REST services
 * [OpenTracing and Jaeger](./opentracing-quickstart): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
