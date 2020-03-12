@@ -67,3 +67,11 @@ To compile and run these demos you will need:
 - GraalVM
 
 See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image) for help setting up your environment.
+
+## Use alternative platforms
+
+If you want to use an alternative BOM when building the quickstart you can override the `quarkus.platform.*` properties. The following example shows how to set `quarkus.platform.artifact-id` to use the universe-bom.
+
+```
+mvn -Dquarkus.platform.artifact-id=quarkus-universe-bom clean install
+```

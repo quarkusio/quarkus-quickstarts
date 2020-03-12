@@ -8,7 +8,10 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <quarkus.version>999-SNAPSHOT</quarkus.version>
+        <quarkus-plugin.version>999-SNAPSHOT</quarkus-plugin.version>
+        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+        <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
         <compiler-plugin.version>3.8.0</compiler-plugin.version>
         <docker-plugin.version>0.28.0</docker-plugin.version>
@@ -19,11 +22,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-bom</artifactId>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                <version>${quarkus.platform.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
-                <version>${quarkus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -90,7 +93,7 @@
                 <!-- This is what injects the magic Quarkus bytecode -->
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus.version}</version>
+                <version>${quarkus-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -172,7 +175,7 @@
                     <plugin>
                         <groupId>io.quarkus</groupId>
                         <artifactId>quarkus-maven-plugin</artifactId>
-                        <version>${quarkus.version}</version>
+                        <version>${quarkus-plugin.version}</version>
                         <executions>
                             <execution>
                                 <goals>
