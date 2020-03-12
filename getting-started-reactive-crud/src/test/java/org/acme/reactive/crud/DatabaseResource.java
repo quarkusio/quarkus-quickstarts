@@ -1,4 +1,4 @@
-package org.acme.context.prices;
+package org.acme.reactive.crud;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -17,7 +17,7 @@ public class DatabaseResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         DATABASE.start();
-        return Collections.singletonMap("quarkus.datasource.url", DATABASE.getJdbcUrl());
+        return Collections.singletonMap("quarkus.datasource.reactive.url", DATABASE.getJdbcUrl().replace("jdbc:", ""));
     }
 
     @Override
@@ -25,4 +25,3 @@ public class DatabaseResource implements QuarkusTestResourceLifecycleManager {
         DATABASE.stop();
     }
 }
-
