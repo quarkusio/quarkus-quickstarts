@@ -26,9 +26,9 @@ public class TimeTableResource {
     public static final Long SINGLETON_TIME_TABLE_ID = 1L;
 
     @Inject
-    private SolverManager<TimeTable, Long> solverManager;
+    SolverManager<TimeTable, Long> solverManager;
     @Inject
-    private ScoreManager<TimeTable> scoreManager;
+    ScoreManager<TimeTable> scoreManager;
 
     // To try, open http://localhost:8080/timeTable
     @GET
