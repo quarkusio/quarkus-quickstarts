@@ -13,8 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import io.quarkus.panache.common.Sort;
 import org.acme.optaplanner.domain.Room;
+
+import io.quarkus.panache.common.Sort;
 
 @Path("/rooms")
 @Produces(MediaType.APPLICATION_JSON)

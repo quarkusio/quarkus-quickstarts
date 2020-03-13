@@ -1,7 +1,6 @@
 package org.acme.quickstart.oidc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.util.Cookie;
 
 import io.quarkus.test.junit.QuarkusTest;
 

@@ -1,11 +1,11 @@
 package org.acme.context;
 
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
-
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 @Path("/")
 public class PriceResource {

@@ -1,10 +1,10 @@
 package org.acme.optaplanner.ui;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
-import io.quarkus.test.junit.QuarkusTest;
+import static io.restassured.RestAssured.given;
+
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.given;
+import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 public class WebjarLoadingTest {

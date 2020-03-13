@@ -3,11 +3,11 @@ package org.acme.mongodb.codec;
 import java.util.UUID;
 
 import org.acme.mongodb.Fruit;
-import org.bson.Document;
-import org.bson.BsonWriter;
-import org.bson.BsonValue;
 import org.bson.BsonReader;
 import org.bson.BsonString;
+import org.bson.BsonValue;
+import org.bson.BsonWriter;
+import org.bson.Document;
 import org.bson.codecs.Codec;
 import org.bson.codecs.CollectibleCodec;
 import org.bson.codecs.DecoderContext;

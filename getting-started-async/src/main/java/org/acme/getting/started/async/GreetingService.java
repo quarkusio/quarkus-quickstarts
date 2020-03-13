@@ -1,9 +1,9 @@
 package org.acme.getting.started.async;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.infrastructure.Infrastructure;
-
-import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class GreetingService {

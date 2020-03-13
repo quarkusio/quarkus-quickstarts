@@ -5,10 +5,10 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
 import javax.websocket.ClientEndpoint;
-import javax.websocket.Session;
-import javax.websocket.OnOpen;
-import javax.websocket.OnMessage;
 import javax.websocket.ContainerProvider;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

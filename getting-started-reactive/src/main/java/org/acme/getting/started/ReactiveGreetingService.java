@@ -1,10 +1,11 @@
 package org.acme.getting.started;
 
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.Uni;
+import java.time.Duration;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.time.Duration;
+
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
 
 @ApplicationScoped
 public class ReactiveGreetingService {

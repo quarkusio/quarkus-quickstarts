@@ -1,18 +1,19 @@
 package org.acme.context;
 
-import io.smallrye.mutiny.Multi;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.jboss.resteasy.annotations.SseElementType;
-import org.reactivestreams.Publisher;
+import java.util.List;
 
 import javax.inject.Inject;
-import javax.transaction.SystemException;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
+
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.jboss.resteasy.annotations.SseElementType;
+import org.reactivestreams.Publisher;
+
+import io.smallrye.mutiny.Multi;
 
 @Path("/")
 public class EmitterResource {

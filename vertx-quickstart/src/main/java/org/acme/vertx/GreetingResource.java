@@ -1,8 +1,7 @@
 package org.acme.vertx;
 
-import io.smallrye.mutiny.Uni;
-import io.vertx.core.Vertx;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -10,8 +9,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.NANOSECONDS;
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
+
+import io.smallrye.mutiny.Uni;
+import io.vertx.core.Vertx;
 
 @Path("/hello")
 public class GreetingResource {

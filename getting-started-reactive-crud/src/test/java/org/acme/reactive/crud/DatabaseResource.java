@@ -1,10 +1,11 @@
 package org.acme.reactive.crud;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.testcontainers.containers.PostgreSQLContainer;
-
 import java.util.Collections;
 import java.util.Map;
+
+import org.testcontainers.containers.PostgreSQLContainer;
+
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class DatabaseResource implements QuarkusTestResourceLifecycleManager {
 

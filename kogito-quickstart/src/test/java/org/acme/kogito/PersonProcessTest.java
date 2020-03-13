@@ -3,10 +3,7 @@ package org.acme.kogito;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
 
-import javax.inject.Inject;
-
 import org.junit.jupiter.api.Test;
-import org.kie.kogito.Application;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;

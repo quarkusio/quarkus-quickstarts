@@ -1,11 +1,11 @@
 package org.acme.microprofile.faulttolerance;
 
-import org.junit.jupiter.api.Test;
-
 import static io.restassured.RestAssured.get;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.StringContains.containsString;
+
+import org.junit.jupiter.api.Test;
 
 public abstract class BaseTest {
 

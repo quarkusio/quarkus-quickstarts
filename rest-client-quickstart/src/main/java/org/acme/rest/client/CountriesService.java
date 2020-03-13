@@ -7,9 +7,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
+
+import io.smallrye.mutiny.Uni;
 
 @Path("/v2")
 @RegisterRestClient

@@ -1,11 +1,11 @@
 package org.acme.neo4j;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-
 import java.util.Collections;
 import java.util.Map;
 
 import org.testcontainers.containers.Neo4jContainer;
+
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class Neo4jResource implements QuarkusTestResourceLifecycleManager {
 

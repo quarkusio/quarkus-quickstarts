@@ -6,11 +6,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.Uni;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
-import org.reactivestreams.Publisher;
+
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
 
 @Path("/hello")
 public class ReactiveGreetingResource {

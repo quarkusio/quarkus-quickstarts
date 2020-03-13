@@ -1,19 +1,18 @@
 package org.acme.optaplanner.rest;
 
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.http.ContentType;
-import org.acme.optaplanner.domain.Room;
 import org.acme.optaplanner.domain.Timeslot;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
 
 @QuarkusTest
 public class TimeslotResourceTest {
