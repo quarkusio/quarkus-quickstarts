@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import io.smallrye.reactive.messaging.kafka.KafkaRecord;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.reactivex.Flowable;
+import io.smallrye.reactive.messaging.kafka.KafkaRecord;
 
 /**
  * A bean producing random temperature data every second.

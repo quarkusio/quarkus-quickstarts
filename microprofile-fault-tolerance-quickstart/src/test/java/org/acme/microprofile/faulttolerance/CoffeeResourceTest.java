@@ -1,17 +1,14 @@
 package org.acme.microprofile.faulttolerance;
 
 import static io.restassured.RestAssured.get;
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.StringContains.containsString;
 
 import javax.inject.Inject;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest

@@ -1,13 +1,15 @@
 package org.acme.mongodb;
 
-import io.quarkus.mongodb.reactive.ReactiveMongoClient;
-import io.quarkus.mongodb.reactive.ReactiveMongoCollection;
-import io.smallrye.mutiny.Uni;
-import org.bson.Document;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.List;
+
+import org.bson.Document;
+
+import io.quarkus.mongodb.reactive.ReactiveMongoClient;
+import io.quarkus.mongodb.reactive.ReactiveMongoCollection;
+import io.smallrye.mutiny.Uni;
 
 @ApplicationScoped
 public class ReactiveFruitService {

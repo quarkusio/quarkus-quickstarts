@@ -1,17 +1,18 @@
 package org.acme.optaplanner.rest;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import javax.inject.Inject;
 
-import io.quarkus.test.junit.QuarkusTest;
 import org.acme.optaplanner.domain.Lesson;
 import org.acme.optaplanner.domain.TimeTable;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import org.optaplanner.core.api.solver.SolverStatus;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 public class TimeTableResourceTest {

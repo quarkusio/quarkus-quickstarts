@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.acme.kafka.streams.aggregator.model.WeatherStationData;
 import org.acme.kafka.streams.aggregator.model.Aggregation;
+import org.acme.kafka.streams.aggregator.model.WeatherStationData;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;

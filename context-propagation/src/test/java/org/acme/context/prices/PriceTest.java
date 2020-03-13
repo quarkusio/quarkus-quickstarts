@@ -1,22 +1,24 @@
 package org.acme.context.prices;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import io.restassured.common.mapper.TypeRef;
-import org.acme.context.Price;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.awaitility.Awaitility.await;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.sse.SseEventSource;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static org.awaitility.Awaitility.await;
+import org.acme.context.Price;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.common.mapper.TypeRef;
 
 @QuarkusTest
 @QuarkusTestResource(KafkaResource.class)

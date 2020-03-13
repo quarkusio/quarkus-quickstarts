@@ -9,7 +9,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.panache.common.Sort;
 import org.acme.optaplanner.domain.Lesson;
 import org.acme.optaplanner.domain.Room;
 import org.acme.optaplanner.domain.TimeTable;
@@ -17,6 +16,8 @@ import org.acme.optaplanner.domain.Timeslot;
 import org.optaplanner.core.api.score.ScoreManager;
 import org.optaplanner.core.api.solver.SolverManager;
 import org.optaplanner.core.api.solver.SolverStatus;
+
+import io.quarkus.panache.common.Sort;
 
 @Path("/timeTable")
 @Produces(MediaType.APPLICATION_JSON)

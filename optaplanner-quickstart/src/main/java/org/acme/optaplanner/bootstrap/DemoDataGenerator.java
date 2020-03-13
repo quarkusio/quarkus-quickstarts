@@ -9,11 +9,12 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.transaction.Transactional;
 
-import io.quarkus.runtime.StartupEvent;
 import org.acme.optaplanner.domain.Lesson;
 import org.acme.optaplanner.domain.Room;
 import org.acme.optaplanner.domain.Timeslot;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import io.quarkus.runtime.StartupEvent;
 
 @ApplicationScoped
 public class DemoDataGenerator {

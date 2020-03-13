@@ -1,7 +1,6 @@
 package org.acme.dynamodb;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;

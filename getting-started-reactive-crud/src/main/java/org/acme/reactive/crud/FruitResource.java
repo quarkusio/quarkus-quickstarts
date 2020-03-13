@@ -16,11 +16,7 @@
 
 package org.acme.reactive.crud;
 
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.Uni;
-import io.vertx.mutiny.pgclient.PgPool;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import java.net.URI;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -35,7 +31,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
-import java.net.URI;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
+
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
+import io.vertx.mutiny.pgclient.PgPool;
 
 @Path("fruits")
 @Produces(MediaType.APPLICATION_JSON)

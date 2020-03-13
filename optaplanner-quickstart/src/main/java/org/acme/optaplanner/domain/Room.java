@@ -7,8 +7,9 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
+
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
 public class Room extends PanacheEntityBase {

@@ -16,14 +16,14 @@
 
 package org.acme.vertx;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.pgclient.PgPool;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
 import io.vertx.mutiny.sqlclient.Tuple;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Fruit {
 

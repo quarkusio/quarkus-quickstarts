@@ -16,14 +16,14 @@
 
 package org.acme.reactive.crud;
 
+import java.util.stream.StreamSupport;
+
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.pgclient.PgPool;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
 import io.vertx.mutiny.sqlclient.Tuple;
-
-import java.util.stream.StreamSupport;
 
 public class Fruit {
 
