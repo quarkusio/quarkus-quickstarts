@@ -27,7 +27,7 @@
         <module>jms-quickstart</module>
         <module>kafka-quickstart</module>
         <module>kafka-streams-quickstart</module>
-        <module>kogito-quickstart</module>
+<!--        <module>kogito-quickstart</module>-->
         <module>optaplanner-quickstart</module>
         <module>lifecycle-quickstart</module>
         <module>microprofile-fault-tolerance-quickstart</module>
