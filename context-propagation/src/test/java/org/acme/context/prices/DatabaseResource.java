@@ -18,7 +18,7 @@ public class DatabaseResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         DATABASE.start();
-        return Collections.singletonMap("quarkus.datasource.url", DATABASE.getJdbcUrl());
+        return Collections.singletonMap("quarkus.datasource.jdbc.url", DATABASE.getJdbcUrl());
     }
 
     @Override
