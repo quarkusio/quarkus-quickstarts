@@ -23,7 +23,7 @@ for a given station using Kafka Streams interactive queries.
 To build the _producer_ and _aggregator_ applications, run
 
 ```bash
-mvn clean package
+mvn clean install
 ```
 
 ## Running
@@ -128,7 +128,7 @@ To run the _producer_ and _aggregator_ applications as native binaries via Graal
 first run the Maven builds using the `native` profile:
 
 ```bash
-mvn clean package -Pnative -Dnative-image.container-runtime=docker
+mvn clean install -Pnative -Dnative-image.container-runtime=docker
 ```
 
 Then create an environment variable named `QUARKUS_MODE` and with value set to "native":

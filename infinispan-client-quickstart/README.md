@@ -31,7 +31,7 @@ If you use an older version of `http://www.infinispan.org/` or ``Red Hat Data Gr
 
 # Run the demo on dev mode
 
-- Run `mvn clean package` and then `java -jar ./target/infinispan-client-quickstart-runner.jar`
+- Run `mvn clean install` and then `java -jar ./target/infinispan-client-quickstart-runner.jar`
 - In dev mode `mvn clean quarkus:dev`
 
 Go to `http://localhost:8081/infinispan`, it should show you a message coming from the Infinispan server.

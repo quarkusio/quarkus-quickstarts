@@ -63,7 +63,7 @@ mvn verify -Pnative
 
 You can compile the application into a native binary using:
 
-`mvn clean package -Pnative`
+`mvn clean install -Pnative`
 
 _Note: You need to have a proper GraalVM configuration to build a native binary._
 

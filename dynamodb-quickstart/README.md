@@ -69,7 +69,7 @@ Alternatively, go to `http://localhost:8080/async-fruits.html` with the simple A
 
 You can compile the application into a native binary using:
 
-`mvn clean package -Pnative`
+`mvn clean install -Pnative`
 
 and run with:
 
@@ -80,7 +80,7 @@ and run with:
 --
 Build a native image in container by running:
 
-`mvn package -Pnative -Dnative-image.docker-build=true`
+`mvn install -Pnative -Dnative-image.docker-build=true`
 
 Build a docker image:
 `docker build -f src/main/docker/Dockerfile.native -t quarkus/dynamodb-quickstart .`
