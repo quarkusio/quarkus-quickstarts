@@ -8,11 +8,12 @@ This web application optimizes a school timetable for students and teachers.
 It assigns `Lesson` instances to `Timeslot` and `Room` instances automatically
 by using AI to adhere to hard and soft scheduling constraints, such as:
 
-* A room can have at most one lesson at the same time.
-* A teacher can teach at most one lesson at the same time.
-* A student can attend at most one lesson at the same time.
-* A teacher prefers to teach in a single room.
-* A teacher prefers to teach sequential lessons and dislikes gaps between lessons.
+* *Room conflict*: A room can have at most one lesson at the same time.
+* *Teacher conflict*: A teacher can teach at most one lesson at the same time.
+* *Student group conflict*: A student can attend at most one lesson at the same time.
+* *Teacher room stability*: A teacher prefers to teach in a single room.
+* *Teacher time efficiency*: A teacher prefers to teach sequential lessons and dislikes gaps between lessons.
+* *Student group subject variety*: A student group dislikes sequential lessons on the same subject.
 
 ## Run the application with live coding
 

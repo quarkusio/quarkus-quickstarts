@@ -122,15 +122,23 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="timeslot_dayOfWeek">Day of week</label>
-                    <input type="text" class="form-control" id="timeslot_dayOfWeek" required value="WEDNESDAY">
+                    <select class="form-control" id="timeslot_dayOfWeek" required>
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option selected="selected">Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="timeslot_startTime">Start time</label>
-                    <input type="text" class="form-control" id="timeslot_startTime" required value="08:30">
+                    <input type="time" class="form-control" id="timeslot_startTime" required value="08:30"/>
                 </div>
                 <div class="form-group">
                     <label for="timeslot_endTime">End time</label>
-                    <input type="text" class="form-control" id="timeslot_endTime" required value="09:30">
+                    <input type="time" class="form-control" id="timeslot_endTime" required value="09:30">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
