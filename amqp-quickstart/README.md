@@ -35,7 +35,7 @@ NOTE: Hey, it's the same code as the Kafka quickstart! Yes, it is, the only diff
 
 You can compile the application into a native binary using:
 
-`mvn clean package -Pnative`
+`mvn clean install -Pnative`
 
 and run with:
 

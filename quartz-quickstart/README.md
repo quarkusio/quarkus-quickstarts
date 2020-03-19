@@ -24,7 +24,7 @@ for help setting up your environment.
 
 Launch the Maven build on the checked out sources of this demo:
 
-> ./mvnw package
+> ./mvnw install
 
 ## Running the demo
 
@@ -53,11 +53,11 @@ conventional jar file.
 
 First compile it:
 
-> ./mvnw package
+> ./mvnw install
 
 Note that running this command will start a PostgreSQL instance and run the tests. To skip tests use the command below
 
-> ./mvnw package -DskipTests
+> ./mvnw install -DskipTests
 
 Then run the application with:
 
@@ -76,7 +76,7 @@ Compiling a native executable takes a bit longer, as GraalVM performs additional
 steps to remove unnecessary codepaths. Use the  `native` profile to compile a
 native executable:
 
-> ./mvnw package -Dnative
+> ./mvnw install -Dnative
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 

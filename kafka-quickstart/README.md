@@ -33,7 +33,7 @@ The configuration is located in the application configuration.
 
 You can compile the application into a native binary using:
 
-`mvn clean package -Pnative`
+`mvn clean install -Pnative`
 
 and run with:
 

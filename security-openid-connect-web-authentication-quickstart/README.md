@@ -79,7 +79,7 @@ _NOTE:_ Running the tests with, for instance, `mvn package` requires the Keycloa
 When you're done iterating in developer mode, you can run the application as a
 conventional jar file. First compile it:
 
-> ./mvnw package
+> ./mvnw install
 
 Then run it:
 
@@ -98,7 +98,7 @@ Compiling a native executable takes a bit longer, as GraalVM performs additional
 steps to remove unnecessary codepaths. Use the  `native` profile to compile a
 native executable:
 
-> ./mvnw package -Dnative
+> ./mvnw install -Dnative
 
 After getting a cup of coffee, you'll be able to run this executable directly:
 
