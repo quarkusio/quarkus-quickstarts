@@ -31,7 +31,8 @@ public class ReactiveFruitService {
         Document document = new Document()
                 .append("name", fruit.getName())
                 .append("description", fruit.getDescription());
-        return getCollection().insertOne(document);
+        return getCollection().insertOne(document)
+                .onItem().ignore().andContinueWithNull();
     }
 
     private ReactiveMongoCollection<Document> getCollection() {
