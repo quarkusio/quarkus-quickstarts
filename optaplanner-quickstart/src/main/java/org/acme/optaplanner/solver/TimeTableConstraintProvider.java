@@ -17,7 +17,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 // Hard constraints
                 roomConflict(constraintFactory),
                 teacherConflict(constraintFactory),
-                studentGroupConflict(constraintFactory),
+                studentGradeLevelConflict(constraintFactory),
                 // Soft constraints
                 teacherRoomStability(constraintFactory),
                 teacherTimeEfficiency(constraintFactory)
@@ -46,13 +46,13 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 .penalize("Teacher conflict", HardSoftScore.ONE_HARD);
     }
 
-    private Constraint studentGroupConflict(ConstraintFactory constraintFactory) {
-        // A student can attend at most one lesson at the same time.
+    private Constraint studentGradeLevelConflict(ConstraintFactory constraintFactory) {
+        // Students in a student grade level can at most receive one lesson at the same time
         return constraintFactory
                 .fromUniquePair(Lesson.class,
                         Joiners.equal(Lesson::getTimeslot),
-                        Joiners.equal(Lesson::getStudentGroup))
-                .penalize("Student group conflict", HardSoftScore.ONE_HARD);
+                        Joiners.equal(Lesson::getStudentGradeLevel))
+                .penalize("Student grade level conflict", HardSoftScore.ONE_HARD);
     }
 
     private Constraint teacherRoomStability(ConstraintFactory constraintFactory) {

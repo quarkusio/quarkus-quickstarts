@@ -71,7 +71,7 @@ public class TimeTableResource {
         return new TimeTable(
                 Timeslot.listAll(Sort.by("dayOfWeek").and("startTime").and("endTime").and("id")),
                 Room.listAll(Sort.by("name").and("id")),
-                Lesson.listAll(Sort.by("subject").and("teacher").and("studentGroup").and("id")));
+                Lesson.listAll(Sort.by("subject").and("teacher").and("studentGradeLevel").and("id")));
     }
 
     @Transactional

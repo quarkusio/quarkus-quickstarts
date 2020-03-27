@@ -10,8 +10,8 @@ function refreshTimeTable() {
         timeTableByRoom.children().remove();
         const timeTableByTeacher = $("#timeTableByTeacher");
         timeTableByTeacher.children().remove();
-        const timeTableByStudentGroup = $("#timeTableByStudentGroup");
-        timeTableByStudentGroup.children().remove();
+        const timeTableByStudentGradeLevel = $("#timeTableByStudentGradeLevel");
+        timeTableByStudentGradeLevel.children().remove();
         const unassignedLessons = $("#unassignedLessons");
         unassignedLessons.children().remove();
 
@@ -39,20 +39,20 @@ function refreshTimeTable() {
                 .append($("<span />").text(teacher))
             .append("</th>"));
         });
-        const theadByStudentGroup = $("<thead>").appendTo(timeTableByStudentGroup);
-        const headerRowByStudentGroup = $("<tr>").appendTo(theadByStudentGroup);
-        headerRowByStudentGroup.append($("<th>Timeslot</th>"));
-        const studentGroupList = [...new Set(timeTable.lessonList.map(lesson => lesson.studentGroup))];
-        $.each(studentGroupList, (index, studentGroup) => {
-            headerRowByStudentGroup
+        const theadByStudentGradeLevel = $("<thead>").appendTo(timeTableByStudentGradeLevel);
+        const headerRowByStudentGradeLevel = $("<tr>").appendTo(theadByStudentGradeLevel);
+        headerRowByStudentGradeLevel.append($("<th>Timeslot</th>"));
+        const studentGradeLevelList = [...new Set(timeTable.lessonList.map(lesson => lesson.studentGradeLevel))];
+        $.each(studentGradeLevelList, (index, studentGradeLevel) => {
+            headerRowByStudentGradeLevel
             .append($("<th>")
-                .append($("<span />").text(studentGroup))
+                .append($("<span />").text(studentGradeLevel))
             .append("</th>"));
         });
 
         const tbodyByRoom = $("<tbody>").appendTo(timeTableByRoom);
         const tbodyByTeacher = $("<tbody>").appendTo(timeTableByTeacher);
-        const tbodyByStudentGroup = $("<tbody>").appendTo(timeTableByStudentGroup);
+        const tbodyByStudentGradeLevel = $("<tbody>").appendTo(timeTableByStudentGradeLevel);
         $.each(timeTable.timeslotList, (index, timeslot) => {
             const rowByRoom = $("<tr>").appendTo(tbodyByRoom);
             rowByRoom
@@ -83,8 +83,8 @@ function refreshTimeTable() {
             $.each(timeTable.roomList, (index, room) => {
                 rowByRoom.append($("<td/>").prop("id", `timeslot${timeslot.id}room${room.id}`));
             });
-            const rowByStudentGroup = $("<tr>").appendTo(tbodyByStudentGroup);
-            rowByStudentGroup
+            const rowByStudentGradeLevel = $("<tr>").appendTo(tbodyByStudentGradeLevel);
+            rowByStudentGradeLevel
             .append($(`<th class="align-middle">`)
                 .append($("<span/>").text(`
                     ${timeslot.dayOfWeek.charAt(0) + timeslot.dayOfWeek.slice(1).toLowerCase()}
@@ -98,8 +98,8 @@ function refreshTimeTable() {
                 rowByTeacher.append($("<td/>").prop("id", `timeslot${timeslot.id}teacher${convertToId(teacher)}`));
             });
 
-            $.each(studentGroupList, (index, studentGroup) => {
-                rowByStudentGroup.append($("<td/>").prop("id", `timeslot${timeslot.id}studentGroup${convertToId(studentGroup)}`));
+            $.each(studentGradeLevelList, (index, studentGradeLevel) => {
+                rowByStudentGradeLevel.append($("<td/>").prop("id", `timeslot${timeslot.id}studentGradeLevel${convertToId(studentGradeLevel)}`));
             });
         });
 
@@ -111,7 +111,7 @@ function refreshTimeTable() {
                     .append($(`<h5 class="card-title mb-1" />`).text(lesson.subject))
                     .append($(`<p class="card-text text-muted ml-2 mb-1" />`).text(`by ${lesson.teacher}`))
                     .append($(`<small class="ml-2 mt-1 card-text text-muted align-bottom float-right" />`).text(lesson.id))
-                    .append($(`<p class="card-text ml-2" />`).text(lesson.studentGroup))
+                    .append($(`<p class="card-text ml-2" />`).text(lesson.studentGradeLevel))
                 .append("</div>"))
             .append(`</div>`);
             const lessonElement = lessonElementWithoutDelete.clone();
@@ -127,7 +127,7 @@ function refreshTimeTable() {
             } else {
                 $(`#timeslot${lesson.timeslot.id}room${lesson.room.id}`).append(lessonElement);
                 $(`#timeslot${lesson.timeslot.id}teacher${convertToId(lesson.teacher)}`).append(lessonElementWithoutDelete.clone());
-                $(`#timeslot${lesson.timeslot.id}studentGroup${convertToId(lesson.studentGroup)}`).append(lessonElementWithoutDelete.clone());
+                $(`#timeslot${lesson.timeslot.id}studentGradeLevel${convertToId(lesson.studentGradeLevel)}`).append(lessonElementWithoutDelete.clone());
             }
         });
     });
@@ -183,7 +183,7 @@ function addLesson() {
     $.post("/lessons", JSON.stringify({
         "subject": subject,
         "teacher": $("#lesson_teacher").val().trim(),
-        "studentGroup": $("#lesson_studentGroup").val().trim()
+        "studentGradeLevel": $("#lesson_studentGradeLevel").val().trim()
     }), function () {
         refreshTimeTable();
     }).fail(function(xhr, ajaxOptions, thrownError) {

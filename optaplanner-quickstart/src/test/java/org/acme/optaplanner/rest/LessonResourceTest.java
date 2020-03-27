@@ -26,7 +26,7 @@ public class LessonResourceTest {
         Lesson firstLesson = lessonList.get(0);
         assertEquals("Biology", firstLesson.getSubject());
         assertEquals("C. Darwin", firstLesson.getTeacher());
-        assertEquals("9th grade", firstLesson.getStudentGroup());
+        assertEquals("9th grade", firstLesson.getStudentGradeLevel());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class LessonResourceTest {
         Lesson lesson = given()
                 .when()
                 .contentType(ContentType.JSON)
-                .body(new Lesson("Test subject", "Test teacher", "test studentGroup"))
+                .body(new Lesson("Test subject", "Test teacher", "test studentGradeLevel"))
                 .post("/lessons")
                 .then()
                 .statusCode(202)

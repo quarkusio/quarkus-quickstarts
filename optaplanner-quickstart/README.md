@@ -10,7 +10,7 @@ by using AI to adhere to hard and soft scheduling constraints, such as:
 
 * A room can have at most one lesson at the same time.
 * A teacher can teach at most one lesson at the same time.
-* A student can attend at most one lesson at the same time.
+* Students in a student grade level can at most receive one lesson at the same time.
 * A teacher prefers to teach in a single room.
 * A teacher prefers to teach sequential lessons and dislikes gaps between lessons.
 
