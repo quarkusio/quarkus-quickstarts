@@ -29,7 +29,7 @@ public class Lesson extends PanacheEntityBase {
     @NotBlank
     private String teacher;
     @NotBlank
-    private String studentGroup;
+    private String studentGradeLevel;
 
     @PlanningVariable(valueRangeProviderRefs = "timeslotRange")
     @ManyToOne
@@ -41,10 +41,10 @@ public class Lesson extends PanacheEntityBase {
     public Lesson() {
     }
 
-    public Lesson(String subject, String teacher, String studentGroup) {
+    public Lesson(String subject, String teacher, String studentGradeLevel) {
         this.subject = subject.trim();
         this.teacher = teacher.trim();
-        this.studentGroup = studentGroup.trim();
+        this.studentGradeLevel = studentGradeLevel.trim();
     }
 
     public Long getId() {
@@ -59,8 +59,8 @@ public class Lesson extends PanacheEntityBase {
         return teacher;
     }
 
-    public String getStudentGroup() {
-        return studentGroup;
+    public String getStudentGradeLevel() {
+        return studentGradeLevel;
     }
 
     public Timeslot getTimeslot() {

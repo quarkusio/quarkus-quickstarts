@@ -25,7 +25,7 @@ public class LessonResource {
 
     @GET
     public List<Lesson> getAllLessons() {
-        return Lesson.listAll(Sort.by("subject").and("teacher").and("studentGroup").and("id"));
+        return Lesson.listAll(Sort.by("subject").and("teacher").and("studentGradeLevel").and("id"));
     }
 
     @POST
