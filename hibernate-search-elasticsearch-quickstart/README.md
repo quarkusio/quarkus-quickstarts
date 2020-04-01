@@ -48,7 +48,7 @@ You can launch a test instance easily from the project directory:
 
 If you prefer using Docker:
 
-> docker run -it --rm=true --name elasticsearch_quarkus_test -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+> docker run -it --rm=true --name elasticsearch_quarkus_test -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.6.1
 
 Alternatively you can setup an Elasticsearch instance in any another way.
 
