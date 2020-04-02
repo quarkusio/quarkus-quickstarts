@@ -58,6 +58,7 @@
         <module>spring-web-quickstart</module>
         <module>spring-data-jpa-quickstart</module>
         <module>spring-security-quickstart</module>
+        <module>spring-boot-properties-quickstart</module>
         <module>tests-with-coverage-quickstart</module>
         <module>tika-quickstart</module>
         <module>validation-quickstart</module>
