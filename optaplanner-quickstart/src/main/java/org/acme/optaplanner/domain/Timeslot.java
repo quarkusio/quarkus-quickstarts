@@ -56,7 +56,7 @@ public class Timeslot extends PanacheEntityBase {
 
     @Override
     public String toString() {
-        return dayOfWeek + " " + startTime.toString();
+        return dayOfWeek + " " + startTime;
     }
 
 }

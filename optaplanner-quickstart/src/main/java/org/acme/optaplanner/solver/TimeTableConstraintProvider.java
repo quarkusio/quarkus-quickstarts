@@ -69,7 +69,8 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         // A teacher prefers to teach sequential lessons and dislikes gaps between lessons.
         return constraintFactory
                 .from(Lesson.class)
-                .join(Lesson.class, Joiners.equal(Lesson::getTeacher))
+                .join(Lesson.class, Joiners.equal(Lesson::getTeacher),
+                        Joiners.equal((lesson) -> lesson.getTimeslot().getDayOfWeek()))
                 .filter((lesson1, lesson2) -> {
                     Duration between = Duration.between(lesson1.getTimeslot().getEndTime(),
                             lesson2.getTimeslot().getStartTime());
@@ -84,7 +85,8 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 .from(Lesson.class)
                 .join(Lesson.class,
                         Joiners.equal(Lesson::getSubject),
-                        Joiners.equal(Lesson::getStudentGroup))
+                        Joiners.equal(Lesson::getStudentGroup),
+                        Joiners.equal((lesson) -> lesson.getTimeslot().getDayOfWeek()))
                 .filter((lesson1, lesson2) -> {
                     Duration between = Duration.between(lesson1.getTimeslot().getEndTime(),
                             lesson2.getTimeslot().getStartTime());
