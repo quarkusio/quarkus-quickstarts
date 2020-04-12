@@ -115,7 +115,7 @@
                     <skip>${skipTests}</skip>
                     <images>
                         <image>
-                            <name>postgres:10.5</name>
+                            <name>postgres:12.2</name>
                             <alias>quarkus_test</alias>
                             <run>
                                 <env>
@@ -138,36 +138,6 @@
                                             <port>5432</port>
                                         </ports>
                                     </tcp>
-                                    <time>10000</time>
-                                </wait>
-                            </run>
-                        </image>
-                        <image>
-                            <name>postgres:10.5</name>
-                            <alias>tenant_a</alias>
-                            <run>
-                                <env>
-                                    <POSTGRES_USER>tenant_a</POSTGRES_USER>
-                                    <POSTGRES_PASSWORD>tenant_a</POSTGRES_PASSWORD>
-                                    <POSTGRES_DB>tenant_a</POSTGRES_DB>
-                                </env>
-                                <ports>
-                                    <port>5433:5432</port>
-                                </ports>
-                                <log>
-                                    <prefix>tenant_a: </prefix>
-                                    <date>default</date>
-                                    <color>cyan</color>
-                                </log>
-                                <wait>
-                                <!--
-                                    <tcp>
-                                        <mode>mapped</mode>
-                                        <ports>
-                                            <port>5433</port>
-                                        </ports>
-                                    </tcp>
-                                    -->
                                     <time>10000</time>
                                 </wait>
                             </run>
