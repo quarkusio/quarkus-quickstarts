@@ -10,7 +10,7 @@ INSERT INTO base.known_fruits(id, name) VALUES (2, 'Apple');
 INSERT INTO base.known_fruits(id, name) VALUES (3, 'Banana');
 
 CREATE SEQUENCE mycompany.known_fruits_id_seq;
-SELECT setval('mycompany."known_fruits_id_seq"', 4);
+SELECT setval('mycompany."known_fruits_id_seq"', 3);
 CREATE TABLE mycompany.known_fruits
 (
   id   INT,
