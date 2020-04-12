@@ -4,7 +4,6 @@ import javax.enterprise.context.ApplicationScoped;
 
 import org.jboss.logging.Logger;
 
-import io.quarkus.arc.Arc;
 import io.quarkus.arc.Unremovable;
 import io.quarkus.hibernate.orm.runtime.tenant.TenantResolver;
 import io.vertx.ext.web.RoutingContext;
@@ -22,9 +21,6 @@ public class CustomTenantResolver implements TenantResolver {
     
     @Override
     public String resolveHibernateOrmTenantId(RoutingContext context) {
-        if (!Arc.container().requestContext().isActive()) {
-            return getDefaultHibernateOrmTenantId();
-        }
         String path = context.request().path();
         final String tenantId;
         if (path.startsWith("/mycompany")) {
