@@ -26,13 +26,11 @@ public class CustomTenantResolver implements TenantResolver {
             return getDefaultHibernateOrmTenantId();
         }
         String path = context.request().path();
-        String[] parts = path.split("/");
-        String tenantId;
-        if (parts.length < 3) {
-            // resolve to default tenant config
-            tenantId = getDefaultHibernateOrmTenantId();
+        final String tenantId;
+        if (path.startsWith("/mycompany")) {
+            tenantId = "mycompany";
         } else {
-            tenantId = parts[1];
+            tenantId = getDefaultHibernateOrmTenantId();
         }
         LOG.debugv("TenantId = {0}", tenantId);
         return tenantId;
