@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.hibernate.MultiTenancyStrategy;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.jboss.logging.Logger;
@@ -14,9 +13,10 @@ import io.agroal.api.AgroalDataSource;
 import io.agroal.api.configuration.AgroalDataSourceConfiguration;
 import io.quarkus.agroal.DataSource;
 import io.quarkus.arc.Arc;
+import io.quarkus.arc.InstanceHandle;
 import io.quarkus.arc.Unremovable;
+import io.quarkus.hibernate.orm.runtime.JPAConfig;
 import io.quarkus.hibernate.orm.runtime.customized.QuarkusConnectionProvider;
-import io.quarkus.hibernate.orm.runtime.tenant.DataSourceTenantConnectionResolver;
 import io.quarkus.hibernate.orm.runtime.tenant.TenantConnectionResolver;
 
 /**
@@ -30,14 +30,14 @@ import io.quarkus.hibernate.orm.runtime.tenant.TenantConnectionResolver;
 @Unremovable
 public class CustomTenantConnectionResolver implements TenantConnectionResolver {
 
-    private static final Logger LOG = Logger.getLogger(DataSourceTenantConnectionResolver.class);
+    private static final Logger LOG = Logger.getLogger(CustomTenantConnectionResolver.class);
 
     @Override
     public ConnectionProvider resolve(String tenantId) {
 
         LOG.debugv("resolve({0})", tenantId);
 
-        final MultiTenancyStrategy strategy = configuredStrategy();
+        final MultiTenancyStrategy strategy = jpaConfig().getMultiTenancyStrategy();
         LOG.debugv("multitenancy strategy: {0}", strategy);
         AgroalDataSource dataSource = tenantDataSource(tenantId, strategy);
         if (dataSource == null) {
@@ -81,15 +81,18 @@ public class CustomTenantConnectionResolver implements TenantConnectionResolver 
     }
 
     /**
-     * Returns the configured strategy.
+     * Returns the singleton JPA configuration instance.
      * 
-     * @return Multitenancy strategy.
+     * @return JPA configuration.
      */
-    private static MultiTenancyStrategy configuredStrategy() {
-        return ConfigProvider.getConfig().getOptionalValue("quarkus.hibernate-orm.multitenant", MultiTenancyStrategy.class)
-                .orElse(MultiTenancyStrategy.NONE);
+    private static JPAConfig jpaConfig() {
+        InstanceHandle<JPAConfig> jpaConfigInstance = Arc.container().instance(JPAConfig.class);        
+        if (!jpaConfigInstance.isAvailable()) {
+            throw new IllegalStateException("No instance of JPAConfig found");
+        }
+        return jpaConfigInstance.get();
     }
-
+    
     private static class TenantConnectionProvider extends QuarkusConnectionProvider {
 
         private static final long serialVersionUID = 1L;
