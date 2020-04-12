@@ -2,6 +2,7 @@ package org.acme.hibernate.orm;
 
 import java.util.concurrent.TimeUnit;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -11,6 +12,7 @@ import io.quarkus.test.junit.QuarkusTest;
  * 
  * @see https://github.com/quarkusio/quarkus/issues/2143
  */
+@Disabled("You can enable this pseudo test to run the app in your IDE")
 @QuarkusTest
 public class IdeTestApp {
 

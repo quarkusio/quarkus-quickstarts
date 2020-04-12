@@ -1,5 +1,7 @@
 package org.acme.hibernate.orm;
 
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -13,6 +15,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -27,7 +30,7 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 @Path("/")
 public class FruitResource {
 
-    private static final Logger LOGGER = Logger.getLogger(FruitResource.class.getName());
+    private static final Logger LOG = Logger.getLogger(FruitResource.class.getName());
 
     @Inject
     EntityManager entityManager;
@@ -87,7 +90,7 @@ public class FruitResource {
         if (fruit.getId() != null) {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
-
+        LOG.debugv("Create {0}", fruit.getName());
         entityManager.persist(fruit);
         return Response.ok(fruit).status(201).build();
     }
@@ -112,13 +115,13 @@ public class FruitResource {
         }
 
         Fruit entity = entityManager.find(Fruit.class, id);
-
         if (entity == null) {
             throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
         }
-
         entity.setName(fruit.getName());
 
+        LOG.debugv("Update #{0} {1}", fruit.getId(), fruit.getName());
+        
         return entity;
     }
 
@@ -136,13 +139,38 @@ public class FruitResource {
         return delete(id);
     }
 
-    public Response delete(@PathParam Integer id) {
-        Fruit entity = entityManager.getReference(Fruit.class, id);
-        if (entity == null) {
+    public Response delete(Integer id) {
+        Fruit fruit = entityManager.getReference(Fruit.class, id);
+        if (fruit == null) {
             throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
         }
-        entityManager.remove(entity);
+        LOG.debugv("Delete #{0} {1}", fruit.getId(), fruit.getName());
+        entityManager.remove(fruit);
         return Response.status(204).build();
+    }
+
+    @GET
+    @Path("fruitsFindBy")
+    public Response findByDefault(@QueryParam("type") String type, @QueryParam("value") String value) {
+        return findBy(type, value);
+    }
+    
+    @GET
+    @Path("{tenant}/fruitsFindBy")
+    public Response findByTenant(@QueryParam("type") String type, @QueryParam("value") String value) {
+        return findBy(type, value);
+    }
+
+    private Response findBy(String type, String value) {
+        if (!"name".equalsIgnoreCase(type)) {
+            throw new IllegalArgumentException("Currently only 'fruitsFindBy?type=name' is supported");
+        }
+        List<Fruit> list = entityManager.createNamedQuery("Fruits.findByName", Fruit.class).setParameter("name", value).getResultList();
+        if (list.size() == 0) {
+            return Response.status(404).build();
+        }
+        Fruit fruit = list.get(0);
+        return Response.status(200).entity(fruit).build(); 
     }
     
     @Provider
@@ -150,7 +178,7 @@ public class FruitResource {
 
         @Override
         public Response toResponse(Exception exception) {
-            LOGGER.error("Failed to handle request", exception);
+            LOG.error("Failed to handle request", exception);
 
             int code = 500;
             if (exception instanceof WebApplicationException) {
