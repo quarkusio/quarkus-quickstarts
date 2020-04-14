@@ -16,13 +16,12 @@ import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.apache.kafka.streams.state.StreamsMetadata;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 @ApplicationScoped
 public class InteractiveQueries {
 
-    private static final Logger LOG = LoggerFactory.getLogger(InteractiveQueries.class);
+    private static final Logger LOG = Logger.getLogger(InteractiveQueries.class);
 
     @ConfigProperty(name = "hostname")
     String host;
@@ -49,10 +48,10 @@ public class InteractiveQueries {
                 Serdes.Integer().serializer());
 
         if (metadata == null || metadata == StreamsMetadata.NOT_AVAILABLE) {
-            LOG.warn("Found no metadata for key {}", id);
+            LOG.warnv("Found no metadata for key {0}", id);
             return GetWeatherStationDataResult.notFound();
         } else if (metadata.host().equals(host)) {
-            LOG.info("Found data for key {} locally", id);
+            LOG.infov("Found data for key {0} locally", id);
             Aggregation result = getWeatherStationStore().get(id);
 
             if (result != null) {
@@ -61,7 +60,7 @@ public class InteractiveQueries {
                 return GetWeatherStationDataResult.notFound();
             }
         } else {
-            LOG.info("Found data for key {} on remote host {}:{}", id, metadata.host(), metadata.port());
+            LOG.infov("Found data for key {0} on remote host {1}:{2}", id, metadata.host(), metadata.port());
             return GetWeatherStationDataResult.foundRemotely(metadata.host(), metadata.port());
         }
     }
