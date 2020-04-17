@@ -42,7 +42,7 @@ public class TokenSecuredResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String hello(@Context SecurityContext ctx) {
         Principal caller = ctx.getUserPrincipal();
-        String name = caller == null ? "anonymous" : caller.getName();
+        String name = caller.getName().isEmpty() ? "anonymous" : caller.getName();
         boolean hasJWT = jwt.getClaimNames() != null;
         String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s, hasJWT: %s", name, ctx.isSecure(),
                 ctx.getAuthenticationScheme(), hasJWT);
@@ -55,7 +55,7 @@ public class TokenSecuredResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String helloRolesAllowed(@Context SecurityContext ctx) {
         Principal caller = ctx.getUserPrincipal();
-        String name = caller == null ? "anonymous" : caller.getName();
+        String name = caller.getName().isEmpty() ? "anonymous" : caller.getName();
         boolean hasJWT = jwt.getClaimNames() != null;
         String helloReply = String.format("hello + %s, isSecure: %s, authScheme: %s, hasJWT: %s", name, ctx.isSecure(),
                 ctx.getAuthenticationScheme(), hasJWT);
@@ -68,7 +68,7 @@ public class TokenSecuredResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String helloShouldDeny(@Context SecurityContext ctx) {
         Principal caller = ctx.getUserPrincipal();
-        String name = caller == null ? "anonymous" : caller.getName();
+        String name = caller.getName().isEmpty() ? "anonymous" : caller.getName();
         return "hello + " + name;
     }
 
