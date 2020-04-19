@@ -9,13 +9,14 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>amazon-dynamodb-quickstart</module>
+        <module>amazon-s3-quickstart</module>
         <module>amazon-sns-quickstart</module>
         <module>amazon-sqs-quickstart</module>
         <module>amqp-quickstart</module>
         <module>cache-quickstart</module>
         <module>config-quickstart</module>
         <module>context-propagation</module>
-        <module>dynamodb-quickstart</module>
         <module>getting-started</module>
         <module>getting-started-async</module>
         <module>getting-started-reactive</module>

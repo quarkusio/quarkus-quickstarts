@@ -38,7 +38,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 
 
 * [AMQP](./amqp-quickstart): How to interact with AMQP using MicroProfile reactive messaging
-* [Amazon DynamoDB](./dynamodb-quickstart): How to connect to an Amazon DynamoDB datastore
+* [Amazon DynamoDB](./amazon-dynamodb-quickstart): How to connect to an Amazon DynamoDB datastore
+* [Amazon S3](./amazon-s3-quickstart): How to connect to an Amazon S3 cloud storage
 * [Amazon SNS](./amazon-sns-quickstart): How to connect to an Amazon SNS (Simple Messaging Service)
 * [Amazon SQS](./amazon-sqs-quickstart): How to connect to an Amazon SQS (Simple Queue Service)
 * [Hibernate ORM and RESTEasy](./hibernate-orm-quickstart): Exposing a CRUD service over REST using Hibernate ORM to connect to a PostgreSQL database
