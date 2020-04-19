@@ -7,16 +7,17 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native -t quarkus/dynamodb-client .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/s3-client .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8081:8081 quarkus/dynamodb-client
+# docker run -i --rm -p 8080:8080 quarkus/s3-client
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal
 WORKDIR /work/
 COPY target/*-runner /work/application
 RUN chmod 775 /work
-EXPOSE 8081
-CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+EXPOSE 8080
+ENTRYPOINT ["./application", "-Dquarkus.http.host=0.0.0.0"]
+

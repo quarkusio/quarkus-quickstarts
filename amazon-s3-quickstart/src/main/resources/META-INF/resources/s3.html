@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>S3 Bucket REST service</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css"/>
+  <!-- Load AngularJS -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script type="text/javascript">
+    var app = angular.module("S3Bucket", []);
+
+    app.directive('fileOnChange', function() {
+      return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+          var onChangeHandler = scope.$eval(attrs.fileOnChange);
+          element.on('change', onChangeHandler);
+          element.on('$destroy', function() {
+            element.off();
+          });
+        }
+      };
+    });
+
+    //Controller Part
+    app.controller("S3BucketController", function ($scope, $http) {
+
+      //Initialize page with default data which is blank in this example
+      $scope.files = [];
+
+      $scope.form = {
+        file: undefined,
+        filename: "",
+        mimetype: ""
+      };
+
+      //Now load the data from server
+      _refreshPageData();
+
+      $scope.fileChanged = function(event) {
+        $scope.form.file = event.target.files[0];
+        $scope.form.filename = event.target.files[0].name;
+        if (event.target.files[0].type) {
+          $scope.form.mimetype = event.target.files[0].type;
+        } else {
+          $scope.form.mimetype = "application/octet-stream"
+        }
+      };
+
+      //HTTP POST methods to upload files
+      $scope.add = function () {
+        var data = new FormData();
+        data.append('file', $scope.form.file);
+        data.append('filename', $scope.form.filename);
+        data.append('mimetype', $scope.form.mimetype);
+
+        $http({
+          method: "POST",
+          url: '/s3/upload',
+          data: data,
+          transformRequest: angular.identity,
+          headers: {
+            'Content-Type': undefined
+          }
+        }).then(_success, _error);
+      };
+
+      /* Private Methods */
+
+      //HTTP GET- get all files in bucket
+      function _refreshPageData() {
+        $http({
+          method: 'GET',
+          url: '/s3'
+        }).then(function successCallback(response) {
+          $scope.files = response.data;
+        }, function errorCallback(response) {
+          console.log(response.statusText);
+        });
+      }
+
+      function _success(response) {
+        _refreshPageData();
+        _clearForm();
+      }
+
+      function _error(response) {
+        alert(response.data.message || response.statusText);
+      }
+
+      //Clear the form
+      function _clearForm() {
+        $scope.form.file = undefined;
+        $scope.form.filename = "";
+        $scope.form.mimetype = "";
+      }
+    });
+  </script>
+</head>
+<body ng-app="S3Bucket" ng-controller="S3BucketController">
+
+<div class="container">
+  <h1>REST Service - S3 Bucket files manager</h1>
+
+  <h3>Upload file</h3>
+  <form ng-submit="add()">
+    <div class="row">
+      <div class="col-6">
+        <input type="file" name="file" id="fileToUpload" file-on-change="fileChanged">
+        <input type="hidden" name="filename" id="fileName" value="">
+        <input type="hidden" name="mimetype" id="mimeType" value="">
+      </div>
+    </div>
+    <input type="submit" value="Upload"/>
+  </form>
+
+  <h3>Files in Bucket</h3>
+  <div class="row">
+    <div class="col-8">Filename</div>
+    <div class="col-4">Size</div>
+  </div>
+  <div class="row" ng-repeat="file in files">
+    <div class="col-8"><a href="{{ '/s3/download/' + file.objectKey }}">{{ file.objectKey }}</a></div>
+    <div class="col-4">{{ file.size }} B</div>
+  </div>
+</div>
+
+</body>
+</html>
