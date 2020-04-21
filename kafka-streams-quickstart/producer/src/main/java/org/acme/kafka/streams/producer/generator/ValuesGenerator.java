@@ -13,8 +13,7 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 import io.reactivex.Flowable;
 import io.smallrye.reactive.messaging.kafka.KafkaRecord;
@@ -28,7 +27,7 @@ import io.smallrye.reactive.messaging.kafka.KafkaRecord;
 @ApplicationScoped
 public class ValuesGenerator {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ValuesGenerator.class);
+    private static final Logger LOG = Logger.getLogger(ValuesGenerator.class);
 
     private Random random = new Random();
 
@@ -55,7 +54,7 @@ public class ValuesGenerator {
                             .setScale(1, RoundingMode.HALF_UP)
                             .doubleValue();
 
-                    LOG.info("station: {}, temperature: {}", station.name, temperature);
+                    LOG.infov("station: {0}, temperature: {1}", station.name, temperature);
                     return KafkaRecord.of(station.id, Instant.now() + ";" + temperature);
                 });
     }
