@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
+import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -20,7 +21,7 @@ public class CodeFlowTest {
 
     @Test
     public void testLogInDefaultTenant() throws IOException {
-        try (final WebClient webClient = new WebClient()) {
+        try (final WebClient webClient = createWebClient()) {
             HtmlPage page = webClient.getPage("http://localhost:8081/default");
 
             assertEquals("Log in to quarkus", page.getTitleText());
@@ -38,7 +39,7 @@ public class CodeFlowTest {
 
     @Test
     public void testLogInExistingTenant() throws IOException {
-        try (final WebClient webClient = new WebClient()) {
+        try (final WebClient webClient = createWebClient()) {
             HtmlPage page = webClient.getPage("http://localhost:8081/tenant-a");
 
             assertEquals("Log in to tenant-a", page.getTitleText());
@@ -56,7 +57,7 @@ public class CodeFlowTest {
 
     @Test
     public void testReAuthenticateWhenSwitchingTenants() throws IOException {
-        try (final WebClient webClient = new WebClient()) {
+        try (final WebClient webClient = createWebClient()) {
             HtmlPage page = webClient.getPage("http://localhost:8081/tenant-a");
 
             assertEquals("Log in to tenant-a", page.getTitleText());
@@ -83,5 +84,11 @@ public class CodeFlowTest {
 
             assertTrue(page.asText().contains("alice@keycloak.org"));
         }
+    }
+
+    private WebClient createWebClient() {
+        WebClient webClient = new WebClient();
+        webClient.setCssErrorHandler(new SilentCssErrorHandler());
+        return webClient;
     }
 }
