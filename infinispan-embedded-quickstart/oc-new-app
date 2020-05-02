@@ -1,0 +1,6 @@
+
+
+oc import-image ubi-minimal:8.1 --from=registry.access.redhat.com/ubi8/ubi-minimal:8.1 --confirm
+
+oc new-app ubi-minimal:8.1~https://github.com/paolocarta/quarkus-infinispan-embedded-quickstart.git \
+--name=quarkus-infinispan-embedded-quickstart
