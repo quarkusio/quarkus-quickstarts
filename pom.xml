@@ -30,6 +30,7 @@
 <!--        <module>kogito-quickstart</module>-->
         <module>optaplanner-quickstart</module>
         <module>lifecycle-quickstart</module>
+        <module>maven-multi-module-quickstart</module>
         <module>microprofile-fault-tolerance-quickstart</module>
         <module>microprofile-health-quickstart</module>
         <module>microprofile-metrics-quickstart</module>
