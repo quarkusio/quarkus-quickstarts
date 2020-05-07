@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <testcontainers.version>1.12.3</testcontainers.version>
+        <testcontainers.version>1.14.1</testcontainers.version>
     </properties>
     <dependencyManagement>
         <dependencies>
