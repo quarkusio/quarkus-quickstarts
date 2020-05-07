@@ -2,13 +2,14 @@
 This is a minimal example showing how to set up a multi-module Maven project with [Quarkus](https://quarkus.io).
 
 ## Modules
+We have defined the following modules, with the corresponding folder structure:
 - **maven-multi-module-quickstart** (root)
 - **domain** (contains the domain objects of the application)
 - **services** (contains the services of the application)
 - **webapp** (contains the Quarkus web application)
 
 ### Root
-Contains the basic information of the application and no actual code, so the packaging is set to `pom`. We set the version to a properyy such that the submodules can use this version to make sure each module is using the right version.
+Contains the basic information of the application and no actual code, so the packaging is set to `pom`. We set the version to a property such that the submodules can use this version to make sure each module is using the right version.
 ```xml
 <project>
     <groupId>org.acme</groupId>
@@ -21,7 +22,7 @@ Contains the basic information of the application and no actual code, so the pac
 </project>
 ```
 
-The [pom.xml](pom.xml) includes the Quarkus BOM to centrally manage all the version for the Quarkus extensions to make sure everything is compatible between the modules and Quarkus itself. It also sets up the Quarkus Maven plugin.
+The [pom.xml](./pom.xml) includes the Quarkus BOM to centrally manage all the version for Quarkus and it's extensions to make sure everything is compatible between the modules and Quarkus itself. It also sets up the Quarkus Maven plugin.
 
 ### Submodules
 Next we set up the submodules. Each `pom.xml` includes information about the parent project.
