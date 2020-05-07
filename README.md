@@ -47,6 +47,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Kafka](./kafka-quickstart): Use MicroProfile Reactive Messaging to interact with Apache Kafka
 * [Kafka Streams](./kafka-streams-quickstart): Use the Apache Kafka Streams API to implement stream processing applications based on Apache Kafka
 * [Kogito](./kogito-quickstart): How to use Kogito for business process automation with Drools and jBPM
+* [Mavne](./maven-multi-module-quickstart): How to set up a Maven multi-module project with Quarkus
 * [MicroProfile Fault Tolerance](./microprofile-fault-tolerance-quickstart): How to use MicroProfile Fault Tolerance
 * [MicroProfile Health](./microprofile-health-quickstart): How to use MicroProfile Health
 * [MicroProfile Metrics](./microprofile-metrics-quickstart): How to use MicroProfile Metrics
