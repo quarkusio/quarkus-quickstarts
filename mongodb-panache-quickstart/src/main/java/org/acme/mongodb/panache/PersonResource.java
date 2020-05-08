@@ -12,10 +12,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import org.bson.types.ObjectId;
+
 @Path("/persons")
 @Consumes("application/json")
 @Produces("application/json")
 public class PersonResource {
+
     @GET
     public List<Person> list() {
         return Person.listAll();
@@ -23,8 +26,8 @@ public class PersonResource {
 
     @GET
     @Path("/{id}")
-    public Person get(String id) {
-        return Person.findById(id);
+    public Person get(@PathParam("id") String id) {
+        return Person.findById(new ObjectId(id));
     }
 
     @POST
@@ -41,14 +44,14 @@ public class PersonResource {
 
     @DELETE
     @Path("/{id}")
-    public void delete(String id) {
-        Person person = Person.findById(id);
+    public void delete(@PathParam("id") String id) {
+        Person person = Person.findById(new ObjectId(id));
         person.delete();
     }
 
     @GET
     @Path("/search/{name}")
-    public Person search(String name) {
+    public Person search(@PathParam("name") String name) {
         return Person.findByName(name);
     }
 
