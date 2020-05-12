@@ -14,6 +14,7 @@
         <module>config-quickstart</module>
         <module>context-propagation</module>
         <module>dynamodb-quickstart</module>
+        <module>funqy-quickstarts</module>
         <module>getting-started</module>
         <module>getting-started-async</module>
         <module>getting-started-reactive</module>

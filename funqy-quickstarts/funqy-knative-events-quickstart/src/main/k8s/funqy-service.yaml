@@ -1,0 +1,13 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: funqy-knative-events-quickstart
+spec:
+  template:
+    metadata:
+      name: funqy-knative-events-quickstart-v1
+      annotations:
+        autoscaling.knative.dev/target: "1"
+    spec:
+      containers:
+        - image: docker.io/yourAccountName/funqy-knative-events-quickstart
