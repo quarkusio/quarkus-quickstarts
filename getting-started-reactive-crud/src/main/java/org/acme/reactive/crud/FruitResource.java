@@ -59,12 +59,12 @@ public class FruitResource {
     }
 
     private void initdb() {
-        client.query("DROP TABLE IF EXISTS fruits")
-                .flatMap(r -> client.query("CREATE TABLE fruits (id SERIAL PRIMARY KEY, name TEXT NOT NULL)"))
-                .flatMap(r -> client.query("INSERT INTO fruits (name) VALUES ('Kiwi')"))
-                .flatMap(r -> client.query("INSERT INTO fruits (name) VALUES ('Durian')"))
-                .flatMap(r -> client.query("INSERT INTO fruits (name) VALUES ('Pomelo')"))
-                .flatMap(r -> client.query("INSERT INTO fruits (name) VALUES ('Lychee')"))
+        client.query("DROP TABLE IF EXISTS fruits").execute()
+                .flatMap(r -> client.query("CREATE TABLE fruits (id SERIAL PRIMARY KEY, name TEXT NOT NULL)").execute())
+                .flatMap(r -> client.query("INSERT INTO fruits (name) VALUES ('Kiwi')").execute())
+                .flatMap(r -> client.query("INSERT INTO fruits (name) VALUES ('Durian')").execute())
+                .flatMap(r -> client.query("INSERT INTO fruits (name) VALUES ('Pomelo')").execute())
+                .flatMap(r -> client.query("INSERT INTO fruits (name) VALUES ('Lychee')").execute())
                 .await().indefinitely();
     }
 
