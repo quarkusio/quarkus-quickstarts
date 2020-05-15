@@ -80,6 +80,11 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Using Vert.x](./vertx-quickstart): How to use the Vert.x extension
 * [Using Web Sockets](./websockets-quickstart): Demonstrate how to use web sockets and serve static assets
 * [Context Propagation](./context-propagation): Demonstrate how to use context propagation in your reactive applications
+* [Funqy HTTP](./funqy-quickstarts/funqy-http-quickstart): Funqy functions as HTTP/REST endpoints
+* [Funqy AWS Lambda](./funqy-quickstarts/funqy-amazon-lambda-quickstart): Funqy functions as deployed to AWS Lambda
+* [Funqy AWS Lambda HTTP](./funqy-quickstarts/funqy-amazon-lambda-http-quickstart): Funqy functions as deployed to AWS Lambda invokable via HTTP/REST
+* [Funqy Azure Functions HTTP](./funqy-quickstarts/funqy-azure-functions-http-quickstart): Funqy functions as deployed to Azure Functions invokable via HTTP/REST
+* [Funqy Knative Events](./funqy-quickstarts/funqy-knative-events-quickstart): Funqy functions integration with Knative Events
 
 There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
 
