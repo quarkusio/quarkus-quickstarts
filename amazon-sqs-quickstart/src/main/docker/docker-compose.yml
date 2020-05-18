@@ -1,0 +1,17 @@
+version: '2.1'
+
+services:
+  local-sqs:
+    image: localstack/localstack:0.11.1
+    ports:
+      - "8010:4576"
+    environment:
+      - SERVICES=sqs
+      - START_WEB=0
+  app:
+    image: quarkus/amazon-sqs-quickstart
+    ports:
+      - "8080:8080"
+    environment:
+      - QUARKUS_SQS_ENDPOINT_OVERRIDE=http://local-sqs:4576
+      - QUEUE_URL=${QUEUE_URL}
