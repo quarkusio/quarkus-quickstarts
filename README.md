@@ -39,6 +39,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 
 * [AMQP](./amqp-quickstart): How to interact with AMQP using MicroProfile reactive messaging
 * [Amazon DynamoDB](./amazon-dynamodb-quickstart): How to connect to an Amazon DynamoDB datastore
+* [Amazon KMS](./amazon-kms-quickstart): How to connect to an Amazon KMS (Key Management Service)
+* [Amazon SES](./amazon-ses-quickstart): How to connect to an Amazon SES (Simple Email Service)
 * [Amazon S3](./amazon-s3-quickstart): How to connect to an Amazon S3 cloud storage
 * [Amazon SNS](./amazon-sns-quickstart): How to connect to an Amazon SNS (Simple Messaging Service)
 * [Amazon SQS](./amazon-sqs-quickstart): How to connect to an Amazon SQS (Simple Queue Service)
