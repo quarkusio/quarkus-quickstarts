@@ -10,7 +10,9 @@
 
     <modules>
         <module>amazon-dynamodb-quickstart</module>
+        <module>amazon-kms-quickstart</module>
         <module>amazon-s3-quickstart</module>
+        <module>amazon-ses-quickstart</module>
         <module>amazon-sns-quickstart</module>
         <module>amazon-sqs-quickstart</module>
         <module>amqp-quickstart</module>
