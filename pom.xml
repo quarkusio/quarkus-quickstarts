@@ -9,6 +9,8 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>amazon-sns-quickstart</module>
+        <module>amazon-sqs-quickstart</module>
         <module>amqp-quickstart</module>
         <module>cache-quickstart</module>
         <module>config-quickstart</module>
