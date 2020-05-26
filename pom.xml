@@ -70,5 +70,6 @@
         <module>validation-quickstart</module>
         <module>vertx-quickstart</module>
         <module>websockets-quickstart</module>
+        <module>liquibase-quickstart</module>
     </modules>
 </project>
