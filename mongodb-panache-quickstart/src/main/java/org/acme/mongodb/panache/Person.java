@@ -11,21 +11,19 @@ import io.quarkus.mongodb.panache.PanacheMongoEntity;
 @MongoEntity(collection = "ThePerson")
 public class Person extends PanacheMongoEntity {
     public String name;
-
     // will be persisted as a 'birth' field in MongoDB
     @BsonProperty("birth")
     public LocalDate birthDate;
-
     public Status status;
 
-    // return name as uppercase in the model
+    // return name as lowercase in the model
     public String getName() {
-        return name.toUpperCase();
+        return name.toLowerCase();
     }
 
-    // store all names in lowercase in the DB
+    // store all names in uppercase in the DB
     public void setName(String name) {
-        this.name = name.toLowerCase();
+        this.name = name.toUpperCase();
     }
 
     // entity methods
