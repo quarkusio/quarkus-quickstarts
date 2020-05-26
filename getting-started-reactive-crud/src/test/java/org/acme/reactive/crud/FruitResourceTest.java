@@ -15,7 +15,7 @@ class FruitResourceTest {
 
     @Test
     public void testListAllFruits() {
-        //List all, should have all 3 fruits the database has initially:
+        //List all, should have all 4 fruits the database has initially:
         given()
                 .when().get("/fruits")
                 .then()
@@ -26,13 +26,13 @@ class FruitResourceTest {
                         containsString("Pomelo"),
                         containsString("Lychee"));
 
-        //Delete the Orange:
+        //Delete the Kiwi:
         given()
                 .when().delete("/fruits/1")
                 .then()
                 .statusCode(204);
 
-        //List all, Orange should be missing now:
+        //List all, Kiwi should be missing now:
         given()
                 .when().get("/fruits")
                 .then()
