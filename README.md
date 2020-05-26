@@ -68,7 +68,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [REST Client Multipart](./rest-client-multipart-quickstart): Handle multipart with MicroProfile's REST Client
 * [JSON REST services](./rest-json-quickstart): How to write JSON REST services
 * [Scheduling periodic tasks](./scheduler-quickstart): How to schedule periodic jobs
-* [Security with Users stored in a Database](./security-jdbc-quickstart): Store your users in a database and secure your application
+* [Security with Users stored in a Database (JDBC)](./security-jdbc-quickstart): Store your users in a database and secure your application with JDBC
+* [Security with Users stored in a Database (JPA)](./security-jpa-quickstart): Store your users in a database and secure your application with JPA
 * [Security with MicroProfile JWT](./security-jwt-quickstart): How to use MicroProfile JWT RBAC
 * [Security with OAuth2 opaque tokens](./security-oauth2-quickstart): How to use our security layer with OAuth2 opaque tokens
 * [Security with OpenId Connect](./security-openid-connect-quickstart): How to use OpenId Connect and [Keycloak](https://www.keycloak.org)

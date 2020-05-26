@@ -52,6 +52,7 @@
         <module>rest-json-quickstart</module>
         <module>scheduler-quickstart</module>
         <module>security-jdbc-quickstart</module>
+        <module>security-jpa-quickstart</module>
         <module>security-jwt-quickstart</module>
         <module>security-keycloak-authorization-quickstart</module>
         <module>security-oauth2-quickstart</module>
