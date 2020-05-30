@@ -77,7 +77,7 @@ public class BookResource {
         Result(Set<? extends ConstraintViolation<?>> violations) {
             this.success = false;
             this.message = violations.stream()
-                    .map(cv -> cv.getMessage())
+                    .map(cv -> cv.getPropertyPath() + " " + cv.getMessage())
                     .collect(Collectors.joining(", "));
         }
 
