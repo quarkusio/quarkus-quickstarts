@@ -15,7 +15,6 @@
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
         <compiler-plugin.version>3.8.0</compiler-plugin.version>
-        <docker-plugin.version>0.28.0</docker-plugin.version>
 
         <!-- grpc -->
         <os-maven-plugin.version>1.6.2</os-maven-plugin.version>

@@ -25,8 +25,8 @@
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
         <module>hibernate-orm-quickstart</module>
-        <module>grpc-plain-text</module>
-        <module>grpc-tls</module>
+        <module>grpc-plain-text-quickstart</module>
+        <module>grpc-tls-quickstart</module>
         <module>hibernate-orm-panache-quickstart</module>
         <module>hibernate-orm-quickstart-multi-tenancy</module>
         <module>hibernate-search-elasticsearch-quickstart</module>
