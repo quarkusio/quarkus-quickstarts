@@ -9,21 +9,16 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class KafkaResource implements QuarkusTestResourceLifecycleManager {
 
-    private KafkaContainer kafka;
+    private final KafkaContainer kafka = new KafkaContainer();
 
     @Override
     public Map<String, String> start() {
-        kafka = new KafkaContainer();
         kafka.start();
-        System.setProperty("kafka.bootstrap.servers", kafka.getBootstrapServers());
-        return Collections.emptyMap();
+        return Collections.singletonMap("kafka.bootstrap.servers", kafka.getBootstrapServers());
     }
 
     @Override
     public void stop() {
-        System.clearProperty("kafka.bootstrap.servers");
-        if (kafka != null) {
-            kafka.close();
-        }
+        kafka.close();
     }
 }

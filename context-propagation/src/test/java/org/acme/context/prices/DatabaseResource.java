@@ -9,7 +9,7 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class DatabaseResource implements QuarkusTestResourceLifecycleManager {
 
-    public static final PostgreSQLContainer DATABASE = new PostgreSQLContainer<>("postgres:10.5")
+    public static final PostgreSQLContainer<?> DATABASE = new PostgreSQLContainer<>("postgres:10.5")
             .withDatabaseName("quarkus_test")
             .withUsername("quarkus_test")
             .withPassword("quarkus_test")
