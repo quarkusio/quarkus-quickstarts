@@ -1,10 +1,12 @@
 package org.acme.kafka;
 
+import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import io.smallrye.mutiny.Multi;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 import io.reactivex.Flowable;
@@ -19,8 +21,9 @@ public class PriceGenerator {
     private Random random = new Random();
 
     @Outgoing("generated-price")
-    public Flowable<Integer> generate() {
-        return Flowable.interval(5, TimeUnit.SECONDS)
+    public Multi<Integer> generate() {
+        return Multi.createFrom().ticks().every(Duration.ofSeconds(5))
+                .onOverflow().drop()
                 .map(tick -> random.nextInt(100));
     }
 
