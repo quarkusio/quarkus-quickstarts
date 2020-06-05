@@ -3,6 +3,6 @@ package org.acme.websockets;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class ChatITCase extends ChatTestCase {
+public class ChatIT extends ChatTestCase {
 
 }
