@@ -11,6 +11,7 @@
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
+    <optaplanner-quarkus.version>7.39.0.CR1</optaplanner-quarkus.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <docker-plugin.version>0.28.0</docker-plugin.version>
@@ -25,6 +26,14 @@
         <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>${quarkus.platform.artifact-id}</artifactId>
         <version>${quarkus.platform.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!-- Ideally, it should import the quarkus-universe-bom instead, so it doesn't have to import this optaplanner-bom -->
+      <dependency>
+        <groupId>org.optaplanner</groupId>
+        <artifactId>optaplanner-bom</artifactId>
+        <version>${optaplanner-quarkus.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
