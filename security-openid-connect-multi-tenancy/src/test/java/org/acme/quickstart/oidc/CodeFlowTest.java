@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -15,8 +15,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import io.quarkus.test.junit.QuarkusTest;
 
-@ExtendWith(KeycloakServer.class)
 @QuarkusTest
+@QuarkusTestResource(KeycloakServer.class)
 public class CodeFlowTest {
 
     @Test

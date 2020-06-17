@@ -1,14 +1,14 @@
 package org.acme.security.keycloak.authorization;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.keycloak.representations.AccessTokenResponse;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 
-@ExtendWith(KeycloakServer.class)
 @QuarkusTest
+@QuarkusTestResource(KeycloakServer.class)
 public class PolicyEnforcerTest {
 
     private static final String KEYCLOAK_SERVER_URL = System.getProperty("keycloak.url", "http://localhost:8180/auth");
