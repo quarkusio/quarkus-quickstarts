@@ -25,9 +25,9 @@ public class TopologyProducer {
 
     static final String WEATHER_STATIONS_STORE = "weather-stations-store";
 
-    private static final String WEATHER_STATIONS_TOPIC = "weather-stations";
-    private static final String TEMPERATURE_VALUES_TOPIC = "temperature-values";
-    private static final String TEMPERATURES_AGGREGATED_TOPIC = "temperatures-aggregated";
+    static final String WEATHER_STATIONS_TOPIC = "weather-stations";
+    static final String TEMPERATURE_VALUES_TOPIC = "temperature-values";
+    static final String TEMPERATURES_AGGREGATED_TOPIC = "temperatures-aggregated";
 
     @Produces
     public Topology buildTopology() {
