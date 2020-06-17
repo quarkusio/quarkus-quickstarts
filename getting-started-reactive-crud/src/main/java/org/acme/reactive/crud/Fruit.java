@@ -46,7 +46,7 @@ public class Fruit {
 
     public static Multi<Fruit> findAll(PgPool client) {
         return client.query("SELECT id, name FROM fruits ORDER BY name ASC").execute()
-                .onItem().produceMulti(set -> Multi.createFrom().items(() -> StreamSupport.stream(set.spliterator(), false)))
+                .onItem().produceMulti(set -> Multi.createFrom().iterable(set))
                 .onItem().apply(Fruit::from);
     }
 
