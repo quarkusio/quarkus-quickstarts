@@ -1,4 +1,4 @@
-package org.acme.kafka;
+package org.acme.panache;
 
 import java.time.Duration;
 import java.util.Random;
@@ -23,7 +23,6 @@ public class PriceGenerator {
     @Outgoing("generated-price")
     public Multi<Integer> generate() {
         return Multi.createFrom().ticks().every(Duration.ofSeconds(5))
-                .onOverflow().drop()
                 .map(tick -> random.nextInt(100));
     }
 

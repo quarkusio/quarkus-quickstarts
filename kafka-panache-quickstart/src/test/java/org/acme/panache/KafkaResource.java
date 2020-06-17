@@ -1,11 +1,10 @@
-package org.acme.kafka;
+package org.acme.panache;
+
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.testcontainers.containers.KafkaContainer;
 
 import java.util.Collections;
 import java.util.Map;
-
-import org.testcontainers.containers.KafkaContainer;
-
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class KafkaResource implements QuarkusTestResourceLifecycleManager {
 
