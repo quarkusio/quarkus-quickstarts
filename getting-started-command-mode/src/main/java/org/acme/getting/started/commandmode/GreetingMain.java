@@ -1,10 +1,7 @@
 package org.acme.getting.started.commandmode;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.control.ActivateRequestContext;
 import javax.inject.Inject;
 
-import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 
@@ -15,7 +12,7 @@ public class GreetingMain implements QuarkusApplication {
     GreetingService service;
 
     @Override
-    public int run(String... args) throws Exception {
+    public int run(String... args) {
 
         if(args.length>0) {
             System.out.println(service.greeting(String.join(" ", args)));
