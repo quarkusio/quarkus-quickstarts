@@ -10,7 +10,7 @@
   </parent>
   <artifactId>kafka-streams-quickstart-aggregator</artifactId>
   <properties>
-    <surefire-plugin.version>2.22.0</surefire-plugin.version>
+    <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
     <quarkus-plugin.version>999-SNAPSHOT</quarkus-plugin.version>
