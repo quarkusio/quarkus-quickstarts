@@ -1,5 +1,6 @@
 package org.acme.hibernate.orm;
 
+import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -33,9 +34,9 @@ public class FruitResource {
     EntityManager entityManager;
 
     @GET
-    public Fruit[] get() {
+    public List<Fruit> get() {
         return entityManager.createNamedQuery("Fruits.findAll", Fruit.class)
-                .getResultList().toArray(new Fruit[0]);
+                .getResultList();
     }
 
     @GET
