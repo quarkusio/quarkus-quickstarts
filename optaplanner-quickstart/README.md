@@ -79,11 +79,11 @@ Compiling a native executable takes a bit of time,
  as GraalVM performs additional steps to remove unnecessary codepaths.
  Use `-Dnative` to compile a native executable:
 
-    ```
-    ./mvnw package -Dnative
-    ```
+```
+./mvnw package -Dnative
+```
 After getting a cup of coffee, run this binary directly:
 
-    ```
-    ./target/optaplanner-quickstart-1.0-SNAPSHOT-runner
-    ```
+```
+./target/optaplanner-quickstart-1.0-SNAPSHOT-runner
+```
