@@ -23,6 +23,6 @@ public class EventResource {
     @Path("{name}")
     public Uni<String> greeting(@PathParam String name) {
         return bus.<String> request("greeting", name)
-                .onItem().apply(Message::body);
+                .onItem().transform(Message::body);
     }
 }

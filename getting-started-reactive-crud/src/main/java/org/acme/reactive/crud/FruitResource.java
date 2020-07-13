@@ -77,30 +77,30 @@ public class FruitResource {
     @Path("{id}")
     public Uni<Response> getSingle(@PathParam Long id) {
         return Fruit.findById(client, id)
-                .onItem().apply(fruit -> fruit != null ? Response.ok(fruit) : Response.status(Status.NOT_FOUND))
-                .onItem().apply(ResponseBuilder::build);
+                .onItem().transform(fruit -> fruit != null ? Response.ok(fruit) : Response.status(Status.NOT_FOUND))
+                .onItem().transform(ResponseBuilder::build);
     }
 
     @POST
     public Uni<Response> create(Fruit fruit) {
         return fruit.save(client)
-                .onItem().apply(id -> URI.create("/fruits/" + id))
-                .onItem().apply(uri -> Response.created(uri).build());
+                .onItem().transform(id -> URI.create("/fruits/" + id))
+                .onItem().transform(uri -> Response.created(uri).build());
     }
 
     @PUT
     @Path("{id}")
     public Uni<Response> update(@PathParam Long id, Fruit fruit) {
         return fruit.update(client)
-                .onItem().apply(updated -> updated ? Status.OK : Status.NOT_FOUND)
-                .onItem().apply(status -> Response.status(status).build());
+                .onItem().transform(updated -> updated ? Status.OK : Status.NOT_FOUND)
+                .onItem().transform(status -> Response.status(status).build());
     }
 
     @DELETE
     @Path("{id}")
     public Uni<Response> delete(@PathParam Long id) {
         return Fruit.delete(client, id)
-                .onItem().apply(deleted -> deleted ? Status.NO_CONTENT : Status.NOT_FOUND)
-                .onItem().apply(status -> Response.status(status).build());
+                .onItem().transform(deleted -> deleted ? Status.NO_CONTENT : Status.NOT_FOUND)
+                .onItem().transform(status -> Response.status(status).build());
     }
 }

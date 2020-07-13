@@ -39,7 +39,7 @@ public class QuarksCannonAsyncResource {
         return Uni.createFrom()
             .completionStage(sqs.sendMessage(m -> m.queueUrl(queueUrl).messageBody(message)))
             .onItem().invoke(item -> LOGGER.infov("Fired Quark[{0}, {1}}]", quark.getFlavor(), quark.getSpin()))
-            .onItem().apply(SendMessageResponse::messageId)
-            .onItem().apply(id -> Response.ok().entity(id).build());
+            .onItem().transform(SendMessageResponse::messageId)
+            .onItem().transform(id -> Response.ok().entity(id).build());
     }
 }

@@ -17,7 +17,7 @@ public class FruitAsyncService extends AbstractService {
 
     public Uni<List<Fruit>> findAll() {
         return Uni.createFrom().completionStage(() -> dynamoDB.scan(scanRequest()))
-                .onItem().apply(res -> res.items().stream().map(Fruit::from).collect(Collectors.toList()));
+                .onItem().transform(res -> res.items().stream().map(Fruit::from).collect(Collectors.toList()));
     }
 
     public Uni<List<Fruit>> add(Fruit fruit) {
@@ -27,6 +27,6 @@ public class FruitAsyncService extends AbstractService {
 
     public Uni<Fruit> get(String name) {
         return Uni.createFrom().completionStage(() -> dynamoDB.getItem(getRequest(name)))
-                .onItem().apply(resp -> Fruit.from(resp.item()));
+                .onItem().transform(resp -> Fruit.from(resp.item()));
     }
 }

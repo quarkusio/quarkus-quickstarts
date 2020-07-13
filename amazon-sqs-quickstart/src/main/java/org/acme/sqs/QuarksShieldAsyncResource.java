@@ -37,8 +37,8 @@ public class QuarksShieldAsyncResource {
     public Uni<List<Quark>> receive() {
         return Uni.createFrom()
             .completionStage(sqs.receiveMessage(m -> m.maxNumberOfMessages(10).queueUrl(queueUrl)))
-            .onItem().apply(ReceiveMessageResponse::messages)
-            .onItem().apply(m -> m.stream().map(Message::body).map(this::toQuark).collect(Collectors.toList()));
+            .onItem().transform(ReceiveMessageResponse::messages)
+            .onItem().transform(m -> m.stream().map(Message::body).map(this::toQuark).collect(Collectors.toList()));
     }
 
     private Quark toQuark(String message) {
