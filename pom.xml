@@ -22,6 +22,7 @@
         <module>funqy-quickstarts</module>
         <module>getting-started</module>
         <module>getting-started-async</module>
+        <module>getting-started-command-mode</module>
         <module>getting-started-reactive</module>
         <module>getting-started-reactive-crud</module>
         <module>getting-started-knative</module>
@@ -37,7 +38,7 @@
         <module>jms-quickstart</module>
         <module>kafka-quickstart</module>
         <module>kafka-streams-quickstart</module>
-<!--        <module>kogito-quickstart</module>-->
+        <module>kogito-quickstart</module>
         <module>optaplanner-quickstart</module>
         <module>lifecycle-quickstart</module>
         <module>microprofile-fault-tolerance-quickstart</module>
