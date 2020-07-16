@@ -13,7 +13,7 @@
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
 
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
-        <surefire-plugin.version>2.22.1</surefire-plugin.version>
+        <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <docker-plugin.version>0.28.0</docker-plugin.version>
         <elasticsearch-maven-plugin.version>6.15</elasticsearch-maven-plugin.version>
         <elasticsearch-server.version>7.7.0</elasticsearch-server.version>
