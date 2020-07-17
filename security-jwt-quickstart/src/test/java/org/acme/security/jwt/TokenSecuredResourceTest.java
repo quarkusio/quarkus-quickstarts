@@ -3,37 +3,22 @@ package org.acme.security.jwt;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.util.HashMap;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.HashSet;
 
-import javax.json.Json;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.eclipse.microprofile.jwt.Claims;
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import io.smallrye.jwt.build.Jwt;
 
 /**
  * Tests of the TokenSecuredResource REST endpoints
  */
 @QuarkusTest
 public class TokenSecuredResourceTest {
-
-    /**
-     * The test generated JWT token string
-     */
-    private String token;
-
-    @BeforeEach
-    public void generateToken() throws Exception {
-        HashMap<String, Long> timeClaims = new HashMap<>();
-        token = TokenUtils.generateTokenString("/JwtClaims.json", timeClaims);
-    }
 
     @Test
     public void testHelloEndpoint() {
@@ -44,64 +29,124 @@ public class TokenSecuredResourceTest {
 
         response.then()
                 .statusCode(200)
-                .body(containsString("hello + anonymous, isSecure: false, authScheme: null, hasJWT: false"));
+                .body(containsString("hello + anonymous, isHttps: false, authScheme: null, hasJWT: false"));
     }
 
     @Test
-    public void testHelloRolesAllowed() {
+    public void testHelloRolesAllowedUser() {
         Response response = given().auth()
-                .oauth2(token)
+                .oauth2(generateValidUserToken())
                 .when()
                 .get("/secured/roles-allowed").andReturn();
 
         response.then()
                 .statusCode(200)
-                .body(containsString("hello + jdoe@quarkus.io, isSecure: false, authScheme: Bearer, hasJWT: true"));
+                .body(containsString("hello + jdoe@quarkus.io, isHttps: false, authScheme: Bearer, hasJWT: true, birthdate: 2001-07-13"));
+    }
+    
+    @Test
+    public void testHelloRolesAllowedAdminOnlyWithUserRole() {
+        Response response = given().auth()
+                .oauth2(generateValidUserToken())
+                .when()
+                .get("/secured/roles-allowed-admin").andReturn();
+
+        response.then().statusCode(403);
+    }
+    
+    @Test
+    public void testHelloRolesAllowedAdmin() {
+        Response response = given().auth()
+                .oauth2(generateValidAdminToken())
+                .when()
+                .get("/secured/roles-allowed").andReturn();
+
+        response.then()
+                .statusCode(200)
+                .body(containsString("hello + jdoe@quarkus.io, isHttps: false, authScheme: Bearer, hasJWT: true, birthdate: 2001-07-13"));
+    }
+    
+    @Test
+    public void testHelloRolesAllowedAdminOnlyWithAdminRole() {
+        Response response = given().auth()
+                .oauth2(generateValidAdminToken())
+                .when()
+                .get("/secured/roles-allowed-admin").andReturn();
+
+        response.then()
+                .statusCode(200)
+                .body(containsString("hello + jdoe@quarkus.io, isHttps: false, authScheme: Bearer, hasJWT: true, birthdate: 2001-07-13"));
+    }
+    
+    @Test
+    public void testHelloRolesAllowedExpiredToken() {
+        Response response = given().auth()
+                .oauth2(generateExpiredToken())
+                .when()
+                .get("/secured/roles-allowed").andReturn();
+
+        response.then().statusCode(401);
+    }
+    
+    @Test
+    public void testHelloRolesAllowedModifiedToken() {
+        Response response = given().auth()
+                .oauth2(generateValidUserToken() + "1")
+                .when()
+                .get("/secured/roles-allowed").andReturn();
+
+        response.then().statusCode(401);
+    }
+    
+    @Test
+    public void testHelloRolesAllowedWrongIssuer() {
+        Response response = given().auth()
+                .oauth2(generateWrongIssuerToken())
+                .when()
+                .get("/secured/roles-allowed").andReturn();
+
+        response.then().statusCode(401);
     }
 
     @Test
     public void testHelloDenyAll() {
         Response response = given().auth()
-                .oauth2(token)
+                .oauth2(generateValidUserToken())
                 .when()
                 .get("/secured/deny-all").andReturn();
 
-        Assertions.assertEquals(HttpURLConnection.HTTP_FORBIDDEN, response.getStatusCode());
+        response.then().statusCode(403);
     }
-
-    @Test
-    public void testWinners() {
-        Response response = RestAssured.given().auth()
-                .oauth2(token)
-                .when()
-                .get("/secured/winners").andReturn();
-
-        Assertions.assertFalse(response.body().asString().isEmpty());
+    
+    static String generateValidUserToken() {
+        return Jwt.upn("jdoe@quarkus.io")
+        		   .issuer("https://quarkus.io/using-jwt-rbac")
+        		   .groups("User")
+        		   .claim(Claims.birthdate.name(), "2001-07-13")
+        		   .sign();
     }
-
-    @Test
-    public void testWinnersWithBirthdate() {
-        Response response = RestAssured.given().auth()
-                .oauth2(token)
-                .when()
-                .get("/secured/winners2").andReturn();
-
-        Assertions.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
-        Assertions.assertFalse(response.body().asString().isEmpty());
+    
+    static String generateValidAdminToken() {
+        return Jwt.upn("jdoe@quarkus.io")
+        		   .issuer("https://quarkus.io/using-jwt-rbac")
+        		   .groups("Admin")
+        		   .claim(Claims.birthdate.name(), "2001-07-13")
+        		   .sign();
     }
-
-    @Test
-    @DisabledOnNativeImage("Doesn't work in the native mode due to a subresource issue")
-    public void testLottoWinners() {
-        Response response = RestAssured.given().auth()
-                .oauth2(token)
-                .when()
-                .get("/secured/lotto/winners").andReturn();
-
-        Assertions.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
-        String replyString = response.body().asString();
-        Json.createReader(new StringReader(replyString)).readObject();
-        LottoNumbers numbers = response.as(LottoNumbers.class);
-        Assertions.assertFalse(numbers.numbers.isEmpty());
+    
+    static String generateExpiredToken() {
+        return Jwt.upn("jdoe@quarkus.io")
+        		   .issuer("https://quarkus.io/using-jwt-rbac")
+        		   .groups(new HashSet<>(Arrays.asList("User", "Admin")))
+        		   .expiresAt(Instant.now().minusSeconds(10))
+        		   .sign();
+    }
+    
+    static String generateWrongIssuerToken() {
+        return Jwt.upn("jdoe@quarkus.io")
+        		   .issuer("https://wrong-issuer")
+        		   .groups(new HashSet<>(Arrays.asList("User", "Admin")))
+        		   .expiresAt(Instant.now().minusSeconds(10))
+        		   .sign();
     }
 }
