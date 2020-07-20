@@ -26,6 +26,7 @@
         <module>getting-started-reactive-crud</module>
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
+        <module>getting-started-command-mode</module>
         <module>hibernate-orm-quickstart</module>
         <module>hibernate-reactive-quickstart</module>
         <module>hibernate-reactive-routes-quickstart</module>
