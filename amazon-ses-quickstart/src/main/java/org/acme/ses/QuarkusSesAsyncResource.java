@@ -30,6 +30,6 @@ public class QuarkusSesAsyncResource {
                     .message(msg -> msg
                         .subject(sub -> sub.data(data.getSubject()))
                         .body(b -> b.text(txt -> txt.data(data.getBody()))))))
-            .onItem().apply(SendEmailResponse::messageId);
+            .onItem().transform(SendEmailResponse::messageId);
     }
 }

@@ -58,14 +58,18 @@ public class QuarksShieldAsyncResource {
 
         if (messageType.equals(NOTIFICATION_TYPE)) {
             return Uni.createFrom().item(readObject(SnsNotification.class, message))
-                .onItem().apply(notification -> readObject(Quark.class, notification.getMessage()))
+                .onItem().transform(notification -> readObject(Quark.class, notification.getMessage()))
                 .onItem().invoke(quark -> LOGGER.infov("Quark[{0}, {1}] collision with the shield.", quark.getFlavor(), quark.getSpin()))
-                .onItem().apply(quark -> Response.ok().build());
+                .onItem().transform(quark -> Response.ok().build());
         } else if (messageType.equals(SUBSCRIPTION_CONFIRMATION_TYPE)) {
             return Uni.createFrom().item(readObject(SnsSubscriptionConfirmation.class, message))
-                .onItem().produceCompletionStage(msg -> sns.confirmSubscription(confirm -> confirm.topicArn(topicArn).token(msg.getToken())))
+                .onItem().transformToUni(msg ->
+                            Uni.createFrom().completionStage(
+                                    sns.confirmSubscription(confirm -> confirm.topicArn(topicArn).token(msg.getToken()))
+                            )
+                    )
                 .onItem().invoke(resp -> LOGGER.info("Subscription confirmed. Ready for quarks collisions."))
-                .onItem().apply(resp -> Response.ok().build());
+                .onItem().transform(resp -> Response.ok().build());
         } else if (messageType.equals(UNSUBSCRIPTION_CONFIRMATION_TYPE)) {
             LOGGER.info("We are unsubscribed");
             return Uni.createFrom().item(Response.ok().build());
@@ -79,10 +83,10 @@ public class QuarksShieldAsyncResource {
     public Uni<Response> subscribe() {
         return Uni.createFrom()
             .completionStage(sns.subscribe(s -> s.topicArn(topicArn).protocol("http").endpoint(notificationEndpoint())))
-            .onItem().apply(SubscribeResponse::subscriptionArn)
+            .onItem().transform(SubscribeResponse::subscriptionArn)
             .onItem().invoke(this::setSubscriptionArn)
             .onItem().invoke(arn -> LOGGER.infov("Subscribed Quarks shield with id = {0} ", arn))
-            .onItem().apply(arn -> Response.ok().entity(arn).build());
+            .onItem().transform(arn -> Response.ok().entity(arn).build());
     }
 
     @POST
@@ -93,7 +97,7 @@ public class QuarksShieldAsyncResource {
                 .completionStage(sns.unsubscribe(s -> s.subscriptionArn(subscriptionArn)))
                 .onItem().invoke(arn -> LOGGER.infov("Unsubscribed quarks shield for id = {0}", subscriptionArn))
                 .onItem().invoke(arn -> subscriptionArn = null)
-                .onItem().apply(arn -> Response.ok().build());
+                .onItem().transform(arn -> Response.ok().build());
         } else {
             return Uni.createFrom().item(Response.status(400).entity("Not subscribed yet").build());
         }
