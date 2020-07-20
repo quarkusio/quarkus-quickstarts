@@ -13,6 +13,7 @@
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
+    <kogito-quarkus.version>0.11.1</kogito-quarkus.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
@@ -25,6 +26,14 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <!-- Ideally, it should import the quarkus-universe-bom instead, so it doesn't have to import this kogito-bom -->
+      <dependency>
+        <groupId>org.kie.kogito</groupId>
+        <artifactId>kogito-bom</artifactId>
+        <version>${kogito-quarkus.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
@@ -33,8 +42,8 @@
       <artifactId>quarkus-resteasy</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-kogito</artifactId>
+      <groupId>org.kie.kogito</groupId>
+      <artifactId>kogito-quarkus</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
