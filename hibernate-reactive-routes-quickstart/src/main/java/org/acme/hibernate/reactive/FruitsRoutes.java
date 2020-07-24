@@ -6,6 +6,7 @@ import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
 import static io.vertx.core.http.HttpMethod.PUT;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.inject.Inject;
@@ -15,10 +16,8 @@ import org.jboss.logging.Logger;
 
 import io.quarkus.vertx.web.Body;
 import io.quarkus.vertx.web.Param;
-import io.quarkus.vertx.web.ReactiveRoutes;
 import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.RouteBase;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonObject;
@@ -36,8 +35,10 @@ public class FruitsRoutes {
     Mutiny.Session session;
 
     @Route(methods = GET, path = "/")
-    public Multi<Fruit> getAll() throws Exception {
-        return ReactiveRoutes.asJsonArray(session.createNamedQuery(Fruit.FIND_ALL, Fruit.class).getResults());
+    public Uni<List<Fruit>> getAll() throws Exception {
+        // In this case, it makes sense to return a Uni<List<Fruit>> because we return a reasonable amount of results
+        // Consider returning a Multi<Fruit> for result streams 
+        return session.createNamedQuery(Fruit.FIND_ALL, Fruit.class).getResultList();
     }
 
     @Route(methods = GET, path = "/:id")
