@@ -102,6 +102,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 
 * [Using Vert.x Redis Client](./redis-quickstart): Demonstrate how to use Vert.x Redis Client
 
+* [Google Cloud Functions](./google-cloud-functions-quickstart): How to create Google Cloud Functions
 
 There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
 
