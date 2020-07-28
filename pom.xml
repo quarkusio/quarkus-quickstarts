@@ -27,6 +27,7 @@
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
         <module>getting-started-command-mode</module>
+	    <module>google-cloud-functions-quickstart</module>
         <module>hibernate-orm-quickstart</module>
         <module>hibernate-reactive-quickstart</module>
         <module>hibernate-reactive-routes-quickstart</module>
