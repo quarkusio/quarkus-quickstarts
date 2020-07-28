@@ -16,101 +16,115 @@ public class FruitsEndpointTest {
     public void testListAllFruits() {
         //List all, should have all 3 fruits the database has initially:
         given()
-            .when()
+                .when()
                 .get("/fruits/")
-            .then()
+                .then()
                 .statusCode(200)
-            .body(
-                    containsString("Cherry"),
-                    containsString("Apple"),
-                    containsString("Banana"));
+                .body(
+                        containsString("Cherry"),
+                        containsString("Apple"),
+                        containsString("Banana"));
 
         // Update Cherry to Pineapple
         given()
-            .when()
+                .when()
                 .body("{\"name\" : \"Pineapple\"}")
                 .contentType("application/json")
                 .put("/fruits/1")
-            .then()
+                .then()
                 .statusCode(200)
-            .body(
-                    containsString("\"id\":"),
-                    containsString("\"name\":\"Pineapple\""));
+                .body(
+                        containsString("\"id\":"),
+                        containsString("\"name\":\"Pineapple\""));
 
         //List all, Pineapple should've replaced Cherry:
         given()
-            .when()
+                .when()
                 .get("/fruits/")
-            .then()
+                .then()
                 .statusCode(200)
-            .body(
-                    not(containsString( "Cherry" )),
-                    containsString("Pineapple"),
-                    containsString("Apple"),
-                    containsString("Banana"));
+                .body(
+                        not(containsString("Cherry")),
+                        containsString("Pineapple"),
+                        containsString("Apple"),
+                        containsString("Banana"));
 
         //Delete Pineapple:
         given()
-            .when()
+                .when()
                 .delete("/fruits/1")
-            .then()
+                .then()
                 .statusCode(204);
 
         //List all, Pineapple should be missing now:
         given()
-            .when()
+                .when()
                 .get("/fruits/")
-            .then()
+                .then()
                 .statusCode(200)
                 .body(
-                    not(containsString( "Pineapple")),
-                    containsString("Apple"),
-                    containsString("Banana"));
+                        not(containsString("Pineapple")),
+                        containsString("Apple"),
+                        containsString("Banana"));
 
         //Create the Pear:
         given()
-            .when()
+                .when()
                 .body("{\"name\" : \"Pear\"}")
                 .contentType("application/json")
                 .post("/fruits/")
-            .then()
+                .then()
                 .statusCode(201)
                 .body(
-                    containsString("\"id\":"),
-                    containsString("\"name\":\"Pear\""));
+                        containsString("\"id\":"),
+                        containsString("\"name\":\"Pear\""));
 
         //List all, Pineapple should be still missing now:
         given()
-            .when()
+                .when()
                 .get("/fruits/")
-            .then()
+                .then()
                 .statusCode(200)
                 .body(
-                    not(containsString("Pineapple")),
-                    containsString("Apple"),
-                    containsString("Banana"),
-                    containsString("Pear"));
+                        not(containsString("Pineapple")),
+                        containsString("Apple"),
+                        containsString("Banana"),
+                        containsString("Pear"));
     }
 
     @Test
     public void testEntityNotFoundForDelete() {
         given()
-            .when()
+                .when()
                 .delete("/fruits/9236")
-            .then()
+                .then()
                 .statusCode(404)
-                .body(containsString("{\"statusMessage\":\"Not Found\",\"statusCode\":404,\"chunked\":false}"));
+                .body(emptyString());
     }
 
     @Test
     public void testEntityNotFoundForUpdate() {
         given()
-            .when()
+                .when()
                 .body("{\"name\" : \"Watermelon\"}")
                 .contentType("application/json")
                 .put("/fruits/32432")
-            .then()
+                .then()
                 .statusCode(404)
-                .body(containsString("{\"statusMessage\":\"Not Found\",\"statusCode\":404,\"chunked\":false}"));
+                .body(emptyString());
+    }
+
+    @Test
+    public void testMissingNameForUpdate() {
+        given()
+                .when()
+                .contentType("application/json")
+                .put("/fruits/3")
+                .then()
+                .statusCode(422)
+                .body(
+                        containsString("\"code\":422"),
+                        containsString("\"error\":\"Fruit name was not set on request.\""),
+                        containsString("\"exceptionType\":\"java.lang.IllegalArgumentException\""));
     }
 }
