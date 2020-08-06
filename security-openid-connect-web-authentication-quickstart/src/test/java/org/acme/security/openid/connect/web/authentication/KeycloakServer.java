@@ -19,6 +19,7 @@ public class KeycloakServer implements QuarkusTestResourceLifecycleManager {
 
         keycloak = new FixedHostPortGenericContainer("quay.io/keycloak/keycloak:" + System.getProperty("keycloak.version"))
                 .withFixedExposedPort(8180, 8080)
+                .withEnv("DB_VENDOR", "H2")
                 .withEnv("KEYCLOAK_USER", "admin")
                 .withEnv("KEYCLOAK_PASSWORD", "admin")
                 .withEnv("KEYCLOAK_IMPORT", "/tmp/realm.json")

@@ -31,10 +31,10 @@ Launch the Maven build on the checked out sources of this demo:
 To start a Keycloak Server you can use Docker and just run the following command:
 
 ```bash
-docker run --name keycloak -e DB_VENDOR=H2 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8180:8080 quay.io/keycloak/keycloak:9.0.0
+docker run --name keycloak -e DB_VENDOR=H2 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8180:8080 quay.io/keycloak/keycloak:10.0.1
 ```
 
-You should be able to access your Keycloak Server at http://localhost:8180/auth[localhost:8180/auth].
+You should be able to access your Keycloak Server at [http://localhost:8180/auth](http://localhost:8180/auth).
 
 Log in as the `admin` user to access the Keycloak Administration Console.
 Username should be `admin` and password `admin`.
@@ -44,7 +44,7 @@ Now, follow the steps below to important the realms for the two tenants:
 * Import the [config/default-tenant-realm.json](config/default-tenant-realm.json) to create the default realm
 * Import the [config/tenant-a-realm.json](config/tenant-a-realm.json) to create the realm for the tenant `tenant-a`.
 
-For more details, see the Keycloak documentation about how to https://www.keycloak.org/docs/latest/server_admin/index.html#_create-realm[create a new realm].
+For more details, see the Keycloak documentation about how to [create a new realm](https://www.keycloak.org/docs/latest/server_admin/index.html#_create-realm).
 
 ### Live coding with Quarkus
 
