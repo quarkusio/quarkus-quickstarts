@@ -13,5 +13,6 @@
         <module>funqy-amazon-lambda-quickstart</module>
         <module>funqy-amazon-lambda-http-quickstart</module>
         <module>funqy-knative-events-quickstart</module>
+        <module>funqy-google-cloud-functions-quickstart</module>
     </modules>
 </project>
