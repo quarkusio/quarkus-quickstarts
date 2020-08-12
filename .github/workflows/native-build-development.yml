@@ -41,7 +41,7 @@ jobs:
           mvn -B clean install --fail-at-end -Pnative -Ddocker \
             -Dquarkus.native.container-build=true \
             -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-native-image:20.1.0-java11 \
-            -pl '!rest-client-quickstart,!security-jwt-quickstart,!grpc-tls-quickstart,!google-cloud-functions-quickstart,!google-cloud-functions-http-quickstart'
+            -pl '!rest-client-quickstart,!security-jwt-quickstart,!grpc-tls-quickstart,!google-cloud-functions-quickstart,!google-cloud-functions-http-quickstart,!funqy-google-cloud-functions-quickstart'
 
       - name: Check RSS
         env:
