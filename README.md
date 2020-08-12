@@ -97,6 +97,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Funqy AWS Lambda HTTP](./funqy-quickstarts/funqy-amazon-lambda-http-quickstart): Funqy functions as deployed to AWS Lambda invokable via HTTP/REST
 * [Funqy Azure Functions HTTP](./funqy-quickstarts/funqy-azure-functions-quickstart): Funqy functions as deployed to Azure Functions invokable via HTTP/REST
 * [Funqy Knative Events](./funqy-quickstarts/funqy-knative-events-quickstart): Funqy functions integration with Knative Events
+* [Funqy Google Cloud Functions](./funqy-quickstarts/funqy-google-cloud-functions-quickstart): Funqy functions as deployed to Google Cloud Functions
 * [gRPC Plain text Quickstart](./grpc-plain-text-quickstart): How to use Quarkus gRPC extension with plain text communication
 * [gRPC TLS Quickstart](./grpc-tls-quickstart): How to use Quarkus gRPC extension with TLS communication
 
