@@ -42,11 +42,7 @@ Note that running this command will start an Elasticsearch cluster, start a Post
 
 ### Start an Elasticsearch cluster
 
-You can launch a test instance easily from the project directory:
-
-> ./mvnw elasticsearch:runforked -Des.setAwait=true
-
-If you prefer using Docker:
+To set up an Elasticsearch instance using Docker:
 
 > docker run -it --rm=true --name elasticsearch_quarkus_test -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.7.0
 
