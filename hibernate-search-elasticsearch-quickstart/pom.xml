@@ -15,8 +15,8 @@
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <docker-plugin.version>0.28.0</docker-plugin.version>
-        <elasticsearch-maven-plugin.version>6.15</elasticsearch-maven-plugin.version>
         <elasticsearch-server.version>7.8.0</elasticsearch-server.version>
+        <elasticsearch.image>docker.elastic.co/elasticsearch/elasticsearch-oss:${elasticsearch-server.version}</elasticsearch.image>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -97,13 +97,13 @@
                 </executions>
             </plugin>
             <plugin>
-                <!-- Automatically start PostgreSQL for integration testing - requires Docker -->
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>${docker-plugin.version}</version>
                 <configuration>
                     <skip>${skipTests}</skip>
                     <images>
+                        <!-- Automatically start PostgreSQL for integration testing - requires Docker -->
                         <image>
                             <name>postgres:11.3</name>
                             <alias>postgresql</alias>
@@ -132,6 +132,32 @@
                                 </wait>
                             </run>
                         </image>
+                        <!-- Automatically start Elasticsearch for integration testing - requires Docker -->
+                        <image>
+                            <name>${elasticsearch.image}</name>
+                            <alias>elasticsearch</alias>
+                            <run>
+                                <env>
+                                    <discovery.type>single-node</discovery.type>
+                                </env>
+                                <ports>
+                                    <port>9200:9200</port>
+                                </ports>
+                                <log>
+                                    <prefix>Elasticsearch: </prefix>
+                                    <date>default</date>
+                                    <color>cyan</color>
+                                </log>
+                                <wait>
+                                    <http>
+                                        <url>http://localhost:9200</url>
+                                        <method>GET</method>
+                                        <status>200</status>
+                                    </http>
+                                    <time>60000</time>
+                                </wait>
+                            </run>
+                        </image>
                     </images>
                 </configuration>
                 <executions>
@@ -145,36 +171,6 @@
                     </execution>
                     <execution>
                         <id>docker-stop</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- Automatically start Elasticsearch for integration testing -->
-            <plugin>
-                <groupId>com.github.alexcojocaru</groupId>
-                <artifactId>elasticsearch-maven-plugin</artifactId>
-                <version>${elasticsearch-maven-plugin.version}</version>
-                <configuration>
-                    <skip>${skipTests}</skip>
-                    <version>${elasticsearch-server.version}</version>
-                    <timeout>90</timeout>
-                    <pathConf>${project.build.directory}/test-classes/elasticsearch-maven-plugin/configuration/</pathConf>
-                    <pathInitScript>${project.build.directory}/test-classes/elasticsearch-maven-plugin/init/init.script</pathInitScript>
-                    <autoCreateIndex>true</autoCreateIndex>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>start-elasticsearch</id>
-                        <phase>process-test-classes</phase>
-                        <goals>
-                            <goal>runforked</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>stop-elasticsearch</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>stop</goal>
@@ -263,22 +259,6 @@
                                                 </versionRange>
                                                 <goals>
                                                     <goal>start</goal>
-                                                    <goal>stop</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore></ignore>
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>com.github.alexcojocaru</groupId>
-                                                <artifactId>elasticsearch-maven-plugin</artifactId>
-                                                <versionRange>
-                                                    [${elasticsearch-maven-plugin.version},)
-                                                </versionRange>
-                                                <goals>
-                                                    <goal>runforked</goal>
                                                     <goal>stop</goal>
                                                 </goals>
                                             </pluginExecutionFilter>
