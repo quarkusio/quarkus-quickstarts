@@ -5,7 +5,6 @@ import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
@@ -18,7 +17,7 @@ public class Timeslot extends PanacheEntityBase {
 
     @PlanningId
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @NotNull
     private Long id;
 

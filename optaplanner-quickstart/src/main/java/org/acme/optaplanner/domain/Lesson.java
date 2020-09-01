@@ -2,7 +2,6 @@ package org.acme.optaplanner.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
@@ -20,7 +19,7 @@ public class Lesson extends PanacheEntityBase {
 
     @PlanningId
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @NotNull
     private Long id;
 
