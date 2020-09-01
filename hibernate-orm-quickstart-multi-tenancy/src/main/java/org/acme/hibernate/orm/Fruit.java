@@ -3,7 +3,6 @@ package org.acme.hibernate.orm;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
@@ -17,7 +16,7 @@ public class Fruit {
 
     @Id
     @SequenceGenerator(name = "fruitsSequence", sequenceName = "known_fruits_id_seq", allocationSize = 1, initialValue = 10)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fruitsSequence")
+    @GeneratedValue(generator = "fruitsSequence")
     private Integer id;
 
     @Column(length = 40, unique = true)
