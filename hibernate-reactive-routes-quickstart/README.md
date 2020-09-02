@@ -4,7 +4,7 @@ This is a minimal CRUD service exposing a couple of endpoints over REST,
 with a front-end based on Angular so you can play with it from your browser.
 
 While the code is surprisingly simple, under the hood this is using:
- - Vert.x Web routers to expose the REST endpoints
+ - Vert.x Web routes to expose the REST endpoints
  - Hibernate Reactive to perform the CRUD operations on the database
  - A PostgreSQL database; see below to run one via Docker
  - ArC, the CDI inspired dependency injection tool with zero overhead
@@ -66,7 +66,7 @@ First compile it:
 
 Then run it:
 
-> java -jar ./target/hibernate-reactive-routers-quickstart-1.0-SNAPSHOT-runner.jar
+> java -jar ./target/hibernate-reactive-routes-quickstart-1.0-SNAPSHOT-runner.jar
 
 Have a look at how fast it boots.
 Or measure total native memory consumption...
@@ -86,7 +86,7 @@ native executable:
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 
-> ./target/hibernate-reactive-routers-quickstart-1.0-SNAPSHOT-runner
+> ./target/hibernate-reactive-routes-quickstart-1.0-SNAPSHOT-runner
 
 Please brace yourself: don't choke on that fresh cup of coffee you just got.
     
