@@ -15,7 +15,7 @@
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <docker-plugin.version>0.28.0</docker-plugin.version>
-        <elasticsearch-server.version>7.8.0</elasticsearch-server.version>
+        <elasticsearch-server.version>7.9.0</elasticsearch-server.version>
         <elasticsearch.image>docker.elastic.co/elasticsearch/elasticsearch-oss:${elasticsearch-server.version}</elasticsearch.image>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
