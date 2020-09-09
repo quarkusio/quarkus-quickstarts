@@ -15,12 +15,15 @@ import javax.jms.Session;
 
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
+import org.jboss.logging.Logger;
 
 /**
  * A bean consuming prices from the JMS queue.
  */
 @ApplicationScoped
 public class PriceConsumer implements Runnable {
+
+    private static final Logger LOGGER = Logger.getLogger("PriceConsumer");
 
     @Inject
     ConnectionFactory connectionFactory;
@@ -49,11 +52,13 @@ public class PriceConsumer implements Runnable {
                 Message message = consumer.receive();
                 if (message == null) {
                     // receive returns `null` if the JMSConsumer is closed
+                    LOGGER.error("Received message is `null`");
                     return;
                 }
                 lastPrice = message.getBody(String.class);
             }
         } catch (JMSException e) {
+            LOGGER.error("JMS Exception caught", e);
             throw new RuntimeException(e);
         }
     }
