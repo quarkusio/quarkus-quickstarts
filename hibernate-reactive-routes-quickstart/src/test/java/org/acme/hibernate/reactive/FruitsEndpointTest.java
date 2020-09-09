@@ -91,40 +91,4 @@ public class FruitsEndpointTest {
                         containsString("Banana"),
                         containsString("Pear"));
     }
-
-    @Test
-    public void testEntityNotFoundForDelete() {
-        given()
-                .when()
-                .delete("/fruits/9236")
-                .then()
-                .statusCode(404)
-                .body(emptyString());
-    }
-
-    @Test
-    public void testEntityNotFoundForUpdate() {
-        given()
-                .when()
-                .body("{\"name\" : \"Watermelon\"}")
-                .contentType("application/json")
-                .put("/fruits/32432")
-                .then()
-                .statusCode(404)
-                .body(emptyString());
-    }
-
-    @Test
-    public void testMissingNameForUpdate() {
-        given()
-                .when()
-                .contentType("application/json")
-                .put("/fruits/3")
-                .then()
-                .statusCode(422)
-                .body(
-                        containsString("\"code\":422"),
-                        containsString("\"error\":\"Fruit name was not set on request.\""),
-                        containsString("\"exceptionType\":\"java.lang.IllegalArgumentException\""));
-    }
 }

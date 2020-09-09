@@ -113,19 +113,4 @@ public class FruitsEndpointTest {
 				.statusCode(404)
 				.body(emptyString());
     }
-
-	@Test
-	public void testMissingNameForUpdate() {
-		given()
-			.when()
-				.contentType("application/json")
-				.put("/fruits/3")
-			.then()
-				.statusCode(422)
-				.body(
-					containsString("\"code\":422"),
-					containsString("\"error\":\"Fruit name was not set on request.\""),
-					containsString("\"exceptionType\":\"javax.ws.rs.WebApplicationException\"")
-				);
-	}
 }
