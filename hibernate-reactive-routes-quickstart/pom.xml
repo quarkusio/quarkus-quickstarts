@@ -36,19 +36,11 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-reactive</artifactId>
-            <version>${quarkus-plugin.version}</version>
         </dependency>
-        <!--Hibernate Reactive uses the reactive-pg-client with PostgreSQL under the hood -->
+        <!-- Hibernate Reactive uses the reactive-pg-client with PostgreSQL under the hood -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-reactive-pg-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-reactive-deployment</artifactId>
-            <scope>provided</scope>
-            <version>${quarkus-plugin.version}</version>
         </dependency>
 
         <!-- Vert.x Routes -->
@@ -57,7 +49,7 @@
             <artifactId>quarkus-vertx-web</artifactId>
         </dependency>
 
-        <!-- Testing: -->
+        <!-- Testing -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
