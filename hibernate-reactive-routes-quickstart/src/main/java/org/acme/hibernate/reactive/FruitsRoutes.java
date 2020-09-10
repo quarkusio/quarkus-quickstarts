@@ -52,7 +52,7 @@ public class FruitsRoutes {
             return Uni.createFrom().failure(new IllegalArgumentException("Fruit id invalidly set on request."));
         }
         return session.persist(fruit)
-                .onItem().transformToUni(session -> session.flush())
+                .chain(session -> session.flush())
                 .onItem().transform(ignore -> {
                     response.setStatusCode(201);
                     return fruit;
@@ -80,7 +80,7 @@ public class FruitsRoutes {
         return session.find(Fruit.class, Integer.valueOf(id))
                 // If entity exists then delete
                 .onItem().ifNotNull().transformToUni(entity -> session.remove(entity)
-                        .onItem().transformToUni(ignore -> session.flush())
+                        .chain(ignore -> session.flush())
                         .onItem().transform(ignore -> {
                             response.setStatusCode(204).end();
                             return entity;
