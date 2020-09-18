@@ -56,8 +56,8 @@ public class FruitMutinyResource {
 
         return mutinySession
                 .persist(fruit)
-                .onItem().produceUni(session -> mutinySession.flush())
-                .onItem().apply(ignore -> Response.ok(fruit).status(201).build());
+                .chain(session -> mutinySession.flush())
+                .onItem().transform(ignore -> Response.ok(fruit).status(201).build());
     }
 
     @PUT
@@ -71,14 +71,14 @@ public class FruitMutinyResource {
         Function<Fruit, Uni<Response>> update = entity -> {
             entity.setName(fruit.getName());
             return mutinySession.flush()
-                    .onItem().apply(ignore -> Response.ok(entity).build());
+                    .onItem().transform(ignore -> Response.ok(entity).build());
         };
 
         return mutinySession
                 .find( Fruit.class, id )
                       // If entity exists then
                     .onItem().ifNotNull()
-                        .produceUni(update)
+                        .transformToUni(update)
                     // else
                     .onItem().ifNull()
                         .continueWith(Response.ok().status(404).build());
@@ -89,14 +89,14 @@ public class FruitMutinyResource {
     public Uni<Response> delete(@PathParam Integer id) {
         // Delete function (never returns null)
         Function<Fruit, Uni<Response>> delete = entity -> mutinySession.remove(entity)
-                .onItem().produceUni(ignore -> mutinySession.flush())
-                .onItem().apply(ignore -> Response.ok().status(204).build());
+                .chain(ignore -> mutinySession.flush())
+                .onItem().transform(ignore -> Response.ok().status(204).build());
 
         return mutinySession
                 .find( Fruit.class, id )
                     // If entity exists then
                     .onItem().ifNotNull()
-                        .produceUni(delete)
+                        .transformToUni(delete)
                     // else
                     .onItem().ifNull()
                         .continueWith(Response.ok().status(404).build());
