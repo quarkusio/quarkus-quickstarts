@@ -1,10 +1,10 @@
 ---
-name: "Native Test - development"
+name: "Native Tests - Development"
 
 # Adding the dispatch event to allow restarting the build on demand
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 2 * * *'
   repository_dispatch:
 
 jobs:
