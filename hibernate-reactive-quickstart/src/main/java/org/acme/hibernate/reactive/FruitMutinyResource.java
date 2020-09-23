@@ -56,8 +56,8 @@ public class FruitMutinyResource {
 
         return mutinySession
                 .persist(fruit)
-                .chain(session -> mutinySession.flush())
-                .onItem().transform(ignore -> Response.ok(fruit).status(201).build());
+                .chain(mutinySession::flush)
+                .map(ignore -> Response.ok(fruit).status(201).build());
     }
 
     @PUT
@@ -68,7 +68,7 @@ public class FruitMutinyResource {
         }
 
         // Update function (never returns null)
-        Function<Fruit, Uni<Response>> update = entity -> {
+        Function<Fruit, Uni<? extends Response>> update = entity -> {
             entity.setName(fruit.getName());
             return mutinySession.flush()
                     .onItem().transform(ignore -> Response.ok(entity).build());
@@ -88,8 +88,8 @@ public class FruitMutinyResource {
     @Path("{id}")
     public Uni<Response> delete(@PathParam Integer id) {
         // Delete function (never returns null)
-        Function<Fruit, Uni<Response>> delete = entity -> mutinySession.remove(entity)
-                .chain(ignore -> mutinySession.flush())
+        Function<Fruit, Uni<? extends Response>> delete = entity -> mutinySession.remove(entity)
+                .chain(mutinySession::flush)
                 .onItem().transform(ignore -> Response.ok().status(204).build());
 
         return mutinySession

@@ -52,7 +52,7 @@ public class FruitsRoutes {
             return Uni.createFrom().failure(new IllegalArgumentException("Fruit id invalidly set on request."));
         }
         return session.persist(fruit)
-                .chain(session -> session.flush())
+                .chain(Mutiny.Session::flush)
                 .onItem().transform(ignore -> {
                     response.setStatusCode(201);
                     return fruit;
@@ -80,8 +80,8 @@ public class FruitsRoutes {
         return session.find(Fruit.class, Integer.valueOf(id))
                 // If entity exists then delete
                 .onItem().ifNotNull().transformToUni(entity -> session.remove(entity)
-                        .chain(ignore -> session.flush())
-                        .onItem().transform(ignore -> {
+                        .chain(session::flush)
+                        .map(ignore -> {
                             response.setStatusCode(204).end();
                             return entity;
                         }))
