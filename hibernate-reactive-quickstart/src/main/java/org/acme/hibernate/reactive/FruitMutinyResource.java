@@ -68,7 +68,7 @@ public class FruitMutinyResource {
         }
 
         // Update function (never returns null)
-        Function<Fruit, Uni<Response>> update = entity -> {
+        Function<Fruit, Uni<? extends Response>> update = entity -> {
             entity.setName(fruit.getName());
             return mutinySession.flush()
                     .onItem().transform(ignore -> Response.ok(entity).build());
@@ -88,7 +88,7 @@ public class FruitMutinyResource {
     @Path("{id}")
     public Uni<Response> delete(@PathParam Integer id) {
         // Delete function (never returns null)
-        Function<Fruit, Uni<Response>> delete = entity -> mutinySession.remove(entity)
+        Function<Fruit, Uni<? extends Response>> delete = entity -> mutinySession.remove(entity)
                 .chain(ignore -> mutinySession.flush())
                 .onItem().transform(ignore -> Response.ok().status(204).build());
 
