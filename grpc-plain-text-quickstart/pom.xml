@@ -16,12 +16,6 @@
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <compiler-plugin.version>3.8.0</compiler-plugin.version>
 
-        <!-- grpc -->
-        <os-maven-plugin.version>1.6.2</os-maven-plugin.version>
-        <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
-        <protoc.version>3.11.4</protoc.version>
-        <grpc.version>1.29.0</grpc.version>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -73,50 +67,7 @@
     </dependencies>
 
     <build>
-        <extensions>
-            <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>${os-maven-plugin.version}</version>
-            </extension>
-        </extensions>
-        <plugins>
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>${protobuf-maven-plugin.version}</version>
-                <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:${protoc.version}:exe:${os.detected.classifier}</protocArtifact>
-                    <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-                    <protocPlugins>
-                        <protocPlugin>
-                            <id>quarkus-grpc-protoc-plugin</id>
-                            <groupId>io.quarkus</groupId>
-                            <artifactId>quarkus-grpc-protoc-plugin</artifactId>
-                            <version>${quarkus-plugin.version}</version>
-                            <mainClass>io.quarkus.grpc.protoc.plugin.MutinyGrpcGenerator</mainClass>
-                        </protocPlugin>
-                    </protocPlugins>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>compile-custom</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <goals>
-                            <goal>test-compile</goal>
-                            <goal>test-compile-custom</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
+	<plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -134,7 +85,9 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>build</goal>
+			    <goal>build</goal>
+			    <goal>generate-code</goal>
+		            <goal>generate-code-tests</goal>
                         </goals>
                     </execution>
                 </executions>
