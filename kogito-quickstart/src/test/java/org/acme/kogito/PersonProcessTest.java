@@ -19,7 +19,7 @@ public class PersonProcessTest {
                 .when()
                 .post("/persons")
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .body("person.adult", is(true));
     }
 
@@ -31,7 +31,7 @@ public class PersonProcessTest {
                 .when()
                 .post("/persons")
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .body("person.adult", is(false));
     }
 }
