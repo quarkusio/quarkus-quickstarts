@@ -9,15 +9,15 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 
-
+import java.time.Duration;
 
 @QuarkusTest
 @QuarkusTestResource(ArtemisTestResource.class)
 public class PriceTest {
 
     @Test
-    public void testLastPrice() throws InterruptedException {
-        await().untilAsserted(() -> {
+    public void testLastPrice() {
+        await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
             RestAssured.given()
             .when().get("/prices/last")
             .then()
