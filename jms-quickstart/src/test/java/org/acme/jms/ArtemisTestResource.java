@@ -19,6 +19,7 @@ public class ArtemisTestResource implements QuarkusTestResourceLifecycleManager 
             FileUtils.deleteDirectory(Paths.get("./target/artemis").toFile());
             embedded = new EmbeddedActiveMQ();
             embedded.start();
+            System.out.println("Artemis server started");
         } catch (Exception e) {
             throw new RuntimeException("Could not start embedded ActiveMQ server", e);
         }
@@ -29,6 +30,7 @@ public class ArtemisTestResource implements QuarkusTestResourceLifecycleManager 
     public void stop() {
         try {
             embedded.stop();
+            System.out.println("Artemis server stoppped");
         } catch (Exception e) {
             throw new RuntimeException("Could not stop embedded ActiveMQ server", e);
         }
