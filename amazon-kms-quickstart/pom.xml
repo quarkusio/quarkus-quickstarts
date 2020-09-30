@@ -19,6 +19,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <testcontainers.version>1.12.5</testcontainers.version>
         <awssdk.testcontainers.version>1.11.774</awssdk.testcontainers.version>
+        <skipTests>true</skipTests>
     </properties>
 
     <dependencyManagement>
