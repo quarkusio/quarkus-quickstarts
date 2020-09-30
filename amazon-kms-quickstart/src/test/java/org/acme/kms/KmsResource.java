@@ -1,7 +1,10 @@
 package org.acme.kms;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import java.net.InetAddress;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 import org.testcontainers.DockerClientFactory;
@@ -28,7 +31,7 @@ public class KmsResource implements QuarkusTestResourceLifecycleManager {
                 .create(AwsBasicCredentials.create("accesskey", "secretKey"));
 
             client = KmsClient.builder()
-                .endpointOverride(new URI(endpoint()))
+                .endpointOverride(services.getEndpointOverride())
                 .credentialsProvider(staticCredentials)
                 .httpClientBuilder(UrlConnectionHttpClient.builder())
                 .region(Region.US_EAST_1).build();
@@ -42,7 +45,7 @@ public class KmsResource implements QuarkusTestResourceLifecycleManager {
         }
 
         Map<String, String> properties = new HashMap<>();
-        properties.put("quarkus.kms.endpoint-override", endpoint());
+        properties.put("quarkus.kms.endpoint-override", services.getEndpointOverride().toString());
         properties.put("quarkus.kms.aws.region", "us-east-1");
         properties.put("quarkus.kms.aws.credentials.type", "static");
         properties.put("quarkus.kms.aws.credentials.static-provider.access-key-id", "accessKey");
@@ -57,9 +60,5 @@ public class KmsResource implements QuarkusTestResourceLifecycleManager {
         if (services != null) {
             services.close();
         }
-    }
-
-    private String endpoint() {
-        return String.format("http://%s:%s", services.getContainerIpAddress(), services.getMappedPort(services.getKmsPort()));
     }
 }
