@@ -11,8 +11,12 @@ import io.restassured.RestAssured;
 @QuarkusTestResource(KeycloakServer.class)
 public class PolicyEnforcerTest {
 
-    private static final String KEYCLOAK_SERVER_URL = System.getProperty("keycloak.url", "http://localhost:8180/auth");
+    private static final String KEYCLOAK_SERVER_URL = System.getProperty("keycloak.url", "https://localhost:8543/auth");
     private static final String KEYCLOAK_REALM = "quarkus";
+
+    static {
+        RestAssured.useRelaxedHTTPSValidation();
+    }
 
     @Test
     public void testAccessUserResource() {
