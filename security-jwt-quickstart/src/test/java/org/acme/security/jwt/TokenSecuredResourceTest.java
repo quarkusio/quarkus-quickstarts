@@ -120,7 +120,7 @@ public class TokenSecuredResourceTest {
     
     static String generateValidUserToken() {
         return Jwt.upn("jdoe@quarkus.io")
-        		   .issuer("https://quarkus.io/using-jwt-rbac")
+        		   .issuer("https://example.com/issuer")
         		   .groups("User")
         		   .claim(Claims.birthdate.name(), "2001-07-13")
         		   .sign();
@@ -128,7 +128,7 @@ public class TokenSecuredResourceTest {
     
     static String generateValidAdminToken() {
         return Jwt.upn("jdoe@quarkus.io")
-        		   .issuer("https://quarkus.io/using-jwt-rbac")
+        		   .issuer("https://example.com/issuer")
         		   .groups("Admin")
         		   .claim(Claims.birthdate.name(), "2001-07-13")
         		   .sign();
@@ -136,7 +136,7 @@ public class TokenSecuredResourceTest {
     
     static String generateExpiredToken() {
         return Jwt.upn("jdoe@quarkus.io")
-        		   .issuer("https://quarkus.io/using-jwt-rbac")
+        		   .issuer("https://example.com/issuer")
         		   .groups(new HashSet<>(Arrays.asList("User", "Admin")))
         		   .expiresAt(Instant.now().minusSeconds(10))
         		   .sign();
