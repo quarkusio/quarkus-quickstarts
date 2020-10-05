@@ -52,7 +52,7 @@ public class FruitsRoutes {
             return Uni.createFrom().failure(new IllegalArgumentException("Fruit id invalidly set on request."));
         }
         return session.persist(fruit)
-                .chain(Mutiny.Session::flush)
+                .chain(session::flush)
                 .onItem().transform(ignore -> {
                     response.setStatusCode(201);
                     return fruit;
