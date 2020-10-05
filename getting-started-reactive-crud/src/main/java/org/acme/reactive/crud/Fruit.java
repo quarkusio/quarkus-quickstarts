@@ -16,8 +16,6 @@
 
 package org.acme.reactive.crud;
 
-import java.util.stream.StreamSupport;
-
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.pgclient.PgPool;
@@ -57,7 +55,7 @@ public class Fruit {
     }
 
     public Uni<Long> save(PgPool client) {
-        return client.preparedQuery("INSERT INTO fruits (name) VALUES ($1) RETURNING (id)").execute(Tuple.of(name))
+        return client.preparedQuery("INSERT INTO fruits (name) VALUES ($1) RETURNING id").execute(Tuple.of(name))
                 .onItem().transform(pgRowSet -> pgRowSet.iterator().next().getLong("id"));
     }
 
