@@ -2,21 +2,19 @@ package org.acme.kafka.streams.producer.generator;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import io.smallrye.mutiny.Multi;
+import io.smallrye.reactive.messaging.kafka.Record;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import org.jboss.logging.Logger;
-
-import io.reactivex.Flowable;
-import io.smallrye.reactive.messaging.kafka.KafkaRecord;
 
 /**
  * A bean producing random temperature data every second.
@@ -44,10 +42,9 @@ public class ValuesGenerator {
                     new WeatherStation(9, "Marrakesh", 20)));
 
     @Outgoing("temperature-values")
-    public Flowable<KafkaRecord<Integer, String>> generate() {
-
-        return Flowable.interval(500, TimeUnit.MILLISECONDS)
-                .onBackpressureDrop()
+    public Multi<Record<Integer, String>> generate() {
+        return Multi.createFrom().ticks().every(Duration.ofMillis(500))
+                .onOverflow().drop()
                 .map(tick -> {
                     WeatherStation station = stations.get(random.nextInt(stations.size()));
                     double temperature = BigDecimal.valueOf(random.nextGaussian() * 15 + station.averageTemperature)
@@ -55,18 +52,16 @@ public class ValuesGenerator {
                             .doubleValue();
 
                     LOG.infov("station: {0}, temperature: {1}", station.name, temperature);
-                    return KafkaRecord.of(station.id, Instant.now() + ";" + temperature);
+                    return Record.of(station.id, Instant.now() + ";" + temperature);
                 });
     }
 
     @Outgoing("weather-stations")
-    public Flowable<KafkaRecord<Integer, String>> weatherStations() {
-        List<KafkaRecord<Integer, String>> stationsAsJson = stations.stream()
-                .map(s -> KafkaRecord.of(s.id, "{ \"id\" : " + s.id + ", \"name\" : \"" + s.name + "\" }"))
-                .collect(Collectors.toList());
-
-        return Flowable.fromIterable(stationsAsJson);
-    };
+    public Multi<Record<Integer, String>> weatherStations() {
+        return Multi.createFrom().items(stations.stream()
+                .map(s -> Record.of(s.id, "{ \"id\" : " + s.id + ", \"name\" : \"" + s.name + "\" }"))
+        );
+    }
 
     private static class WeatherStation {
 
