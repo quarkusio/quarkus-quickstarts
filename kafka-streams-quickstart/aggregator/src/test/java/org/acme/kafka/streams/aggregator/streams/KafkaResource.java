@@ -19,6 +19,7 @@ public class KafkaResource implements QuarkusTestResourceLifecycleManager  {
         try {
             Properties props = new Properties();
             props.setProperty("zookeeper.connection.timeout.ms", "45000");
+            props.setProperty("group.min.session.timeout.ms", "100");
             File directory = Testing.Files.createTestingDirectory("kafka-data", true);
             kafka = new KafkaCluster().withPorts(2182, 9092)
                     .addBrokers(1)
