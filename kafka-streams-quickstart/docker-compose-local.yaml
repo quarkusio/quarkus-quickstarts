@@ -3,7 +3,7 @@ version: '3.5'
 services:
 
   zookeeper:
-    image: strimzi/kafka:0.11.3-kafka-2.1.0
+    image: strimzi/kafka:0.19.0-kafka-2.5.0
     command: [
       "sh", "-c",
       "bin/zookeeper-server-start.sh config/zookeeper.properties"
@@ -16,7 +16,7 @@ services:
       - kafkastreams-network
 
   kafka:
-    image: strimzi/kafka:0.11.3-kafka-2.1.0
+    image: strimzi/kafka:0.19.0-kafka-2.5.0
     command: [
       "sh", "-c",
       "bin/kafka-server-start.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT} --override group.min.session.timeout.ms=$${KAFKA_GROUP_MIN_SESSION_TIMEOUT_MS}"
