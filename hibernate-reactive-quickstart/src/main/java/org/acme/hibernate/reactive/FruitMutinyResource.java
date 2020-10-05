@@ -1,6 +1,5 @@
 package org.acme.hibernate.reactive;
 
-import java.util.List;
 import java.util.function.Function;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
