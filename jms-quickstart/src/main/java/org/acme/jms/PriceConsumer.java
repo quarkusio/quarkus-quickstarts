@@ -52,6 +52,7 @@ public class PriceConsumer implements Runnable {
                     return;
                 }
                 lastPrice = message.getBody(String.class);
+                System.out.println("Got last price: " + lastPrice);
             }
         } catch (JMSException e) {
             throw new RuntimeException(e);
