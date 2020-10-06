@@ -38,14 +38,13 @@ docker-compose up -d --build
 Now run an instance of the _debezium/tooling_ image which comes with several useful tools such as _kafkacat_ and _httpie_:
 
 ```bash
-docker run --tty --rm -i --network ks debezium/tooling:1.0
+docker run --tty --rm -i --network ks debezium/tooling:1.1
 ```
 
 In the tooling container, run _kafkacat_ to examine the results of the streaming pipeline:
 
 ```bash
-kafkacat -b kafka:9092 -C -o beginning -q \
-        -t temperatures-aggregated
+kafkacat -b kafka:9092 -C -o beginning -q -t temperatures-aggregated
 ```
 
 You also can obtain the current aggregated state for a given weather station using _httpie_,
@@ -143,16 +142,18 @@ Now start Docker Compose as described above.
 
 For development purposes it can be handy to run the _producer_ and _aggregator_ applications
 directly on your local machine instead of via Docker.
-For that purpose, a separate Docker Compose file is provided which just starts Apache Kafka and ZooKeeper,
-configured to be accessible from your host system
+For that purpose, a separate Docker Compose file is provided which just starts Apache Kafka and ZooKeeper, _docker-compose-local.yaml_
+configured to be accessible from your host system.
+Open this file an editor and change the value of the `KAFKA_ADVERTISED_LISTENERS` variable so it contains your host machine's name or ip address.
+Then run:
 
 ```bash
-# If not present yet:
-# export HOSTNAME=<your hostname>
-
 docker-compose -f docker-compose-local.yaml up
 
 mvn quarkus:dev -f producer/pom.xml
 
 mvn quarkus:dev -Dquarkus.http.port=8081 -f aggregator/pom.xml
 ```
+
+Any changes done to the _aggregator_ application will be picked up instantly,
+and a reload of the stream processing application will be triggered upon the next Kafka message to be processed.
