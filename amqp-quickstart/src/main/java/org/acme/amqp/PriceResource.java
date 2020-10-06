@@ -9,7 +9,6 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.reactivestreams.Publisher;
 
-
 /**
  * A simple resource retrieving the "in-memory" "my-data-stream" and sending the items to a server sent event.
  */
