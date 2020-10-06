@@ -9,6 +9,8 @@ import org.apache.commons.io.FileUtils;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
+import static org.awaitility.Awaitility.await;
+
 public class ArtemisTestResource implements QuarkusTestResourceLifecycleManager {
 
     private EmbeddedActiveMQ embedded;
@@ -19,6 +21,7 @@ public class ArtemisTestResource implements QuarkusTestResourceLifecycleManager 
             FileUtils.deleteDirectory(Paths.get("./target/artemis").toFile());
             embedded = new EmbeddedActiveMQ();
             embedded.start();
+            await().until(() -> embedded.getActiveMQServer().isActive()  && embedded.getActiveMQServer().isStarted());
             System.out.println("Artemis server started");
         } catch (Exception e) {
             throw new RuntimeException("Could not start embedded ActiveMQ server", e);
@@ -30,7 +33,7 @@ public class ArtemisTestResource implements QuarkusTestResourceLifecycleManager 
     public void stop() {
         try {
             embedded.stop();
-            System.out.println("Artemis server stoppped");
+            System.out.println("Artemis server stopped");
         } catch (Exception e) {
             throw new RuntimeException("Could not stop embedded ActiveMQ server", e);
         }
