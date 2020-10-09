@@ -65,7 +65,7 @@ public class AggregatorTest {
     }
 
     @Test
-    @Timeout(value = 10, unit = TimeUnit.SECONDS)
+    @Timeout(value = 30, unit = TimeUnit.SECONDS)
     public void test() throws InterruptedException {
         weatherStationsConsumer.subscribe(Collections.singletonList(TEMPERATURES_AGGREGATED_TOPIC));
         weatherStationsProducer.send(new ProducerRecord<>(WEATHER_STATIONS_TOPIC, 1, new WeatherStation(1, "Station 1")));

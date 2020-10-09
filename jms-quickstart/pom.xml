@@ -16,6 +16,10 @@
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Tests are unstable -->
+        <skipTests>true</skipTests>
+        <skipITs>true</skipITs>
     </properties>
 
     <dependencyManagement>
