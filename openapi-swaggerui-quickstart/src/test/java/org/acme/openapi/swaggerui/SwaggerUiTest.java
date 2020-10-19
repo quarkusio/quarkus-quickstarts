@@ -17,6 +17,6 @@ public class SwaggerUiTest {
                 .when().get("/swagger-ui")
                 .then()
                 .statusCode(200)
-                .body(containsString("url: \"/openapi\""));
+                .body(containsString("/openapi"));
     }
 }
