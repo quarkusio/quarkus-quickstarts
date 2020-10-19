@@ -6,6 +6,11 @@ import static org.acme.mongodb.panache.MongoDbContainer.MONGODB_PORT;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import io.quarkus.mongodb.panache.jackson.ObjectIdDeserializer;
+import io.quarkus.mongodb.panache.jackson.ObjectIdSerializer;
+import org.acme.mongodb.panache.repository.Person;
+import org.acme.mongodb.panache.repository.Status;
 import org.assertj.core.api.Assertions;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeAll;
@@ -49,36 +54,45 @@ class PersonResourceTest {
     }
 
     @Test
-    void test() {
-        String person1 = "{ \"id\" : \"5889273c093d1c3e614bf2f9\", \"name\" : \"moncef\", \"birthDate\" : \"1993-05-19\", \"status\" : \"LIVING\"}";
-        String person2 = "{ \"id\" : \"5889273c093d1c3e614bf2fa\", \"name\" : \"loïc\", \"birthDate\" : \"1988-06-19\", \"status\" : \"LIVING\"}";
-        String person3 = "{ \"id\" : \"5889273c093d1c3e614bf2fb\", \"name\" : \"foo\", \"birthDate\" : \"1993-05-18\", \"status\" : \"DECEASED\"}";
+    void testEntity() {
+        performTest("/entity/persons");
+    }
+
+    @Test
+    void testRepository() {
+        performTest("/repository/persons");
+    }
+
+    private void performTest(String path) {
+        String person1 = "{ \"name\" : \"moncef\", \"birthDate\" : \"1993-05-19\", \"status\" : \"LIVING\"}";
+        String person2 = "{ \"name\" : \"loïc\", \"birthDate\" : \"1988-06-19\", \"status\" : \"LIVING\"}";
+        String person3 = "{ \"name\" : \"foo\", \"birthDate\" : \"1993-05-18\", \"status\" : \"DECEASED\"}";
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(person1)
                 .when()
-                .post("/persons")
+                .post(path)
                 .then()
                 .statusCode(201);
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(person2)
                 .when()
-                .post("/persons")
+                .post(path)
                 .then()
                 .statusCode(201);
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(person3)
                 .when()
-                .post("/persons")
+                .post(path)
                 .then()
                 .statusCode(201);
 
         Person[] persons = RestAssured.given()
                 .when()
                 .contentType(ContentType.JSON)
-                .get("/persons")
+                .get(path)
                 .then()
                 .statusCode(200)
                 .extract()
@@ -86,74 +100,62 @@ class PersonResourceTest {
 
         Assertions.assertThat(persons.length).isEqualTo(3);
 
+        System.out.println("ObjectId: " + persons[0].id.toString());
         Person person = RestAssured
                 .given()
                 .when()
                 .contentType(ContentType.JSON)
-                .get("/persons/{id}", "5889273c093d1c3e614bf2fa")
+                .get(path + "/{id}", persons[0].id.toString())
                 .then()
                 .statusCode(200)
                 .extract()
                 .body().as(Person.class);
 
-        Assertions.assertThat(person.id).isEqualTo(new ObjectId("5889273c093d1c3e614bf2fa"));
-        Assertions.assertThat(person.name).isEqualTo("LOÏC");
-        Assertions.assertThat(person.birthDate).isEqualTo(LocalDate.of(1988, 6, 19));
-        Assertions.assertThat(person.status).isEqualTo(Status.LIVING);
-
-        String personDto = "{ \"id\" : \"5889273c093d1c3e614bf2fc\", \"name\" : \"jugo\", \"birthDate\" : \"1964-10-31\", \"status\" : \"DECEASED\"}";
-
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(personDto)
-                .when()
-                .post("/persons")
-                .then()
-                .statusCode(201);
-
-        personDto = "{ \"id\" : \"5889273c093d1c3e614bf2fb\", \"name\" : \"LHez\"}";
-
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(personDto)
-                .when()
-                .put("/persons/{id}", "5889273c093d1c3e614bf2fa")
-                .then()
-                .statusCode(204);
-
-        RestAssured
-                .given()
-                .contentType(ContentType.JSON)
-                .when()
-                .delete("/persons/{id}", "5889273c093d1c3e614bf2fb")
-                .then()
-                .statusCode(204);
+        Assertions.assertThat(person.id).isEqualTo(persons[0].id);
+        Assertions.assertThat(person.name).isEqualTo(persons[0].name);
+        Assertions.assertThat(person.birthDate).isEqualTo(persons[0].birthDate);
+        Assertions.assertThat(person.status).isEqualTo(persons[0].status);
 
         person = RestAssured
                 .given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/persons/search/{name}", "moncef")
+                .get(path + "/search/{name}", "moncef")
                 .then()
                 .statusCode(200)
                 .extract()
                 .body().as(Person.class);
 
-        Assertions.assertThat(person.id).isEqualTo(new ObjectId("5889273c093d1c3e614bf2f9"));
         Assertions.assertThat(person.name).isEqualTo("MONCEF");
         Assertions.assertThat(person.birthDate).isEqualTo(LocalDate.of(1993, 5, 19));
         Assertions.assertThat(person.status).isEqualTo(Status.LIVING);
 
-        Long count = RestAssured
+
+        RestAssured
                 .given()
                 .when()
                 .contentType(ContentType.JSON)
-                .get("/persons/count")
+                .delete(path + "/{id}", person.id.toString())
+                .then()
+                .statusCode(204);
+
+        persons = RestAssured.given()
+                .when()
+                .contentType(ContentType.JSON)
+                .get(path)
                 .then()
                 .statusCode(200)
                 .extract()
-                .body().as(Long.class);
+                .body().as(Person[].class);
 
-        Assertions.assertThat(count).isGreaterThan(0);
+        Assertions.assertThat(persons.length).isEqualTo(2);
+
+        RestAssured
+                .given()
+                .when()
+                .contentType(ContentType.JSON)
+                .delete(path)
+                .then()
+                .statusCode(204);
     }
 }
