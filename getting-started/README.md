@@ -72,6 +72,10 @@ Compiling a native executable takes a bit longer, as GraalVM performs additional
 steps to remove unnecessary codepaths. Use the  `native` profile to compile a
 native executable:
 
+To run on a non-Linux system (Docker required):
+> ./mvnw clean install -Pnative -Dnative-image.docker-build=true
+
+To run on Linux:
 > ./mvnw install -Dnative
 
 After getting a cup of coffee, you'll be able to run this executable directly:
