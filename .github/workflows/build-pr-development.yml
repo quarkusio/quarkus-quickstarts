@@ -25,7 +25,7 @@ jobs:
         with:
           path: ~/.m2/repository
           # refresh cache every month to avoid unlimited growth
-          key: q2maven-${{ steps.get-date.outputs.date }}
+          key: q2maven-pr-jdk-${{ matrix.java }}-${{ steps.get-date.outputs.date }}
       - name: Check Wildcards
         run: |
           if [ $(git grep import | grep '\*;' | grep -E -v '(.mvn/|README.md|CONTRIBUTING.md)' | wc -l) != 0 ]; then
