@@ -34,3 +34,6 @@ bin/
 ObjectStore
 
 lsp/
+
+*.swp
+*.swo
