@@ -14,12 +14,18 @@ jobs:
         java: [ 8, 11 ]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v1
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "::set-output name=date::$(/bin/date -u "+%Y-%m")"
+        shell: bash
+      - name: Cache Maven Repository
+        id: cache-maven
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          # refresh cache every month to avoid unlimited growth
+          key: q2maven-${{ steps.get-date.outputs.date }}
       - name: Check Wildcards
         run: |
           if [ $(git grep import | grep '\*;' | grep -E -v '(.mvn/|README.md|CONTRIBUTING.md)' | wc -l) != 0 ]; then
@@ -28,10 +34,14 @@ jobs:
             exit 1
           fi
       - name: Install JDK ${{ matrix.java }}
-        uses: joschi/setup-jdk@v1.0.0
+        # Uses sha for added security since tags can be updated
+        uses: joschi/setup-jdk@68381f2c0646f942f70b69f8e81fe10e1ed5d293
         with:
-          java-version: openjdk${{ matrix.java }}
+          java-version: ${{ matrix.java }}
       - name: Build Quarkus master
         run: git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B clean install -DskipTests -DskipITs
       - name: Build with Maven
         run: export LANG=en_US && mvn -B clean install
+      - name: Delete Local Artifacts From Cache
+        shell: bash
+        run: rm -rf ~/.m2/repository/org/acme
