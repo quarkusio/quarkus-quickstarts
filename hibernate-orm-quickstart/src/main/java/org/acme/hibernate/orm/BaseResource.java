@@ -31,7 +31,6 @@ public class BaseResource<T> {
             List<EntityGraph<? super T>> graphs = entityManager.getEntityGraphs(clazz);
             for (EntityGraph<?> graph : graphs) {
                 if (graph.getName().contains(".detail")) {
-                    System.out.println("Found the detail graph: " + graph.getName());
                     hints.put("javax.persistence.loadgraph", graph);
                     break;
                 }
@@ -65,12 +64,9 @@ public class BaseResource<T> {
 
     protected Query getFindAllQuery(EntityManager e) {
         Query q = e.createQuery(getFindAllCriteriaQuery(e));
-        // set entity graph if applicable to improve relationship loading performance
-        // Only use *.detail graph for findById type requests
         List<EntityGraph<? super T>> graphs = e.getEntityGraphs(entityClass);
         for (EntityGraph<?> graph : graphs) {
             if (graph.getName().contains(".detail")) {
-                System.out.println("Found the detail graph: " + graph.getName());
                 q.setHint("javax.persistence.loadgraph", graph);
                 break;
             }
