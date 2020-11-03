@@ -1,11 +1,14 @@
 package org.acme.hibernate.orm;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
+//import javax.json.Json;
+//import javax.json.JsonObjectBuilder;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,34 +22,45 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
+@Transactional(Transactional.TxType.REQUIRED)
 @Path("fruits")
 @ApplicationScoped
 @Produces("application/json")
 @Consumes("application/json")
-public class FruitResource {
+public class FruitResource extends BaseResource<Fruit>{
 
     private static final Logger LOGGER = Logger.getLogger(FruitResource.class.getName());
 
-    @Inject
-    EntityManager entityManager;
+//    @Inject
+//    EntityManagerFactory entityManagerFactory;
+
+    public FruitResource() {
+        super(Fruit.class);
+    }
 
     @GET
     public List<Fruit> get() {
-        return entityManager.createNamedQuery("Fruits.findAll", Fruit.class)
-                .getResultList();
+//        return entityManager.createNamedQuery("Fruits.findAll", entityClass)
+//                .getResultList();
+        EntityManager entityManager = createEntityManager();
+        return findAll(entityManager);
     }
 
     @GET
     @Path("{id}")
     public Fruit getSingle(@PathParam Integer id) {
-        Fruit entity = entityManager.find(Fruit.class, id);
-        if (entity == null) {
-            throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
-        }
-        return entity;
+//        Fruit entity = entityManager.find(entityClass, id);
+//        if (entity == null) {
+//            throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
+//        }
+//        return entity;
+        EntityManager entityManager = createEntityManager();
+        Fruit fruit = find(entityManager, id, entityClass);
+        return fruit;
     }
 
     @POST
@@ -56,7 +70,7 @@ public class FruitResource {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
 
-        entityManager.persist(fruit);
+        createEntityManager().persist(fruit);
         return Response.ok(fruit).status(201).build();
     }
 
@@ -68,7 +82,7 @@ public class FruitResource {
             throw new WebApplicationException("Fruit Name was not set on request.", 422);
         }
 
-        Fruit entity = entityManager.find(Fruit.class, id);
+        Fruit entity = entityManagerFactory.createEntityManager().find(entityClass, id);
 
         if (entity == null) {
             throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
@@ -83,7 +97,8 @@ public class FruitResource {
     @Path("{id}")
     @Transactional
     public Response delete(@PathParam Integer id) {
-        Fruit entity = entityManager.getReference(Fruit.class, id);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Fruit entity = entityManager.getReference(entityClass, id);
         if (entity == null) {
             throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
         }
@@ -103,17 +118,30 @@ public class FruitResource {
                 code = ((WebApplicationException) exception).getResponse().getStatus();
             }
 
-            JsonObjectBuilder entityBuilder = Json.createObjectBuilder()
-                    .add("exceptionType", exception.getClass().getName())
-                    .add("code", code);
+//            JsonObjectBuilder entityBuilder = Json.createObjectBuilder()
+//                    .add("exceptionType", exception.getClass().getName())
+//                    .add("code", code);
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.put("exceptionType", exception.getClass().getName());
+            objectNode.put("code", code);
 
             if (exception.getMessage() != null) {
-                entityBuilder.add("error", exception.getMessage());
+//                entityBuilder.add("error", exception.getMessage());
+                objectNode.put("error", exception.getMessage());
             }
 
-            return Response.status(code)
-                    .entity(entityBuilder.build())
-                    .build();
+//            return Response.status(code)
+//                    .entity(entityBuilder.build())
+//                    .build();
+            try {
+                return Response.status(code)
+                        .entity(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(objectNode))
+                        .build();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return null;
+            }
         }
 
     }

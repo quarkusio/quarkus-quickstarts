@@ -1,0 +1,23 @@
+quarkus:
+  datasource:
+    '"fruitDS"':
+      db-kind: postgresql
+      jdbc:
+        max-size: 8
+        min-size: 2
+        url: jdbc:postgresql://localhost/quarkus_test
+      password: quarkus_test
+      username: quarkus_test
+  hibernate-orm:
+    '"fruitPU"':
+      database:
+        generation: drop-and-create
+      datasource: fruitDS
+      fetch:
+#        Setting any value for fetch.batch-size breaks javax.persistence.loadgraph hint.
+        batch-size: 50
+        max-depth: 5
+      log:
+        sql: true
+      packages: org.acme.hibernate.orm
+      sql-load-script: import.sql

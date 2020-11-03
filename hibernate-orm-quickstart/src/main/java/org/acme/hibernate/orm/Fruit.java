@@ -1,17 +1,20 @@
 package org.acme.hibernate.orm;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.QueryHint;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "known_fruits")
+
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "Fruit.graph.detail",
+                attributeNodes =
+                        {
+                                @NamedAttributeNode(value = "fruitLocations")
+                        }),
+})
+
 @NamedQuery(name = "Fruits.findAll", query = "SELECT f FROM Fruit f ORDER BY f.name", hints = @QueryHint(name = "org.hibernate.cacheable", value = "true"))
 @Cacheable
 public class Fruit {
@@ -23,6 +26,9 @@ public class Fruit {
 
     @Column(length = 40, unique = true)
     private String name;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "idFruit")
+    private Set<FruitLocation> fruitLocations;
 
     public Fruit() {
     }
@@ -47,4 +53,11 @@ public class Fruit {
         this.name = name;
     }
 
+    public Set<FruitLocation> getFruitLocations() {
+        return fruitLocations;
+    }
+
+    public void setFruitLocations(Set<FruitLocation> fruitLocations) {
+        this.fruitLocations = fruitLocations;
+    }
 }
