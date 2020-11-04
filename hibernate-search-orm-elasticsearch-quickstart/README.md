@@ -44,7 +44,7 @@ Note that running this command will start an Elasticsearch cluster, start a Post
 
 To set up an Elasticsearch instance using Docker:
 
-> docker run -it --rm=true --name elasticsearch_quarkus_test -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+> docker run -it --rm=true --name elasticsearch_quarkus_test -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.2
 
 Alternatively you can setup an Elasticsearch instance in any another way.
 
