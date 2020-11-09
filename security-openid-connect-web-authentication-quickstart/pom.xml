@@ -166,7 +166,7 @@
             <id>docker</id>
             <activation>
                 <property>
-                    <name>docker</name>
+                    <name>start-containers</name>
                 </property>
             </activation>
             <build>
