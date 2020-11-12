@@ -27,7 +27,7 @@ The project has gRPC server reflection enabled (see `application.properties`), s
 the gRPC service directly with [grpcurl](https://github.com/fullstorydev/grpcurl).
 
 ```
-grpcurl --cacert src/main/resources/tls/ca.pem -d '{"name": "World!"}' localhost:9000 helloworld.Greeter/SayHello
+grpcurl --cacert src/main/resources/META-INF/resources/tls/ca.pem -d '{"name": "World!"}' localhost:9000 helloworld.Greeter/SayHello
 ``` 
 
 ## Anatomy
