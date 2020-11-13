@@ -1,13 +1,20 @@
 package org.acme.kafka.streams.aggregator.streams;
 
-import io.quarkus.kafka.client.serialization.JsonbDeserializer;
-import io.quarkus.kafka.client.serialization.JsonbSerializer;
-import io.quarkus.test.junit.QuarkusTest;
+import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.TEMPERATURES_AGGREGATED_TOPIC;
+import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.TEMPERATURE_VALUES_TOPIC;
+import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.WEATHER_STATIONS_STORE;
+import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.WEATHER_STATIONS_TOPIC;
+
+import java.time.Instant;
+import java.util.Properties;
+
+import javax.inject.Inject;
+
 import org.acme.kafka.streams.aggregator.model.Aggregation;
 import org.acme.kafka.streams.aggregator.model.WeatherStation;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.apache.kafka.common.serialization.IntegerSerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.TestInputTopic;
 import org.apache.kafka.streams.TestOutputTopic;
@@ -19,14 +26,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
-import java.time.Instant;
-import java.util.Properties;
-
-import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.TEMPERATURES_AGGREGATED_TOPIC;
-import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.TEMPERATURE_VALUES_TOPIC;
-import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.WEATHER_STATIONS_STORE;
-import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.WEATHER_STATIONS_TOPIC;
+import io.quarkus.kafka.client.serialization.ObjectMapperDeserializer;
+import io.quarkus.kafka.client.serialization.ObjectMapperSerializer;
+import io.quarkus.test.junit.QuarkusTest;
 
 /**
  * Testing of the Topology without a broker, using TopologyTestDriver
@@ -53,10 +55,10 @@ public class TopologyProducerTest {
         testDriver = new TopologyTestDriver(topology, config);
 
         temperatures = testDriver.createInputTopic(TEMPERATURE_VALUES_TOPIC, new IntegerSerializer(), new StringSerializer());
-        weatherStations = testDriver.createInputTopic(WEATHER_STATIONS_TOPIC, new IntegerSerializer(), new JsonbSerializer());
+        weatherStations = testDriver.createInputTopic(WEATHER_STATIONS_TOPIC, new IntegerSerializer(), new ObjectMapperSerializer());
 
         temperaturesAggregated = testDriver.createOutputTopic(TEMPERATURES_AGGREGATED_TOPIC, new IntegerDeserializer(),
-                new JsonbDeserializer<>(Aggregation.class));
+                new ObjectMapperDeserializer<>(Aggregation.class));
     }
 
     @AfterEach
