@@ -13,7 +13,7 @@ import javax.inject.Inject;
 
 public class TemperatureStreamListener {
 
-    static final Logger log = LoggerFactory.getLogger(TemperatureStreamListener.class);
+    private static final Logger log = LoggerFactory.getLogger(TemperatureStreamListener.class);
 
     @Inject
     TemperatureProcessor processor;

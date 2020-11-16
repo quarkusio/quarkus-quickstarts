@@ -66,7 +66,7 @@ import static org.acme.redis.streams.consumer.util.RedisSupport.toXReadGroupComm
 @ApplicationScoped
 public class TemperatureProcessor {
 
-    static final Logger log = LoggerFactory.getLogger(TemperatureProcessor.class);
+    private static final Logger log = LoggerFactory.getLogger(TemperatureProcessor.class);
 
     @ConfigProperty(name = "quarkus.application.name")
     String appName;

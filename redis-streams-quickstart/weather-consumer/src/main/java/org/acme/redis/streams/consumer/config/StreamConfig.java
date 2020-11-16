@@ -15,7 +15,7 @@ import static org.acme.redis.streams.consumer.util.RedisSupport.toXGroupCommand;
 
 public class StreamConfig {
 
-    static final Logger log = LoggerFactory.getLogger(StreamConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(StreamConfig.class);
 
     @Inject
     RedisClient client;

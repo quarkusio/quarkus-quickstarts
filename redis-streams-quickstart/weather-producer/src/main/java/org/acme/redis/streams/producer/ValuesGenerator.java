@@ -17,8 +17,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -29,30 +27,26 @@ public class ValuesGenerator {
 
     private static final String TEMPERATURE_VALUES_STREAM = "temperature-values";
     private static final String STATION_TABLE = "station:";
-    static final Logger log = LoggerFactory.getLogger(ValuesGenerator.class);
+    private static final Logger log = LoggerFactory.getLogger(ValuesGenerator.class);
+
+    private Random random = new Random();
+    private List<WeatherStation> stations = List.of(
+            new WeatherStation(1, "Hamburg", 13),
+            new WeatherStation(2, "Snowdonia", 5),
+            new WeatherStation(3, "Boston", 11),
+            new WeatherStation(4, "Tokio", 16),
+            new WeatherStation(5, "Cusco", 12),
+            new WeatherStation(6, "Svalbard", -7),
+            new WeatherStation(7, "Porthsmouth", 11),
+            new WeatherStation(8, "Oslo", 7),
+            new WeatherStation(9, "Marrakesh", 20)
+    );
 
     @ConfigProperty(name = "producer.rate", defaultValue = "1000")
     int rate;
 
-    @ConfigProperty(name = "quarkus.redis.hosts")
-    String redis;
-
     @Inject
     ReactiveRedisClient client;
-
-    private Random random = new Random();
-    private List<WeatherStation> stations = Collections.unmodifiableList(
-            Arrays.asList(
-                    new WeatherStation(1, "Hamburg", 13),
-                    new WeatherStation(2, "Snowdonia", 5),
-                    new WeatherStation(3, "Boston", 11),
-                    new WeatherStation(4, "Tokio", 16),
-                    new WeatherStation(5, "Cusco", 12),
-                    new WeatherStation(6, "Svalbard", -7),
-                    new WeatherStation(7, "Porthsmouth", 11),
-                    new WeatherStation(8, "Oslo", 7),
-                    new WeatherStation(9, "Marrakesh", 20)
-            ));
 
     public void generateData(@Observes StartupEvent event) {
         Multi.createBy().concatenating().streams(generateStations(), generateTemperatures())
@@ -63,7 +57,7 @@ public class ValuesGenerator {
     private Multi<Void> generateStations() {
         return Multi.createFrom().iterable(this.stations)
                 .invoke(station -> log.debug("creating station: {}", station))
-                .invokeUni(station -> this.client.set(List.of(STATION_TABLE + station.id, Json.encode(station))))
+                .call(station -> this.client.set(List.of(STATION_TABLE + station.id, Json.encode(station))))
                 .onItem().transformToUniAndMerge(res -> Uni.createFrom().voidItem());
     }
 
