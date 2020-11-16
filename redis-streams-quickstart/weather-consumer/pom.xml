@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.acme.redisstreams</groupId>
     <artifactId>weather-consumer</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>999-SNAPSHOT</version>
     <properties>
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
         <maven.compiler.target>11</maven.compiler.target>
