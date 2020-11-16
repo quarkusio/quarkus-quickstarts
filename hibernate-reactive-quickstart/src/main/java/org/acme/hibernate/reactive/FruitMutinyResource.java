@@ -3,8 +3,6 @@ package org.acme.hibernate.reactive;
 import java.util.function.Function;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -21,6 +19,9 @@ import org.hibernate.reactive.mutiny.Mutiny;
 
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
@@ -121,6 +122,9 @@ public class FruitMutinyResource {
     @Provider
     public static class ErrorMapper implements ExceptionMapper<Exception> {
 
+        @Inject
+        ObjectMapper objectMapper;
+
         @Override
         public Response toResponse(Exception exception) {
             LOGGER.error("Failed to handle request", exception);
@@ -130,16 +134,16 @@ public class FruitMutinyResource {
                 code = ((WebApplicationException) exception).getResponse().getStatus();
             }
 
-            JsonObjectBuilder entityBuilder = Json.createObjectBuilder()
-                    .add("exceptionType", exception.getClass().getName())
-                    .add("code", code);
+            ObjectNode exceptionJson = objectMapper.createObjectNode();
+            exceptionJson.put("exceptionType", exception.getClass().getName());
+            exceptionJson.put("code", code);
 
             if (exception.getMessage() != null) {
-                entityBuilder.add("error", exception.getMessage());
+                exceptionJson.put("error", exception.getMessage());
             }
 
             return Response.status(code)
-                    .entity(entityBuilder.build())
+                    .entity(exceptionJson)
                     .build();
         }
 

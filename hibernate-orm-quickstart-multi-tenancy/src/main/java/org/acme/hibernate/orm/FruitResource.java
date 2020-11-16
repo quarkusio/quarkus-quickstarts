@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
@@ -24,13 +22,16 @@ import javax.ws.rs.ext.Provider;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 @ApplicationScoped
 @Produces("application/json")
 @Consumes("application/json")
 @Path("/")
 public class FruitResource {
 
-    private static final Logger LOG = Logger.getLogger(FruitResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FruitResource.class.getName());
 
     @Inject
     EntityManager entityManager;
@@ -40,7 +41,7 @@ public class FruitResource {
     public Fruit[] getDefault() {
         return get();
     }
-    
+
     @GET
     @Path("{tenant}/fruits")
     public Fruit[] getTenant() {
@@ -51,7 +52,7 @@ public class FruitResource {
         return entityManager.createNamedQuery("Fruits.findAll", Fruit.class)
                 .getResultList().toArray(new Fruit[0]);
     }
-    
+
     @GET
     @Path("fruits/{id}")
     public Fruit getSingleDefault(@PathParam("id") Integer id) {
@@ -71,7 +72,7 @@ public class FruitResource {
         }
         return entity;
     }
-    
+
     @POST
     @Transactional
     @Path("fruits")
@@ -90,7 +91,7 @@ public class FruitResource {
         if (fruit.getId() != null) {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
-        LOG.debugv("Create {0}", fruit.getName());
+        LOGGER.debugv("Create {0}", fruit.getName());
         entityManager.persist(fruit);
         return Response.ok(fruit).status(201).build();
     }
@@ -120,8 +121,8 @@ public class FruitResource {
         }
         entity.setName(fruit.getName());
 
-        LOG.debugv("Update #{0} {1}", fruit.getId(), fruit.getName());
-        
+        LOGGER.debugv("Update #{0} {1}", fruit.getId(), fruit.getName());
+
         return entity;
     }
 
@@ -144,7 +145,7 @@ public class FruitResource {
         if (fruit == null) {
             throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
         }
-        LOG.debugv("Delete #{0} {1}", fruit.getId(), fruit.getName());
+        LOGGER.debugv("Delete #{0} {1}", fruit.getId(), fruit.getName());
         entityManager.remove(fruit);
         return Response.status(204).build();
     }
@@ -154,7 +155,7 @@ public class FruitResource {
     public Response findByDefault(@QueryParam("type") String type, @QueryParam("value") String value) {
         return findBy(type, value);
     }
-    
+
     @GET
     @Path("{tenant}/fruitsFindBy")
     public Response findByTenant(@QueryParam("type") String type, @QueryParam("value") String value) {
@@ -170,31 +171,34 @@ public class FruitResource {
             return Response.status(404).build();
         }
         Fruit fruit = list.get(0);
-        return Response.status(200).entity(fruit).build(); 
+        return Response.status(200).entity(fruit).build();
     }
-    
+
     @Provider
     public static class ErrorMapper implements ExceptionMapper<Exception> {
 
+        @Inject
+        ObjectMapper objectMapper;
+
         @Override
         public Response toResponse(Exception exception) {
-            LOG.error("Failed to handle request", exception);
+            LOGGER.error("Failed to handle request", exception);
 
             int code = 500;
             if (exception instanceof WebApplicationException) {
                 code = ((WebApplicationException) exception).getResponse().getStatus();
             }
 
-            JsonObjectBuilder entityBuilder = Json.createObjectBuilder()
-                    .add("exceptionType", exception.getClass().getName())
-                    .add("code", code);
+            ObjectNode exceptionJson = objectMapper.createObjectNode();
+            exceptionJson.put("exceptionType", exception.getClass().getName());
+            exceptionJson.put("code", code);
 
             if (exception.getMessage() != null) {
-                entityBuilder.add("error", exception.getMessage());
+                exceptionJson.put("error", exception.getMessage());
             }
 
             return Response.status(code)
-                    .entity(entityBuilder.build())
+                    .entity(exceptionJson)
                     .build();
         }
 

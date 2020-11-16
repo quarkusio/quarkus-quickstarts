@@ -2,12 +2,13 @@ package org.acme.hibernate.search.elasticsearch.model;
 
 import java.util.Objects;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
@@ -19,7 +20,7 @@ public class Book extends PanacheEntity {
     public String title;
 
     @ManyToOne
-    @JsonbTransient
+    @JsonIgnore
     public Author author;
 
     @Override
