@@ -17,11 +17,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -105,7 +104,7 @@ public class TemperatureProcessor {
                 )
                 .call(agg -> this.client.get(WEATHER_STATIONS_TABLE + agg.stationId).invoke(station -> setWeatherStationName(agg, station)))
                 .call(agg -> this.client.hset(toHSetCommand(AGGREGATE_TABLE, agg.stationId.toString(), agg)))
-                .call(agg -> this.client.xack(toXAckCommand(TEMPERATURE_VALUES_STREAM, CONSUMER_GROUP, List.copyOf(agg.messageIds))))
+                .call(agg -> this.client.xack(toXAckCommand(TEMPERATURE_VALUES_STREAM, CONSUMER_GROUP, new ArrayList<>(agg.messageIds))))
                 .invoke(agg -> log.info("Aggregated: {}", agg))
                 .onFailure().invoke(err -> log.error("Caught exception: {}", err));
     }
@@ -130,7 +129,7 @@ public class TemperatureProcessor {
                             }
 
                             // even numbers in the response are the keys, uneven numbers are the values
-                            return Map.of(res.get(i.get()).toString(), res.get(i.incrementAndGet()).toString());
+                            return Collections.singletonMap(res.get(i.get()).toString(), res.get(i.incrementAndGet()).toString());
                         }))
                         .atMost(res.size() / 2))
                 .flatMap(map -> Multi.createFrom().iterable(map.entrySet()))
@@ -166,8 +165,8 @@ public class TemperatureProcessor {
             if (msg.get(1) != null) {
                 Response json = msg.get(1).get(1);
                 if (isJson(json)) {
-                    var msgId = msg.get(0).toString();
-                    var payload = json.toString();
+                    String msgId = msg.get(0).toString();
+                    String payload = json.toString();
                     Temperature temperature = Json.decodeValue(payload, Temperature.class);
                     temperature.messageId = msgId;
                     return temperature;

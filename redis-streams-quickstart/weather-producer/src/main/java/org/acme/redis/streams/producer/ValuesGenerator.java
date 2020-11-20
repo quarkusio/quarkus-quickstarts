@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -30,8 +31,7 @@ public class ValuesGenerator {
     private static final Logger log = LoggerFactory.getLogger(ValuesGenerator.class);
 
     private Random random = new Random();
-    private List<WeatherStation> stations = List.of(
-            new WeatherStation(1, "Hamburg", 13),
+    private List<WeatherStation> stations = Arrays.asList(new WeatherStation(1, "Hamburg", 13),
             new WeatherStation(2, "Snowdonia", 5),
             new WeatherStation(3, "Boston", 11),
             new WeatherStation(4, "Tokio", 16),
@@ -39,8 +39,7 @@ public class ValuesGenerator {
             new WeatherStation(6, "Svalbard", -7),
             new WeatherStation(7, "Porthsmouth", 11),
             new WeatherStation(8, "Oslo", 7),
-            new WeatherStation(9, "Marrakesh", 20)
-    );
+            new WeatherStation(9, "Marrakesh", 20));
 
     @ConfigProperty(name = "producer.rate", defaultValue = "1000")
     int rate;
@@ -57,15 +56,15 @@ public class ValuesGenerator {
     private Multi<Void> generateStations() {
         return Multi.createFrom().iterable(this.stations)
                 .invoke(station -> log.debug("creating station: {}", station))
-                .call(station -> this.client.set(List.of(STATION_TABLE + station.id, Json.encode(station))))
+                .call(station -> this.client.set(Arrays.asList(STATION_TABLE + station.id, Json.encode(station))))
                 .onItem().transformToUniAndMerge(res -> Uni.createFrom().voidItem());
     }
 
     private Multi<Void> generateTemperatures() {
         return Multi.createFrom().ticks().every(Duration.ofMillis(this.rate))
                 .onItem().transform(tick -> {
-                    var station = this.stations.get(this.random.nextInt(this.stations.size()));
-                    var temperature = BigDecimal.valueOf(this.random.nextGaussian() * 15 + station.averageTemperature)
+                    WeatherStation station = this.stations.get(this.random.nextInt(this.stations.size()));
+                    double temperature = BigDecimal.valueOf(this.random.nextGaussian() * 15 + station.averageTemperature)
                             .setScale(1, RoundingMode.HALF_UP)
                             .doubleValue();
 
@@ -75,8 +74,7 @@ public class ValuesGenerator {
                             .put("date", Instant.now().toString());
                 })
                 .onItem().transformToUniAndMerge(temp ->
-                        this.client.xadd(List.of(
-                                TEMPERATURE_VALUES_STREAM,
+                        this.client.xadd(Arrays.asList(TEMPERATURE_VALUES_STREAM,
                                 "maxlen",
                                 "~",
                                 "100",

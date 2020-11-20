@@ -3,6 +3,7 @@ package org.acme.redis.streams.consumer.util;
 import io.vertx.core.json.Json;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,11 +20,11 @@ public final class RedisSupport {
     }
 
     public static List<String> toXReadGroupCommand(String consumerGroup, String threadName, String stream, String position) {
-        return List.of(GROUP, consumerGroup, threadName, STREAMS, stream, position);
+        return Arrays.asList(GROUP, consumerGroup, threadName, STREAMS, stream, position);
     }
 
     public static List<String> toXAckCommand(String stream, String consumerGroup, String messageId) {
-        return List.of(stream, consumerGroup, messageId);
+        return Arrays.asList(stream, consumerGroup, messageId);
     }
 
     public static List<String> toXAckCommand(String stream, String consumerGroup, List<String> messageIds) {
@@ -39,10 +40,10 @@ public final class RedisSupport {
     }
 
     public static List<String> toXGroupCommand(String stream, String consumerGroup, String position) {
-        return List.of(CREATE, stream, consumerGroup, position);
+        return Arrays.asList(CREATE, stream, consumerGroup, position);
     }
 
     public static List<String> toHSetCommand(String key, String field, Object value) {
-        return List.of(key, field, Json.encode(value));
+        return Arrays.asList(key, field, Json.encode(value));
     }
 }

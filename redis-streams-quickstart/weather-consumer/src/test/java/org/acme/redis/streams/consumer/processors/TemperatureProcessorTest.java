@@ -17,6 +17,7 @@ import org.junit.jupiter.api.TestInstance;
 
 import javax.inject.Inject;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
@@ -44,16 +45,16 @@ public class TemperatureProcessorTest {
 
     @AfterAll
     public void cleanUp() {
-        System.out.println("deleted stream: " + this.client.del(List.of(TEMPERATURE_VALUES_STREAM)));
-        this.weatherStations.forEach(ws -> System.out.printf("deleted station: %d, success=%s\n", ws.id, this.client.del(List.of(WEATHER_STATIONS_TABLE + ws.id))));
+        System.out.println("deleted stream: " + this.client.del(Arrays.asList(TEMPERATURE_VALUES_STREAM)));
+        this.weatherStations.forEach(ws -> System.out.printf("deleted station: %d, success=%s\n", ws.id, this.client.del(Arrays.asList(WEATHER_STATIONS_TABLE + ws.id))));
     }
 
     @AfterEach
     public void checkPendingMessages() {
         // 0 messages should be pending e.g. all messages should have been processed from the stream
-        assertThat(this.client.xpending(List.of(TEMPERATURE_VALUES_STREAM, CONSUMER_GROUP)).get(0).toString()).isEqualTo("0");
+        assertThat(this.client.xpending(Arrays.asList(TEMPERATURE_VALUES_STREAM, CONSUMER_GROUP)).get(0).toString()).isEqualTo("0");
         // delete the calculated aggregates, so that we start with an empty aggregates table each test
-        this.client.del(List.of(AGGREGATE_TABLE));
+        this.client.del(Arrays.asList(AGGREGATE_TABLE));
     }
 
     @Test
@@ -104,7 +105,7 @@ public class TemperatureProcessorTest {
     }
 
     private void createWeatherStations() {
-        this.weatherStations = List.of(
+        this.weatherStations = Arrays.asList(
                 new WeatherStation(1L, "Hamburg", 13.0),
                 new WeatherStation(2L, "Snowdonia", -2.0),
                 new WeatherStation(3L, "Tokyo", 9.0),
@@ -115,13 +116,13 @@ public class TemperatureProcessorTest {
                 new WeatherStation(8L, "Rome", 15.0),
                 new WeatherStation(9L, "Kaapstad", 28.0));
 
-        this.weatherStations.forEach(ws -> this.client.set(List.of(WEATHER_STATIONS_TABLE + ws.id, Json.encode(ws))));
+        this.weatherStations.forEach(ws -> this.client.set(Arrays.asList(WEATHER_STATIONS_TABLE + ws.id, Json.encode(ws))));
     }
 
     private String addTemperature(long stationId, double temperature) {
         Temperature temp = new Temperature(stationId, null, temperature, Instant.now().toString());
 
-        Response res = this.client.xadd(List.of(
+        Response res = this.client.xadd(Arrays.asList(
                 TEMPERATURE_VALUES_STREAM,
                 "maxlen",
                 "~",

@@ -33,7 +33,7 @@ public class StreamConfig {
             // if the consumer starts before the producer, then the stream might not exist (at the very first time).
             // so we create the stream & the consumer-group with one command here.
             if (e.getMessage().contains("MKSTREAM")) {
-                var command = new ArrayList<>(commands);
+                List<String> command = new ArrayList<>(commands);
                 command.add("MKSTREAM");
                 this.client.xgroup(command);
                 log.info("Created stream '{}' and consumer-group '{}'", TEMPERATURE_VALUES_STREAM, CONSUMER_GROUP);
