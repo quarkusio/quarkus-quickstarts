@@ -3,6 +3,7 @@ package org.acme.redis.streams.consumer.processors;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.GenericContainer;
 
+import java.util.Collections;
 import java.util.Map;
 
 import static java.lang.String.format;
@@ -14,7 +15,7 @@ public class RedisResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         REDIS.start();
-        return Map.of("quarkus.redis.hosts", format("redis://%s:%d", REDIS.getContainerIpAddress(), REDIS.getFirstMappedPort()));
+        return Collections.singletonMap("quarkus.redis.hosts", format("redis://%s:%d", REDIS.getContainerIpAddress(), REDIS.getFirstMappedPort()));
     }
 
     @Override
