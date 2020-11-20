@@ -32,10 +32,8 @@ public class TemperatureAggregate {
         this.stationId = temperature.id;
         this.max = temperature.temperature;
         this.min = temperature.temperature;
-        this.sum = temperature.temperature;
         this.avg = temperature.temperature;
         this.messageIds.add(temperature.messageId);
-        this.count = 1;
     }
 
     public TemperatureAggregate calculate(Temperature temperature) {

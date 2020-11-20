@@ -11,6 +11,8 @@ import javax.annotation.Priority;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
+import static org.acme.redis.streams.consumer.util.AppConstants.CONSUMER_GROUP;
+
 public class TemperatureStreamListener {
 
     private static final Logger log = LoggerFactory.getLogger(TemperatureStreamListener.class);
@@ -22,7 +24,7 @@ public class TemperatureStreamListener {
         log.info("Starting processing temperatures");
 
         Multi.createBy().repeating()
-                .supplier(() -> this.processor.calculateAggregates())
+                .supplier(() -> this.processor.calculateAggregates(CONSUMER_GROUP))
                 .indefinitely()
                 .onItem().disjoint()
                 .onOverflow().drop(res -> log.warn("Dropping msg: {}", res))

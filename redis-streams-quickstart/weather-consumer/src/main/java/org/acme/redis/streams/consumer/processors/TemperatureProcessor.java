@@ -77,12 +77,13 @@ public class TemperatureProcessor {
     /**
      * Processes the stream and calculates temperature aggregates and stores them in Redis (in a Hash keystore).
      *
+     * @param consumerGroup
      * @return a stream/multi of processed temperature aggregates.
      */
-    public Multi<TemperatureAggregate> calculateAggregates() {
+    public Multi<TemperatureAggregate> calculateAggregates(String consumerGroup) {
 
         // read the latest temperatures/messages from the stream
-        return this.client.xreadgroup(toXReadGroupCommand(CONSUMER_GROUP, this.appName, TEMPERATURE_VALUES_STREAM))
+        return this.client.xreadgroup(toXReadGroupCommand(consumerGroup, this.appName, TEMPERATURE_VALUES_STREAM))
                 .onItem().ifNotNull().transformToMulti(res -> {
                     if (ResponseType.MULTI.equals(res.type()) && res.get(0) != null && res.get(0).size() >= 2) {
                         return Multi.createFrom().iterable(res.get(0).get(1));
@@ -99,12 +100,13 @@ public class TemperatureProcessor {
                 .onItem().transformToUniAndMerge(entry ->
                         this.client.hget(AGGREGATE_TABLE, entry.getKey().toString()).map(oldAgg -> {
                             TemperatureAggregate old = getTemperatureAggregate(oldAgg);
-                            return old.calculate(entry.getValue());
+                            return entry.getValue().calculate(old);
                         })
                 )
                 .call(agg -> this.client.get(WEATHER_STATIONS_TABLE + agg.stationId).invoke(station -> setWeatherStationName(agg, station)))
                 .call(agg -> this.client.hset(toHSetCommand(AGGREGATE_TABLE, agg.stationId.toString(), agg)))
                 .call(agg -> this.client.xack(toXAckCommand(TEMPERATURE_VALUES_STREAM, CONSUMER_GROUP, List.copyOf(agg.messageIds))))
+                .invoke(agg -> log.info("Aggregated: {}", agg))
                 .onFailure().invoke(err -> log.error("Caught exception: {}", err));
     }
 
