@@ -5,29 +5,24 @@ import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-
 @Entity
-public class Timeslot extends PanacheEntityBase {
+public class Timeslot {
 
     @PlanningId
     @Id
     @GeneratedValue
-    @NotNull
     private Long id;
 
-    @NotNull
     private DayOfWeek dayOfWeek;
-    @NotNull
     private LocalTime startTime;
-    @NotNull
     private LocalTime endTime;
 
+    // No-arg constructor required for Hibernate
     public Timeslot() {
     }
 
@@ -37,8 +32,27 @@ public class Timeslot extends PanacheEntityBase {
         this.endTime = endTime;
     }
 
+    public Timeslot(long id, DayOfWeek dayOfWeek, LocalTime startTime) {
+        this(dayOfWeek, startTime, startTime.plusMinutes(50));
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return dayOfWeek + " " + startTime;
+    }
+
+    // ************************************************************************
+    // Getters and setters
+    // ************************************************************************
+
     public Long getId() {
         return id;
+    }
+
+    // Setter is workaround for native build issue https://github.com/quarkusio/quarkus/issues/12458
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public DayOfWeek getDayOfWeek() {
@@ -51,11 +65,6 @@ public class Timeslot extends PanacheEntityBase {
 
     public LocalTime getEndTime() {
         return endTime;
-    }
-
-    @Override
-    public String toString() {
-        return dayOfWeek + " " + startTime;
     }
 
 }

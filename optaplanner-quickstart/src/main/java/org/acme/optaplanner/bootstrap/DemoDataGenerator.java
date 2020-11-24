@@ -7,11 +7,15 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import org.acme.optaplanner.domain.Lesson;
 import org.acme.optaplanner.domain.Room;
 import org.acme.optaplanner.domain.Timeslot;
+import org.acme.optaplanner.persistence.LessonRepository;
+import org.acme.optaplanner.persistence.RoomRepository;
+import org.acme.optaplanner.persistence.TimeslotRepository;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.quarkus.runtime.StartupEvent;
@@ -21,6 +25,13 @@ public class DemoDataGenerator {
 
     @ConfigProperty(name = "timeTable.demoData", defaultValue = "SMALL")
     DemoData demoData;
+
+    @Inject
+    TimeslotRepository timeslotRepository;
+    @Inject
+    RoomRepository roomRepository;
+    @Inject
+    LessonRepository lessonRepository;
 
     @Transactional
     public void generateDemoData(@Observes StartupEvent startupEvent) {
@@ -57,7 +68,7 @@ public class DemoDataGenerator {
             timeslotList.add(new Timeslot(DayOfWeek.FRIDAY, LocalTime.of(13, 30), LocalTime.of(14, 30)));
             timeslotList.add(new Timeslot(DayOfWeek.FRIDAY, LocalTime.of(14, 30), LocalTime.of(15, 30)));
         }
-        Timeslot.persist(timeslotList);
+        timeslotRepository.persist(timeslotList);
 
         List<Room> roomList = new ArrayList<>(3);
         roomList.add(new Room("Room A"));
@@ -68,7 +79,7 @@ public class DemoDataGenerator {
             roomList.add(new Room("Room E"));
             roomList.add(new Room("Room F"));
         }
-        Room.persist(roomList);
+        roomRepository.persist(roomList);
 
         List<Lesson> lessonList = new ArrayList<>();
         lessonList.add(new Lesson("Math", "A. Turing", "9th grade"));
@@ -182,7 +193,8 @@ public class DemoDataGenerator {
         Lesson lesson = lessonList.get(0);
         lesson.setTimeslot(timeslotList.get(0));
         lesson.setRoom(roomList.get(0));
-        Lesson.persist(lessonList);
+
+        lessonRepository.persist(lessonList);
     }
 
     public enum DemoData {

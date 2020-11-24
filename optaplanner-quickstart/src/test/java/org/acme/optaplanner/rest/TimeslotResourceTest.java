@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import org.acme.optaplanner.domain.Timeslot;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -39,14 +40,14 @@ public class TimeslotResourceTest {
                 .body(new Timeslot(DayOfWeek.SUNDAY, LocalTime.of(20, 0), LocalTime.of(21, 0)))
                 .post("/timeslots")
                 .then()
-                .statusCode(202)
+                .statusCode(201)
                 .extract().as(Timeslot.class);
 
         given()
                 .when()
                 .delete("/timeslots/{id}", timeslot.getId())
                 .then()
-                .statusCode(200);
+                .statusCode(204);
     }
 
 }
