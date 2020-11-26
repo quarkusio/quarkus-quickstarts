@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.util.List;
 
 import org.acme.optaplanner.domain.Room;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -35,14 +36,14 @@ public class RoomResourceTest {
                 .body(new Room("Test room"))
                 .post("/rooms")
                 .then()
-                .statusCode(202)
+                .statusCode(201)
                 .extract().as(Room.class);
 
         given()
                 .when()
                 .delete("/rooms/{id}", room.getId())
                 .then()
-                .statusCode(200);
+                .statusCode(204);
     }
 
 }
