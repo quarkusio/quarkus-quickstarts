@@ -105,7 +105,6 @@ public class TemperatureProcessor {
                 .call(agg -> this.client.get(WEATHER_STATIONS_TABLE + agg.stationId).invoke(station -> setWeatherStationName(agg, station)))
                 .call(agg -> this.client.hset(toHSetCommand(AGGREGATE_TABLE, agg.stationId.toString(), agg)))
                 .call(agg -> this.client.xack(toXAckCommand(TEMPERATURE_VALUES_STREAM, CONSUMER_GROUP, new ArrayList<>(agg.messageIds))))
-                .invoke(agg -> log.info("Aggregated: {}", agg))
                 .onFailure().invoke(err -> log.error("Caught exception: {}", err));
     }
 
