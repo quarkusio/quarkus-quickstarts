@@ -1,19 +1,19 @@
 # Quarkus demo: Redis Streams
 
-This is the same demo used in the [Kafka Streams guide](https://quarkus.io/guides/kafka-streams) which now has been reimplemented with Redis Streams.
+In this demo, the usecase used in the [Kafka Streams guide](https://quarkus.io/guides/kafka-streams) has been reimplemented with Redis Streams. 
 
 There are two modules: 
 - weather-producer: this application does two things at startup:
-    - creates 9 weather stations once, and saves them as Json in a String datastore in Redis with the following name `station:<stationId>`. 
+    - creates 9 weather stations and saves them as Json in a String datastore in Redis with the following name `station:<stationId>`. 
     - produces random temperatures to the `temperature-values` stream (for these 9 weather stations). The speed in which the temperatures are generated can be adjusted with the `RATE`
 environment variable (see also the `.env` file). 
-- weather-consumer: reads from the `temperature-values` stream and `station:<stattionId>` datastore, joins these two together and generates `TemperatureAggregate` which holds the min, max, count, avg temperatures per station.
-The `TemperatureAggregate` is stored in a Redis Hash with the following key: `aggregates`, and with the field `stationId` and the value is a Json representation of `TemperatureAggregate`.    
+- weather-consumer: reads from the `temperature-values` stream and `station:<stationId>` datastore, joins these two together and generates `TemperatureAggregate` which holds the min, max, count, avg temperatures per station.
+The `TemperatureAggregate` is stored in a Hash with the following key: `aggregates`, and with the field `stationId` and the value is a Json representation of `TemperatureAggregate`.    
 
-Under the hood, also the following is used:
+Under the hood, also the following extensions are used:
  - Reactive Routes, to expose REST endpoints
  - Mutiny as the reactive programming model
- - A Redis database; see below to run one via Docker
+ - A Redis database; see below to run one via Docker compose
  - Hibernate Validation, to validate REST parameters
  - ArC, the CDI inspired dependency injection tool with zero overhead
  
@@ -42,41 +42,38 @@ First build the whole project from the parent folder:
 
 > mvn clean package 
 
-Then run Docker Compose:
+Then run it with Docker Compose:
 
 > docker-compose up -d
 
-Note that running this command will start a Redis instance and the two applications.
+This command will start a Redis instance and the two applications.
 
 ## Exposed endpoints
  - `GET /temperatures/` => returns the currently calculated temperature aggregates for all the stations.
- - `GET /temperatures/{stationId}` (note: the stationIds start from 1 to 9).
+ - `GET /temperatures/{stationId}` 
  
- Note that the weather-consumer's HTTP port is mapped to ports 8080-8083 (for scaling up to 3 instances) in the `Docker-compose` file.
+Note: 
+- the stationIds start from 1 to 9.
+- the weather-consumer's HTTP port is mapped to ports 8080-8083 (for scaling up to 3 instances). See also the `docker-compose.yml` file.
  
  ## Scaling up
  
- To scale up either the weather-producer or the weather-consumer, type the following:
+ To scale up the weather-producer and/or the weather-consumer, type the following:
  
- > docker-compose -d --scale weather-producer=<number> --scale weather-consumer=<number>
+ > docker-compose -d --scale weather-producer=`<number>` --scale weather-consumer=`<number>`
 
 On my laptop I could easily scale up the producer to 20 instances with only 1 consumer (in JVM mode).
 
 ## Connecting to Redis
 
-If you want to access Redis and interact with the data directly, then you can do this as follows.
+If you want to access Redis and interact with the data directly, then you can do this as follows:
 
-First get (a part) of the container ID of Redis, by listing all the containers:
-
-> docker ps
-
-Then run redis-cli within the Redis container:
-> docker exec -it `<containerID>` redis-cli
+> docker exec -it `<Redis containerID>` redis-cli
 
 From the redis-cli you can now query directly. For example to list all the keys, type: 
-> keys *
+
 ```bash
-127.0.0.1:6379> keys *
+> keys *
  1) "station:5"
  2) "station:1"
  3) "aggregates"
@@ -91,8 +88,8 @@ From the redis-cli you can now query directly. For example to list all the keys,
 ```
 Or to get all the temperature aggregates:
 
-> hgetall aggregates
 ```bash
+> hgetall aggregates
  1) "2"
  2) "{\"stationId\":2,\"name\":\"Snowdonia\",\"max\":37.0,\"min\":-21.8,\"avg\":6.8,\"sum\":190.0,\"count\":28}"
  3) "4"
@@ -111,4 +108,10 @@ Or to get all the temperature aggregates:
 16) "{\"stationId\":5,\"name\":\"Cusco\",\"max\":38.0,\"min\":-5.8,\"avg\":15.8,\"sum\":457.0,\"count\":29}"
 17) "1"
 18) "{\"stationId\":1,\"name\":\"Hamburg\",\"max\":53.7,\"min\":-36.0,\"avg\":13.5,\"sum\":323.0,\"count\":24}"
+```
+Or to get the temperature aggregate for station 1:
+
+```bash
+> hget aggregates 1
+"{\"stationId\":1,\"name\":\"Hamburg\",\"max\":61.7,\"min\":-36.0,\"avg\":12.0,\"sum\":7759.0,\"count\":645}"
 ```
