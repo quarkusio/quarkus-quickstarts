@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Costs</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+</head>
+<body>
+<div class="container">
+
+    <h2>Add a cost</h2>
+    <div>
+        <div>
+            <label for="value">Value</label>
+            <input type="text" id="value">
+        </div>
+        <div>
+            <label for="currency">Currency</label>
+            <select id="currency">
+                <option value="CHF">Swiss franc</option>
+                <option value="USD">United States dollar</option>
+                <option value="CHF">Polish złoty</option>
+            </select>
+        </div>
+        <input type="button" onclick="add()" value="Add">
+    </div>
+
+
+    <h2>Last cost</h2>
+    <div class="row">
+        <p class="col-md-12">The total cost is <strong><span id="content">N/A</span>&nbsp;&euro;</strong>.</p>
+    </div>
+</div>
+</body>
+<script>
+    add = function() {
+        var value = document.getElementById('value').value;
+        var currency = document.getElementById('currency').value;
+
+        var cost = {
+            value: document.getElementById('value').value,
+            currency: document.getElementById('currency').value
+        };
+
+        fetch('costs', { method: 'POST', body: JSON.stringify(cost) });
+    }
+
+    updateCost = function() {
+        fetch('cost-collector').then(response => response.text()).then(sum =>
+            document.getElementById('content').textContent=sum
+        );
+    }
+
+    window.setInterval(updateCost, 500);
+</script>
+</html>
