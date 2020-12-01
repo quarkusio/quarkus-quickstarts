@@ -2,6 +2,8 @@
 
 In this demo, the usecase used in the [Kafka Streams guide](https://quarkus.io/guides/kafka-streams) has been reimplemented with Redis Streams. 
 
+![architecture](https://quarkus.io/guides/images/kafka-streams-guide-architecture.png)
+
 There are two modules: 
 - weather-producer: this application does two things at startup:
     - creates 9 weather stations and saves them as Json in a String datastore in Redis with the following name `station:<stationId>`. 
