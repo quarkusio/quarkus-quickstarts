@@ -115,12 +115,11 @@ public class LibraryResource {
     @Transactional
     public List<Author> searchAuthors(@QueryParam String pattern,
             @QueryParam Optional<Integer> size) {
-        List<Author> authors = searchSession.search(Author.class)
+        return searchSession.search(Author.class)
                 .where(f -> pattern == null || pattern.trim().isEmpty() ? f.matchAll()
                         : f.simpleQueryString()
                                 .fields("firstName", "lastName", "books.title").matching(pattern))
                 .sort(f -> f.field("lastName_sort").then().field("firstName_sort"))
                 .fetchHits(size.orElse(20));
-        return authors;
     }
 }
