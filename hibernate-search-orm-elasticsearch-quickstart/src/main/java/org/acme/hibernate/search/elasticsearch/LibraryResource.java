@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.acme.hibernate.search.elasticsearch.model.Author;
 import org.acme.hibernate.search.elasticsearch.model.Book;
-import org.hibernate.search.mapper.orm.Search;
+import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.jboss.resteasy.annotations.jaxrs.FormParam;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
@@ -33,12 +33,14 @@ public class LibraryResource {
     @Inject
     EntityManager em;
 
+    @Inject
+    SearchSession searchSession;
+
     @Transactional
     void onStart(@Observes StartupEvent ev) throws InterruptedException {
         // only reindex if we imported some content
         if (Book.count() > 0) {
-            Search.session(em)
-                    .massIndexer()
+            searchSession.massIndexer()
                     .startAndWait();
         }
     }
@@ -113,8 +115,7 @@ public class LibraryResource {
     @Transactional
     public List<Author> searchAuthors(@QueryParam String pattern,
             @QueryParam Optional<Integer> size) {
-        List<Author> authors = Search.session(em)
-                .search(Author.class)
+        List<Author> authors = searchSession.search(Author.class)
                 .where(f -> pattern == null || pattern.trim().isEmpty() ? f.matchAll()
                         : f.simpleQueryString()
                                 .fields("firstName", "lastName", "books.title").matching(pattern))
