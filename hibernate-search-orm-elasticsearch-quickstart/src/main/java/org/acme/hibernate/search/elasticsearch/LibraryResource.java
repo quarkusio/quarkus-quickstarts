@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -29,9 +28,6 @@ import io.quarkus.runtime.StartupEvent;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class LibraryResource {
-
-    @Inject
-    EntityManager em;
 
     @Inject
     SearchSession searchSession;
