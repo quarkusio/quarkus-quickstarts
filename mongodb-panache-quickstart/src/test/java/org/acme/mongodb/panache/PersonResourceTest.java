@@ -97,7 +97,7 @@ class PersonResourceTest {
                 .body().as(Person.class);
 
         Assertions.assertThat(person.id).isEqualTo(new ObjectId("5889273c093d1c3e614bf2fa"));
-        Assertions.assertThat(person.name).isEqualTo("LOÏC");
+        Assertions.assertThat(person.name).isEqualTo("loïc");
         Assertions.assertThat(person.birthDate).isEqualTo(LocalDate.of(1988, 6, 19));
         Assertions.assertThat(person.status).isEqualTo(Status.LIVING);
 
@@ -140,7 +140,7 @@ class PersonResourceTest {
                 .body().as(Person.class);
 
         Assertions.assertThat(person.id).isEqualTo(new ObjectId("5889273c093d1c3e614bf2f9"));
-        Assertions.assertThat(person.name).isEqualTo("MONCEF");
+        Assertions.assertThat(person.name).isEqualTo("moncef");
         Assertions.assertThat(person.birthDate).isEqualTo(LocalDate.of(1993, 5, 19));
         Assertions.assertThat(person.status).isEqualTo(Status.LIVING);
 
