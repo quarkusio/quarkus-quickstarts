@@ -84,5 +84,6 @@
         <module>vertx-quickstart</module>
         <module>websockets-quickstart</module>
         <module>liquibase-quickstart</module>
+        <module>maven-multi-module-quickstart</module>
     </modules>
 </project>
