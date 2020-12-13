@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.inject.Inject;
 
-import org.acme.optaplanner.domain.Lesson;
 import org.acme.optaplanner.domain.TimeTable;
+import org.acme.optaplanner.domain.Lesson;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import org.optaplanner.core.api.solver.SolverStatus;

@@ -2,32 +2,25 @@ package org.acme.optaplanner.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-
 @PlanningEntity
 @Entity
-public class Lesson extends PanacheEntityBase {
+public class Lesson {
 
     @PlanningId
     @Id
     @GeneratedValue
-    @NotNull
     private Long id;
 
-    @NotBlank
     private String subject;
-    @NotBlank
     private String teacher;
-    @NotBlank
     private String studentGroup;
 
     @PlanningVariable(valueRangeProviderRefs = "timeslotRange")
@@ -37,6 +30,7 @@ public class Lesson extends PanacheEntityBase {
     @ManyToOne
     private Room room;
 
+    // No-arg constructor required for Hibernate and OptaPlanner
     public Lesson() {
     }
 
@@ -46,8 +40,29 @@ public class Lesson extends PanacheEntityBase {
         this.studentGroup = studentGroup.trim();
     }
 
+    public Lesson(long id, String subject, String teacher, String studentGroup, Timeslot timeslot, Room room) {
+        this(subject, teacher, studentGroup);
+        this.id = id;
+        this.timeslot = timeslot;
+        this.room = room;
+    }
+
+    @Override
+    public String toString() {
+        return subject + "(" + id + ")";
+    }
+
+    // ************************************************************************
+    // Getters and setters
+    // ************************************************************************
+
     public Long getId() {
         return id;
+    }
+
+    // Setter is workaround for native build issue https://github.com/quarkusio/quarkus/issues/12458
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSubject() {
@@ -76,11 +91,6 @@ public class Lesson extends PanacheEntityBase {
 
     public void setRoom(Room room) {
         this.room = room;
-    }
-
-    @Override
-    public String toString() {
-        return subject + "(" + id + ")";
     }
 
 }

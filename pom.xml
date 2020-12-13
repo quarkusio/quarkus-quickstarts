@@ -36,7 +36,7 @@
         <module>grpc-tls-quickstart</module>
         <module>hibernate-orm-panache-quickstart</module>
         <module>hibernate-orm-quickstart-multi-tenancy</module>
-        <module>hibernate-search-elasticsearch-quickstart</module>
+        <module>hibernate-search-orm-elasticsearch-quickstart</module>
         <module>infinispan-client-quickstart</module>
         <module>jms-quickstart</module>
         <module>kafka-quickstart</module>

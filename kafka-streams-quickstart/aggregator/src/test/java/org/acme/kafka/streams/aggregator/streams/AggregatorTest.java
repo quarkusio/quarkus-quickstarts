@@ -1,9 +1,17 @@
 package org.acme.kafka.streams.aggregator.streams;
 
-import io.quarkus.kafka.client.serialization.JsonbDeserializer;
-import io.quarkus.kafka.client.serialization.JsonbSerializer;
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
+import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.TEMPERATURES_AGGREGATED_TOPIC;
+import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.TEMPERATURE_VALUES_TOPIC;
+import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.WEATHER_STATIONS_TOPIC;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
 import org.acme.kafka.streams.aggregator.model.Aggregation;
 import org.acme.kafka.streams.aggregator.model.WeatherStation;
 import org.apache.kafka.clients.consumer.Consumer;
@@ -23,17 +31,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
-
-import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.TEMPERATURES_AGGREGATED_TOPIC;
-import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.TEMPERATURE_VALUES_TOPIC;
-import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.WEATHER_STATIONS_TOPIC;
+import io.quarkus.kafka.client.serialization.ObjectMapperDeserializer;
+import io.quarkus.kafka.client.serialization.ObjectMapperSerializer;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
 
 /**
  * Integration testing of the application with an embedded broker.
@@ -53,8 +54,8 @@ public class AggregatorTest {
     @BeforeEach
     public void setUp(){
         temperatureProducer = new KafkaProducer(producerProps(), new IntegerSerializer(), new StringSerializer());
-        weatherStationsProducer = new KafkaProducer(producerProps(), new IntegerSerializer(), new JsonbSerializer());
-        weatherStationsConsumer =  new KafkaConsumer(consumerProps(), new IntegerDeserializer(), new JsonbDeserializer<>(Aggregation.class));
+        weatherStationsProducer = new KafkaProducer(producerProps(), new IntegerSerializer(), new ObjectMapperSerializer());
+        weatherStationsConsumer =  new KafkaConsumer(consumerProps(), new IntegerDeserializer(), new ObjectMapperDeserializer<>(Aggregation.class));
     }
 
     @AfterEach

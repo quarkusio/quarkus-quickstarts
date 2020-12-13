@@ -13,7 +13,7 @@ The application can be started using:
 
 ```bash
 mvn quarkus:dev
-```  
+```
 
 Then, open your browser to `http://localhost:8080/prices.html`, and you should see a fluctuating price.
 

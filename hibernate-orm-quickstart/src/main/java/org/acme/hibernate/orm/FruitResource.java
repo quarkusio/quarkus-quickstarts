@@ -1,10 +1,9 @@
 package org.acme.hibernate.orm;
 
 import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
@@ -21,6 +20,9 @@ import javax.ws.rs.ext.Provider;
 
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Path("fruits")
 @ApplicationScoped
@@ -94,6 +96,9 @@ public class FruitResource {
     @Provider
     public static class ErrorMapper implements ExceptionMapper<Exception> {
 
+        @Inject
+        ObjectMapper objectMapper;
+
         @Override
         public Response toResponse(Exception exception) {
             LOGGER.error("Failed to handle request", exception);
@@ -103,16 +108,16 @@ public class FruitResource {
                 code = ((WebApplicationException) exception).getResponse().getStatus();
             }
 
-            JsonObjectBuilder entityBuilder = Json.createObjectBuilder()
-                    .add("exceptionType", exception.getClass().getName())
-                    .add("code", code);
+            ObjectNode exceptionJson = objectMapper.createObjectNode();
+            exceptionJson.put("exceptionType", exception.getClass().getName());
+            exceptionJson.put("code", code);
 
             if (exception.getMessage() != null) {
-                entityBuilder.add("error", exception.getMessage());
+                exceptionJson.put("error", exception.getMessage());
             }
 
             return Response.status(code)
-                    .entity(entityBuilder.build())
+                    .entity(exceptionJson)
                     .build();
         }
 
