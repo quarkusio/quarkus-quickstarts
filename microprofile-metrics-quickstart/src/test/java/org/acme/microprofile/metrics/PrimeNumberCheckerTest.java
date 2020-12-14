@@ -26,7 +26,7 @@ public class PrimeNumberCheckerTest {
 
     private void assertMetricValue(String metric, Object value) {
         given().header(new Header("Accept", "application/json"))
-                .get("/metrics/application").then()
+                .get("/q/metrics/application").then()
                 .statusCode(200)
                 .body("'" + metric + "'", is(value));
     }
