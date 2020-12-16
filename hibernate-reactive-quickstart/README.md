@@ -1,10 +1,10 @@
-# Quarkus demo: Hibernate Reactive and RESTEasy
+# Quarkus demo: Hibernate Reactive and RESTEasy Reactive
 
 This is a minimal CRUD service exposing a couple of endpoints over REST,
 with a front-end based on Angular so you can play with it from your browser.
 
 While the code is surprisingly simple, under the hood this is using:
- - RESTEasy to expose the REST endpoints
+ - RESTEasy Reactive to expose the REST endpoints
  - Hibernate Reactive to perform the CRUD operations on the database
  - A PostgreSQL database; see below to run one via Docker
  - ArC, the CDI inspired dependency injection tool with zero overhead
