@@ -18,7 +18,7 @@ import javax.ws.rs.ext.Provider;
 import org.hibernate.reactive.mutiny.Mutiny;
 
 import org.jboss.logging.Logger;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import org.jboss.resteasy.reactive.RestPath;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -44,7 +44,7 @@ public class FruitMutinyResource {
 
     @GET
     @Path("{id}")
-    public Uni<Fruit> getSingle(@PathParam Integer id) {
+    public Uni<Fruit> getSingle(@RestPath Integer id) {
         return mutinySession.find(Fruit.class, id);
     }
 
@@ -62,7 +62,7 @@ public class FruitMutinyResource {
 
     @PUT
     @Path("{id}")
-    public Uni<Response> update(@PathParam Integer id, Fruit fruit) {
+    public Uni<Response> update(@RestPath Integer id, Fruit fruit) {
         if (fruit == null || fruit.getName() == null) {
             throw new WebApplicationException("Fruit name was not set on request.", 422);
         }
@@ -86,7 +86,7 @@ public class FruitMutinyResource {
 
     @DELETE
     @Path("{id}")
-    public Uni<Response> delete(@PathParam Integer id) {
+    public Uni<Response> delete(@RestPath Integer id) {
         // Delete function (never returns null)
         Function<Fruit, Uni<? extends Response>> delete = entity -> mutinySession.remove(entity)
                 .chain(mutinySession::flush)
