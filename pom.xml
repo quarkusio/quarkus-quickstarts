@@ -84,5 +84,6 @@
         <module>vertx-quickstart</module>
         <module>websockets-quickstart</module>
         <module>liquibase-quickstart</module>
+        <module>mailer-quickstart</module>
     </modules>
 </project>
