@@ -85,5 +85,6 @@
         <module>websockets-quickstart</module>
         <module>liquibase-quickstart</module>
         <module>mailer-quickstart</module>
+        <module>strimzi-oauth-quickstart</module>
     </modules>
 </project>
