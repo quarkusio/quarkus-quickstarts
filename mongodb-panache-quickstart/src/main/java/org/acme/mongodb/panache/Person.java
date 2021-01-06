@@ -19,16 +19,6 @@ public class Person extends PanacheMongoEntity {
     public LocalDate birthDate;
     public Status status;
 
-    // return name as lowercase in the model
-    public String getName() {
-        return name.toLowerCase();
-    }
-
-    // store all names in uppercase in the DB
-    public void setName(String name) {
-        this.name = name.toUpperCase();
-    }
-
     // entity methods
     public static Person findByName(String name) {
         return find("name", name).firstResult();
