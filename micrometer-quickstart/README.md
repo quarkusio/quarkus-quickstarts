@@ -1,1 +1,1 @@
-Quarkus guide: https://quarkus.io/guides/micrometer-metrics
+Quarkus guide: https://quarkus.io/guides/micrometer

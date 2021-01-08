@@ -85,5 +85,6 @@
         <module>websockets-quickstart</module>
         <module>liquibase-quickstart</module>
         <module>maven-multi-module-quickstart</module>
+        <module>mailer-quickstart</module>
     </modules>
 </project>

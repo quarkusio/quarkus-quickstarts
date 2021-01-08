@@ -9,11 +9,11 @@ You have two options:
 **Option 1:** Running with Docker `docker run -it -p 11222:11222 -e USER="Titus Bramble" -e PASS="Shambles" infinispan/server:latest`
 
 There is a known issue between Docker For Mac and Infinispan Client integration. Explanations can be found in
-the following blog post [here](https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html)
+[this blog post](https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html).
 You **won't need to do this in production**, but for Docker for Mac users we have to configure the following 
-property: `quarkus.infinispan-client.client-intelligence=BASIC`
+property in the file `src/main/resources/META-INF/resources/hotrod-client.properties`: `quarkus.infinispan-client.client-intelligence=BASIC`
 
-**Option 2:** Download the server (10.0) from `http://www.infinispan.org/` and run `./bin/server.sh`
+**Option 2:** Download the server (11.x) from https://www.infinispan.org/ and run `./bin/server.sh`.
 
 Infinispan Server listens in `localhost:8080` for REST endpoints.
 
@@ -24,7 +24,7 @@ with the following property:
 quarkus.http.port=8081
 ```
 
-If you use an older version of `http://www.infinispan.org/` or ``Red Hat Data Grid``, you might need to:
+If you use an older version of Infinispan or ``Red Hat Data Grid``, you might need to:
 
 - Create a file called `hotrod-client.properties` under `src/main/resources/META-INF/`
 - Configure the following property: `infinispan.client.hotrod.protocol_version=2.5`
@@ -34,7 +34,7 @@ If you use an older version of `http://www.infinispan.org/` or ``Red Hat Data Gr
 - Run `mvn clean install` and then `java -jar ./target/infinispan-client-quickstart-runner.jar`
 - In dev mode `mvn clean quarkus:dev`
 
-Go to `http://localhost:8081/infinispan`, it should show you a message coming from the Infinispan server.
+Go to http://localhost:8081/infinispan, it should show you a message coming from the Infinispan server.
 
 
 # Use Docker compose with the native image
@@ -49,4 +49,4 @@ waits for it. This is done this way for local testing purposes.
 
 Run and wait for start `docker-compose up`
 
-Go to `http://localhost:8081/infinispan` 
+Go to http://localhost:8081/infinispan.

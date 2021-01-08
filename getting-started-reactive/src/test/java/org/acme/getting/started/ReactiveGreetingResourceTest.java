@@ -1,6 +1,7 @@
 package org.acme.getting.started;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 
 import java.util.UUID;
@@ -42,9 +43,8 @@ public class ReactiveGreetingResourceTest {
                 .then()
                 .assertThat()
                 .statusCode(200)
-                .body("size()", is(2))
-                .body("[0]", is("hello " + uuid + " - 0"))
-                .body("[1]", is("hello " + uuid + " - 1"));
+                .body(containsString("hello " + uuid + " - 0"))
+                .body(containsString("hello " + uuid + " - 1"));
     }
 
 }
