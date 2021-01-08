@@ -1,5 +1,6 @@
 package org.acme.hibernate.reactive;
 
+import java.util.List;
 import java.util.function.Function;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -23,7 +24,6 @@ import org.jboss.resteasy.reactive.RestPath;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
 @Path("fruits")
@@ -37,9 +37,9 @@ public class FruitMutinyResource {
     Mutiny.Session mutinySession;
 
     @GET
-    public Multi<Fruit> get() {
+    public Uni<List<Fruit>> get() {
         return mutinySession
-                .createNamedQuery( "Fruits.findAll", Fruit.class ).getResults();
+                .createNamedQuery( "Fruits.findAll", Fruit.class ).getResults().collectItems().asList();
     }
 
     @GET
