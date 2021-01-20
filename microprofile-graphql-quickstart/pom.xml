@@ -12,8 +12,8 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-    <quarkus-plugin.version>999-SNAPSHOT</quarkus-plugin.version>
-    <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
+    <quarkus-plugin.version>1.11.0.Final</quarkus-plugin.version>
+    <quarkus.platform.version>1.11.0.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
   </properties>
 
