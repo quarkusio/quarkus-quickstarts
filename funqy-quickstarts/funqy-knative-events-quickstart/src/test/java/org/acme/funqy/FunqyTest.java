@@ -17,6 +17,7 @@ public class FunqyTest {
     @Test
     public void testDefaultChain() {
         RestAssured.given().contentType("application/json")
+                .header("ce-specversion", "1.0")
                 .header("ce-id", UUID.randomUUID().toString())
                 .header("ce-type", "defaultChain")
                 .header("ce-source", "test")
@@ -32,6 +33,7 @@ public class FunqyTest {
     @Test
     public void testConfigChain() {
         RestAssured.given().contentType("application/json")
+                .header("ce-specversion", "1.0")
                 .header("ce-id", UUID.randomUUID().toString())
                 .header("ce-type", "defaultChain.output")
                 .header("ce-source", "test")
@@ -47,6 +49,7 @@ public class FunqyTest {
     @Test
     public void testAnnotatedChain() {
         RestAssured.given().contentType("application/json")
+                .header("ce-specversion", "1.0")
                 .header("ce-id", UUID.randomUUID().toString())
                 .header("ce-type", "annotated")
                 .header("ce-source", "test")
