@@ -5,7 +5,7 @@ This example showcases how to use the AWS DynamoDB client with Quarkus. As a pre
 # DynamoDB local instance
 
 Just run it as follows:
-`docker run --rm --name local-dynamo -p 8000:4569 -e SERVICES=dynamodb -e START_WEB=0 -d localstack/localstack`
+`docker run --rm --name local-dynamo -p 8000:4566 -e SERVICES=dynamodb -e START_WEB=0 -d localstack/localstack`
 
 DynamoDB listens on `localhost:8000` for REST endpoints.
 
