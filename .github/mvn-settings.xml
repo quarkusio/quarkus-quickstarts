@@ -1,0 +1,24 @@
+<settings>
+  <profiles>
+    <profile>
+      <id>google-mirror</id>
+      <repositories>
+        <repository>
+          <id>google-maven-central</id>
+          <name>GCS Maven Central mirror</name>
+          <url>https://maven-central.storage-download.googleapis.com/maven2/</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>google-maven-central</id>
+          <name>GCS Maven Central mirror</name>
+          <url>https://maven-central.storage-download.googleapis.com/maven2/</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>google-mirror</activeProfile>
+  </activeProfiles>
+</settings>
