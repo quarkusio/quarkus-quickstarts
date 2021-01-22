@@ -26,7 +26,7 @@ public class CodeFlowTest {
         try (final WebClient webClient = createWebClient()) {
             HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 
-            assertEquals("Log in to quarkus", page.getTitleText());
+            assertEquals("Sign in to quarkus", page.getTitleText());
 
             HtmlForm loginForm = page.getForms().get(0);
 
@@ -49,7 +49,7 @@ public class CodeFlowTest {
         try (final WebClient webClient = createWebClient()) {
             HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 
-            assertEquals("Log in to quarkus", page.getTitleText());
+            assertEquals("Sign in to quarkus", page.getTitleText());
 
             HtmlForm loginForm = page.getForms().get(0);
 
@@ -70,7 +70,7 @@ public class CodeFlowTest {
 
             page = webClient.getPage("http://localhost:8081/index.html");
 
-            assertEquals("Log in to quarkus", page.getTitleText());
+            assertEquals("Sign in to quarkus", page.getTitleText());
         }
     }
 
@@ -79,7 +79,7 @@ public class CodeFlowTest {
         try (final WebClient webClient = createWebClient()) {
             HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 
-            assertEquals("Log in to quarkus", page.getTitleText());
+            assertEquals("Sign in to quarkus", page.getTitleText());
 
             HtmlForm loginForm = page.getForms().get(0);
 
