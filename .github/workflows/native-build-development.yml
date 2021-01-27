@@ -45,8 +45,7 @@ jobs:
       - name: Build Quickstart with native
         run: |
           mvn --settings .github/mvn-settings.xml -B clean install --fail-at-end -Pnative -Dstart-containers \
-            -Dquarkus.native.container-build=true \
-            -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-native-image:20.1.0-java11
+            -Dquarkus.native.container-build=true
 
       #- name: Check RSS
       #  env:
