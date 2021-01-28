@@ -6,7 +6,7 @@
 
     <groupId>org.acme</groupId>
     <artifactId>infinispan-client-quickstart</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <properties>
         <quarkus-plugin.version>1.11.1.Final</quarkus-plugin.version>

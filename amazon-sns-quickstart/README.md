@@ -25,7 +25,7 @@ $> TOPIC_ARN=`aws sns create-topic --name=QuarksCollider --profile localstack --
 ```
 
 # Run the demo on dev mode
-- Run `./mvnw clean package` and then `java -Dtopic.arn=$TOPIC_ARN -jar ./target/amazon-sns-quickstart-1.0-SNAPSHOT-runner.jar`
+- Run `./mvnw clean package` and then `java -Dtopic.arn=$TOPIC_ARN -jar ./target/amazon-sns-quickstart-1.0.0-SNAPSHOT-runner.jar`
 - In dev mode `./mvnw clean quarkus:dev -Dtopic.arn=$TOPIC_ARN`
 
 ## Subscribe endpoint for topic notifications
@@ -87,7 +87,7 @@ And observe the logs to see that endpoint is unsubscribed and will stop receivin
 You can compile the application into a native binary using:
 `./mvnw clean install -Pnative`
 and run with:
-`./target/amazon-sns-quickstart-1.0-SNAPSHOT-runner` 
+`./target/amazon-sns-quickstart-1.0.0-SNAPSHOT-runner` 
 
 # Running native in container
 

@@ -69,6 +69,6 @@ _Note: You need to have a proper GraalVM configuration to build a native binary.
 
 and run with:
 
-`./target/security-jdbc-quickstart-1.0-SNAPSHOT-runner` 
+`./target/security-jdbc-quickstart-1.0.0-SNAPSHOT-runner` 
 
 _NOTE:_ Don't forget to start the database.

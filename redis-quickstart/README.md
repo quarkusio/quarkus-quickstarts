@@ -66,7 +66,7 @@ Thus your Redis containers need to be stopped.
 
 Then run it:
 
-> java -jar ./target/redis-quickstart-1.0-SNAPSHOT-runner.jar
+> java -jar ./target/redis-quickstart-1.0.0-SNAPSHOT-runner.jar
 
     Have a look at how fast it boots.
     Or measure total native memory consumption...
@@ -86,7 +86,7 @@ native executable:
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 
-> ./target/redis-quickstart-1.0-SNAPSHOT-runner
+> ./target/redis-quickstart-1.0.0-SNAPSHOT-runner
 
     Please brace yourself: don't choke on that fresh cup of coffee you just got.
     

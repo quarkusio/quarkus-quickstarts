@@ -59,7 +59,7 @@ First compile it:
 
 Then run it:
 
-> java -jar ./target/spring-data-jpa-quickstart-1.0-SNAPSHOT-runner.jar
+> java -jar ./target/spring-data-jpa-quickstart-1.0.0-SNAPSHOT-runner.jar
 
     Have a look at how fast it boots.
     Or measure total native memory consumption...
@@ -79,4 +79,4 @@ native executable:
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 
-> ./target/spring-data-jpa-quickstart-1.0-SNAPSHOT-runner
+> ./target/spring-data-jpa-quickstart-1.0.0-SNAPSHOT-runner
