@@ -59,7 +59,7 @@ First compile it:
 
 Then run it:
 
-> java -jar ./target/getting-started-command-mode-1.0-SNAPSHOT-runner.jar
+> java -jar ./target/getting-started-command-mode-1.0.0-SNAPSHOT-runner.jar
 
 Have a look at how fast it boots, or measure the total native memory consumption.
 
@@ -78,4 +78,4 @@ native executable:
 
 After getting a cup of coffee, you'll be able to run this executable directly:
 
-> ./target/getting-started-command-mode-1.0-SNAPSHOT-runner
+> ./target/getting-started-command-mode-1.0.0-SNAPSHOT-runner

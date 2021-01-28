@@ -62,7 +62,7 @@ native executable:
 
 After getting a cup of coffee, you'll be able to run this executable directly:
 
-> ./target/hibernate-orm-quickstart-multi-tenancy-1.0-SNAPSHOT-runner
+> ./target/hibernate-orm-quickstart-multi-tenancy-1.0.0-SNAPSHOT-runner
 
 ### DATABASE Multitenancy
 
@@ -105,7 +105,7 @@ This means all values in [application.properties](src/main/resources/application
 
 After getting a cup of coffee, you'll be able to run this executable directly:
 
-> ./target/hibernate-orm-quickstart-multi-tenancy-1.0-SNAPSHOT-runner
+> ./target/hibernate-orm-quickstart-multi-tenancy-1.0.0-SNAPSHOT-runner
 
 
 

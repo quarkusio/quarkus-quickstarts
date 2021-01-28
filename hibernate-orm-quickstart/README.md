@@ -69,7 +69,7 @@ First compile it:
 
 Then run it:
 
-> java -jar ./target/hibernate-orm-quickstart-1.0-SNAPSHOT-runner.jar
+> java -jar ./target/hibernate-orm-quickstart-1.0.0-SNAPSHOT-runner.jar
 
 Have a look at how fast it boots.
 Or measure total native memory consumption...
@@ -89,7 +89,7 @@ native executable:
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 
-> ./target/hibernate-orm-quickstart-1.0-SNAPSHOT-runner
+> ./target/hibernate-orm-quickstart-1.0.0-SNAPSHOT-runner
 
 Please brace yourself: don't choke on that fresh cup of coffee you just got.
     

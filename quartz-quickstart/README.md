@@ -80,7 +80,7 @@ native executable:
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 
-> ./target/quartz-quickstart-1.0-SNAPSHOT-runner
+> ./target/quartz-quickstart-1.0.0-SNAPSHOT-runner
 
 Please brace yourself: don't choke on that fresh cup of coffee you just got.
 
