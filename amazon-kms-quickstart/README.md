@@ -31,7 +31,7 @@ $> aws kms generate-data-key --key-id $MASTER_KEY_ARN --key-spec AES_256 --profi
 
 # Run the demo on dev mode
 
-- Run `./mvnw clean package` and then `java -Dkey.arn=$MASTER_KEY_ARN -jar ./target/amazon-kms-quickstart-1.0-SNAPSHOT-runner.jar`
+- Run `./mvnw clean package` and then `java -Dkey.arn=$MASTER_KEY_ARN -jar ./target/amazon-kms-quickstart-1.0.0-SNAPSHOT-runner.jar`
 - In dev mode `./mvnw clean quarkus:dev -Dkey.arn=$MASTER_KEY_ARN`
 
 ## Encrypt your text
@@ -66,7 +66,7 @@ You can compile the application into a native binary using:
 
 and run with:
 
-`./target/amazon-kms-quickstart-1.0-SNAPSHOT-runner -Dkey.arn=$MASTER_KEY_ARN` 
+`./target/amazon-kms-quickstart-1.0.0-SNAPSHOT-runner -Dkey.arn=$MASTER_KEY_ARN` 
 
 
 # Running native in container

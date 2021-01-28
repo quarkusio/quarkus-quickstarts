@@ -42,7 +42,7 @@ Define the following environment properties:
 Run the application with:
 
 ```shell script
-> java -jar ./target/mailer-quickstart-1.0-SNAPSHOT-runner.jar
+> java -jar ./target/mailer-quickstart-1.0.0-SNAPSHOT-runner.jar
 ```
 
 Thanks to the environment properties defined above, the application should authenticate with Gmail and send the email.
@@ -71,7 +71,7 @@ native executable:
 After getting a cup of coffee, you'll be able to run this executable directly:
 
 ```shell script
-> ./target/mailer-quickstart-1.0-SNAPSHOT-runner
+> ./target/mailer-quickstart-1.0.0-SNAPSHOT-runner
 ```
 
 Then send an email using the same _http_ command. 

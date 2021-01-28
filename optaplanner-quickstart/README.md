@@ -46,7 +46,7 @@ When you're done iterating in `quarkus:dev` mode, run the application as a conve
 2. run it:
 
     ```
-    java -jar ./target/optaplanner-quickstart-1.0-SNAPSHOT-runner.jar
+    java -jar ./target/optaplanner-quickstart-1.0.0-SNAPSHOT-runner.jar
     ```
 
 Look at how fast it boots!
@@ -85,5 +85,5 @@ Compiling a native executable takes a bit of time,
 After getting a cup of coffee, run this binary directly:
 
 ```
-./target/optaplanner-quickstart-1.0-SNAPSHOT-runner
+./target/optaplanner-quickstart-1.0.0-SNAPSHOT-runner
 ```

@@ -47,4 +47,4 @@ You can compile the application into a native binary using:
 
 and run with:
 
-`./target/grpc-plain-text-quickstart-1.0-SNAPSHOT-runner` 
+`./target/grpc-plain-text-quickstart-1.0.0-SNAPSHOT-runner` 

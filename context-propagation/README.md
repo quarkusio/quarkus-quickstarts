@@ -68,4 +68,4 @@ native executable:
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 
-> ./target/context-propagation-quickstart-1.0-SNAPSHOT-runner
+> ./target/context-propagation-quickstart-1.0.0-SNAPSHOT-runner
