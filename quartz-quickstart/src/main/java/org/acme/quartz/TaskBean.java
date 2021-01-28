@@ -9,7 +9,7 @@ import io.quarkus.scheduler.Scheduled;
 public class TaskBean {
 
     @Transactional
-    @Scheduled(every = "10s")
+    @Scheduled(every = "10s", identity = "task-job")
     void schedule() {
         Task task = new Task();
         task.persist();
