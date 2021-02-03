@@ -34,4 +34,4 @@ You can compile the application into a native binary using:
 
 and run with:
 
-`./target/kafka-panache-quickstart-1.0-SNAPSHOT-runner` 
+`./target/kafka-panache-quickstart-1.0.0-SNAPSHOT-runner` 

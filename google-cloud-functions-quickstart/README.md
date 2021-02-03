@@ -14,7 +14,7 @@ You can run your application in dev mode that enables live coding using:
 ## Packaging and running the application
 
 The application can be packaged using `./mvnw package`.
-It produces the `google-cloud-functions-quickstart-1.0-SNAPSHOT-runner.jar` file in the `/target/deployment` directory.
+It produces the `google-cloud-functions-quickstart-1.0.0-SNAPSHOT-runner.jar` file in the `/target/deployment` directory.
 Be aware that it an _über-jar_ that contains all the dependencies in it.
 
 The application can now be deployed as a function inside Google Cloud Platform.

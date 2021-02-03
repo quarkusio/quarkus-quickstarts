@@ -49,7 +49,7 @@ jobs:
 
       #- name: Check RSS
       #  env:
-      #    QUICKSTART_VERSION: "1.0-SNAPSHOT"
+      #    QUICKSTART_VERSION: "1.0.0-SNAPSHOT"
       #    RSS_THRESHOLD: "40000"
       #    START_TIME_THRESHOLD: "1000"
       #    REMOTE_OBJECT_NAME: "pmap.out"

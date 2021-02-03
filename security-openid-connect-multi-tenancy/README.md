@@ -87,7 +87,7 @@ conventional jar file. First compile it:
 
 Then run it:
 
-> java -jar ./target/security-openid-connect-multi-tenancy-quickstart-1.0-SNAPSHOT-runner.jar
+> java -jar ./target/security-openid-connect-multi-tenancy-quickstart-1.0.0-SNAPSHOT-runner.jar
 
 Have a look at how fast it boots, or measure the total native memory consumption.
 
@@ -106,4 +106,4 @@ native executable:
 
 After getting a cup of coffee, you'll be able to run this executable directly:
 
-> ./target/security-openid-connect-multi-tenancy-quickstart-1.0-SNAPSHOT-runner
+> ./target/security-openid-connect-multi-tenancy-quickstart-1.0.0-SNAPSHOT-runner

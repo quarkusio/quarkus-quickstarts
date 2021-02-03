@@ -47,4 +47,4 @@ You can compile the application into a native binary using:
 `mvn clean install -Pnative`
 
 and run with:
-`./target/grpc-tls-quickstart-1.0-SNAPSHOT-runner` 
+`./target/grpc-tls-quickstart-1.0.0-SNAPSHOT-runner` 
