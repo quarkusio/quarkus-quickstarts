@@ -1,5 +1,8 @@
 package org.acme.reactivehttp;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class Cost {
     private double value;
     private String currency;
