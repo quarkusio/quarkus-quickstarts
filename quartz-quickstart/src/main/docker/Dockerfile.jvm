@@ -7,11 +7,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.jvm -t quarkus/quartz-quickstart .
+# docker build -f src/main/docker/Dockerfile.jvm -t quarkus-quickstarts/quartz .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/quartz-quickstart
+# docker run -i --rm -p 8080:8080 quarkus-quickstarts/quartz
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1
