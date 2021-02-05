@@ -105,6 +105,7 @@
             </activation>
             <properties>
                 <quarkus.package.type>native</quarkus.package.type>
+                <quarkus.native.enable-https-url-handler>true</quarkus.native.enable-https-url-handler>
             </properties>
             <build>
                 <plugins>
