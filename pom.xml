@@ -18,7 +18,7 @@
         <module>amqp-quickstart</module>
         <module>cache-quickstart</module>
         <module>config-quickstart</module>
-        <module>context-propagation</module>
+        <module>context-propagation-quickstart</module>
         <module>funqy-quickstarts</module>
         <module>getting-started</module>
         <module>getting-started-async</module>
@@ -27,15 +27,15 @@
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
         <module>getting-started-command-mode</module>
-	    <module>google-cloud-functions-quickstart</module>
-	    <module>google-cloud-functions-http-quickstart</module>
+        <module>google-cloud-functions-quickstart</module>
+        <module>google-cloud-functions-http-quickstart</module>
         <module>hibernate-orm-quickstart</module>
         <module>hibernate-reactive-quickstart</module>
         <module>hibernate-reactive-routes-quickstart</module>
         <module>grpc-plain-text-quickstart</module>
         <module>grpc-tls-quickstart</module>
         <module>hibernate-orm-panache-quickstart</module>
-        <module>hibernate-orm-quickstart-multi-tenancy</module>
+        <module>hibernate-orm-multi-tenancy-quickstart</module>
         <module>hibernate-search-orm-elasticsearch-quickstart</module>
         <module>infinispan-client-quickstart</module>
         <module>jms-quickstart</module>
@@ -71,7 +71,7 @@
         <module>security-oauth2-quickstart</module>
         <module>security-openid-connect-quickstart</module>
         <module>security-openid-connect-web-authentication-quickstart</module>
-        <module>security-openid-connect-multi-tenancy</module>
+        <module>security-openid-connect-multi-tenancy-quickstart</module>
         <module>software-transactional-memory-quickstart</module>
         <module>spring-di-quickstart</module>
         <module>spring-web-quickstart</module>
