@@ -36,7 +36,7 @@ You need to repeat that command for each email address you're going to use.
 
 If you want to run the demo using your AWS account, comment out all the `quarkus.ses` properties, so your default profile AWS key and region will be used.
 
-- Run `./mvnw clean package` and then `java -jar ./target/amazon-ses-quickstart-1.0.0-SNAPSHOT-runner.jar`
+- Run `./mvnw clean package` and then `java -jar ./target/quarkus-app/quarkus-run.jar`
 - In dev mode `./mvnw clean quarkus:dev`
 
 ## Send an email

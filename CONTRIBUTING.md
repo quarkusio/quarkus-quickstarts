@@ -59,7 +59,7 @@ Clone like above, and build e.g. `getting-started` using:
 
     ../gradlew build
 
-You'll find the `*-runner.jar` in `build` (not `build/libs`).
+You'll find the `quarkus-app/quarkus-run.jar` in `build` (not `build/libs`).
 
 ## The small print
 

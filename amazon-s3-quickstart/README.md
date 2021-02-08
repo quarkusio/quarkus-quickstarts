@@ -26,7 +26,7 @@ Create a S3 bucket using AWS CLI and the localstack profile.
 
 # Run the demo in dev mode
 
-- Run `./mvnw clean package` and then `java -jar ./target/amazon-s3-quickstart-1.0.0-SNAPSHOT-runner.jar`
+- Run `./mvnw clean package` and then `java -jar ./target/quarkus-app/quarkus-run.jar`
 - In dev mode `./mvnw clean quarkus:dev`
 
 Go to `http://localhost:8080/s3.html`, it should show a simple App to manage files on your Bucket. 
@@ -101,7 +101,7 @@ Build the application
  
 And then run it
 
-`java -jar ./target/amazon-s3-quickstart-1.0.0-SNAPSHOT-runner.jar -Dbucket.name=quarkus.s3.12.345.99`
+`java -jar ./target/quarkus-app/quarkus-run.jar -Dbucket.name=quarkus.s3.12.345.99`
 
 Or, build as native executable
 
