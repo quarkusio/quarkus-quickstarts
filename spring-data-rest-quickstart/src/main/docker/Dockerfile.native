@@ -7,11 +7,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native -t quarkus/spring-data-rest-quickstart .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/spring-data-rest .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/spring-data-rest-quickstart
+# docker run -i --rm -p 8080:8080 quarkus/spring-data-rest
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.3
