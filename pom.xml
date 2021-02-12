@@ -87,5 +87,6 @@
         <module>websockets-quickstart</module>
         <module>liquibase-quickstart</module>
         <module>mailer-quickstart</module>
+        <module>kafka-panache-quickstart</module>
     </modules>
 </project>
