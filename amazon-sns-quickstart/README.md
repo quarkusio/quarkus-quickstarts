@@ -25,7 +25,7 @@ $> TOPIC_ARN=`aws sns create-topic --name=QuarksCollider --profile localstack --
 ```
 
 # Run the demo on dev mode
-- Run `./mvnw clean package` and then `java -Dtopic.arn=$TOPIC_ARN -jar ./target/amazon-sns-quickstart-1.0.0-SNAPSHOT-runner.jar`
+- Run `./mvnw clean package` and then `java -Dtopic.arn=$TOPIC_ARN -jar ./target/quarkus-app/quarkus-run.jar`
 - In dev mode `./mvnw clean quarkus:dev -Dtopic.arn=$TOPIC_ARN`
 
 ## Subscribe endpoint for topic notifications

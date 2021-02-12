@@ -32,7 +32,7 @@ aws dynamodb create-table --table-name QuarkusFruits \
 
 # Run the demo on dev mode
 
-- Run `./mvnw clean package` and then `java -jar ./target/amazon-dynamodb-quickstart-1.0.0-SNAPSHOT-runner.jar`
+- Run `./mvnw clean package` and then `java -jar ./target/quarkus-app/quarkus-run.jar`
 - In dev mode `./mvnw clean quarkus:dev`
 
 Go to [`http://localhost:8080/fruits.html`](http://localhost:8080/fruits.html), it should show a simple App to manage a list of Fruits. 
@@ -116,7 +116,7 @@ Build the application
  
 And then run it
 
-`java -jar ./target/amazon-dynamodb-quickstart-1.0.0-SNAPSHOT-runner.jar`
+`java -jar ./target/quarkus-app/quarkus-run.jar`
 
 Or, build as native executable
 

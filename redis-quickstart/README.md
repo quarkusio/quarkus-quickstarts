@@ -66,7 +66,7 @@ Thus your Redis containers need to be stopped.
 
 Then run it:
 
-> java -jar ./target/redis-quickstart-1.0.0-SNAPSHOT-runner.jar
+> java -jar ./target/quarkus-app/quarkus-run.jar
 
     Have a look at how fast it boots.
     Or measure total native memory consumption...
