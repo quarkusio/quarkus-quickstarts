@@ -40,7 +40,7 @@ jobs:
         run: |
           git clone https://github.com/quarkusio/quarkus.git
           cd quarkus
-          mvn --settings .github/mvn-settings.xml -B clean install -DskipTests -DskipITs
+          mvn -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
 
       - name: Build Quickstart with native
         run: |
