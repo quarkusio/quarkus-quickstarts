@@ -1,0 +1,4 @@
+# Your configuration yaml (2 spaces indentation!)
+greeting:
+  message: hello
+  name: quarkus

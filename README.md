@@ -33,6 +33,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Getting Started - Knative](./getting-started-knative): Deployment of the Knative service to Kubernetes and/or OpenShift
 * [Getting Started - Testing](./getting-started-testing): How to test your application
 * [Application Configuration](./config-quickstart): How to configure your application
+* [Application Configuration YAML](./config-yaml-quickstart): How to configure your application with YAML
 * [Startup and Shutdown actions](./lifecycle-quickstart): Explains how to execute code when the application starts and stops
 * [Getting Started - Reactive CRUD](./getting-started-reactive-crud): Reactive REST API with a (reactive) database backend
 
