@@ -1,8 +1,9 @@
-apiVersion: eventing.knative.dev/v1alpha1
+apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
   name: annotatedchain
 spec:
+  broker: default
   filter:
     attributes:
       type: annotated

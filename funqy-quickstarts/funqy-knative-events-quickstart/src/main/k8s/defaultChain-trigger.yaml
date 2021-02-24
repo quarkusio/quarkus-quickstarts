@@ -1,8 +1,9 @@
-apiVersion: eventing.knative.dev/v1alpha1
+apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
   name: defaultchain
 spec:
+  broker: default
   filter:
     attributes:
       type: defaultChain
