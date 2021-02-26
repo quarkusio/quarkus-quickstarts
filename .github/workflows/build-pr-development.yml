@@ -3,7 +3,6 @@ name: "Pull Request Build - development"
 on:
   pull_request:
     branches:
-      - master
       - development
 
 jobs:
