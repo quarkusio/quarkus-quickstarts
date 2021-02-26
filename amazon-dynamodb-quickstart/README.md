@@ -5,7 +5,10 @@ This example showcases how to use the AWS DynamoDB client with Quarkus. As a pre
 # DynamoDB local instance
 
 Just run it as follows:
-`docker run --rm --name local-dynamo -p 8000:4569 -e SERVICES=dynamodb -e START_WEB=0 -d localstack/localstack`
+```
+cd amazon-dynamodb-quickstart
+docker-compose up -d
+```
 
 DynamoDB listens on `localhost:8000` for REST endpoints.
 
@@ -23,11 +26,7 @@ Default output format [None]:
 
 Create a DynamoDB table using AWS CLI and the localstack profile.
 ```
-aws dynamodb create-table --table-name QuarkusFruits \
-                          --attribute-definitions AttributeName=fruitName,AttributeType=S \
-                          --key-schema AttributeName=fruitName,KeyType=HASH \
-                          --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
-                          --profile localstack --endpoint-url=http://localhost:8000
+./create_table.sh
 ```
 
 # Run the demo on dev mode
@@ -66,20 +65,17 @@ Create a network that connects your container with localstack
 Stop your localstack container you started at the beginning
 `docker stop local-dynamo`
 
-Start localstack and connect to the network
-`docker run --rm --network=localstack --name localstack -p 8000:4569 -e SERVICES=dynamodb -e START_WEB=0 -d localstack/localstack`
+Start localstack + the quikcstart container and connect to the network
+`
+docker-compose -f docker-compose-network.yaml up -d
+`
 
 Create Dynamo table
 ```
-aws dynamodb create-table --table-name QuarkusFruits \
-                          --attribute-definitions AttributeName=fruitName,AttributeType=S \
-                          --key-schema AttributeName=fruitName,KeyType=HASH \
-                          --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
-                          --profile localstack --endpoint-url=http://localhost:8000
-```
+./create-table.sh
 
-Run quickstart container connected to that network (note that we're using internal port of the localstack)
-`docker run -i --rm --network=localstack -p 8080:8080 quarkus/amazon-dynamodb-quickstart -Dquarkus.dynamodb.endpoint-override=http://localstack:4569`
+Don't forget this step, or you'll get errors in the next step.
+```
 
 Go to [`http://localhost:8080/fruits.html`](http://localhost:8080/fruits.html) or [`http://localhost:8080/async-fruits.html`](http://localhost:8080/async-fruits.html)
 

@@ -1,0 +1,26 @@
+version: '3.5'
+
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - 8000:4566
+    environment:
+      SERVICES: dynamodb
+      START_WEB: 0
+    networks:
+      - localstack
+
+
+  quarkus-dynamodb:
+    image: quarkus/amazon-dynamodb-quickstart
+    ports:
+    - 8080:8080
+    networks:
+      - localstack
+    entrypoint: ["./application", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.dynamodb.endpoint-override=http://localstack:4566"]
+
+networks:
+  localstack:
+    name: localstack
+

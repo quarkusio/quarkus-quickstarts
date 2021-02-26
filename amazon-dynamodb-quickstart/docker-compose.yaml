@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  local-dynamo:
+    image: localstack/localstack
+    ports:
+      - 8000:4566
+    environment:
+      SERVICES: dynamodb
+      START_WEB: 0
+

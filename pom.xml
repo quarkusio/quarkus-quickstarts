@@ -89,4 +89,5 @@
         <module>mailer-quickstart</module>
         <module>kafka-panache-quickstart</module>
     </modules>
+
 </project>
