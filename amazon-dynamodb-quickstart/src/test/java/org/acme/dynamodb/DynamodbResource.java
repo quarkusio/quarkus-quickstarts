@@ -28,9 +28,9 @@ public class DynamodbResource implements QuarkusTestResourceLifecycleManager {
 
     public final static String TABLE_NAME = "QuarkusFruits";
     public final static String LOCALSTACK_IMAGE = "localstack/localstack";
+    public final static int DYNAMO_PORT = 4566;
 
     private LocalStackContainer dynamodb;
-    private DynamoDbClient client;
 
     @Override
     public Map<String, String> start() {
@@ -44,11 +44,11 @@ public class DynamodbResource implements QuarkusTestResourceLifecycleManager {
             StaticCredentialsProvider credentialsProvider = StaticCredentialsProvider
                     .create(AwsBasicCredentials.create("accessKey", "secretKey"));
 
-            client = DynamoDbClient.builder()
-                .endpointOverride(new URI(endpoint()))
-                .credentialsProvider(credentialsProvider)
-                .httpClientBuilder(UrlConnectionHttpClient.builder())
-                .region(US_EAST_1).build();
+            DynamoDbClient client = DynamoDbClient.builder()
+                    .endpointOverride(new URI(endpoint()))
+                    .credentialsProvider(credentialsProvider)
+                    .httpClientBuilder(UrlConnectionHttpClient.builder())
+                    .region(US_EAST_1).build();
 
 
             KeySchemaElement keySchemaElement = KeySchemaElement.builder()
@@ -96,6 +96,6 @@ public class DynamodbResource implements QuarkusTestResourceLifecycleManager {
     private String endpoint() {
         return String.format("http://%s:%s",
                 dynamodb.getContainerIpAddress(),
-                dynamodb.getMappedPort(4566));
+                dynamodb.getMappedPort(DYNAMO_PORT));
     }
 }
