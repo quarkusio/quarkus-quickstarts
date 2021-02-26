@@ -40,9 +40,12 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Build Quarkus master
-        run: git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B clean install -DskipTests -DskipITs
+        run: |
+          git clone https://github.com/quarkusio/quarkus.git
+          cd quarkus
+          mvn -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
       - name: Build with Maven
-        run: export LANG=en_US && mvn -B clean install -Dstart-containers
+        run: export LANG=en_US && mvn --settings .github/mvn-settings.xml -B clean install -Dstart-containers
       - name: Delete Local Artifacts From Cache
         shell: bash
         run: rm -rf ~/.m2/repository/org/acme

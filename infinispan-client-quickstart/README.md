@@ -31,7 +31,7 @@ If you use an older version of Infinispan or ``Red Hat Data Grid``, you might ne
 
 # Run the demo on dev mode
 
-- Run `mvn clean install` and then `java -jar ./target/infinispan-client-quickstart-runner.jar`
+- Run `mvn clean install` and then `java -jar ./target/quarkus-app/quarkus-run.jar`
 - In dev mode `mvn clean quarkus:dev`
 
 Go to http://localhost:8081/infinispan, it should show you a message coming from the Infinispan server.

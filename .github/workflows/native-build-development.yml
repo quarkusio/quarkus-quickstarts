@@ -6,14 +6,16 @@ on:
   schedule:
     - cron: '0 2 * * *'
   repository_dispatch:
+  workflow_dispatch:
 
 jobs:
   build_with_native:
     runs-on: ubuntu-latest
+    if: "github.repository == 'quarkusio/quarkus-quickstarts' || github.event_name == 'workflow_dispatch'"
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: development
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
 
       - name: Reclaim Disk Space
         run: .github/ci-prerequisites.sh
@@ -40,7 +42,7 @@ jobs:
         run: |
           git clone https://github.com/quarkusio/quarkus.git
           cd quarkus
-          mvn -B clean install -DskipTests -DskipITs
+          mvn -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
 
       - name: Build Quickstart with native
         run: |
@@ -89,7 +91,7 @@ jobs:
         run: rm -rf ~/.m2/repository/org/acme
 
       - name: Report
-        if: always()
+        if: "github.repository == 'quarkusio/quarkus-quickstarts'"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
           STATUS: ${{ job.status }}

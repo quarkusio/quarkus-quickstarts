@@ -83,7 +83,7 @@ Thus your PostgreSQL and Elasticsearch containers need to be stopped.
 
 Then run it:
 
-> java -jar ./target/hibernate-search-orm-elasticsearch-quickstart-1.0.0-SNAPSHOT-runner.jar
+> java -jar ./target/quarkus-app/quarkus-run.jar
 
     Have a look at how fast it boots.
     Or measure total native memory consumption...

@@ -83,7 +83,7 @@ conventional jar file. First compile it:
 
 Then run it:
 
-> java -jar ./target/security-openid-connect-web-authentication-quickstart-1.0.0-SNAPSHOT-runner.jar
+> java -jar ./target/quarkus-app/quarkus-run.jar
 
 Have a look at how fast it boots, or measure the total native memory consumption.
 

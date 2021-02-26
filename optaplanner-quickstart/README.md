@@ -46,7 +46,7 @@ When you're done iterating in `quarkus:dev` mode, run the application as a conve
 2. run it:
 
     ```
-    java -jar ./target/optaplanner-quickstart-1.0.0-SNAPSHOT-runner.jar
+    java -jar ./target/quarkus-app/quarkus-run.jar
     ```
 
 Look at how fast it boots!
