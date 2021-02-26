@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import org.testcontainers.containers.localstack.LocalStackContainer;
+import org.testcontainers.utility.DockerImageName;
 
 /**
  * KMS is not currently supported by LocalStackContainer. This class extends it by bypassing some checks in order to get KMS available.
@@ -14,8 +15,17 @@ public class KmsContainer extends LocalStackContainer {
     private static final String HOSTNAME_EXTERNAL_ENV_VAR = "HOSTNAME_EXTERNAL";
     private static final Integer KMS_PORT = 4599;
 
+    /**
+     * The version is important. 0.11.2 is the last version that seems to work
+     * before encountering: software.amazon.awssdk.core.exception.SdkClientException:
+     * Unable to execute HTTP request: Unexpected end of file from server
+     */
+    private static final String LOCALSTACK_VERSION  = "0.11.2";
+    private static final String LOCALSTACK_IMAGE = "localstack/localstack";
+
+
     public KmsContainer() {
-        super("0.11.2");
+        super(DockerImageName.parse(LOCALSTACK_IMAGE + ":" + LOCALSTACK_VERSION));
     }
 
     @Override

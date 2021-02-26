@@ -5,7 +5,9 @@ This example showcases how to use the AWS KMS client with Quarkus. As a prerequi
 # AWS KMS local instance
 
 Just run it as follows in order to start KMS locally:
-`docker run --rm --name local-kms -p 8011:4599 -e SERVICES=kms -e START_WEB=0 -d localstack/localstack:0.11.1`
+`
+docker-compose up -d
+`
 KMS listens on `localhost:8011` for REST endpoints.
 
 Create an AWS profile for your local instance using AWS CLI:
@@ -18,15 +20,13 @@ Default region name [None]: us-east-1
 Default output format [None]:
 ```
 
-## Create KMS master key
+## Create KMS master key, 
 
+Run this script and store the result in the EV `MASTER_KEY_ARN` to create a master key and
+generate key data as 256-bit symmetric key (AWS_256)
 Create a master key and store the ARN in the `MASTER_KEY_ARN` environment variable
 ```
-$> MASTER_KEY_ARN=`aws kms create-key --profile localstack --endpoint-url=http://localhost:8011 | cut -f3`
-```
-Generate key data as 256-bit symmetric key (AES_256)
-```
-$> aws kms generate-data-key --key-id $MASTER_KEY_ARN --key-spec AES_256 --profile localstack --endpoint-url=http://localhost:8011
+$> MASTER_KEY_ARN=`./create_keyh.sh`
 ```
 
 # Run the demo on dev mode

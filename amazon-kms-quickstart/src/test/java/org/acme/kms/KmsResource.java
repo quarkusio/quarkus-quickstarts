@@ -1,10 +1,6 @@
 package org.acme.kms;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import java.net.InetAddress;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 import org.testcontainers.DockerClientFactory;
@@ -18,7 +14,6 @@ import software.amazon.awssdk.services.kms.model.DataKeySpec;
 public class KmsResource implements QuarkusTestResourceLifecycleManager {
 
     private KmsContainer services;
-    private KmsClient client;
 
     @Override
     public Map<String, String> start() {
@@ -30,11 +25,11 @@ public class KmsResource implements QuarkusTestResourceLifecycleManager {
             StaticCredentialsProvider staticCredentials = StaticCredentialsProvider
                 .create(AwsBasicCredentials.create("accesskey", "secretKey"));
 
-            client = KmsClient.builder()
-                .endpointOverride(services.getEndpointOverride())
-                .credentialsProvider(staticCredentials)
-                .httpClientBuilder(UrlConnectionHttpClient.builder())
-                .region(Region.US_EAST_1).build();
+            KmsClient client = KmsClient.builder()
+                    .endpointOverride(services.getEndpointOverride())
+                    .credentialsProvider(staticCredentials)
+                    .httpClientBuilder(UrlConnectionHttpClient.builder())
+                    .region(Region.US_EAST_1).build();
 
             masterKeyId = client.createKey().keyMetadata().keyId();
             client.generateDataKey(r -> r.keyId(masterKeyId).keySpec(DataKeySpec.AES_256));
