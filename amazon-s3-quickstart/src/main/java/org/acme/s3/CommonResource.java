@@ -34,9 +34,9 @@ abstract public class CommonResource {
     }
 
     protected File tempFilePath() {
-        return new File(TEMP_DIR, new StringBuilder().append("s3AsyncDownloadedTemp")
-                .append((new Date()).getTime()).append(UUID.randomUUID())
-                .append(".").append(".tmp").toString());
+        return new File(TEMP_DIR, "s3AsyncDownloadedTemp" +
+                (new Date()).getTime() + UUID.randomUUID() +
+                "." + ".tmp");
     }
 
     protected File uploadToTemp(InputStream data) {

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.testcontainers.DockerClientFactory;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
+import org.testcontainers.utility.DockerImageName;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.http.urlconnection.UrlConnectionHttpClient;
@@ -16,22 +17,28 @@ import software.amazon.awssdk.services.s3.S3Client;
 public class S3Resource implements QuarkusTestResourceLifecycleManager {
 
     private final static String BUCKET_NAME = "quarkus.test.bucket";
+    private final static String LOCALSTACK_IMAGE = "localstack/localstack";
+    private final static String LOCALSTACK_VERSION = "0.11.2";
+    private final static int S3_PORT = 4566;
 
     private LocalStackContainer s3;
-    private S3Client client;
 
     @Override
     public Map<String, String> start() {
         DockerClientFactory.instance().client();
         try {
-            s3 = new LocalStackContainer().withServices(Service.S3);
+            s3 = new LocalStackContainer(DockerImageName.parse(LOCALSTACK_IMAGE + ":" + LOCALSTACK_VERSION))
+                    .withServices(Service.S3);
             s3.start();
 
-            client = S3Client.builder()
-                .endpointOverride(new URI(endpoint()))
-                .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create("accesskey", "secretKey")))
-                .httpClientBuilder(UrlConnectionHttpClient.builder())
-                .region(Region.US_EAST_1).build();
+            StaticCredentialsProvider credentialsProvider = StaticCredentialsProvider
+                    .create(AwsBasicCredentials.create("accesskey", "secretKey"));
+
+            S3Client client = S3Client.builder()
+                    .endpointOverride(new URI(endpoint()))
+                    .credentialsProvider(credentialsProvider)
+                    .httpClientBuilder(UrlConnectionHttpClient.builder())
+                    .region(Region.US_EAST_1).build();
 
             client.createBucket(b -> b.bucket(BUCKET_NAME));
         } catch (Exception e) {
@@ -57,6 +64,8 @@ public class S3Resource implements QuarkusTestResourceLifecycleManager {
     }
 
     private String endpoint() {
-        return String.format("http://%s:%s", s3.getContainerIpAddress(), s3.getMappedPort(Service.S3.getPort()));
+        return String.format("http://%s:%s",
+                s3.getContainerIpAddress(),
+                s3.getMappedPort(S3_PORT));
     }
 }

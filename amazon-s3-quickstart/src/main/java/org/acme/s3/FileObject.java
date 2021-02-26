@@ -1,14 +1,19 @@
 package org.acme.s3;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import software.amazon.awssdk.services.s3.model.S3Object;
 
+
+@NoArgsConstructor
 public class FileObject {
+
+    @Getter @Setter
     private String objectKey;
 
+    @Getter @Setter
     private Long size;
-
-    public FileObject() {
-    }
 
     public static FileObject from(S3Object s3Object) {
         FileObject file = new FileObject();
@@ -17,23 +22,5 @@ public class FileObject {
             file.setSize(s3Object.size());
         }
         return file;
-    }
-
-    public String getObjectKey() {
-        return objectKey;
-    }
-
-    public Long getSize() {
-        return size;
-    }
-
-    public FileObject setObjectKey(String objectKey) {
-        this.objectKey = objectKey;
-        return this;
-    }
-
-    public FileObject setSize(Long size) {
-        this.size = size;
-        return this;
     }
 }

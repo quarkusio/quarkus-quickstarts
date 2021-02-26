@@ -28,6 +28,8 @@ import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Object;
 
+import static javax.ws.rs.core.MediaType.*;
+
 @Path("/s3")
 public class S3SyncClientResource extends CommonResource {
     @Inject
@@ -35,7 +37,7 @@ public class S3SyncClientResource extends CommonResource {
 
     @POST
     @Path("upload")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Consumes(MULTIPART_FORM_DATA)
     public Response uploadFile(@MultipartForm FormData formData) throws Exception {
 
         if (formData.fileName == null || formData.fileName.isEmpty()) {
@@ -57,19 +59,19 @@ public class S3SyncClientResource extends CommonResource {
 
     @GET
     @Path("download/{objectKey}")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(APPLICATION_OCTET_STREAM)
     public Response downloadFile(@PathParam("objectKey") String objectKey) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         GetObjectResponse object = s3.getObject(buildGetRequest(objectKey), ResponseTransformer.toOutputStream(baos));
 
-        ResponseBuilder response = Response.ok((StreamingOutput) output -> baos.writeTo(output));
+        ResponseBuilder response = Response.ok((StreamingOutput) baos::writeTo);
         response.header("Content-Disposition", "attachment;filename=" + objectKey);
         response.header("Content-Type", object.contentType());
         return response.build();
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
     public List<FileObject> listFiles() {
         ListObjectsRequest listRequest = ListObjectsRequest.builder().bucket(bucketName).build();
 

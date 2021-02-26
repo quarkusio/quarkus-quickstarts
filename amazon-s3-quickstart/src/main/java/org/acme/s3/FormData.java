@@ -7,18 +7,21 @@ import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.annotations.providers.multipart.PartType;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_OCTET_STREAM;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
+
 public class FormData {
 
     @FormParam("file")
-    @PartType(MediaType.APPLICATION_OCTET_STREAM)
+    @PartType(APPLICATION_OCTET_STREAM)
     public InputStream data;
 
     @FormParam("filename")
-    @PartType(MediaType.TEXT_PLAIN)
+    @PartType(TEXT_PLAIN)
     public String fileName;
 
     @FormParam("mimetype")
-    @PartType(MediaType.TEXT_PLAIN)
+    @PartType(TEXT_PLAIN)
     public String mimeType;
 
 }

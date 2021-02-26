@@ -26,6 +26,8 @@ import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
 import software.amazon.awssdk.services.s3.model.S3Object;
 
+import static javax.ws.rs.core.MediaType.*;
+
 @Path("/async-s3")
 public class S3AsyncClientResource extends CommonResource {
     @Inject
@@ -33,8 +35,8 @@ public class S3AsyncClientResource extends CommonResource {
 
     @POST
     @Path("upload")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Uni<Response> uploadFile(@MultipartForm FormData formData) throws Exception {
+    @Consumes(MULTIPART_FORM_DATA)
+    public Uni<Response> uploadFile(@MultipartForm FormData formData) {
 
         if (formData.fileName == null || formData.fileName.isEmpty()) {
             return Uni.createFrom().item(Response.status(Status.BAD_REQUEST).build());
@@ -45,9 +47,9 @@ public class S3AsyncClientResource extends CommonResource {
         }
 
         return Uni.createFrom()
-                .completionStage(() -> {
-                    return s3.putObject(buildPutRequest(formData), AsyncRequestBody.fromFile(uploadToTemp(formData.data)));
-                })
+                .completionStage(() ->
+                        s3.putObject(buildPutRequest(formData),
+                                AsyncRequestBody.fromFile(uploadToTemp(formData.data))))
                 .onItem().ignore().andSwitchTo(Uni.createFrom().item(Response.created(null).build()))
                 .onFailure().recoverWithItem(th -> {
                     th.printStackTrace();
@@ -57,27 +59,27 @@ public class S3AsyncClientResource extends CommonResource {
 
     @GET
     @Path("download/{objectKey}")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Uni<Response> downloadFile(@PathParam("objectKey") String objectKey) throws Exception {
+    @Produces(APPLICATION_OCTET_STREAM)
+    public Uni<Response> downloadFile(@PathParam("objectKey") String objectKey) {
         File tempFile = tempFilePath();
 
         return Uni.createFrom()
                 .completionStage(() -> s3.getObject(buildGetRequest(objectKey), AsyncResponseTransformer.toFile(tempFile)))
                 .onItem()
-                .apply(object -> Response.ok(tempFile)
+                .transform(object -> Response.ok(tempFile)
                         .header("Content-Disposition", "attachment;filename=" + objectKey)
                         .header("Content-Type", object.contentType()).build());
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
     public Uni<List<FileObject>> listFiles() {
         ListObjectsRequest listRequest = ListObjectsRequest.builder()
                 .bucket(bucketName)
                 .build();
 
         return Uni.createFrom().completionStage(() -> s3.listObjects(listRequest))
-                .onItem().transform(result -> toFileItems(result));
+                .onItem().transform(this::toFileItems);
     }
 
     private List<FileObject> toFileItems(ListObjectsResponse objects) {

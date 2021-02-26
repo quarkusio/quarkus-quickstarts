@@ -1,12 +1,12 @@
 version: '3.5'
 
 services:
-  local-kms:
-    container_name: local-kms
+  local-s3:
+    container_name: local-s3
     image: localstack/localstack
     ports:
-      - 8011:4566
+      - 8008:4566
     environment:
-      SERVICES: kms
+      SERVICES: s3
       START_WEB: 0
 
