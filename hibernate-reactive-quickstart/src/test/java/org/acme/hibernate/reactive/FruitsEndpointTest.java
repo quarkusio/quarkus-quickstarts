@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.junit.QuarkusTest;
 
 import static io.restassured.RestAssured.given;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNot.not;
@@ -14,24 +15,28 @@ import static org.hamcrest.text.IsEmptyString.emptyString;
 @QuarkusTest
 public class FruitsEndpointTest {
 
+	private static final String BASE_URL = "/fruits";
+
     @Test
-    public void testListAllFruits() {
+    void testListAllFruits() {
         //List all, should have all 3 fruits the database has initially:
 		Response response = given()
 				.when()
-				.get("/fruits")
+				.get(BASE_URL)
 				.then()
 				.statusCode(200)
-				.contentType("application/json")
+				.contentType(APPLICATION_JSON)
 				.extract().response();
-		assertThat(response.jsonPath().getList("name")).containsExactlyInAnyOrder("Cherry", "Apple", "Banana");
+
+		assertThat(response.jsonPath().getList("name"))
+				.containsExactlyInAnyOrder("Cherry", "Apple", "Banana");
 
         // Update Cherry to Pineapple
         given()
 			.when()
 				.body("{\"name\" : \"Pineapple\"}")
-				.contentType("application/json")
-				.put("/fruits/1")
+				.contentType(APPLICATION_JSON)
+				.put(BASE_URL + "/1")
 			.then()
 				.statusCode(200)
 				.body(
@@ -41,24 +46,24 @@ public class FruitsEndpointTest {
         //List all, Pineapple should've replaced Cherry:
 		response = given()
 			.when()
-				.get("/fruits")
+				.get(BASE_URL)
 			.then()
 				.statusCode(200)
-				.contentType("application/json")
+				.contentType(APPLICATION_JSON)
 				.extract().response();
 		assertThat(response.jsonPath().getList("name")).containsExactlyInAnyOrder("Pineapple", "Apple", "Banana");
 
         //Delete Pineapple:
         given()
 			.when()
-				.delete("/fruits/1")
+				.delete(BASE_URL+ "/1")
 			.then()
 				.statusCode(204);
 
         //List all, Pineapple should be missing now:
         given()
 			.when()
-				.get("/fruits")
+				.get(BASE_URL)
 			.then()
                 .statusCode(200)
                 .body(
@@ -70,8 +75,8 @@ public class FruitsEndpointTest {
         given()
 			.when()
 				.body("{\"name\" : \"Pear\"}")
-				.contentType("application/json")
-				.post("/fruits")
+				.contentType(APPLICATION_JSON)
+				.post(BASE_URL)
 			.then()
 				.statusCode(201)
 				.body(
@@ -81,7 +86,7 @@ public class FruitsEndpointTest {
         //List all, Pineapple should be still missing now:
         response = given()
 			.when()
-				.get("/fruits")
+				.get(BASE_URL)
 			.then()
 				.statusCode(200)
 				.extract().response();
@@ -89,22 +94,22 @@ public class FruitsEndpointTest {
     }
 
     @Test
-    public void testEntityNotFoundForDelete() {
+    void testEntityNotFoundForDelete() {
         given()
 			.when()
-				.delete("/fruits/9236")
+				.delete(BASE_URL+ "/9236")
 			.then()
 				.statusCode(404)
 				.body(emptyString());
     }
 
     @Test
-    public void testEntityNotFoundForUpdate() {
+    void testEntityNotFoundForUpdate() {
         given()
 			.when()
 				.body("{\"name\" : \"Watermelon\"}")
-				.contentType("application/json")
-				.put("/fruits/32432")
+				.contentType(APPLICATION_JSON)
+				.put(BASE_URL + "/32432")
 			.then()
 				.statusCode(404)
 				.body(emptyString());
