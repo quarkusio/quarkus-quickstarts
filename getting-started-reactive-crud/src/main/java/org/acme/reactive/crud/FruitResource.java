@@ -25,18 +25,21 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.Response.Status;
 
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.pgclient.PgPool;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.Response.Status.NO_CONTENT;
+import static javax.ws.rs.core.Response.Status.OK;
+import static javax.ws.rs.core.Response.Status.NOT_FOUND;
+
 @Path("fruits")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces(APPLICATION_JSON)
+@Consumes(APPLICATION_JSON)
 public class FruitResource {
 
     private final PgPool client;
@@ -64,7 +67,7 @@ public class FruitResource {
     @Path("{id}")
     public Uni<Response> getSingle(Long id) {
         return Fruit.findById(client, id)
-                .onItem().transform(fruit -> fruit != null ? Response.ok(fruit) : Response.status(Status.NOT_FOUND))
+                .onItem().transform(fruit -> fruit != null ? Response.ok(fruit) : Response.status(NOT_FOUND))
                 .onItem().transform(ResponseBuilder::build);
     }
 
@@ -79,7 +82,7 @@ public class FruitResource {
     @Path("{id}")
     public Uni<Response> update(Long id, Fruit fruit) {
         return fruit.update(client)
-                .onItem().transform(updated -> updated ? Status.OK : Status.NOT_FOUND)
+                .onItem().transform(updated -> updated ? OK : NOT_FOUND)
                 .onItem().transform(status -> Response.status(status).build());
     }
 
@@ -87,7 +90,7 @@ public class FruitResource {
     @Path("{id}")
     public Uni<Response> delete(Long id) {
         return Fruit.delete(client, id)
-                .onItem().transform(deleted -> deleted ? Status.NO_CONTENT : Status.NOT_FOUND)
+                .onItem().transform(deleted -> deleted ? NO_CONTENT : NOT_FOUND)
                 .onItem().transform(status -> Response.status(status).build());
     }
 }

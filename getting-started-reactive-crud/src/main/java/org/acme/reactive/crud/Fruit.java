@@ -22,23 +22,18 @@ import io.vertx.mutiny.pgclient.PgPool;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
 import io.vertx.mutiny.sqlclient.Tuple;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class Fruit {
 
     public Long id;
 
     public String name;
 
-    public Fruit() {
-        // default constructor.
-    }
-
     public Fruit(String name) {
-        this.name = name;
-    }
-
-    public Fruit(Long id, String name) {
-        this.id = id;
         this.name = name;
     }
 

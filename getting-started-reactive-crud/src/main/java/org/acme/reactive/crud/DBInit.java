@@ -13,7 +13,8 @@ public class DBInit {
     private final PgPool client;
     private final boolean schemaCreate;
 
-    public DBInit(PgPool client, @ConfigProperty(name = "myapp.schema.create", defaultValue = "true") boolean schemaCreate) {
+    public DBInit(PgPool client,
+                  @ConfigProperty(name = "myapp.schema.create", defaultValue = "true") boolean schemaCreate) {
         this.client = client;
         this.schemaCreate = schemaCreate;
     }
