@@ -6,11 +6,11 @@ import javax.enterprise.context.ApplicationScoped;
 public class MyOtherBean {
 
     public String hello() {
-        return "hello";
+        return "Hello";
     }
 
     public String bye() {
-        return "bye bye";
+        return "Bye Bye";
     }
 
 }
