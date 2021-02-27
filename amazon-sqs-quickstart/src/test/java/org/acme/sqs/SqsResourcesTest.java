@@ -28,17 +28,15 @@ public class SqsResourcesTest {
         List<String> quarks = Arrays.asList("Charm", "Strange", "Bottom", "Upper");
 
         //Fire quarks
-        quarks.forEach(quark -> {
-            given()
-                .pathParam("resource", testedResource)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-                .body(QUARK.apply(quark, "1/2"))
-                .when()
-                .post("/{resource}/cannon/shoot")
-                .then()
-                .statusCode(Status.OK.getStatusCode())
-                .body(any(String.class));
-        });
+        quarks.forEach(quark -> given()
+            .pathParam("resource", testedResource)
+            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+            .body(QUARK.apply(quark, "1/2"))
+            .when()
+            .post("/{resource}/cannon/shoot")
+            .then()
+            .statusCode(Status.OK.getStatusCode())
+            .body(any(String.class)));
 
         //Read quarks from the queue
         given()

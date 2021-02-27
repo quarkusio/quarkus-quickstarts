@@ -7,6 +7,7 @@ import java.util.Map;
 import org.testcontainers.DockerClientFactory;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
+import org.testcontainers.utility.DockerImageName;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.http.urlconnection.UrlConnectionHttpClient;
@@ -16,25 +17,28 @@ import software.amazon.awssdk.services.sqs.SqsClient;
 public class SqsResource implements QuarkusTestResourceLifecycleManager {
 
     public final static String QUEUE_NAME = "Quarkus";
+    public final static String LOCALSTACK_IMAGE = "localstack/localstack";
+    public final static String LOCALSTACK_VERSION = "0.11.2";
+    public final static int SQS_PORT = 4566;
 
     private LocalStackContainer services;
-    private SqsClient client;
 
     @Override
     public Map<String, String> start() {
         DockerClientFactory.instance().client();
         String queueUrl;
         try {
-            services = new LocalStackContainer("0.11.1").withServices(Service.SQS);
+            services = new LocalStackContainer(DockerImageName.parse(LOCALSTACK_IMAGE + ":" + LOCALSTACK_VERSION))
+                    .withServices(Service.SQS);
             services.start();
             StaticCredentialsProvider staticCredentials = StaticCredentialsProvider
                 .create(AwsBasicCredentials.create("accesskey", "secretKey"));
 
-            client = SqsClient.builder()
-                .endpointOverride(new URI(endpoint()))
-                .credentialsProvider(staticCredentials)
-                .httpClientBuilder(UrlConnectionHttpClient.builder())
-                .region(Region.US_EAST_1).build();
+            SqsClient client = SqsClient.builder()
+                    .endpointOverride(new URI(endpoint()))
+                    .credentialsProvider(staticCredentials)
+                    .httpClientBuilder(UrlConnectionHttpClient.builder())
+                    .region(Region.US_EAST_1).build();
 
             queueUrl = client.createQueue(q -> q.queueName(QUEUE_NAME)).queueUrl();
         } catch (Exception e) {
@@ -61,6 +65,8 @@ public class SqsResource implements QuarkusTestResourceLifecycleManager {
     }
 
     private String endpoint() {
-        return String.format("http://%s:%s", services.getContainerIpAddress(), services.getMappedPort(Service.SQS.getPort()));
+        return String.format("http://%s:%s",
+                services.getContainerIpAddress(),
+                services.getMappedPort(SQS_PORT));
     }
 }
