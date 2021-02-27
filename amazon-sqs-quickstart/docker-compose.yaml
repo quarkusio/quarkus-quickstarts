@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  local-sqs:
+    container_name: local-sqs
+    image: localstack/localstack:0.11.2
+    ports:
+      - 8010:4566
+    environment:
+      SERVICES: sqs
+      START_WEB: 0
+

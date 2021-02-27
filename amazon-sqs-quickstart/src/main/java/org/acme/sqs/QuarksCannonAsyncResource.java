@@ -8,20 +8,21 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import lombok.extern.jbosslog.JBossLog;
 import org.acme.sqs.model.Quark;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jboss.logging.Logger;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 import software.amazon.awssdk.services.sqs.model.SendMessageResponse;
 
-@Path("/async/cannon")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-public class QuarksCannonAsyncResource {
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-    private static final Logger LOGGER = Logger.getLogger(QuarksCannonAsyncResource.class);
+@JBossLog
+@Path("/async/cannon")
+@Produces(APPLICATION_JSON)
+@Consumes(APPLICATION_JSON)
+public class QuarksCannonAsyncResource {
 
     @Inject
     SqsAsyncClient sqs;
@@ -32,13 +33,15 @@ public class QuarksCannonAsyncResource {
     static ObjectWriter QUARK_WRITER = new ObjectMapper().writerFor(Quark.class);
 
     @POST
-    @Path("/shoot")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("shoot")
+    @Consumes(APPLICATION_JSON)
     public Uni<Response> sendMessage(Quark quark) throws Exception {
+
         String message = QUARK_WRITER.writeValueAsString(quark);
+
         return Uni.createFrom()
             .completionStage(sqs.sendMessage(m -> m.queueUrl(queueUrl).messageBody(message)))
-            .onItem().invoke(item -> LOGGER.infov("Fired Quark[{0}, {1}}]", quark.getFlavor(), quark.getSpin()))
+            .onItem().invoke(item -> log.infov("Fired Quark[{0}, {1}}]", quark.getFlavor(), quark.getSpin()))
             .onItem().transform(SendMessageResponse::messageId)
             .onItem().transform(id -> Response.ok().entity(id).build());
     }
