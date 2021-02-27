@@ -5,7 +5,8 @@ This project illustrates how you can interact with AMQP 1.0 (Apache Artemis in t
 
 ## AMQP Broker
 
-First you need an AMQP broker. You can follow the instructions from the [Apache Artemis web site](https://activemq.apache.org/components/artemis/) or run `docker-compose up` if you have docker installed on your machine.
+First you need an AMQP broker. You can follow the instructions from the [Apache Artemis web site](https://activemq.apache.org/components/artemis/) 
+or run `docker-compose up -d` if you have docker installed on your machine.
 
 ## Start the application
 

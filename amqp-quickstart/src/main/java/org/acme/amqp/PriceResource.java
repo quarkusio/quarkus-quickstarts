@@ -4,10 +4,12 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.reactivestreams.Publisher;
+
+import static javax.ws.rs.core.MediaType.SERVER_SENT_EVENTS;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 
 /**
  * A simple resource retrieving the "in-memory" "my-data-stream" and sending the items to a server sent event.
@@ -20,14 +22,14 @@ public class PriceResource {
     Publisher<Double> prices;
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(TEXT_PLAIN)
     public String hello() {
         return "hello";
     }
 
     @GET
     @Path("/stream")
-    @Produces(MediaType.SERVER_SENT_EVENTS)
+    @Produces(SERVER_SENT_EVENTS)
     public Publisher<Double> stream() {
         return prices;
     }

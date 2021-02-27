@@ -8,6 +8,8 @@ import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 import io.smallrye.reactive.messaging.annotations.Broadcast;
 
+import static org.eclipse.microprofile.reactive.messaging.Acknowledgment.Strategy.PRE_PROCESSING;
+
 /**
  * A bean consuming data from the "prices" AMQP queue and applying some conversion.
  * The result is pushed to the "my-data-stream" stream which is an in-memory stream.
@@ -23,7 +25,7 @@ public class PriceConverter {
     // Send to all subscribers
     @Broadcast
     // Acknowledge the messages before calling this method.
-    @Acknowledgment(Acknowledgment.Strategy.PRE_PROCESSING)
+    @Acknowledgment(PRE_PROCESSING)
     public double process(int priceInUsd) {
         return priceInUsd * CONVERSION_RATE;
     }

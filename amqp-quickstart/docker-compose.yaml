@@ -5,6 +5,7 @@ version: '2'
 services:
 
   artemis:
+    container_name: artemis
     image: vromero/activemq-artemis:2.9.0-alpine
     ports:
       - "8161:8161"
