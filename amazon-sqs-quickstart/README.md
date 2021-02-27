@@ -77,7 +77,7 @@ Stop your localstack container you started at the beginning
 `docker stop local-sqs`
 
 Start localstack and connect to the network
-`docker run --rm --network=localstack --name localstack -p 8010:4576 -e SERVICES=sqs -e START_WEB=0 -d localstack/localstack:0.11.1`
+`docker-compose up -d`
 
 Create queue
 ```
