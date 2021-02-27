@@ -57,23 +57,26 @@ public class QuarksShieldAsyncResource {
             return Uni.createFrom().item(Response.status(400).build());
         }
 
-        if (messageType.equals(NOTIFICATION_TYPE)) {
-            return Uni.createFrom().item(readObject(SnsNotification.class, message))
-                .onItem().transform(notification -> readObject(Quark.class, notification.getMessage()))
-                .onItem().invoke(quark -> log.infov("Quark[{0}, {1}] collision with the shield.", quark.getFlavor(), quark.getSpin()))
-                .onItem().transform(quark -> Response.ok().build());
-        } else if (messageType.equals(SUBSCRIPTION_CONFIRMATION_TYPE)) {
-            return Uni.createFrom().item(readObject(SnsSubscriptionConfirmation.class, message))
-                .onItem().transformToUni(msg ->
-                            Uni.createFrom().completionStage(
-                                    sns.confirmSubscription(confirm -> confirm.topicArn(topicArn).token(msg.getToken()))
-                            )
-                    )
-                .onItem().invoke(resp -> log.info("Subscription confirmed. Ready for quarks collisions."))
-                .onItem().transform(resp -> Response.ok().build());
-        } else if (messageType.equals(UNSUBSCRIPTION_CONFIRMATION_TYPE)) {
-            log.info("We are unsubscribed");
-            return Uni.createFrom().item(Response.ok().build());
+        switch (messageType) {
+            case NOTIFICATION_TYPE:
+                return Uni.createFrom().item(readObject(SnsNotification.class, message))
+                        .onItem().transform(notification -> readObject(Quark.class, notification.getMessage()))
+                        .onItem().invoke(quark -> log.infov("Quark[{0}, {1}] collision with the shield.",
+                                        quark.getFlavor(),
+                                        quark.getSpin()))
+                        .onItem().transform(quark -> Response.ok().build());
+            case SUBSCRIPTION_CONFIRMATION_TYPE:
+                return Uni.createFrom().item(readObject(SnsSubscriptionConfirmation.class, message))
+                        .onItem().transformToUni(msg ->
+                                Uni.createFrom().completionStage(
+                                        sns.confirmSubscription(confirm -> confirm.topicArn(topicArn).token(msg.getToken()))
+                                )
+                        )
+                        .onItem().invoke(resp -> log.info("Subscription confirmed. Ready for quarks collisions."))
+                        .onItem().transform(resp -> Response.ok().build());
+            case UNSUBSCRIPTION_CONFIRMATION_TYPE:
+                log.info("We are unsubscribed");
+                return Uni.createFrom().item(Response.ok().build());
         }
 
         return Uni.createFrom().item(Response.status(400).entity("Unknown messageType").build());

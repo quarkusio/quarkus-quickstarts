@@ -8,20 +8,20 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import lombok.extern.jbosslog.JBossLog;
 import org.acme.sns.model.Quark;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jboss.logging.Logger;
 import software.amazon.awssdk.services.sns.SnsAsyncClient;
 import software.amazon.awssdk.services.sns.model.PublishResponse;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+
 @JBossLog
 @Path("/async/cannon")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces(APPLICATION_JSON)
+@Consumes(APPLICATION_JSON)
 public class QuarksCannonAsyncResource {
 
     @Inject
@@ -34,7 +34,7 @@ public class QuarksCannonAsyncResource {
 
     @POST
     @Path("shoot")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(APPLICATION_JSON)
     public Uni<Response> publish(Quark quark) throws Exception {
 
         String message = QUARK_WRITER.writeValueAsString(quark);

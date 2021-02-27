@@ -56,25 +56,29 @@ public class QuarksShieldSyncResource {
             return Response.status(400).build();
         }
 
-        if (messageType.equals(NOTIFICATION_TYPE)) {
-            SnsNotification notification = readObject(SnsNotification.class, message);
-            Quark quark = readObject(Quark.class, notification.getMessage());
-            log.infov("Quark[{0}, {1}] collision with the shield.", quark.getFlavor(), quark.getSpin());
-        } else if (messageType.equals(SUBSCRIPTION_CONFIRMATION_TYPE)) {
-            SnsSubscriptionConfirmation subConf = readObject(SnsSubscriptionConfirmation.class, message);
-            sns.confirmSubscription(cs -> cs.topicArn(topicArn).token(subConf.getToken()));
-            log.info("Subscription confirmed. Ready for quarks collisions.");
-        } else if (messageType.equals(UNSUBSCRIPTION_CONFIRMATION_TYPE)) {
-            log.info("We are unsubscribed");
-        } else {
-            return Response.status(400).entity("Unknown messageType").build();
+        switch (messageType) {
+            case NOTIFICATION_TYPE:
+                SnsNotification notification = readObject(SnsNotification.class, message);
+                Quark quark = readObject(Quark.class, notification.getMessage());
+                log.infov("Quark[{0}, {1}] collision with the shield.", quark.getFlavor(), quark.getSpin());
+                break;
+            case SUBSCRIPTION_CONFIRMATION_TYPE:
+                SnsSubscriptionConfirmation subConf = readObject(SnsSubscriptionConfirmation.class, message);
+                sns.confirmSubscription(cs -> cs.topicArn(topicArn).token(subConf.getToken()));
+                log.info("Subscription confirmed. Ready for quarks collisions.");
+                break;
+            case UNSUBSCRIPTION_CONFIRMATION_TYPE:
+                log.info("We are unsubscribed");
+                break;
+            default:
+                return Response.status(400).entity("Unknown messageType").build();
         }
 
         return Response.ok().build();
     }
 
     @POST
-    @Path("/subscribe")
+    @Path("subscribe")
     public Response subscribe() {
         String notificationEndpoint = notificationEndpoint();
         SubscribeResponse response = sns.subscribe(s -> s.topicArn(topicArn).protocol("http").endpoint(notificationEndpoint));
@@ -84,7 +88,7 @@ public class QuarksShieldSyncResource {
     }
 
     @POST
-    @Path("/unsubscribe")
+    @Path("unsubscribe")
     public Response unsubscribe() {
         if (subscriptionArn != null) {
             sns.unsubscribe(s -> s.subscriptionArn(subscriptionArn));
