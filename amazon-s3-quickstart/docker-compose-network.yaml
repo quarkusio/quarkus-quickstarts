@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  localstack:
+    image: localstack/localstack:0.11.2
+    ports:
+      - 8008:4566
+    environment:
+      SERVICES: s3
+      START_WEB: 0
+    networks:
+      - localstack
+
+
+  quarkus-kms:
+    image: quarkus/amazon-s3-quickstart
+    container_name: quarkus_s3
+    ports:
+    - 8080:8080
+    networks:
+      - localstack
+    entrypoint: ["./application", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.s3.endpoint-override=http://localstack:4566"]
+
+networks:
+  localstack:
+    name: localstack
+

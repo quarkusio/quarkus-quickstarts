@@ -26,7 +26,7 @@ Run this script and store the result in the EV `MASTER_KEY_ARN` to create a mast
 generate key data as 256-bit symmetric key (AWS_256)
 Create a master key and store the ARN in the `MASTER_KEY_ARN` environment variable
 ```
-$> MASTER_KEY_ARN=`./create_keyh.sh`
+$> MASTER_KEY_ARN=`./create_key.sh`
 ```
 
 # Run the demo on dev mode

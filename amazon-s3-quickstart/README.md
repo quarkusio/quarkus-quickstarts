@@ -59,10 +59,10 @@ Stop your localstack container you started at the beginning
 `docker stop local-s3`
 
 Start localstack and connect to the network
-`docker run --rm --network=localstack --name localstack -p 8008:4572 -e SERVICES=s3 -e START_WEB=0 -d localstack/localstack`
+`docker-compose up -d`
 
 Create a S3 bucket using AWS CLI and the localstack profile.
-`aws s3 mb s3://quarkus.s3.quickstart --profile localstack --endpoint-url=http://localhost:8008`
+`./create_bucket.sh`
 
 Run quickstart container connected to that network (note that we're using internal port of the S3 localstack)
 `docker run -i --rm --network=localstack -p 8080:8080 quarkus/amazon-s3-quickstart -Dquarkus.s3.endpoint-override=http://localstack:4572`

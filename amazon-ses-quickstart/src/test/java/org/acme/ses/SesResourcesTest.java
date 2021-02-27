@@ -1,7 +1,7 @@
 package org.acme.ses;
 
 import static io.restassured.RestAssured.given;
-import static javax.ws.rs.core.HttpHeaders.*;
+import static javax.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.acme.ses.SesResource.FROM_EMAIL;
 import static org.acme.ses.SesResource.TO_EMAIL;

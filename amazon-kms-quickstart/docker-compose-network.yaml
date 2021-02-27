@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  localstack:
+    image: localstack/localstack:0.11.2
+    ports:
+      - 8011:4566
+    environment:
+      SERVICES: kms
+      START_WEB: 0
+    networks:
+      - localstack
+
+
+  quarkus-kms:
+    image: quarkus/amazon-kms-quickstart
+    container_name: quarkus_kms
+    ports:
+    - 8080:8080
+    networks:
+      - localstack
+    entrypoint: ["./application", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.kms.endpoint-override=http://localstack:4566"]
+
+networks:
+  localstack:
+    name: localstack
+
