@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  localstack:
+    image: localstack/localstack:0.11.2
+    ports:
+      - 8009:4566
+    environment:
+      SERVICES: sns
+      START_WEB: 0
+    networks:
+      - localstack
+
+
+  quarkus-kms:
+    image: quarkus/amazon-sns-quickstart
+    container_name: quarkus-sns
+    ports:
+    - 8080:8080
+    networks:
+      - localstack
+    entrypoint: ["./application", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.sns.endpoint-override=http://localstack:4566"]
+
+networks:
+  localstack:
+    name: localstack
+

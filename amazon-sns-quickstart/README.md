@@ -101,7 +101,7 @@ Create a network that connect your container with localstack
 `docker network create localstack`
 
 Start localstack and connect to the network
-`docker run --rm --network=localstack --name localstack -p 8009:4575 -e SERVICES=sns -e START_WEB=0 -d localstack/localstack:0.11.1`
+`docker-compose up -d`
 
 Stop your localstack container you started at the beginning
 `docker stop local-sns`
