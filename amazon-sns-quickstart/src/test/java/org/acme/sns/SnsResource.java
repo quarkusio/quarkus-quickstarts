@@ -7,39 +7,46 @@ import java.util.Map;
 import org.testcontainers.DockerClientFactory;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
+import org.testcontainers.utility.DockerImageName;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.http.urlconnection.UrlConnectionHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 
+import static org.testcontainers.containers.localstack.LocalStackContainer.Service.SNS;
+import static software.amazon.awssdk.regions.Region.US_EAST_1;
+
 public class SnsResource implements QuarkusTestResourceLifecycleManager {
 
     public final static String TOPIC_NAME = "Quarkus";
+    public final static String LOCALSTACK_IMAGE = "localstack/localstack";
+    public final static String LOCALSTACK_VERSION = "0.11.2";
+    public final static int SNS_PORT = 4566;
 
     private LocalStackContainer services;
-    private SnsClient client;
 
     @Override
     public Map<String, String> start() {
         DockerClientFactory.instance().client();
         String topicArn;
         try {
-            services = new LocalStackContainer("0.11.1").withServices(Service.SNS);
+            services = new LocalStackContainer(DockerImageName.parse(LOCALSTACK_IMAGE + ":" + LOCALSTACK_VERSION))
+                    .withServices(SNS);
             services.start();
             StaticCredentialsProvider staticCredentials = StaticCredentialsProvider
                 .create(AwsBasicCredentials.create("accesskey", "secretKey"));
 
-            client = SnsClient.builder()
-                .endpointOverride(new URI(endpoint()))
-                .credentialsProvider(staticCredentials)
-                .httpClientBuilder(UrlConnectionHttpClient.builder())
-                .region(Region.US_EAST_1).build();
+            SnsClient client = SnsClient.builder()
+                    .endpointOverride(new URI(endpoint()))
+                    .credentialsProvider(staticCredentials)
+                    .httpClientBuilder(UrlConnectionHttpClient.builder())
+                    .region(US_EAST_1).build();
 
             topicArn = client.createTopic(t -> t.name(TOPIC_NAME)).topicArn();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Could not start ocalstack server", e);
+            throw new RuntimeException("Could not start localstack server", e);
         }
 
         Map<String, String> properties = new HashMap<>();
@@ -61,6 +68,8 @@ public class SnsResource implements QuarkusTestResourceLifecycleManager {
     }
 
     private String endpoint() {
-        return String.format("http://%s:%s", services.getContainerIpAddress(), services.getMappedPort(Service.SNS.getPort()));
+        return String.format("http://%s:%s",
+                services.getContainerIpAddress(),
+                services.getMappedPort(SNS_PORT));
     }
 }

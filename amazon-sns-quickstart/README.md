@@ -5,7 +5,7 @@ This example showcases how to use the AWS SNS client with Quarkus. As a prerequi
 # AWS SNS local instance
 
  Just run it as follows in order to start SNS locally:
-`docker run --rm --name local-sns -p 8009:4575 -e SERVICES=sns -e START_WEB=0 -d localstack/localstack:0.11.1`
+`docker-compose up -d`
 SNS listens on `localhost:8009` for REST endpoints.
 
 Create an AWS profile for your local instance using AWS CLI:
@@ -21,7 +21,7 @@ Default output format [None]:
 ## Create topic
 Create a topic using AWS CLI with the localstack profile and store the generated ARN in the environment variable
 ```
-$> TOPIC_ARN=`aws sns create-topic --name=QuarksCollider --profile localstack --endpoint-url=http://localhost:8009`
+$> export TOPIC_ARN=`./create_topic.sh`
 ```
 
 # Run the demo on dev mode

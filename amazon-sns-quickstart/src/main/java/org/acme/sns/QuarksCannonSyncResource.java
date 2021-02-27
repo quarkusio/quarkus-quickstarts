@@ -9,17 +9,19 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import lombok.extern.jbosslog.JBossLog;
 import org.acme.sns.model.Quark;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jboss.logging.Logger;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.PublishResponse;
 
-@Path("/sync/cannon")
-@Produces(MediaType.TEXT_PLAIN)
-public class QuarksCannonSyncResource {
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 
-    private static final Logger LOGGER = Logger.getLogger(QuarksCannonSyncResource.class);
+@JBossLog
+@Path("/sync/cannon")
+@Produces(TEXT_PLAIN)
+public class QuarksCannonSyncResource {
 
     @Inject
     SnsClient sns;
@@ -30,12 +32,12 @@ public class QuarksCannonSyncResource {
     static ObjectWriter QUARK_WRITER = new ObjectMapper().writerFor(Quark.class);
 
     @POST
-    @Path("/shoot")
+    @Path("shoot")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response publish(Quark quark) throws Exception {
         String message = QUARK_WRITER.writeValueAsString(quark);
         PublishResponse response = sns.publish(p -> p.topicArn(topicArn).message(message));
-        LOGGER.infov("Fired Quark[{0}, {1}}]", quark.getFlavor(), quark.getSpin());
+        log.infov("Fired Quark[{0}, {1}}]", quark.getFlavor(), quark.getSpin());
         return Response.ok().entity(response.messageId()).build();
     }
 }

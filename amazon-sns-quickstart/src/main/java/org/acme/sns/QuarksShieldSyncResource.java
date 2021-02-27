@@ -10,20 +10,21 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import lombok.extern.jbosslog.JBossLog;
 import org.acme.sns.model.Quark;
 import org.acme.sns.model.SnsNotification;
 import org.acme.sns.model.SnsSubscriptionConfirmation;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jboss.logging.Logger;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SubscribeResponse;
 
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
+
+@JBossLog
 @Path("/sync/shield")
 public class QuarksShieldSyncResource {
-
-    private static final Logger LOGGER = Logger.getLogger(QuarksShieldSyncResource.class);
 
     private static final String NOTIFICATION_TYPE = "Notification";
     private static final String SUBSCRIPTION_CONFIRMATION_TYPE = "SubscriptionConfirmation";
@@ -49,8 +50,8 @@ public class QuarksShieldSyncResource {
     }
 
     @POST
-    @Consumes({MediaType.TEXT_PLAIN})
-    public Response notificationEndpoint(@HeaderParam("x-amz-sns-message-type") String messageType, String message) throws JsonProcessingException {
+    @Consumes({TEXT_PLAIN})
+    public Response notificationEndpoint(@HeaderParam("x-amz-sns-message-type") String messageType, String message) {
         if (messageType == null) {
             return Response.status(400).build();
         }
@@ -58,13 +59,13 @@ public class QuarksShieldSyncResource {
         if (messageType.equals(NOTIFICATION_TYPE)) {
             SnsNotification notification = readObject(SnsNotification.class, message);
             Quark quark = readObject(Quark.class, notification.getMessage());
-            LOGGER.infov("Quark[{0}, {1}] collision with the shield.", quark.getFlavor(), quark.getSpin());
+            log.infov("Quark[{0}, {1}] collision with the shield.", quark.getFlavor(), quark.getSpin());
         } else if (messageType.equals(SUBSCRIPTION_CONFIRMATION_TYPE)) {
             SnsSubscriptionConfirmation subConf = readObject(SnsSubscriptionConfirmation.class, message);
             sns.confirmSubscription(cs -> cs.topicArn(topicArn).token(subConf.getToken()));
-            LOGGER.info("Subscription confirmed. Ready for quarks collisions.");
+            log.info("Subscription confirmed. Ready for quarks collisions.");
         } else if (messageType.equals(UNSUBSCRIPTION_CONFIRMATION_TYPE)) {
-            LOGGER.info("We are unsubscribed");
+            log.info("We are unsubscribed");
         } else {
             return Response.status(400).entity("Unknown messageType").build();
         }
@@ -78,7 +79,7 @@ public class QuarksShieldSyncResource {
         String notificationEndpoint = notificationEndpoint();
         SubscribeResponse response = sns.subscribe(s -> s.topicArn(topicArn).protocol("http").endpoint(notificationEndpoint));
         subscriptionArn = response.subscriptionArn();
-        LOGGER.infov("Subscribed Quarks shield <{0}> : {1} ", notificationEndpoint, response.subscriptionArn());
+        log.infov("Subscribed Quarks shield <{0}> : {1} ", notificationEndpoint, response.subscriptionArn());
         return Response.ok().entity(response.subscriptionArn()).build();
     }
 
@@ -87,10 +88,10 @@ public class QuarksShieldSyncResource {
     public Response unsubscribe() {
         if (subscriptionArn != null) {
             sns.unsubscribe(s -> s.subscriptionArn(subscriptionArn));
-            LOGGER.infov("Unsubscribed quarks shield for id = {0}", subscriptionArn);
+            log.infov("Unsubscribed quarks shield for id = {0}", subscriptionArn);
             return Response.ok().build();
         } else {
-            LOGGER.info("Not subscribed yet");
+            log.info("Not subscribed yet");
             return Response.status(400).entity("Not subscribed yet").build();
         }
     }
@@ -104,7 +105,7 @@ public class QuarksShieldSyncResource {
         try {
             object = READERS.get(clazz).readValue(message);
         } catch (JsonProcessingException e) {
-            LOGGER.errorv("Unable to deserialize message <{0}> to Class <{1}>", message, clazz.getSimpleName());
+            log.errorv("Unable to deserialize message <{0}> to Class <{1}>", message, clazz.getSimpleName());
             throw new RuntimeException(e);
         }
         return object;
