@@ -3,7 +3,7 @@ version: '3.5'
 services:
   local-s3:
     container_name: local-s3
-    image: localstack/localstack
+    image: localstack/localstack:0.11.2
     ports:
       - 8008:4566
     environment:

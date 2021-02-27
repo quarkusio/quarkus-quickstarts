@@ -3,7 +3,7 @@ version: '3.5'
 services:
   local-dynamo:
     container_name: local-dynamo
-    image: localstack/localstack
+    image: localstack/localstack:0.11.2
     ports:
       - 8000:4566
     environment:

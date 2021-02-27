@@ -6,30 +6,34 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+
+import lombok.extern.jbosslog.JBossLog;
 import org.acme.ses.model.Email;
 import software.amazon.awssdk.services.ses.SesAsyncClient;
+import software.amazon.awssdk.services.ses.model.Message;
+import software.amazon.awssdk.services.ses.model.SendEmailRequest;
 import software.amazon.awssdk.services.ses.model.SendEmailResponse;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
+
+@JBossLog
 @Path("/async")
-@Produces(MediaType.TEXT_PLAIN)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces(TEXT_PLAIN)
+@Consumes(APPLICATION_JSON)
 public class QuarkusSesAsyncResource {
 
     @Inject
     SesAsyncClient ses;
 
     @POST
-    @Path("/email")
+    @Path("email")
     public Uni<String> encrypt(Email data) {
-        return Uni.createFrom()
-            .completionStage(
-                ses.sendEmail(req -> req
-                    .source(data.getFrom())
-                    .destination(d -> d.toAddresses(data.getTo()))
-                    .message(msg -> msg
-                        .subject(sub -> sub.data(data.getSubject()))
-                        .body(b -> b.text(txt -> txt.data(data.getBody()))))))
-            .onItem().transform(SendEmailResponse::messageId);
+
+        log.infof("Encrypting Email: From: %s To: %s...asynchronously", data.getFrom(), data.getTo());
+        return Uni.createFrom().completionStage(
+                ses.sendEmail(EmailHelper.createRequest(data)))
+                .onItem().transform(SendEmailResponse::messageId);
+
     }
 }

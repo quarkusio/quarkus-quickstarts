@@ -7,7 +7,7 @@ Local instance of SES only mocks service APIs and doesn't send any emails.
 # AWS SES local instance
 
 Just run it as follows in order to start SES locally:
-`docker run --rm --name local-ses -p 8012:4579 -e SERVICES=ses -e START_WEB=0 -d localstack/localstack:0.11.1`
+`docker-compose up -d`
 SES listens on `localhost:8012` for REST endpoints.
 
 Create an AWS profile for your local instance using AWS CLI:
@@ -22,9 +22,12 @@ Default output format [None]:
 
 ## Setup AWS SES
 
-Verify the email addresses you're going to use when running the application. You need to verify both the sender and recipient email addresses.
+Verify the email addresses you're going to use when running the application. 
+You need to verify both the sender and recipient email addresses. The script takes a space
+separated list of email addresses
 ```
-aws ses verify-email-identity --email-address <EMAIL_ADDRESS> --profile localstack --endpoint-url=http://localhost:8012
+EX:
+./verify_email.sh from@example.com to@example.com
 ```
 If you're about to use your AWS account instead, verify all email addresses using your account profile.
 ```

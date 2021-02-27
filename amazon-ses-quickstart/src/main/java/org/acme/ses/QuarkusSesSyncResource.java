@@ -6,25 +6,31 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import lombok.extern.jbosslog.JBossLog;
 import org.acme.ses.model.Email;
 import software.amazon.awssdk.services.ses.SesClient;
+import software.amazon.awssdk.services.ses.model.Message;
+import software.amazon.awssdk.services.ses.model.SendEmailRequest;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
+
+@JBossLog
 @Path("/sync")
-@Produces(MediaType.TEXT_PLAIN)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces(TEXT_PLAIN)
+@Consumes(APPLICATION_JSON)
 public class QuarkusSesSyncResource {
 
     @Inject
     SesClient ses;
 
     @POST
-    @Path("/email")
+    @Path("email")
     public String encrypt(Email data) {
-        return ses.sendEmail(req -> req
-            .source(data.getFrom())
-            .destination(d -> d.toAddresses(data.getTo()))
-            .message(msg -> msg
-                .subject(sub -> sub.data(data.getSubject()))
-                .body(b -> b.text(txt -> txt.data(data.getBody()))))).messageId();
+
+        log.infof("Encrypting Email: From: %s To: %s...synchronously", data.getFrom(), data.getTo());
+        return ses.sendEmail(EmailHelper.createRequest(data))
+                .messageId();
     }
 }

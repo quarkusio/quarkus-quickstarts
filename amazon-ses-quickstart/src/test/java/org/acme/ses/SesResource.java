@@ -7,6 +7,7 @@ import java.util.Map;
 import org.testcontainers.DockerClientFactory;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
+import org.testcontainers.utility.DockerImageName;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.http.urlconnection.UrlConnectionHttpClient;
@@ -17,24 +18,28 @@ public class SesResource implements QuarkusTestResourceLifecycleManager {
 
     public final static String FROM_EMAIL = "from-quarkus@example.com";
     public final static String TO_EMAIL = "to-quarkus@example.com";
+    public final static String LOCALSTACK_IMAGE = "localstack/localstack";
+    public final static String LOCALSTACK_VERSION = "0.11.2";
+    public final static int SES_PORT = 4566;
 
     private LocalStackContainer services;
-    private SesClient client;
 
     @Override
     public Map<String, String> start() {
         DockerClientFactory.instance().client();
         try {
-            services = new LocalStackContainer("0.11.1").withServices(Service.SES);
+            services = new LocalStackContainer(DockerImageName.parse(LOCALSTACK_IMAGE + ":" + LOCALSTACK_VERSION))
+                    .withServices(Service.SES);
             services.start();
+
             StaticCredentialsProvider staticCredentials = StaticCredentialsProvider
                 .create(AwsBasicCredentials.create("accesskey", "secretKey"));
 
-            client = SesClient.builder()
-                .endpointOverride(new URI(endpoint()))
-                .credentialsProvider(staticCredentials)
-                .httpClientBuilder(UrlConnectionHttpClient.builder())
-                .region(Region.US_EAST_1).build();
+            SesClient client = SesClient.builder()
+                    .endpointOverride(new URI(endpoint()))
+                    .credentialsProvider(staticCredentials)
+                    .httpClientBuilder(UrlConnectionHttpClient.builder())
+                    .region(Region.US_EAST_1).build();
 
             client.verifyEmailIdentity(req -> req.emailAddress(FROM_EMAIL));
             client.verifyEmailIdentity(req -> req.emailAddress(TO_EMAIL));
@@ -62,6 +67,8 @@ public class SesResource implements QuarkusTestResourceLifecycleManager {
     }
 
     private String endpoint() {
-        return String.format("http://%s:%s", services.getContainerIpAddress(), services.getMappedPort(Service.SES.getPort()));
+        return String.format("http://%s:%s",
+                services.getContainerIpAddress(),
+                services.getMappedPort(SES_PORT));
     }
 }

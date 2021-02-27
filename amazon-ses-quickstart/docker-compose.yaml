@@ -1,12 +1,12 @@
 version: '3.5'
 
 services:
-  local-kms:
-    container_name: local-kms
+  local-ses:
+    container_name: local-ses
     image: localstack/localstack:0.11.2
     ports:
-      - 8011:4566
+      - 8012:4566
     environment:
-      SERVICES: kms
+      SERVICES: ses
       START_WEB: 0
 
