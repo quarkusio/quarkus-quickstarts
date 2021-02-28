@@ -18,19 +18,20 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import org.jboss.logging.Logger;
+import lombok.extern.jbosslog.JBossLog;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+
+@JBossLog
 @Path("fruits")
 @ApplicationScoped
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(APPLICATION_JSON)
+@Consumes(APPLICATION_JSON)
 public class FruitResource {
-
-    private static final Logger LOGGER = Logger.getLogger(FruitResource.class.getName());
 
     @Inject
     EntityManager entityManager;
@@ -101,7 +102,7 @@ public class FruitResource {
 
         @Override
         public Response toResponse(Exception exception) {
-            LOGGER.error("Failed to handle request", exception);
+            log.error("Failed to handle request", exception);
 
             int code = 500;
             if (exception instanceof WebApplicationException) {
