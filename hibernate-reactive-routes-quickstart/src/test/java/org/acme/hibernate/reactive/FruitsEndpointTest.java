@@ -1,7 +1,6 @@
 package org.acme.hibernate.reactive;
 
 import io.restassured.response.ValidatableResponse;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -13,7 +12,7 @@ import static org.hamcrest.core.IsNot.not;
 @QuarkusTest
 public class FruitsEndpointTest {
 
-    private static final String BASE_URL = "/fruits";
+    private static final String BASE_URL = "/fruits/";
     private static final String APP_JSON = "application/json";
 
     @Test
@@ -30,7 +29,7 @@ public class FruitsEndpointTest {
                 .when()
                 .body("{\"name\" : \"Pineapple\"}")
                 .contentType(APP_JSON)
-                .put(BASE_URL + "/1")
+                .put(BASE_URL + "1")
                 .then()
                 .statusCode(200)
                 .body(
@@ -48,7 +47,7 @@ public class FruitsEndpointTest {
         //Delete Pineapple:
         given()
                 .when()
-                .delete(BASE_URL + "/1")
+                .delete(BASE_URL + "1")
                 .then()
                 .statusCode(204);
 
