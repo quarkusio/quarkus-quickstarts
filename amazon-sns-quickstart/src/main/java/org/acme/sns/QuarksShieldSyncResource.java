@@ -73,7 +73,7 @@ public class QuarksShieldSyncResource {
     }
 
     @POST
-    @Path("/subscribe")
+    @Path("subscribe")
     public Response subscribe() {
         String notificationEndpoint = notificationEndpoint();
         SubscribeResponse response = sns.subscribe(s -> s.topicArn(topicArn).protocol("http").endpoint(notificationEndpoint));
@@ -83,7 +83,7 @@ public class QuarksShieldSyncResource {
     }
 
     @POST
-    @Path("/unsubscribe")
+    @Path("unsubscribe")
     public Response unsubscribe() {
         if (subscriptionArn != null) {
             sns.unsubscribe(s -> s.subscriptionArn(subscriptionArn));

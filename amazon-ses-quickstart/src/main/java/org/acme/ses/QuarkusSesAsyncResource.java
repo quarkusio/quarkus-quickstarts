@@ -20,7 +20,7 @@ public class QuarkusSesAsyncResource {
     SesAsyncClient ses;
 
     @POST
-    @Path("/email")
+    @Path("email")
     public Uni<String> encrypt(Email data) {
         return Uni.createFrom()
             .completionStage(

@@ -79,7 +79,7 @@ public class QuarksShieldAsyncResource {
     }
 
     @POST
-    @Path("/subscribe")
+    @Path("subscribe")
     public Uni<Response> subscribe() {
         return Uni.createFrom()
             .completionStage(sns.subscribe(s -> s.topicArn(topicArn).protocol("http").endpoint(notificationEndpoint())))
@@ -90,7 +90,7 @@ public class QuarksShieldAsyncResource {
     }
 
     @POST
-    @Path("/unsubscribe")
+    @Path("unsubscribe")
     public Uni<Response> unsubscribe() {
         if (subscriptionArn != null) {
             return Uni.createFrom()
