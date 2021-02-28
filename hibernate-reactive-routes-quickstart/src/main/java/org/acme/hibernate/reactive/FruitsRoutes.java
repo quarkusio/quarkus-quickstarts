@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 
 import javax.inject.Inject;
 
+import lombok.extern.jbosslog.JBossLog;
 import org.hibernate.reactive.mutiny.Mutiny;
 import org.jboss.logging.Logger;
 
@@ -26,10 +27,9 @@ import io.vertx.ext.web.RoutingContext;
 /**
  * An example using Vert.x Web, Hibernate Reactive and Mutiny.
  */
+@JBossLog
 @RouteBase(path = "/fruits", produces = "application/json")
 public class FruitsRoutes {
-
-    private static final Logger LOGGER = Logger.getLogger(FruitsRoutes.class.getName());
 
     @Inject
     Mutiny.Session session;
@@ -37,7 +37,7 @@ public class FruitsRoutes {
     @Route(methods = GET, path = "/")
     public Uni<List<Fruit>> getAll() throws Exception {
         // In this case, it makes sense to return a Uni<List<Fruit>> because we return a reasonable amount of results
-        // Consider returning a Multi<Fruit> for result streams 
+        // Consider returning a Multi<Fruit> for result streams
         return session.createNamedQuery(Fruit.FIND_ALL, Fruit.class).getResultList();
     }
 
@@ -93,7 +93,7 @@ public class FruitsRoutes {
     public void error(RoutingContext context) {
         Throwable t = context.failure();
         if (t != null) {
-            LOGGER.error("Failed to handle request", t);
+            log.error("Failed to handle request", t);
             int status = context.statusCode();
             String chunk = "";
             if (t instanceof NoSuchElementException) {

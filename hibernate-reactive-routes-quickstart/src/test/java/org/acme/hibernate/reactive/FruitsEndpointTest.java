@@ -1,5 +1,7 @@
 package org.acme.hibernate.reactive;
 
+import io.restassured.response.ValidatableResponse;
+import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -7,19 +9,17 @@ import io.quarkus.test.junit.QuarkusTest;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNot.not;
-import static org.hamcrest.text.IsEmptyString.emptyString;
 
 @QuarkusTest
 public class FruitsEndpointTest {
 
+    private static final String BASE_URL = "/fruits";
+    private static final String APP_JSON = "application/json";
+
     @Test
     public void testListAllFruits() {
         //List all, should have all 3 fruits the database has initially:
-        given()
-                .when()
-                .get("/fruits/")
-                .then()
-                .statusCode(200)
+        getHelper()
                 .body(
                         containsString("Cherry"),
                         containsString("Apple"),
@@ -29,8 +29,8 @@ public class FruitsEndpointTest {
         given()
                 .when()
                 .body("{\"name\" : \"Pineapple\"}")
-                .contentType("application/json")
-                .put("/fruits/1")
+                .contentType(APP_JSON)
+                .put(BASE_URL + "/1")
                 .then()
                 .statusCode(200)
                 .body(
@@ -38,11 +38,7 @@ public class FruitsEndpointTest {
                         containsString("\"name\":\"Pineapple\""));
 
         //List all, Pineapple should've replaced Cherry:
-        given()
-                .when()
-                .get("/fruits/")
-                .then()
-                .statusCode(200)
+        getHelper()
                 .body(
                         not(containsString("Cherry")),
                         containsString("Pineapple"),
@@ -52,16 +48,12 @@ public class FruitsEndpointTest {
         //Delete Pineapple:
         given()
                 .when()
-                .delete("/fruits/1")
+                .delete(BASE_URL + "/1")
                 .then()
                 .statusCode(204);
 
         //List all, Pineapple should be missing now:
-        given()
-                .when()
-                .get("/fruits/")
-                .then()
-                .statusCode(200)
+        getHelper()
                 .body(
                         not(containsString("Pineapple")),
                         containsString("Apple"),
@@ -71,8 +63,8 @@ public class FruitsEndpointTest {
         given()
                 .when()
                 .body("{\"name\" : \"Pear\"}")
-                .contentType("application/json")
-                .post("/fruits/")
+                .contentType(APP_JSON)
+                .post(BASE_URL)
                 .then()
                 .statusCode(201)
                 .body(
@@ -80,15 +72,20 @@ public class FruitsEndpointTest {
                         containsString("\"name\":\"Pear\""));
 
         //List all, Pineapple should be still missing now:
-        given()
-                .when()
-                .get("/fruits/")
-                .then()
-                .statusCode(200)
+        getHelper()
                 .body(
                         not(containsString("Pineapple")),
                         containsString("Apple"),
                         containsString("Banana"),
                         containsString("Pear"));
+    }
+
+
+    private ValidatableResponse getHelper() {
+        return given()
+                .when()
+                .get(BASE_URL)
+                .then()
+                .statusCode(200);
     }
 }
