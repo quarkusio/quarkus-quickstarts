@@ -76,6 +76,10 @@ Make sure you have two PostgreSQL instances running. To set up two PostgreSQL da
 
 > docker run -it --rm=true --ulimit memlock=-1:-1 --memory-swappiness=0 --name mycompany -p 127.0.0.1:5433:5432 -e POSTGRES_USER=mycompany -e POSTGRES_PASSWORD=mycompany -e POSTGRES_DB=mycompany postgres:12.2
 
+Or you can use the prepared docker-compose file 
+
+> docker-compose up -d
+
 The 'quarkus_test' database should be listening on port 5432 and the 'mycompany' on port 5433.
 
 Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file, [src/main/resources/application.properties](src/main/resources/application.properties).

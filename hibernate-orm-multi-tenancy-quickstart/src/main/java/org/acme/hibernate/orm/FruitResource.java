@@ -25,9 +25,11 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+
 @ApplicationScoped
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(APPLICATION_JSON)
+@Consumes(APPLICATION_JSON)
 @Path("/")
 public class FruitResource {
 

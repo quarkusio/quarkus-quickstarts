@@ -1,16 +1,22 @@
 package org.acme.hibernate.orm;
 
 import static io.restassured.RestAssured.given;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNot.not;
 
+import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
 
+
 @QuarkusTest
 public class FruitsEndpointTest {
+
+    private static final String BASE_URL = "/fruits";
+    private static final String TENANT_BASE_URL = "/mycompany" + BASE_URL;
 
     @Test
     public void testListAllFruitsBaseSchema() {
@@ -20,10 +26,7 @@ public class FruitsEndpointTest {
         deleteIfExist("", "Pear");
 
         //List all, should have all 3 fruits the database has initially:
-        given()
-                .when().get("/fruits")
-                .then()
-                .statusCode(200)
+        getHelper(BASE_URL)
                 .body(
                         containsString("Cherry"),
                         containsString("Apple"),
@@ -31,15 +34,12 @@ public class FruitsEndpointTest {
 
         //Delete the Cherry:
         given()
-                .when().delete("/fruits/" + cherry.getId())
+                .when().delete(BASE_URL + "/" + cherry.getId())
                 .then()
                 .statusCode(204);
 
         //List all, cherry should be missing now:
-        given()
-                .when().get("/fruits")
-                .then()
-                .statusCode(200)
+        getHelper(BASE_URL)
                 .body(
                         not(containsString("Cherry")),
                         containsString("Apple"),
@@ -49,16 +49,13 @@ public class FruitsEndpointTest {
         given()
                 .when()
                 .body("{\"name\" : \"Pear\"}")
-                .contentType("application/json")
-                .post("/fruits")
+                .contentType(APPLICATION_JSON)
+                .post(BASE_URL)
                 .then()
                 .statusCode(201);
 
         //List all, cherry should be missing now:
-        given()
-                .when().get("/fruits")
-                .then()
-                .statusCode(200)
+        getHelper(BASE_URL)
                 .body(
                         not(containsString("Cherry")),
                         containsString("Apple"),
@@ -74,10 +71,7 @@ public class FruitsEndpointTest {
         deleteIfExist("/mycompany", "Clementine");
 
         //List all, should have all 3 fruits the database has initially:
-        given()
-                .when().get("/mycompany/fruits")
-                .then()
-                .statusCode(200)
+        getHelper(TENANT_BASE_URL)
                 .body(
                         containsString("Avocado"),
                         containsString("Apricots"),
@@ -85,15 +79,12 @@ public class FruitsEndpointTest {
 
         //Delete the Avocado:
         given()
-                .when().delete("/mycompany/fruits/" + avocado.getId())
+                .when().delete(TENANT_BASE_URL + "/" + avocado.getId())
                 .then()
                 .statusCode(204);
 
         //List all, Avocado should be missing now:
-        given()
-                .when().get("/mycompany/fruits")
-                .then()
-                .statusCode(200)
+        getHelper(TENANT_BASE_URL)
                 .body(
                         not(containsString("Avocado")),
                         containsString("Apricots"),
@@ -103,16 +94,13 @@ public class FruitsEndpointTest {
         given()
                 .when()
                 .body("{\"name\" : \"Clementine\"}")
-                .contentType("application/json")
-                .post("/mycompany/fruits")
+                .contentType(APPLICATION_JSON)
+                .post(TENANT_BASE_URL)
                 .then()
                 .statusCode(201);
 
         //List all, Avocado should be missing and Clementine added now:
-        given()
-                .when().get("/mycompany/fruits")
-                .then()
-                .statusCode(200)
+        getHelper(TENANT_BASE_URL)
                 .body(
                         not(containsString("Avocado")),
                         containsString("Apricots"),
@@ -124,8 +112,8 @@ public class FruitsEndpointTest {
         given()
                 .when()
                 .body("{\"name\" : \"" + fruitName + "\"}")
-                .contentType("application/json")
-                .post(tenantPrefix + "/fruits")
+                .contentType(APPLICATION_JSON)
+                .post(tenantPrefix + BASE_URL)
                 .then()
                 .statusCode(201);
     }
@@ -135,20 +123,22 @@ public class FruitsEndpointTest {
         if (response.statusCode() == 200) {
             Fruit fruit = response.as(Fruit.class);
             given()
-                    .when().delete(tenantPrefix + "/fruits/" + fruit.getId())
+                    .when().delete(tenantPrefix + BASE_URL + "/" + fruit.getId())
                     .then()
                     .statusCode(204);
         }
     }
 
     private Fruit find(String tenantPrefix, String fruitName) {
-        Response response = given().param("type", "name").param("value", fruitName).when().get(tenantPrefix + "/fruitsFindBy");
+        Response response = given()
+                .param("type", "name")
+                .param("value", fruitName)
+                .when().get(tenantPrefix + "/fruitsFindBy");
         if (response.statusCode() == 404) {
             return null;
         }
         if (response.statusCode() == 200) {
-            Fruit fruit = response.as(Fruit.class);
-            return fruit;
+            return response.as(Fruit.class);
         }
         throw new IllegalStateException("Unknown status finding '" + fruitName + ": " + response);
     }
@@ -160,6 +150,14 @@ public class FruitsEndpointTest {
             return find(tenantPrefix, name);
         }
         return fruit;
+    }
+
+
+    private ValidatableResponse getHelper(String path) {
+        return given()
+                .when().get(path)
+                .then()
+                .statusCode(200);
     }
 
 }
