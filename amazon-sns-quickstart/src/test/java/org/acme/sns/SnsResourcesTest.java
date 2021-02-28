@@ -1,6 +1,8 @@
 package org.acme.sns;
 
 import static io.restassured.RestAssured.given;
+import static javax.ws.rs.core.HttpHeaders.CONTENT_TYPE;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.hamcrest.Matchers.any;
 
 import io.quarkus.test.common.QuarkusTestResource;
@@ -20,7 +22,7 @@ public class SnsResourcesTest {
     void testPublisher(final String testedResource) {
         given()
             .pathParam("resource", testedResource)
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+            .header(CONTENT_TYPE, APPLICATION_JSON)
             .body(String
                 .format("{\"flavor\":\"%s\", \"spin\":\"%s\"}", "Charm", "1/2"))
             .when()
@@ -30,15 +32,15 @@ public class SnsResourcesTest {
             .body(any(String.class));
     }
 
-//    @ParameterizedTest
-//    @ValueSource(strings = {"sync", "async"})
-//    void testSubscriber(final String testedResource) {
-//        given()
-//            .pathParam("resource", testedResource)
-//            .when()
-//            .post("/{resource}/shield/subscribe")
-//            .then()
-//            .statusCode(Status.OK.getStatusCode())
-//            .body(any(String.class));
-//    }
+    @ParameterizedTest
+    @ValueSource(strings = {"sync", "async"})
+    void testSubscriber(final String testedResource) {
+        given()
+            .pathParam("resource", testedResource)
+            .when()
+            .post("/{resource}/shield/subscribe")
+            .then()
+            .statusCode(Status.OK.getStatusCode())
+            .body(any(String.class));
+    }
 }
