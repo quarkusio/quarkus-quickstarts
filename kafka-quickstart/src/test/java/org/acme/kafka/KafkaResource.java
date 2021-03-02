@@ -6,10 +6,13 @@ import java.util.Map;
 import org.testcontainers.containers.KafkaContainer;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.testcontainers.utility.DockerImageName;
 
 public class KafkaResource implements QuarkusTestResourceLifecycleManager {
 
-    private final KafkaContainer kafka = new KafkaContainer();
+    DockerImageName dockerImageName = DockerImageName.parse("confluentinc/cp-kafka");
+
+    private final KafkaContainer kafka = new KafkaContainer(dockerImageName);
 
     @Override
     public Map<String, String> start() {
