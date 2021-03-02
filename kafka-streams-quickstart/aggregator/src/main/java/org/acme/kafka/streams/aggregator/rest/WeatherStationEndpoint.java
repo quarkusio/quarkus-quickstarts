@@ -35,7 +35,7 @@ public class WeatherStationEndpoint {
 
         if (result.getResult().isPresent()) {
             return Response.ok(result.getResult().get()).build();
-        } else if (result.getHost().isPresent()) {
+        } else if (result.getHost().isPresent() && result.getPort().isPresent()) {
             URI otherUri = getOtherUri(result.getHost().get(), result.getPort().getAsInt(), id);
             return Response.seeOther(otherUri).build();
         } else {
