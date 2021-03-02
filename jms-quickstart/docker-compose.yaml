@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+  artemis-jms:
+    image: vromero/activemq-artemis:2.9.0-alpine
+    container_name: artemis
+    ports:
+      - 8161:8161
+      - 61616:61616
+    environment:
+      ARTEMIS_USERNAME: quarkus
+      ARTEMIS_PASSWORD: quarkus
+
