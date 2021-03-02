@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class CacheResource implements QuarkusTestResourceLifecycleManager {
 
-    private static GenericContainer INFINISPAN = null;
+    private static GenericContainer<?> INFINISPAN = null;
     private static final Integer INFINISPAN_PORT = 11222;
 
     private static RemoteCacheManager cacheManager;
@@ -20,7 +20,7 @@ public class CacheResource implements QuarkusTestResourceLifecycleManager {
     public Map<String, String> start() {
 
         INFINISPAN =
-                new GenericContainer("infinispan/server:11.0.4.Final")
+                new GenericContainer<>("infinispan/server:11.0.4.Final")
                         .waitingFor(new LogMessageWaitStrategy().withRegEx(".*Infinispan Server.*started in.*\\s"))
                         .withStartupTimeout(Duration.ofMillis(20000))
                 .withEnv("USER","Titus Bramble")
