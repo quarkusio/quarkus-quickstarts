@@ -40,7 +40,12 @@ Note that running this command will start an Elasticsearch cluster, start a Post
 
 ## Running the demo
 
-### Start an Elasticsearch cluster
+### Option 1: Docker-compose
+> docker-compose up -d
+
+### Option 2: Start Containers w/ Docker Run
+
+#### Start an Elasticsearch cluster
 
 To set up an Elasticsearch instance using Docker:
 
@@ -48,11 +53,12 @@ To set up an Elasticsearch instance using Docker:
 
 Alternatively you can setup an Elasticsearch instance in any another way.
 
-### Prepare a PostgreSQL instance
+#### Prepare a PostgreSQL instance
 
 Make sure you have a PostgreSQL instance running. To set up a PostgreSQL database with Docker:
 
 > docker run --ulimit memlock=-1:-1 -it --rm=true --memory-swappiness=0 --name postgresql_quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:11.3
+
 
 Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file,
 `src/main/resources/application.properties`.
