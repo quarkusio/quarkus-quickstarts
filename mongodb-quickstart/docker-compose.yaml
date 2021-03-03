@@ -1,0 +1,7 @@
+version: '3.5'
+
+services:
+  mongo:
+    image: library/mongo:4.4.4
+    ports:
+      - 27017:27017
