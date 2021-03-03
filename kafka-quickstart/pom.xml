@@ -14,7 +14,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <testcontainers.version>1.15.2</testcontainers.version>
+    <strimzi.testcontainers.version>0.20.1</strimzi.testcontainers.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -57,10 +57,10 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>kafka</artifactId>
-      <version>${testcontainers.version}</version>
-      <scope>test</scope>
+      <groupId>io.strimzi</groupId>
+      <artifactId>test-container</artifactId>
+      <version>${strimzi.testcontainers.version}</version>
+        <scope>test</scope>
     </dependency>
   </dependencies>
   <build>

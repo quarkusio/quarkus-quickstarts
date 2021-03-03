@@ -7,6 +7,10 @@ This project illustrates how you can interact with Apache Kafka using MicroProfi
 
 First you need a Kafka cluster. You can follow the instructions from the [Apache Kafka web site](https://kafka.apache.org/quickstart) or run `docker-compose up` if you have docker installed on your machine.
 
+### Strimzi
+NOTE: This demo uses [Strimzi web site](https://strimzi.io) which is a Kubernetes-native implementation
+of Apache Kafka. 
+
 ## Start the application
 
 The application can be started using: 

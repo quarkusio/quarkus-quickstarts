@@ -30,7 +30,7 @@ public class QuarksCannonSyncResource {
     static ObjectWriter QUARK_WRITER = new ObjectMapper().writerFor(Quark.class);
 
     @POST
-    @Path("/shoot")
+    @Path("shoot")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response publish(Quark quark) throws Exception {
         String message = QUARK_WRITER.writeValueAsString(quark);

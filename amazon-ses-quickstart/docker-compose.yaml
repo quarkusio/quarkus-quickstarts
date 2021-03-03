@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  localstack:
+    image: localstack/localstack:0.11.1
+    container_name: local-ses
+    ports:
+    - 8012:4566
+    environment:
+      SERVICES: ses
+      START_WEB: 0

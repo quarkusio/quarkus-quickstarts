@@ -3,13 +3,14 @@ package org.acme.kafka;
 import java.util.Collections;
 import java.util.Map;
 
-import org.testcontainers.containers.KafkaContainer;
+import io.strimzi.StrimziKafkaContainer;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class KafkaResource implements QuarkusTestResourceLifecycleManager {
 
-    private final KafkaContainer kafka = new KafkaContainer();
+    private static final String STRIMZI_VERSION = "0.19.0-kafka-2.5.0";
+    private final StrimziKafkaContainer kafka = new StrimziKafkaContainer(STRIMZI_VERSION);
 
     @Override
     public Map<String, String> start() {

@@ -51,7 +51,7 @@ public class TopologyProducer {
                         (timestampAndValue, station) -> {
                             String[] parts = timestampAndValue.split(";");
                             return new TemperatureMeasurement(station.id, station.name, Instant.parse(parts[0]),
-                                    Double.valueOf(parts[1]));
+                                    Double.parseDouble(parts[1]));
                         })
                 .groupByKey()
                 .aggregate(
