@@ -22,7 +22,6 @@ import io.restassured.common.mapper.TypeRef;
 
 @QuarkusTest
 @QuarkusTestResource(KafkaResource.class)
-@QuarkusTestResource(DatabaseResource.class)
 public class PriceTest {
 
     private static final String PRICES_SSE_ENDPOINT = "http://localhost:8081/prices";

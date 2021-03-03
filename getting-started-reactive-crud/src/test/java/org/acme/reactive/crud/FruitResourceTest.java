@@ -6,11 +6,9 @@ import static org.hamcrest.core.IsNot.not;
 
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-@QuarkusTestResource(DatabaseResource.class)
 class FruitResourceTest {
 
     @Test
