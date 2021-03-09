@@ -39,7 +39,8 @@ public class FruitMutinyResource {
     @GET
     public Uni<List<Fruit>> get() {
         return mutinySession
-                .createNamedQuery( "Fruits.findAll", Fruit.class ).getResults().collect().asList();
+                .createNamedQuery( "Fruits.findAll", Fruit.class )
+                .getResultList();
     }
 
     @GET
