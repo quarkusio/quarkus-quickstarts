@@ -47,7 +47,7 @@ In the tooling container, run _kafkacat_ to examine the results of the streaming
 kafkacat -b kafka:9092 -C -o beginning -q -t temperatures-aggregated
 ```
 
-You also can obtain the current aggregated state for a given weather station using _httpie_,
+(Also from the tooling container)You can obtain the current aggregated state for a given weather station using _httpie_,
 which will invoke an Kafka Streams interactive query for that value:
 
 ```bash
@@ -76,6 +76,8 @@ we'll invoke the actual nodes directly.
 The application exposes information about all the host names via REST:
 
 ```bash
+(From the debezieum/tooling container):
+
 http aggregator:8080/weather-stations/meta-data
 ```
 
@@ -83,6 +85,8 @@ Retrieve the data from one of the three hosts shown in the response
 (your actual host names will differ):
 
 ```bash
+(From the debezieum/tooling container):
+
 http cf143d359acc:8080/weather-stations/data/1
 ```
 

@@ -3,30 +3,40 @@ version: '3'
 services:
 
   database1:
-    image: postgres
+    image: library/postgres:12.2
+    container_name: quarkus_test
     environment:
       POSTGRES_USER: "quarkus_test"
       POSTGRES_PASSWORD: "quarkus_test"
     ports:
       - 5432:5432
+    ulimits:
+      memlock: -1
+    mem_swappiness: 0
 
   database2:
-    image: postgres
+    image: library/postgres:12.2
+    container_name: mycompany
     environment:
       POSTGRES_USER: "mycompany"
       POSTGRES_PASSWORD: "mycompany"
     ports:
       - 5433:5432
+    ulimits:
+      memlock: -1
+    mem_swappiness: 0
 
-  quarkus:
-    image: quarkus/hibernate-orm-multi-tenancy
-    environment:
-      DB_HOST_TENANT_BASE: "database1"
-      DB_HOST_TENANT_MYCOMPANY: "database2"
-      DB_PORT_TENANT_BASE: "5432"
-      DB_PORT_TENANT_MYCOMPANY: "5432"
-    depends_on:
-      - database1
-      - database2
-    ports:
-      - 8080:8080
+#
+#
+#  quarkus:
+#    image: quarkus/hibernate-orm-multi-tenancy
+#    environment:
+#      DB_HOST_TENANT_BASE: "database1"
+#      DB_HOST_TENANT_MYCOMPANY: "database2"
+#      DB_PORT_TENANT_BASE: "5432"
+#      DB_PORT_TENANT_MYCOMPANY: "5432"
+#    depends_on:
+#      - database1
+#      - database2
+#    ports:
+#      - 8080:8080

@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  postgres:
+    image: library/postgres:10.5
+    container_name: quarkus_test
+    ports:
+    - 5432:5432
+    ulimits:
+      memlock: -1
+    mem_swappiness: 0
+    environment:
+      POSTGRES_USER: quarkus_test
+      POSTGRES_PASSWORD: quarkus_test
+      POSTGRES_DB: quarkus_test
+

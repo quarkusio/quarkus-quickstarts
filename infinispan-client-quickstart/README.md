@@ -8,6 +8,9 @@ You have two options:
 
 **Option 1:** Running with Docker `docker run -it -p 11222:11222 -e USER="Titus Bramble" -e PASS="Shambles" infinispan/server:latest`
 
+or use the provided docker compose file
+> docker-compose up -d
+
 There is a known issue between Docker For Mac and Infinispan Client integration. Explanations can be found in
 [this blog post](https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html).
 You **won't need to do this in production**, but for Docker for Mac users we have to configure the following 
@@ -40,13 +43,25 @@ Go to http://localhost:8081/infinispan, it should show you a message coming from
 # Use Docker compose with the native image
 
 Once you built a docker image using the `Dockerfile.native`, you might want to test this
-container connecting to a running Infinispan image.
+container connecting to a running Infinispan image. 
+
+Instructions for building the native image are
+at the top src/main/docker/Dockerfile.native.
+```
+# Before building the container image run:
+#
+# ./mvnw package -Pnative
+#
+# Then, build the image with:
+#
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/infinispan-client .
+```
 
 Infinispan needs to be properly started to test this locally, and the containers must be in the same network.
 
 For that, we have provided a docker-compose file. The Infinispan Server container is started first, and the client 
 waits for it. This is done this way for local testing purposes. 
 
-Run and wait for start `docker-compose up`
+Run and wait for start `docker-compose -f docker-compose-native.yaml up -d`
 
 Go to http://localhost:8081/infinispan.

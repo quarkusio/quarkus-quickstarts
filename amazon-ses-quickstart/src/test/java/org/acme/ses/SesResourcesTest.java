@@ -25,7 +25,7 @@ public class SesResourcesTest {
         given()
             .pathParam("resource", testedResource)
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-            .body(String.format(JSON, SesResource.FROM_EMAIL, SesResource.TO_EMAIL, "Hello from Quarkus", "Quarkus is awsome"))
+            .body(String.format(JSON, SesResource.FROM_EMAIL, SesResource.TO_EMAIL, "Hello from Quarkus", "Quarkus is awesome"))
             .when()
             .post("/{resource}/email")
             .then()

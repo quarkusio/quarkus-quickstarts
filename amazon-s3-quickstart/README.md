@@ -5,7 +5,11 @@ This example showcases how to use the AWS S3 client with Quarkus. As a prerequis
 # S3 local instance
 
 Just run it as follows:
-`docker run --rm --name local-s3 -p 8008:4572 -e SERVICES=s3 -e START_WEB=0 -d localstack/localstack`
+`docker run --rm --name local-s3 -p 8008:4566 -e SERVICES=s3 -e START_WEB=0 -d localstack/localstack`
+
+or use the provided docker-compose file
+
+> docker-compose up -d
 
 S3 listens on `localhost:8008` for REST endpoints.
 

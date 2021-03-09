@@ -43,6 +43,9 @@ Make sure you have a PostgreSQL instance running. To set up a PostgreSQL databas
 
 > docker run --ulimit memlock=-1:-1 -it --rm=true --memory-swappiness=0 --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:10.5
 
+or use the provided docker-compose file
+> docker-compose up -d
+
 Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file,
 `src/main/resources/application.properties`.
 

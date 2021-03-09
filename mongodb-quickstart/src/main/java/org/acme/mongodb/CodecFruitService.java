@@ -18,14 +18,11 @@ public class CodecFruitService {
 
     public List<Fruit> list() {
         List<Fruit> list = new ArrayList<>();
-        MongoCursor<Fruit> cursor = getCollection().find().iterator();
 
-        try {
+        try (MongoCursor<Fruit> cursor = getCollection().find().iterator()) {
             while (cursor.hasNext()) {
                 list.add(cursor.next());
             }
-        } finally {
-            cursor.close();
         }
         return list;
     }

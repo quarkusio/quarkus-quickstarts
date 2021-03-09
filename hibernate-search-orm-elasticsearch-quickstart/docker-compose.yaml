@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.0
+    container_name: es_quarkus_test
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      discovery.type: "single-node"
+
+  postgresql:
+    image: library/postgres:11.3
+    container_name: pg_quarkus_test
+    ports:
+      - 5432:5432
+    ulimits:
+      memlock: -1
+    mem_swappiness: 0
+    environment:
+      POSTGRES_USER: quarkus_test
+      POSTGRES_PASSWORD: quarkus_test
+      POSTGRES_DB: quarkus_test

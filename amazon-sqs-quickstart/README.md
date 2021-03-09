@@ -5,7 +5,11 @@ This example showcases how to use the AWS SQS client with Quarkus. As a prerequi
 # AWS SQS local instance
 
 Just run it as follows in order to start SQS locally:
-`docker run --rm --name local-sqs -p 8010:4576 -e SERVICES=sqs -e START_WEB=0 -d localstack/localstack:0.11.1`
+`docker run --rm --name local-sqs -p 8010:4566 -e SERVICES=sqs -e START_WEB=0 -d localstack/localstack:0.11.1`
+
+or use the provided docker compose file
+> docker-compose up -d
+
 SQS listens on `localhost:8010` for REST endpoints.
 
 Create an AWS profile for your local instance using AWS CLI:
@@ -22,7 +26,7 @@ Default output format [None]:
 
 Create a SQS queue and store Queue url in environment variable as we will need to provide it to the our app
 ```
-$> QUEUE_URL=`aws sqs create-queue --queue-name=ColliderQueue --profile localstack --endpoint-url=http://localhost:8010`
+$> export QUEUE_URL=`aws sqs create-queue --queue-name=ColliderQueue --profile localstack --endpoint-url=http://localhost:8010 | jq -r .QueueUrl`
 ```
 
 # Run the demo on dev mode
@@ -38,7 +42,7 @@ curl -XPOST -H"Content-type: application/json" http://localhost:8080/sync/cannon
 ```
 And receive it from the queue
 ```
-curl http://localhost:8080/sync/cannon/shoot
+curl http://localhost:8080/sync/shield
 ```
 
 Repeat the same using async endpoints
@@ -48,7 +52,7 @@ curl -XPOST -H"Content-type: application/json" http://localhost:8080/async/canno
 ```
 And receive it from the queue
 ```
-curl http://localhost:8080/async/cannon/shoot
+curl http://localhost:8080/async/shield
 ```
 
 # Running in native
@@ -81,10 +85,10 @@ Start localstack and connect to the network
 
 Create queue
 ```
-$> QUEUE_URL=`aws sqs create-queue --queue-name=ColliderQueue --profile localstack --endpoint-url=http://localhost:8010`
+xport QUEUE_URL=`aws sqs create-queue --queue-name=ColliderQueue --profile localstack --endpoint-url=http://localhost:8010 | jq -r .QueueUrl`
 ```
 Run quickstart container connected to that network (note that we're using internal port of the localstack)
-`docker run -i --rm --network=localstack -p 8080:8080 quarkus/amazon-sqs-quickstart -Dquarkus.sqs.endpoint-override=http://localstack:4576`
+`docker run -i --rm --network=localstack -p 8080:8080 quarkus/amazon-sqs-quickstart -Dquarkus.sqs.endpoint-override=http://localstack:4566`
 
 Send messsage
 ```
@@ -93,5 +97,5 @@ curl -XPOST -H"Content-type: application/json" http://localhost:8080/sync/cannon
 
 Receive message
 ```
-curl http://localhost:8080/sync/cannon/shoot
+curl http://localhost:8080/sync/shield
 ```

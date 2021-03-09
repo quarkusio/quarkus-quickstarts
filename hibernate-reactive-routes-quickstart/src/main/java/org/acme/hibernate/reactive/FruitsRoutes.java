@@ -35,9 +35,9 @@ public class FruitsRoutes {
     Mutiny.Session session;
 
     @Route(methods = GET, path = "/")
-    public Uni<List<Fruit>> getAll() throws Exception {
+    public Uni<List<Fruit>> getAll() {
         // In this case, it makes sense to return a Uni<List<Fruit>> because we return a reasonable amount of results
-        // Consider returning a Multi<Fruit> for result streams 
+        // Consider returning a Multi<Fruit> for result streams
         return session.createNamedQuery(Fruit.FIND_ALL, Fruit.class).getResultList();
     }
 

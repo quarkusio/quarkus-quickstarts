@@ -147,8 +147,7 @@ public class FruitsEndpointTest {
             return null;
         }
         if (response.statusCode() == 200) {
-            Fruit fruit = response.as(Fruit.class);
-            return fruit;
+            return response.as(Fruit.class);
         }
         throw new IllegalStateException("Unknown status finding '" + fruitName + ": " + response);
     }
