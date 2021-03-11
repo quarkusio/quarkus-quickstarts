@@ -38,7 +38,7 @@ jobs:
         uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
         with:
           java-version: ${{ matrix.java }}
-      - name: Build Quarkus master
+      - name: Build Quarkus main
         run: |
           git clone https://github.com/quarkusio/quarkus.git
           cd quarkus
