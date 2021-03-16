@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - development
+      - "1.11"
 
 jobs:
   build:
