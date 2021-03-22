@@ -14,7 +14,6 @@
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <compiler-plugin.version>3.8.0</compiler-plugin.version>
-        <docker-plugin.version>0.28.0</docker-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -106,62 +105,6 @@
                     <execution>
                         <goals>
                             <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <!-- Automatically start PostgreSQL for integration testing - requires Docker -->
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker-plugin.version}</version>
-                <configuration>
-                    <skip>${skipTests}</skip>
-                    <images>
-                        <image>
-                            <name>postgres:10.5</name>
-                            <alias>postgresql</alias>
-                            <run>
-                                <env>
-                                    <POSTGRES_USER>quarkus_test</POSTGRES_USER>
-                                    <POSTGRES_PASSWORD>quarkus_test</POSTGRES_PASSWORD>
-                                    <POSTGRES_DB>quarkus_test</POSTGRES_DB>
-                                </env>
-                                <ports>
-                                    <port>5432:5432</port>
-                                </ports>
-                                <log>
-                                    <prefix>PostgreSQL: </prefix>
-                                    <date>default</date>
-                                    <color>cyan</color>
-                                </log>
-                                <wait>
-                                    <tcp>
-                                        <mode>mapped</mode>
-                                        <ports>
-                                            <port>5432</port>
-                                        </ports>
-                                    </tcp>
-                                    <time>10000</time>
-                                </wait>
-                            </run>
-                        </image>
-                    </images>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>docker-start</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>stop</goal>
-                            <goal>start</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>docker-stop</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
                         </goals>
                     </execution>
                 </executions>

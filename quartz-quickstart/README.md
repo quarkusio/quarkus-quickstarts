@@ -28,15 +28,6 @@ Launch the Maven build on the checked out sources of this demo:
 
 ## Running the demo
 
-### Prepare a PostgreSQL instance
-
-Make sure you have a PostgreSQL instance running. To set up a PostgreSQL database with Docker:
-
-> docker-compose up postgres
-
-Connection properties for the Agroal datasource, and Quartz are defined in the standard Quarkus configuration file,
-`src/main/resources/application.properties`.
-
 ### Live coding with Quarkus
 
 The Maven Quarkus plugin provides a development mode that supports
@@ -58,6 +49,13 @@ First compile it:
 Note that running this command will start a PostgreSQL instance and run the tests. To skip tests use the command below
 
 > ./mvnw install -DskipTests
+
+Next we need to make sure you have a PostgreSQL instance running (Quarkus automatically starts one for dev and test mode). To set up a PostgreSQL database with Docker:
+
+> docker-compose up postgres
+
+Connection properties for the Agroal datasource, and Quartz are defined in the standard Quarkus configuration file,
+`src/main/resources/application.properties`.
 
 Then run the application with:
 

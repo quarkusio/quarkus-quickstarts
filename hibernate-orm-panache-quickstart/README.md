@@ -37,15 +37,6 @@ Launch the Maven build on the checked out sources of this demo:
 
 ## Running the demo
 
-### Prepare a PostgreSQL instance
-
-Make sure you have a PostgreSQL instance running. To set up a PostgreSQL database with Docker:
-
-> docker run --ulimit memlock=-1:-1 -it --rm=true --memory-swappiness=0 --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:10.5
-
-Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file,
-`src/main/resources/application.properties`.
-
 ### Live coding with Quarkus
 
 The Maven Quarkus plugin provides a development mode that supports
@@ -66,6 +57,13 @@ conventional jar file.
 First compile it:
 
 > ./mvnw install
+
+Next we need to make sure you have a PostgreSQL instance running (Quarkus automatically starts one for dev and test mode). To set up a PostgreSQL database with Docker:
+
+> docker run --ulimit memlock=-1:-1 -it --rm=true --memory-swappiness=0 --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:11.5
+
+Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file,
+`src/main/resources/application.properties`.
 
 Then run it:
 

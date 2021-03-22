@@ -5,7 +5,6 @@ import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
 @QuarkusTestResource(KafkaResource.class)
-@QuarkusTestResource(DatabaseResource.class)
 public class PriceIT extends PriceTest {
 
 }

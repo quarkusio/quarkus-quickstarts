@@ -10,7 +10,6 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 @QuarkusTest
 @QuarkusTestResource(KafkaResource.class)
-@QuarkusTestResource(DatabaseResource.class)
 class PriceResourceTest {
 
     @Test
