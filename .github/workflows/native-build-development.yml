@@ -91,7 +91,7 @@ jobs:
         run: rm -rf ~/.m2/repository/org/acme
 
       - name: Report
-        if: "github.repository == 'quarkusio/quarkus-quickstarts'"
+        if: "always() && github.repository == 'quarkusio/quarkus-quickstarts'"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
           STATUS: ${{ job.status }}
