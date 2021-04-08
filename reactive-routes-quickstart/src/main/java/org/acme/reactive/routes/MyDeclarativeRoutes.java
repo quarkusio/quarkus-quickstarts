@@ -9,12 +9,12 @@ import io.vertx.ext.web.RoutingContext;
 @ApplicationScoped
 public class MyDeclarativeRoutes {
 
-    @Route(path = "/", methods = HttpMethod.GET)
+    @Route(path = "/", methods = Route.HttpMethod.GET)
     public void handle(RoutingContext rc) {
         rc.response().end("hello");
     }
 
-    @Route(path = "/hello", methods = HttpMethod.GET)
+    @Route(path = "/hello", methods = Route.HttpMethod.GET)
     public void greetings(RoutingContext rc) {
         String name = rc.request().getParam("name");
         if (name == null) {

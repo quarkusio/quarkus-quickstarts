@@ -3,7 +3,7 @@ package org.acme.quickstart;
 import io.quarkus.vertx.web.Route;
 import io.vertx.ext.web.RoutingContext;
 
-import static io.vertx.core.http.HttpMethod.GET;
+import static io.quarkus.vertx.web.Route.HttpMethod.GET;
 
 public class GreetingRoutes {
     @Route(path = "/vertx/hello", methods = GET)
