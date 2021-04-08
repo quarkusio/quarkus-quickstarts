@@ -1,10 +1,10 @@
 package org.acme.hibernate.reactive;
 
 import static io.quarkus.vertx.web.Route.HandlerType.FAILURE;
-import static io.vertx.core.http.HttpMethod.DELETE;
-import static io.vertx.core.http.HttpMethod.GET;
-import static io.vertx.core.http.HttpMethod.POST;
-import static io.vertx.core.http.HttpMethod.PUT;
+import static io.quarkus.vertx.web.Route.HttpMethod.GET;
+import static io.quarkus.vertx.web.Route.HttpMethod.POST;
+import static io.quarkus.vertx.web.Route.HttpMethod.PUT;
+import static io.quarkus.vertx.web.Route.HttpMethod.DELETE;
 
 import java.util.List;
 import java.util.NoSuchElementException;

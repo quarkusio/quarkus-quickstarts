@@ -1,15 +1,11 @@
 package org.acme.panache;
 
-import java.time.Duration;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
-import javax.enterprise.context.ApplicationScoped;
-
 import io.smallrye.mutiny.Multi;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
-import io.reactivex.Flowable;
+import javax.enterprise.context.ApplicationScoped;
+import java.time.Duration;
+import java.util.Random;
 
 /**
  * A bean producing random prices every 5 seconds.

@@ -1,13 +1,11 @@
 package org.acme.mqtt;
 
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
-import javax.enterprise.context.ApplicationScoped;
-
+import io.smallrye.mutiny.Multi;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
-import io.reactivex.Flowable;
+import javax.enterprise.context.ApplicationScoped;
+import java.time.Duration;
+import java.util.Random;
 
 /**
  * A bean producing random prices every 5 seconds.
@@ -19,8 +17,9 @@ public class PriceGenerator {
     private Random random = new Random();
 
     @Outgoing("topic-price")
-    public Flowable<Integer> generate() {
-        return Flowable.interval(5, TimeUnit.SECONDS)
+    public Multi<Integer> generate() {
+        return Multi.createFrom().ticks().every(Duration.ofSeconds(5))
+                .onOverflow().drop()
                 .map(tick -> {
                     int price = random.nextInt(100);
                     System.out.println("Sending price: " + price);
