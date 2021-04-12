@@ -73,6 +73,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Quartz](./quartz-quickstart): How to schedule periodic clustered jobs
 * [Qute](./qute-quickstart): How to use the Qute templating engine in Quarkus
 * [Reactive Routes](./reactive-routes-quickstart): How to use Reactive Routes in Quarkus
+* [REST Client Reactive](./rest-client-quickstart): How to use MicroProfile's REST Client with Reactive client
 * [REST Client](./rest-client-quickstart): How to use MicroProfile's REST Client
 * [REST Client Multipart](./rest-client-multipart-quickstart): Handle multipart with MicroProfile's REST Client
 * [JSON REST services](./rest-json-quickstart): How to write JSON REST services
