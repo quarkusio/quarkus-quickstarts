@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import io.quarkus.mailer.MailTemplate;
-import io.quarkus.qute.api.CheckedTemplate;
+import io.quarkus.qute.CheckedTemplate;
 import io.smallrye.mutiny.Uni;
 
 @Path("/mail")
