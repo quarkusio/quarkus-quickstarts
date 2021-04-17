@@ -15,12 +15,12 @@ This project uses GitHub issues to manage the issues. Open an issue directly in 
 
 To contribute, use GitHub Pull Requests, from your **own** fork.
 
-* The `master` branch uses the latest release of Quarkus.
+* The `main` branch uses the latest release of Quarkus.
 * The `development` branch uses a snapshot version of Quarkus.
 
-All contributions must target the `development` branch. The `master` branch is reset for each release.
+All contributions must target the `development` branch. The `main` branch is reset for each release.
 
-**All changes made only to the `master` branch will be definitely lost.**
+**All changes made only to the `main` branch will be definitely lost.**
 
 For pull requests depending on features not yet merged in Quarkus, prepend the title with "[DO NOT MERGE]".
 
