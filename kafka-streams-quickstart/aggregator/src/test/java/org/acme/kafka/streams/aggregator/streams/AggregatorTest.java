@@ -100,7 +100,7 @@ public class AggregatorTest {
         int fetched = 0;
         List<ConsumerRecord<Integer, Aggregation>> result = new ArrayList<>();
         while (fetched < expectedRecordCount) {
-            ConsumerRecords<Integer, Aggregation> records = consumer.poll(Duration.ofSeconds(1));
+            ConsumerRecords<Integer, Aggregation> records = consumer.poll(Duration.ofSeconds(5));
             records.forEach(result::add);
             fetched = result.size();
         }
