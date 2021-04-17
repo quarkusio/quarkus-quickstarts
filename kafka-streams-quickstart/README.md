@@ -8,13 +8,13 @@ This project illustrates how you can build [Apache Kafka Streams](https://kafka.
 This quickstart is made up of the following parts:
 
 * Apache Kafka and ZooKeeper
-* _producer_, a Quarkus application that publishes some test data on two Kafka topics: "weather-stations" and "temperature-values"
+* _producer_, a Quarkus application that publishes some test data on two Kafka topics: `weather-stations` and `temperature-values`
 * _aggregator_, a Quarkus application processing the two topics, using the Kafka Streams API
 
 The _aggregator_ application is the interesting piece; it
 
 * runs a KStreams pipeline, that joins the two topics (on the weather station id),
-groups the values by weather station and emits the minimum/maximum temperature value per station to the "temperatures-aggregated" topic
+groups the values by weather station and emits the minimum/maximum temperature value per station to the `temperatures-aggregated` topic
 * exposes an HTTP endpoint for getting the current minimum/maximum values
 for a given station using Kafka Streams interactive queries.
 
@@ -29,7 +29,7 @@ mvn clean install
 ## Running
 
 A Docker Compose file is provided for running all the components.
-Start all containers by running
+Start all containers by running:
 
 ```bash
 docker-compose up -d --build
