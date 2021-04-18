@@ -42,11 +42,11 @@ jobs:
         run: |
           git clone https://github.com/quarkusio/quarkus.git
           cd quarkus
-          mvn -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
+          ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
 
       - name: Build Quickstart with native
         run: |
-          mvn --settings .github/mvn-settings.xml -B clean install --fail-at-end -Pnative -Dstart-containers \
+          ./mvnw -e -B --settings .github/mvn-settings.xml clean install --fail-at-end -Pnative -Dstart-containers \
             -Dquarkus.native.container-build=true
 
       #- name: Check RSS
