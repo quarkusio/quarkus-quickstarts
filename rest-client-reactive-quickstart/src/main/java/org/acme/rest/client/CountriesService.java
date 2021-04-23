@@ -15,17 +15,15 @@ import java.util.concurrent.CompletionStage;
 public interface CountriesService {
 
     @GET
-    @Path("/name/{name}")
-    Set<Country> getByName(@PathParam("name") String name);
+    @Path("/name/{countryName}")
+    Set<Country> getByName(String countryName);
 
 
     @GET
-    @Path("/name/{name}")
-    @Produces("application/json")
-    CompletionStage<Set<Country>> getByNameAsync(@PathParam("name") String name);
+    @Path("/name/{countryName}")
+    CompletionStage<Set<Country>> getByNameAsync(String countryName);
 
     @GET
-    @Path("/name/{name}")
-    @Produces("application/json")
-    Uni<Set<Country>> getByNameAsUni(@PathParam("name") String name);
+    @Path("/name/{countryName}")
+    Uni<Set<Country>> getByNameAsUni(String countryName);
 }
