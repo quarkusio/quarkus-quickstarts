@@ -15,6 +15,7 @@
         <module>amazon-ses-quickstart</module>
         <module>amazon-sns-quickstart</module>
         <module>amazon-sqs-quickstart</module>
+        <module>amazon-ssm-quickstart</module>
         <module>amqp-quickstart</module>
         <module>cache-quickstart</module>
         <module>config-quickstart</module>
