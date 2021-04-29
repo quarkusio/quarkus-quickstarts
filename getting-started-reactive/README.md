@@ -11,13 +11,13 @@ Under the hood, this demo uses:
 
 To compile and run this demo you will need:
 
-- JDK 1.8+
+- JDK 11+
 - GraalVM
 
-### Configuring GraalVM and JDK 1.8+
+### Configuring GraalVM and JDK 11+
 
 Make sure that both the `GRAALVM_HOME` and `JAVA_HOME` environment variables have
-been set, and that a JDK 1.8+ `java` command is on the path.
+been set, and that a JDK 11+ `java` command is on the path.
 
 See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image-guide)
 for help setting up your environment.

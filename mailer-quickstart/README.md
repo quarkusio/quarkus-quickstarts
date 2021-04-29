@@ -8,7 +8,7 @@ It generates the email body with a Qute template.
 1. You need to generate an application password to use GMail from the application.
 Follow these [instructions](https://support.google.com/mail/answer/185833) to create the password. 
 
-2. You need Java 1.8+. However, we recommend Java 11+.
+2. You need Java 11+.
 3. You need GraalVM and `native-image` installed and configured. Follows the [instructions](https://quarkus.io/guides/building-native-image) to download, install, and configure GraalVM.
 
 ## Building the application
