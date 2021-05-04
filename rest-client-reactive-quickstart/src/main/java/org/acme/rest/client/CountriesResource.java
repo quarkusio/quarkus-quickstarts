@@ -18,21 +18,21 @@ public class CountriesResource {
 
 
     @GET
-    @Path("/name/{name}")
+    @Path("/name/{countryName}")
     @Blocking
-    public Set<Country> name(@PathParam("name") String name) {
-        return countriesService.getByName(name);
+    public Set<Country> name(String countryName) {
+        return countriesService.getByName(countryName);
     }
 
     @GET
-    @Path("/name-async/{name}")
-    public CompletionStage<Set<Country>> nameAsync(@PathParam("name") String name) {
-        return countriesService.getByNameAsync(name);
+    @Path("/name-async/{countryName}")
+    public CompletionStage<Set<Country>> nameAsync(String countryName) {
+        return countriesService.getByNameAsync(countryName);
     }
 
     @GET
-    @Path("/name-uni/{name}")
-    public Uni<Set<Country>> nameUni(@PathParam("name") String name) {
-        return countriesService.getByNameAsUni(name);
+    @Path("/name-uni/{countryName}")
+    public Uni<Set<Country>> nameUni(String countryName) {
+        return countriesService.getByNameAsUni(countryName);
     }
 }
