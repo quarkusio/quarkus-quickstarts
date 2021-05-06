@@ -40,8 +40,8 @@ jobs:
         uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
         with:
           java-version: ${{ matrix.java }}
-      - name: Build Quarkus master
-        run: git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B clean install -DskipTests -DskipITs
+      - name: Build Quarkus 1.11
+        run: git clone https://github.com/quarkusio/quarkus.git && cd quarkus && git checkout 1.11 && mvn -B clean install -DskipTests -DskipITs
       - name: Build with Maven
         run: export LANG=en_US && mvn -B clean install -Dstart-containers
       - name: Delete Local Artifacts From Cache
