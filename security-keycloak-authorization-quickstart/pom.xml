@@ -14,7 +14,7 @@
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
-        <keycloak.version>12.0.2</keycloak.version>
+        <keycloak.version>13.0.0</keycloak.version>
         <testcontainers.version>1.15.2</testcontainers.version>
         <surefire.version>3.0.0-M5</surefire.version>
         <maven.compiler.source>11</maven.compiler.source>
