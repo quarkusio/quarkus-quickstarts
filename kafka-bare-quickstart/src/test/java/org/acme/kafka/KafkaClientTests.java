@@ -4,6 +4,8 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
@@ -23,11 +25,13 @@ class KafkaClientTests {
                 .then()
                 .statusCode(200);
 
-        await().untilAsserted(() ->
-                get("/kafka")
-                        .then()
-                        .statusCode(200)
-                        .body(containsString("my-key-my-value"))
+        await()
+                .atMost(Duration.ofMinutes(1))
+                .untilAsserted(() ->
+                    get("/kafka")
+                            .then()
+                            .statusCode(200)
+                            .body(containsString("my-key-my-value"))
         );
 
         get("/kafka/topics")
@@ -46,11 +50,13 @@ class KafkaClientTests {
                 .then()
                 .statusCode(200);
 
-        await().untilAsserted(() ->
-                get("/vertx-kafka")
-                        .then()
-                        .statusCode(200)
-                        .body(containsString("my-key-vertx-my-value-vertx"))
+        await()
+                .atMost(Duration.ofMinutes(1))
+                .untilAsserted(() ->
+                    get("/vertx-kafka")
+                            .then()
+                            .statusCode(200)
+                            .body(containsString("my-key-vertx-my-value-vertx"))
         );
 
         get("/vertx-kafka/topics")
