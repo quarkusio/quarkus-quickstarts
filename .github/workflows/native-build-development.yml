@@ -9,9 +9,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_with_native:
+  generate-json-matrix:
+    name: Native Tests - Read JSON matrix
     runs-on: ubuntu-latest
     if: "github.repository == 'quarkusio/quarkus-quickstarts' || github.event_name == 'workflow_dispatch'"
+    outputs:
+      matrix: ${{ steps.generate.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: generate
+        run: |
+          json=$(.github/generate-native-matrix.sh | tr -d '\n')
+          echo "::set-output name=matrix::${json}"
+  build-with-native:
+    name: ${{matrix.category}}
+    runs-on: ubuntu-latest
+    needs: [generate-json-matrix]
+    if: "github.repository == 'quarkusio/quarkus-quickstarts' || github.event_name == 'workflow_dispatch'"
+    strategy:
+      max-parallel: 5
+      fail-fast: false
+      matrix: ${{ fromJson(needs.generate-json-matrix.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -44,10 +62,10 @@ jobs:
           cd quarkus
           ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
 
-      - name: Build Quickstart with native
+      - name: Build Quickstarts with Native
         run: |
           ./mvnw -e -B --settings .github/mvn-settings.xml clean install --fail-at-end -Pnative -Dstart-containers \
-            -Dquarkus.native.container-build=true
+            -Dquarkus.native.container-build=true -am -pl "${{ matrix.test-modules }}"
 
       #- name: Check RSS
       #  env:
@@ -90,11 +108,16 @@ jobs:
         shell: bash
         run: rm -rf ~/.m2/repository/org/acme
 
+  report:
+    name: Report
+    runs-on: ubuntu-latest
+    needs: [build-with-native]
+    if: "always() && github.repository == 'quarkusio/quarkus-quickstarts'"
+    steps:
       - name: Report
-        if: "always() && github.repository == 'quarkusio/quarkus-quickstarts'"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
-          STATUS: ${{ job.status }}
+          STATUS: ${{ needs.build-with-native.result }}
         run: |
           echo "The report step got status: ${STATUS}"
           sudo apt-get update -o Dir::Etc::sourcelist="sources.list" \
