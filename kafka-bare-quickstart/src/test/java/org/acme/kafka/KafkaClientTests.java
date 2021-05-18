@@ -1,21 +1,24 @@
 package org.acme.kafka;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
-
-import java.time.Duration;
-
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.core.StringContains.containsString;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.DisabledOnNativeImage;
+import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 @QuarkusTestResource(KafkaResource.class)
 class KafkaClientTests {
 
     @Test
+    @DisabledOnNativeImage
     void testBareClients() {
         given()
                 .queryParam("key", "my-key")
