@@ -1,0 +1,92 @@
+package org.acme.microprofile.graphql.client;
+
+
+import io.smallrye.common.annotation.Blocking;
+import io.smallrye.graphql.client.NamedClient;
+import io.smallrye.graphql.client.Response;
+import io.smallrye.graphql.client.core.Document;
+import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
+import org.acme.microprofile.graphql.client.model.Film;
+import org.acme.microprofile.graphql.client.model.FilmConnection;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
+
+import static io.smallrye.graphql.client.core.Document.document;
+import static io.smallrye.graphql.client.core.Field.field;
+import static io.smallrye.graphql.client.core.Operation.operation;
+
+/*
+    Shows the usage of the typesafe and dynamic GraphQL clients.
+    In both cases, the same query is executed against the Star Wars API.
+    The query retrieves a list of all films, and for each film, the names of
+    all planets which appear in that film.
+    The query is:
+
+    {
+      allFilms {
+        films {
+          title
+          planetConnection {
+            planets {
+              name
+            }
+          }
+        }
+      }
+    }
+
+    You can try executing this query manually on https://graphql.org/swapi-graphql
+ */
+@Path("/")
+public class StarWarsResource {
+
+    // example of typesafe client usage follows
+
+    @Inject
+    StarWarsClientApi typesafeClient;
+
+    @GET
+    @Path("/typesafe")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Blocking
+    public List<Film> getAllFilmsUsingTypesafeClient() {
+        return typesafeClient.allFilms().getFilms();
+    }
+
+    // example of dynamic client usage follows
+
+    @Inject
+    @NamedClient("star-wars-dynamic")
+    DynamicGraphQLClient dynamicClient;
+
+    @GET
+    @Path("/dynamic")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Blocking
+    public List<Film> getAllFilmsUsingDynamicClient() throws Exception {
+        Document query = document(
+                operation(
+                        field("allFilms",
+                                field("films",
+                                        field("title"),
+                                        field("planetConnection",
+                                                field("planets",
+                                                        field("name")
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+        Response response = dynamicClient.executeSync(query);
+        // Either work with the data as a JsonObject, or, as we show here,
+        // translate it into an instance of the corresponding model class
+        return response.getObject(FilmConnection.class, "allFilms").getFilms();
+    }
+
+}
