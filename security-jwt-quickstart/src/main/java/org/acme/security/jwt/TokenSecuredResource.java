@@ -26,14 +26,13 @@ public class TokenSecuredResource {
     @Inject
     @Claim(standard = Claims.birthdate)
     String birthdate;
-    
 
     @GET
     @Path("permit-all")
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
     public String hello(@Context SecurityContext ctx) {
-    	return getResponseString(ctx);
+        return getResponseString(ctx);
     }
 
     @GET
@@ -41,15 +40,15 @@ public class TokenSecuredResource {
     @RolesAllowed({ "User", "Admin" })
     @Produces(MediaType.TEXT_PLAIN)
     public String helloRolesAllowed(@Context SecurityContext ctx) {
-    	return getResponseString(ctx) + ", birthdate: " + jwt.getClaim("birthdate").toString();
+        return getResponseString(ctx) + ", birthdate: " + jwt.getClaim("birthdate").toString();
     }
-    
+
     @GET
     @Path("roles-allowed-admin")
     @RolesAllowed("Admin")
     @Produces(MediaType.TEXT_PLAIN)
     public String helloRolesAllowedAdmin(@Context SecurityContext ctx) {
-    	return getResponseString(ctx) + ", birthdate: " + birthdate;
+        return getResponseString(ctx) + ", birthdate: " + birthdate;
     }
 
     @GET
@@ -61,7 +60,7 @@ public class TokenSecuredResource {
     }
 
     private String getResponseString(SecurityContext ctx) {
-    	String name;
+        String name;
         if (ctx.getUserPrincipal() == null) {
             name = "anonymous";
         } else if (!ctx.getUserPrincipal().getName().equals(jwt.getName())) {
@@ -70,13 +69,13 @@ public class TokenSecuredResource {
             name = ctx.getUserPrincipal().getName();
         }
         return String.format("hello + %s,"
-        		+ " isHttps: %s,"
-        		+ " authScheme: %s,"
-        		+ " hasJWT: %s",
-        		name, ctx.isSecure(), ctx.getAuthenticationScheme(), hasJwt());
+                + " isHttps: %s,"
+                + " authScheme: %s,"
+                + " hasJWT: %s",
+                name, ctx.isSecure(), ctx.getAuthenticationScheme(), hasJwt());
     }
 
-	private boolean hasJwt() {
-		return jwt.getClaimNames() != null;
-	}
+    private boolean hasJwt() {
+        return jwt.getClaimNames() != null;
+    }
 }

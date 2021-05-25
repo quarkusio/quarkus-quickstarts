@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ 8, 11 ]
+        java: [ 11 ]
     steps:
       - uses: actions/checkout@v2
       - name: Get Date
@@ -42,9 +42,9 @@ jobs:
         run: |
           git clone https://github.com/quarkusio/quarkus.git
           cd quarkus
-          mvn -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
+          ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
       - name: Build with Maven
-        run: export LANG=en_US && mvn --settings .github/mvn-settings.xml -B clean install -Dstart-containers
+        run: export LANG=en_US && ./mvnw -e -B -fae --settings .github/mvn-settings.xml clean install -Dstart-containers
       - name: Delete Local Artifacts From Cache
         shell: bash
         run: rm -rf ~/.m2/repository/org/acme

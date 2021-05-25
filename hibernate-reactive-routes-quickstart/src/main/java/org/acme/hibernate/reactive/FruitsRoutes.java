@@ -1,10 +1,10 @@
 package org.acme.hibernate.reactive;
 
 import static io.quarkus.vertx.web.Route.HandlerType.FAILURE;
-import static io.vertx.core.http.HttpMethod.DELETE;
-import static io.vertx.core.http.HttpMethod.GET;
-import static io.vertx.core.http.HttpMethod.POST;
-import static io.vertx.core.http.HttpMethod.PUT;
+import static io.quarkus.vertx.web.Route.HttpMethod.GET;
+import static io.quarkus.vertx.web.Route.HttpMethod.POST;
+import static io.quarkus.vertx.web.Route.HttpMethod.PUT;
+import static io.quarkus.vertx.web.Route.HttpMethod.DELETE;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -37,13 +37,13 @@ public class FruitsRoutes {
     @Route(methods = GET, path = "/")
     public Uni<List<Fruit>> getAll() throws Exception {
         // In this case, it makes sense to return a Uni<List<Fruit>> because we return a reasonable amount of results
-        // Consider returning a Multi<Fruit> for result streams 
+        // Consider returning a Multi<Fruit> for result streams
         return session.createNamedQuery(Fruit.FIND_ALL, Fruit.class).getResultList();
     }
 
     @Route(methods = GET, path = "/:id")
-    public Uni<Fruit> getSingle(@Param String id) {
-        return session.find(Fruit.class, Integer.valueOf(id));
+    public Uni<Fruit> getSingle(@Param Integer id) {
+        return session.find(Fruit.class, id);
     }
 
     @Route(methods = POST, path = "/")
@@ -51,41 +51,31 @@ public class FruitsRoutes {
         if (fruit == null || fruit.getId() != null) {
             return Uni.createFrom().failure(new IllegalArgumentException("Fruit id invalidly set on request."));
         }
-        return session.persist(fruit)
-                .chain(session::flush)
-                .onItem().transform(ignore -> {
-                    response.setStatusCode(201);
-                    return fruit;
-                });
+        return session.withTransaction(tx -> session.persist(fruit))
+                .invoke(() -> response.setStatusCode(201))
+                .replaceWith(fruit);
     }
 
     @Route(methods = PUT, path = "/:id")
-    public Uni<Fruit> update(@Body Fruit fruit, @Param String id) {
+    public Uni<Fruit> update(@Body Fruit fruit, @Param Integer id) {
         if (fruit == null || fruit.getName() == null) {
             return Uni.createFrom().failure(new IllegalArgumentException("Fruit name was not set on request."));
         }
-        return session.find(Fruit.class, Integer.valueOf(id))
-                // If entity exists then update
-                .onItem().ifNotNull().transformToUni(entity -> {
-                    entity.setName(fruit.getName());
-                    return session.flush()
-                            .onItem().transform(ignore -> entity);
-                })
-                // else
+        return session.withTransaction(tx -> session.find(Fruit.class, id)
+                // If entity exists then update it
+                .onItem().ifNotNull().invoke(entity -> entity.setName(fruit.getName())))
+                // If entity not found, fail
                 .onItem().ifNull().fail();
     }
 
     @Route(methods = DELETE, path = "/:id")
-    public Uni<Fruit> delete(@Param String id, HttpServerResponse response) {
-        return session.find(Fruit.class, Integer.valueOf(id))
-                // If entity exists then delete
-                .onItem().ifNotNull().transformToUni(entity -> session.remove(entity)
-                        .chain(session::flush)
-                        .map(ignore -> {
-                            response.setStatusCode(204).end();
-                            return entity;
-                        }))
-                // else
+    public Uni<Fruit> delete(@Param Integer id, HttpServerResponse response) {
+        return session.withTransaction(tx -> session.find(Fruit.class, id)
+                // If entity exists then delete it
+                .onItem().ifNotNull()
+                    .call(entity -> session.remove(entity)
+                            .invoke(() -> response.setStatusCode(204))))
+                // If entity not found, fail
                 .onItem().ifNull().fail();
     }
 

@@ -79,8 +79,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                     <!-- the parameters=true option is critical so that RESTEasy works fine -->
                     <parameters>true</parameters>
                 </configuration>

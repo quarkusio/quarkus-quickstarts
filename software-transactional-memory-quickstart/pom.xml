@@ -12,9 +12,11 @@
     <quarkus-plugin.version>1.13.4.Final</quarkus-plugin.version>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>1.13.4.Final</quarkus.platform.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+development
   </properties>
   <dependencyManagement>
     <dependencies>

@@ -15,6 +15,7 @@
         <module>amazon-ses-quickstart</module>
         <module>amazon-sns-quickstart</module>
         <module>amazon-sqs-quickstart</module>
+        <module>amazon-ssm-quickstart</module>
         <module>amqp-quickstart</module>
         <module>cache-quickstart</module>
         <module>config-quickstart</module>
@@ -41,6 +42,7 @@
         <module>infinispan-client-quickstart</module>
         <module>jms-quickstart</module>
         <module>kafka-quickstart</module>
+        <module>kafka-avro-schema-quickstart</module>
         <module>kafka-bare-quickstart</module>
         <module>kafka-streams-quickstart</module>
         <module>kogito-quickstart</module>
@@ -59,6 +61,7 @@
         <module>opentracing-quickstart</module>
         <module>quartz-quickstart</module>
         <module>qute-quickstart</module>
+        <module>rest-client-reactive-quickstart</module>
         <module>reactive-routes-quickstart</module>
         <module>reactive-messaging-http-quickstart</module>
         <module>redis-quickstart</module>

@@ -43,8 +43,6 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTestResource(KafkaResource.class)
 public class AggregatorTest {
 
-    static final String BROKER_LIST = "localhost:9092";
-
     KafkaProducer<Integer, String> temperatureProducer;
 
     KafkaProducer<Integer, WeatherStation> weatherStationsProducer;
@@ -66,8 +64,8 @@ public class AggregatorTest {
     }
 
     @Test
-    @Timeout(value = 30, unit = TimeUnit.SECONDS)
-    public void test() throws InterruptedException {
+    @Timeout(value = 30)
+    public void test() {
         weatherStationsConsumer.subscribe(Collections.singletonList(TEMPERATURES_AGGREGATED_TOPIC));
         weatherStationsProducer.send(new ProducerRecord<>(WEATHER_STATIONS_TOPIC, 1, new WeatherStation(1, "Station 1")));
         temperatureProducer.send(new ProducerRecord<>(TEMPERATURE_VALUES_TOPIC, 1,Instant.now() + ";" + "15" ));
@@ -83,7 +81,7 @@ public class AggregatorTest {
 
     private Properties consumerProps() {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BROKER_LIST);
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaResource.getBootstrapServers());
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "test-group-id");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
@@ -92,7 +90,7 @@ public class AggregatorTest {
 
     private Properties producerProps() {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BROKER_LIST);
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaResource.getBootstrapServers());
         return props;
     }
 
@@ -100,7 +98,7 @@ public class AggregatorTest {
         int fetched = 0;
         List<ConsumerRecord<Integer, Aggregation>> result = new ArrayList<>();
         while (fetched < expectedRecordCount) {
-            ConsumerRecords<Integer, Aggregation> records = consumer.poll(Duration.ofSeconds(1));
+            ConsumerRecords<Integer, Aggregation> records = consumer.poll(Duration.ofSeconds(5));
             records.forEach(result::add);
             fetched = result.size();
         }

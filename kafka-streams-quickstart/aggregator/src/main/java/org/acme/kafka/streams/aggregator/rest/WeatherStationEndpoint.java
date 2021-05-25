@@ -18,6 +18,8 @@ import javax.ws.rs.core.Response.Status;
 import org.acme.kafka.streams.aggregator.streams.GetWeatherStationDataResult;
 import org.acme.kafka.streams.aggregator.streams.InteractiveQueries;
 import org.acme.kafka.streams.aggregator.streams.PipelineMetadata;
+import org.eclipse.microprofile.config.inject.ConfigProperties;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 @Path("/weather-stations")
@@ -25,6 +27,9 @@ public class WeatherStationEndpoint {
 
     @Inject
     InteractiveQueries interactiveQueries;
+
+    @ConfigProperty(name = "quarkus.http.ssl-port")
+    int sslPort;
 
     @GET
     @Path("/data/{id}")
@@ -52,7 +57,8 @@ public class WeatherStationEndpoint {
 
     private URI getOtherUri(String host, int port, int id) {
         try {
-            return new URI("http://" + host + ":" + port + "/weather-stations/data/" + id);
+            String scheme = (port == sslPort) ? "https" : "http";
+            return new URI(scheme + "://" + host + ":" + port + "/weather-stations/data/" + id);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

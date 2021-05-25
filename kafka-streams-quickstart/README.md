@@ -115,10 +115,24 @@ Date: Tue, 11 Jun 2019 19:17:51 GMT
 Location: http://72064bb97be9:8080/weather-stations/data/2
 ```
 
-You can have _httpie_ automatically follow the redirect by passing the `--follow option`:
+You can have _httpie_ automatically follow the redirect by passing the `--follow` option:
 
 ```bash
-http --follow cf143d359acc:8080/weather-stations/data/2
+http --follow aggregator:8080/weather-stations/data/2
+```
+
+## TLS 
+
+In case HTTP is disabled via:
+
+```properties
+quarkus.http.insecure-requests=disabled
+```
+
+The endpoint URL becomes:
+
+```bash
+curl -L --insecure https://aggregator:8443/weather-stations/data/2
 ```
 
 ## Running in native

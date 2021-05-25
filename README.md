@@ -44,6 +44,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Amazon S3](./amazon-s3-quickstart): How to connect to an Amazon S3 cloud storage
 * [Amazon SNS](./amazon-sns-quickstart): How to connect to an Amazon SNS (Simple Messaging Service)
 * [Amazon SQS](./amazon-sqs-quickstart): How to connect to an Amazon SQS (Simple Queue Service)
+* [Amazon SSM](./amazon-ssm-quickstart): How to connect to Amazon SSM (Simple Systems Manager)
 * [Hibernate Reactive Panache and RESTEasy Reactive](./hibernate-reactive-quickstart): Exposing a CRUD service over REST using Hibernate Reactive and Panache to connect to a PostgreSQL database
 * [Hibernate Reactive and RESTEasy](./hibernate-reactive-quickstart): Exposing a CRUD service over REST using Hibernate Reactive to connect to a PostgreSQL database
 * [Hibernate Reactive and Vert.x Web](./hibernate-reactive-routes-quickstart): Exposing a CRUD service with Reactive Routes using Hibernate Reactive to connect to a PostgreSQL database
@@ -73,6 +74,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Quartz](./quartz-quickstart): How to schedule periodic clustered jobs
 * [Qute](./qute-quickstart): How to use the Qute templating engine in Quarkus
 * [Reactive Routes](./reactive-routes-quickstart): How to use Reactive Routes in Quarkus
+* [REST Client Reactive](./rest-client-quickstart): How to use MicroProfile's REST Client with Reactive client
 * [REST Client](./rest-client-quickstart): How to use MicroProfile's REST Client
 * [REST Client Multipart](./rest-client-multipart-quickstart): Handle multipart with MicroProfile's REST Client
 * [JSON REST services](./rest-json-quickstart): How to write JSON REST services

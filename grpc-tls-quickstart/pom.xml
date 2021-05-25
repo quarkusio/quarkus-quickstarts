@@ -74,8 +74,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
 
@@ -140,19 +140,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>java-8</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>io.netty</groupId>
-                    <artifactId>netty-tcnative-boringssl-static</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
         </profile>
     </profiles>
 </project>
