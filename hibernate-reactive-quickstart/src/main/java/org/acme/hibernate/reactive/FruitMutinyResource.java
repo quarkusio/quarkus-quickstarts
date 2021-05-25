@@ -1,7 +1,6 @@
 package org.acme.hibernate.reactive;
 
 import java.util.List;
-import java.util.function.Function;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -16,8 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import org.hibernate.reactive.mutiny.Mutiny;
-
+import org.hibernate.reactive.mutiny.Mutiny.Session;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.RestPath;
 
@@ -31,22 +29,23 @@ import io.smallrye.mutiny.Uni;
 @Produces("application/json")
 @Consumes("application/json")
 public class FruitMutinyResource {
-    private static final Logger LOGGER = Logger.getLogger(FruitMutinyResource.class.getName());
+
+    private static final Response HTTP404 = Response.ok().status(404).build();
 
     @Inject
-    Mutiny.Session mutinySession;
+    Session session;
 
     @GET
     public Uni<List<Fruit>> get() {
-        return mutinySession
-                .createNamedQuery( "Fruits.findAll", Fruit.class )
+        return session
+                .createNamedQuery("Fruits.findAll", Fruit.class)
                 .getResultList();
     }
 
     @GET
     @Path("{id}")
     public Uni<Fruit> getSingle(@RestPath Integer id) {
-        return mutinySession.find(Fruit.class, id);
+        return session.find(Fruit.class, id);
     }
 
     @POST
@@ -55,10 +54,10 @@ public class FruitMutinyResource {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
 
-        return mutinySession
+        return session
                 .persist(fruit)
-                .chain(mutinySession::flush)
-                .map(ignore -> Response.ok(fruit).status(201).build());
+                .call(session::flush)
+                .replaceWith(Response.ok(fruit).status(201)::build);
     }
 
     @PUT
@@ -68,39 +67,29 @@ public class FruitMutinyResource {
             throw new WebApplicationException("Fruit name was not set on request.", 422);
         }
 
-        // Update function (never returns null)
-        Function<Fruit, Uni<? extends Response>> update = entity -> {
-            entity.setName(fruit.getName());
-            return mutinySession.flush()
-                    .onItem().transform(ignore -> Response.ok(entity).build());
-        };
-
-        return mutinySession
-                .find( Fruit.class, id )
-                      // If entity exists then
-                    .onItem().ifNotNull()
-                        .transformToUni(update)
+        return session
+                .find(Fruit.class, id)
+                    // If no entity exists then
+                    .onItem().ifNull().fail()
                     // else
-                    .onItem().ifNull()
-                        .continueWith(Response.ok().status(404).build());
+                    .invoke(entity -> entity.setName(fruit.getName()))
+                    .call(session::flush)
+                    .map(entity -> Response.ok(entity).build())
+                    .onFailure().recoverWithItem(HTTP404);
     }
 
     @DELETE
     @Path("{id}")
     public Uni<Response> delete(@RestPath Integer id) {
-        // Delete function (never returns null)
-        Function<Fruit, Uni<? extends Response>> delete = entity -> mutinySession.remove(entity)
-                .chain(mutinySession::flush)
-                .onItem().transform(ignore -> Response.ok().status(204).build());
-
-        return mutinySession
-                .find( Fruit.class, id )
-                    // If entity exists then
-                    .onItem().ifNotNull()
-                        .transformToUni(delete)
+        return session
+                .find(Fruit.class, id)
+                    // If no entity exists then
+                    .onItem().ifNull().fail()
                     // else
-                    .onItem().ifNull()
-                        .continueWith(Response.ok().status(404).build());
+                    .call(session::remove)
+                    .call(session::flush)
+                    .replaceWith(Response.ok().status(204).build())
+                    .onFailure().recoverWithItem(HTTP404);
     }
 
     /**
@@ -122,6 +111,7 @@ public class FruitMutinyResource {
      */
     @Provider
     public static class ErrorMapper implements ExceptionMapper<Exception> {
+        private static final Logger LOGGER = Logger.getLogger(FruitMutinyResource.class);
 
         @Inject
         ObjectMapper objectMapper;
@@ -143,9 +133,7 @@ public class FruitMutinyResource {
                 exceptionJson.put("error", exception.getMessage());
             }
 
-            return Response.status(code)
-                    .entity(exceptionJson)
-                    .build();
+            return Response.status(code).entity(exceptionJson).build();
         }
 
     }
