@@ -1,6 +1,7 @@
 package org.acme.hibernate.reactive;
 
 import io.restassured.response.Response;
+import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -9,9 +10,9 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNot.not;
-import static org.hamcrest.text.IsEmptyString.emptyString;
 
 @QuarkusTest
+@RegisterProvider(FruitMutinyResource.ErrorMapper.class)
 public class FruitsEndpointTest {
 
     @Test
@@ -95,7 +96,7 @@ public class FruitsEndpointTest {
 				.delete("/fruits/9236")
 			.then()
 				.statusCode(404)
-				.body(emptyString());
+				.body(containsString("Fruit missing from database"));
     }
 
     @Test
@@ -107,6 +108,6 @@ public class FruitsEndpointTest {
 				.put("/fruits/32432")
 			.then()
 				.statusCode(404)
-				.body(emptyString());
+				.body(containsString("Fruit missing from database"));
     }
 }
