@@ -16,7 +16,7 @@ public class HealthCheckTest {
     public void testHealthCheck() {
         given()
                 .when()
-                .get("/health/live")
+                .get("/q/health/live")
                 .then()
                 .statusCode(200)
                 .body("status", is("UP"))

@@ -14,7 +14,7 @@ public class SwaggerUiTest {
     @Test
     public void testSwaggerUi() {
         given()
-                .when().get("/swagger-ui")
+                .when().get("/q/swagger-ui")
                 .then()
                 .statusCode(200)
                 .body(containsString("/openapi"));

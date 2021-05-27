@@ -13,7 +13,7 @@ public class OpenApiTest {
     @Test
     public void testOpenApi() {
         given()
-                .when().get("/openapi")
+                .when().get("/q/openapi")
                 .then()
                 .statusCode(200)
                 .body(containsString("openapi"));
