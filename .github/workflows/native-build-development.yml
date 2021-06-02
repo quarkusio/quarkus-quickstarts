@@ -114,6 +114,9 @@ jobs:
     needs: [build-with-native]
     if: "always() && github.repository == 'quarkusio/quarkus-quickstarts'"
     steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
       - name: Report
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
