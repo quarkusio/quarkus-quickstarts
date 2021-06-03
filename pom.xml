@@ -59,6 +59,7 @@
         <module>neo4j-quickstart</module>
         <module>openapi-swaggerui-quickstart</module>
         <module>opentracing-quickstart</module>
+        <module>opentelemetry-quickstart</module>
         <module>quartz-quickstart</module>
         <module>qute-quickstart</module>
         <module>rest-client-reactive-quickstart</module>

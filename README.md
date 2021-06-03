@@ -69,6 +69,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [MicroProfile Messaging MQTT](./mqtt-quickstart): How to interact with MQTT using MicroProfile reactive messaging
 * [Neo4j](./neo4j-quickstart): How to connect to a Neo4j graph datastore
 * [OpenAPI and Swagger UI](./openapi-swaggerui-quickstart): Use OpenAPI and Swagger UI to expose your REST API and test your REST services
+* [OpenTelemetry](./opentelemetry-quickstart): How to use OpenTelemetry to monitor application performance
 * [OpenTracing and Jaeger](./opentracing-quickstart): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
 * [OptaPlanner](./optaplanner-quickstart): How to use OptaPlanner to optimize business resources
 * [Quartz](./quartz-quickstart): How to schedule periodic clustered jobs
