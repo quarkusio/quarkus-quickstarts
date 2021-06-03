@@ -62,6 +62,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Micrometer](./micrometer-quickstart): How to use Micrometer to gather metrics
 * [MicroProfile Fault Tolerance](./microprofile-fault-tolerance-quickstart): How to use MicroProfile Fault Tolerance
 * [MicroProfile GraphQL](./microprofile-graphql-quickstart): How to use MicroProfile GraphQL
+* [MicroProfile GraphQL Client](./microprofile-graphql-client-quickstart): How to use MicroProfile GraphQL Client
 * [MicroProfile Health](./microprofile-health-quickstart): How to use MicroProfile Health
 * [MicroProfile Metrics](./microprofile-metrics-quickstart): How to use MicroProfile Metrics
 * [MongoDB](./mongodb-quickstart): How to connect to a MongoDB datastore
