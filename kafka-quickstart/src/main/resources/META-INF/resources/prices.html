@@ -14,7 +14,7 @@
 
     <h2>Last price</h2>
     <div class="row">
-    <p class="col-md-12">The last price is <strong><span id="content">N/A</span>&nbsp;&euro;</strong>.</p>
+    <p class="col-md-12">The last price is <strong><span id="value">N/A</span>&nbsp;<span id="currency"></span></strong>.</p>
     </div>
 </div>
 </body>
@@ -22,7 +22,9 @@
 <script>
     var source = new EventSource("/prices/stream");
     source.onmessage = function (event) {
-        document.getElementById("content").innerHTML = event.data;
+      var json = JSON.parse(event.data);
+      document.getElementById("value").innerHTML = json.value;
+      document.getElementById("currency").innerHTML = json.currency;
     };
 </script>
 </html>

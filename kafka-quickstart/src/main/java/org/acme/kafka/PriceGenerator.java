@@ -18,10 +18,10 @@ public class PriceGenerator {
     private Random random = new Random();
 
     @Outgoing("generated-price")
-    public Multi<Integer> generate() {
+    public Multi<Price> generate() {
         return Multi.createFrom().ticks().every(Duration.ofSeconds(5))
                 .onOverflow().drop()
-                .map(tick -> random.nextInt(100));
+                .map(tick -> new Price(random.nextInt(100), "$"));
     }
 
 }

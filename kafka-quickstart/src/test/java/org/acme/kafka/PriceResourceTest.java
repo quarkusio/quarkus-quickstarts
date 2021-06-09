@@ -26,10 +26,10 @@ class PriceResourceTest {
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(PRICES_SSE_ENDPOINT);
 
-        List<Double> received = new CopyOnWriteArrayList<>();
+        List<String> received = new CopyOnWriteArrayList<>();
 
         SseEventSource source = SseEventSource.target(target).build();
-        source.register(inboundSseEvent -> received.add(Double.valueOf(inboundSseEvent.readData())));
+        source.register(inboundSseEvent -> received.add(inboundSseEvent.readData(String.class)));
         source.open();
         await().atMost(100000, MILLISECONDS).until(() -> received.size() == 3);
         source.close();
