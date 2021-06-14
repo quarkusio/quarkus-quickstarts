@@ -9,7 +9,6 @@ import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 @QuarkusTest
-@QuarkusTestResource(KafkaResource.class)
 class PriceResourceTest {
 
     @Test

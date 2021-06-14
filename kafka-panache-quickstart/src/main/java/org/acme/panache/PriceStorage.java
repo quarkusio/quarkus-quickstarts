@@ -9,6 +9,10 @@ import javax.transaction.Transactional;
 @ApplicationScoped
 public class PriceStorage {
 
+    /**
+     * Classic Hibernate is blocking (unlike Hibernate Reactive), so we need the @Blocking annotation.
+     * @param priceInUsd  the price
+     */
     @Incoming("prices")
     @Blocking
     @Transactional
