@@ -53,7 +53,7 @@ Note that the configuration is retrieved using:
 
 ```java
 @Inject
-@Named("default-kafka-broker")
+@Identifier("default-kafka-broker")
 Map<String, Object> config;
 ```
 
