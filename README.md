@@ -55,7 +55,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Infinispan Client](./infinispan-client-quickstart): How to use Infinispan Client. Covers creating caches and simple get/put
 * [Artemis JMS](./jms-quickstart): How to use the Artemis JMS extension
 * [Kafka](./kafka-quickstart): Use MicroProfile Reactive Messaging to interact with Apache Kafka
-* [Kafka and Hibernate with Panache](./kafka-panache-quickstart): Shows how to combine Kafka and Hibernate with Panache
+* [Kafka and Hibernate with Panache](./kafka-panache-quickstart): Shows how to combine Kafka and (_classic_) Hibernate with Panache
+* [Kafka and Hibernate Reactive with Panache](./kafka-panache-reactive-quickstart): Shows how to combine Kafka and Hibernate Reactive with Panache
 * [Kafka Streams](./kafka-streams-quickstart): Use the Apache Kafka Streams API to implement stream processing applications based on Apache Kafka
 * [Bare Kafka](./kafka-bare-quickstart): How to use the Apache Kafka and Kafka Vert.x clients in Quarkus
 * [Kogito](./kogito-quickstart): How to use Kogito for business process automation with Drools and jBPM

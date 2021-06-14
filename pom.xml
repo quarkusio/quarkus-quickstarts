@@ -95,5 +95,6 @@
         <module>liquibase-quickstart</module>
         <module>mailer-quickstart</module>
         <module>kafka-panache-quickstart</module>
+        <module>kafka-panache-reactive-quickstart</module>
     </modules>
 </project>
