@@ -2,7 +2,7 @@ package org.acme.microprofile.graphql.client;
 
 
 import io.smallrye.common.annotation.Blocking;
-import io.smallrye.graphql.client.NamedClient;
+import io.smallrye.graphql.client.GraphQLClient;
 import io.smallrye.graphql.client.Response;
 import io.smallrye.graphql.client.core.Document;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
@@ -61,7 +61,7 @@ public class StarWarsResource {
     // example of dynamic client usage follows
 
     @Inject
-    @NamedClient("star-wars-dynamic")
+    @GraphQLClient("star-wars-dynamic")
     DynamicGraphQLClient dynamicClient;
 
     @GET
