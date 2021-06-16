@@ -1,6 +1,6 @@
 package org.acme.panache;
 
-import io.smallrye.common.annotation.Blocking;
+import io.smallrye.mutiny.Uni;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -11,14 +11,9 @@ import java.util.List;
 @Path("/prices")
 public class PriceResource {
 
-    /**
-     * We uses classic Hibernate, so the API is blocking, so we need to use @Blocking.
-     * @return the list of prices
-     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Blocking
-    public List<Price> getAllPrices() {
+    public Uni<List<Price>> getAllPrices() {
         return Price.listAll();
     }
 }

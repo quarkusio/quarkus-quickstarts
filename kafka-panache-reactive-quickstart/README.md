@@ -1,27 +1,27 @@
-Quarkus Kafka/Panache Quickstart
-================================
+Quarkus Kafka/Panache Reactive Quickstart
+=========================================
 
 This project illustrates how you can interact with Apache Kafka using MicroProfile Reactive Messaging and Hibernate with Panache.
 The project uses:
 
 * RESTEasy Reactive
 * Reactive Messaging and its connector for Kafka
-* (Classic) Hibernate with Panache
+* Hibernate Reactive with Panache
 
-_NOTE:_ The [kafka-panache-reactive-quickstart](../kafka-panache-reactive-quickstart) provides the same example but using Hibernate Reactive.
+_NOTE:_ The [kafka-panache-quickstart](../kafka-panache-quickstart) provides the same example but using _classic_ Hibernate.
 
 ## Start the application
 
-The application can be started using: 
+Start the application in dev mode with:
 
 ```bash
 mvn quarkus:dev
 ```
 
-_NOTE:_ The database and Kafka broker are started using Dev Services
+_NOTE:_ Quarkus Dev Services starts the database and Kafka broker automatically.
 
 Then, open your browser to `http://localhost:8080/prices`, and you should get the set of prices written in the database.
-Every 5 seconds, a new price is generated, sent to a Kafka topic, received by a Kafka consumer and written to the database.
+Every 5 seconds, a new price is generated, sent to a Kafka topic, received by a Kafka consumer, and written to the database.
 Refresh the page to see more prices.
 
 ## Anatomy
@@ -41,4 +41,4 @@ To start them, just run `docker-compose up -d`.
 
 Then, run the application with:
 
-`./target/kafka-panache-quickstart-1.0.0-SNAPSHOT-runner` 
+`./target/kafka-panache-reactive-quickstart-1.0.0-SNAPSHOT-runner` 
