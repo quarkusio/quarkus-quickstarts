@@ -30,7 +30,7 @@
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy</artifactId>
+      <artifactId>quarkus-resteasy-reactive</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -58,12 +58,6 @@
     <dependency>
       <groupId>org.awaitility</groupId>
       <artifactId>awaitility</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>kafka</artifactId>
-      <version>${testcontainers.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
