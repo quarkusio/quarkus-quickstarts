@@ -1,6 +1,5 @@
 package org.acme.kafka;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
@@ -18,14 +17,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static io.restassured.RestAssured.given;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @QuarkusTest
-// register the class that sets up Testcontainers:
-@QuarkusTestResource(KafkaAndSchemaRegistryTestResource.class)
 public class MovieResourceTest {
 
     @TestHTTPResource("/consumed-movies")
