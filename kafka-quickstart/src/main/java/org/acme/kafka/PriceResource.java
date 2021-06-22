@@ -13,7 +13,7 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 /**
  * A simple resource retrieving the "in-memory" "my-data-stream" and sending the items to a server sent event.
  */
-@Path("/prices")
+@Path("/")
 public class PriceResource {
 
     @Inject
@@ -21,7 +21,7 @@ public class PriceResource {
     Publisher<Price> prices;
 
     @GET
-    @Path("/stream")
+    @Path("/prices")
     @Produces(MediaType.SERVER_SENT_EVENTS) // denotes that server side events (SSE) will be produced
     public Publisher<Price> stream() {
         return prices;
