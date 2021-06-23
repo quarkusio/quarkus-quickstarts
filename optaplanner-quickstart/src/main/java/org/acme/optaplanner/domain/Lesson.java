@@ -2,7 +2,6 @@ package org.acme.optaplanner.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -58,11 +57,6 @@ public class Lesson {
 
     public Long getId() {
         return id;
-    }
-
-    // Setter is workaround for native build issue https://github.com/quarkusio/quarkus/issues/12458
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getSubject() {
