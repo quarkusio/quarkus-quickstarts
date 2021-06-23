@@ -3,6 +3,10 @@ package org.acme.optaplanner.solver;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
+import javax.inject.Inject;
+
+import io.quarkus.test.junit.QuarkusTest;
+import org.acme.optaplanner.solver.TimeTableConstraintProvider;
 import org.acme.optaplanner.domain.Lesson;
 import org.acme.optaplanner.domain.Room;
 import org.acme.optaplanner.domain.TimeTable;
@@ -10,6 +14,7 @@ import org.acme.optaplanner.domain.Timeslot;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.test.api.score.stream.ConstraintVerifier;
 
+@QuarkusTest
 class TimeTableConstraintProviderTest {
 
     private static final Room ROOM1 = new Room(1, "Room1");
@@ -19,8 +24,8 @@ class TimeTableConstraintProviderTest {
     private static final Timeslot TIMESLOT3 = new Timeslot(3, DayOfWeek.TUESDAY, LocalTime.NOON.plusHours(1));
     private static final Timeslot TIMESLOT4 = new Timeslot(4, DayOfWeek.TUESDAY, LocalTime.NOON.plusHours(3));
 
-    private final ConstraintVerifier<TimeTableConstraintProvider, TimeTable> constraintVerifier =
-            ConstraintVerifier.build(new TimeTableConstraintProvider(), TimeTable.class, Lesson.class);
+    @Inject
+    ConstraintVerifier<TimeTableConstraintProvider, TimeTable> constraintVerifier;
 
     @Test
     void roomConflict() {
