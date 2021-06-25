@@ -96,5 +96,6 @@
         <module>mailer-quickstart</module>
         <module>kafka-panache-quickstart</module>
         <module>kafka-panache-reactive-quickstart</module>
+        <module>jta-quickstart</module>
     </modules>
 </project>
