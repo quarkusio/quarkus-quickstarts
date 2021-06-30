@@ -20,8 +20,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import org.hibernate.reactive.mutiny.Mutiny;
-
+import org.hibernate.reactive.mutiny.Mutiny.Session;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.RestPath;
 
@@ -35,15 +34,12 @@ import io.smallrye.mutiny.Uni;
 @Produces("application/json")
 @Consumes("application/json")
 public class FruitMutinyResource {
-    private static final Logger LOGGER = Logger.getLogger(FruitMutinyResource.class.getName());
 
     @Inject
-    Mutiny.Session session;
+    Session session;
 
     @GET
     public Uni<List<Fruit>> get() {
-        // In this case, it makes sense to return a Uni<List<Fruit>> because we return a reasonable amount of results
-        // Consider returning a Multi<Fruit> for result streams
         return session
                 .createNamedQuery("Fruits.findAll", Fruit.class)
                 .getResultList();
@@ -62,7 +58,7 @@ public class FruitMutinyResource {
         }
 
         return session.withTransaction(tx -> session.persist( fruit))
-                .replaceWith(() -> Response.ok(fruit).status(CREATED).build());
+                .replaceWith(Response.ok(fruit).status(CREATED)::build);
     }
 
     @PUT
@@ -74,13 +70,10 @@ public class FruitMutinyResource {
 
         return session
                 .withTransaction(tx -> session.find(Fruit.class, id)
-                    // If entity exists then update it
-                    .onItem().ifNotNull().invoke(entity -> entity.setName(fruit.getName())))
-                .onItem().ifNotNull()
-                    .transform(entity -> Response.ok(entity).build())
-                // If entity not found return the appropriate response
-                .onItem().ifNull()
-                    .continueWith(() -> Response.ok().status(NOT_FOUND).build());
+                        .onItem().ifNull().failWith(new WebApplicationException("Fruit missing from database.", NOT_FOUND))
+                        // If entity exists then update it
+                        .invoke(entity -> entity.setName(fruit.getName())))
+                        .map(entity -> Response.ok(entity).build());
     }
 
     @DELETE
@@ -88,13 +81,11 @@ public class FruitMutinyResource {
     public Uni<Response> delete(@RestPath Integer id) {
         return session
                 .withTransaction(tx -> session
-                    .find(Fruit.class, id)
-                    // If entity exists then delete it
-                    .onItem().ifNotNull()
-                        .transformToUni(entity -> session.remove(entity)
-                                .replaceWith(() -> Response.ok().status(NO_CONTENT).build())))
-                // If entity not found return the appropriate response
-                .onItem().ifNull().continueWith(() -> Response.ok().status(NOT_FOUND).build());
+                        .find(Fruit.class, id)
+                        .onItem().ifNull().failWith(new WebApplicationException("Fruit missing from database.", NOT_FOUND))
+                        // If entity exists then delete it
+                        .call(session::remove))
+                        .replaceWith(Response.ok().status(NO_CONTENT)::build);
     }
 
     /**
@@ -116,6 +107,7 @@ public class FruitMutinyResource {
      */
     @Provider
     public static class ErrorMapper implements ExceptionMapper<Exception> {
+        private static final Logger LOGGER = Logger.getLogger(FruitMutinyResource.class);
 
         @Inject
         ObjectMapper objectMapper;
@@ -137,9 +129,7 @@ public class FruitMutinyResource {
                 exceptionJson.put("error", exception.getMessage());
             }
 
-            return Response.status(code)
-                    .entity(exceptionJson)
-                    .build();
+            return Response.status(code).entity(exceptionJson).build();
         }
 
     }
