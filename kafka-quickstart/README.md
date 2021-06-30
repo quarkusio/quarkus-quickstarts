@@ -3,30 +3,57 @@ Quarkus Kafka Quickstart
 
 This project illustrates how you can interact with Apache Kafka using MicroProfile Reactive Messaging.
 
-
 ## Start the application
 
-The application can be started using: 
+The application is composed of two microservices. They can be started using: 
 
 ```bash
-mvn quarkus:dev
+mvn -f producer quarkus:dev
+```
+
+and
+
+```bash
+mvn -f processor quarkus:dev
 ```
 
 _NOTE_: Quarkus Dev Services starts a Kafka broker for you automatically. 
 
-Then, open your browser to `http://localhost:8080/prices.html`, and you should see a fluctuating price.
+Then, open your browser to `http://localhost:8080/quotes.html`.
+You can send quote requests and observe received quotes.
 
 ## Anatomy
 
-In addition to the `prices.html` page, the application is composed by 3 components:
+The application is composed of the following microservices:
 
-* `PriceGenerator` - a bean generating random price. They are sent to a Kafka topic
-* `PriceConverter` - on the consuming side, the `PriceConverter` receives the Kafka message and convert the price.
-The result is sent to an in-memory stream of data
-* `PriceResource`  - the `PriceResource` retrieves the in-memory stream of data in which the converted prices are sent and send these prices to the browser using Server-Sent Events.
+#### Producer
 
-The interaction with Kafka is managed by MicroProfile Reactive Messaging.
-The configuration is located in the application configuration.
+* `QuoteProducer` generates uniquely identified quote requests and sends them to the Kafka topic `quote-requests`.
+It also consumes the Kafka topic `quotes` and relays received messages to the browser using Server-Sent Events.
+* `quotes.html` sends quote requests to the previous endpoint and updates quotes with received prices.
+
+#### Processor
+
+* `QuoteProcessor` consumes quote request id's from the `quote-requests` Kafka topic and responds back to the `quotes` topic with a `Quote` object containing a random price.
+
+Interactions with Kafka is managed by MicroProfile Reactive Messaging.
+Application configurations are located in `application.properties` files.
+
+## Running the application in Docker
+
+To run the application on Docker:
+
+First make sure that both services are packaged:
+```bash
+mvn clean package
+```
+
+Then lauch the Docker compose:
+```bash
+docker compose up
+```
+
+This will create a single-node Kafka cluster and launch both microservices.
 
 ## Running in native
 
@@ -38,4 +65,5 @@ As you are running in _prod_ mode, you need a Kafka cluster. You can follow the 
 
 Then run with:
 
-`./target/kafka-quickstart-1.0.0-SNAPSHOT-runner` 
+`./producer/target/kafka-quickstart-producer-1.0.0-SNAPSHOT-runner`
+`./processor/target/kafka-quickstart-processor-1.0.0-SNAPSHOT-runner`
