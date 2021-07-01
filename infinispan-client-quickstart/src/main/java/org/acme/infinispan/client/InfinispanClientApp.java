@@ -20,9 +20,8 @@ public class InfinispanClientApp {
     @Inject
     RemoteCacheManager cacheManager;
 
-    private static final String CACHE_CONFIG = "<infinispan><cache-container>" +
-            "<distributed-cache name=\"%s\"></distributed-cache>" +
-            "</cache-container></infinispan>";
+    private static final String CACHE_CONFIG = "<distributed-cache name=\"%s\"></distributed-cache>";
+
 
     void onStart(@Observes StartupEvent ev) {
         LOGGER.info("Create or get cache named mycache with the default configuration");

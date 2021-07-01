@@ -20,11 +20,11 @@ public class CacheResource implements QuarkusTestResourceLifecycleManager {
     public Map<String, String> start() {
 
         INFINISPAN =
-                new GenericContainer("infinispan/server:11.0.4.Final")
+                new GenericContainer("infinispan/server:12.1.4.Final")
                         .waitingFor(new LogMessageWaitStrategy().withRegEx(".*Infinispan Server.*started in.*\\s"))
                         .withStartupTimeout(Duration.ofMillis(20000))
-                .withEnv("USER","Titus Bramble")
-                .withEnv("PASS","Shambles");
+                .withEnv("USER","admin")
+                .withEnv("PASS","password");
 
         INFINISPAN.start();
         final String hosts = INFINISPAN.getContainerIpAddress() + ":" + INFINISPAN.getMappedPort(INFINISPAN_PORT);
