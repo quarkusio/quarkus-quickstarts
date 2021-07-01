@@ -5,7 +5,10 @@ This project illustrates how you can interact with Apache Kafka using MicroProfi
 
 ## Start the application
 
-The application is composed of two microservices. They can be started using: 
+The application is composed of two applications communicating through Kafka.
+Interactions with Kafka is managed by MicroProfile Reactive Messaging.
+
+They can be started in dev mode using:
 
 ```bash
 mvn -f producer quarkus:dev
@@ -24,9 +27,12 @@ You can send quote requests and observe received quotes.
 
 ## Anatomy
 
-The application is composed of the following microservices:
+The application is composed of the following components:
 
 #### Producer
+
+The _producer_ application sends data to the Kafka broker.
+Two main components compose the application:
 
 * `QuoteProducer` generates uniquely identified quote requests and sends them to the Kafka topic `quote-requests`.
 It also consumes the Kafka topic `quotes` and relays received messages to the browser using Server-Sent Events.
@@ -34,10 +40,14 @@ It also consumes the Kafka topic `quotes` and relays received messages to the br
 
 #### Processor
 
+The _processor_ application receives data from Kafka.
+In our context, it receives the data sent by the _producer_ application.
+
+Two main classes compose the application:
+
 * `QuoteProcessor` consumes quote request id's from the `quote-requests` Kafka topic and responds back to the `quotes` topic with a `Quote` object containing a random price.
 
-Interactions with Kafka is managed by MicroProfile Reactive Messaging.
-Application configurations are located in `application.properties` files.
+The connection to Kafka is configured in the `src/main/resources/application.properties` file.
 
 ## Running the application in Docker
 
@@ -45,25 +55,34 @@ To run the application on Docker:
 
 First make sure that both services are packaged:
 ```bash
-mvn clean package
+mvn package
 ```
 
-Then lauch the Docker compose:
+Then launch the Docker compose:
 ```bash
 docker compose up
 ```
 
-This will create a single-node Kafka cluster and launch both microservices.
+This will create a single-node Kafka cluster and launch both applications.
 
 ## Running in native
 
 You can compile the application into a native binary using:
 
-`mvn clean install -Pnative`
+```bash
+mvn install -Pnative
+```
 
 As you are running in _prod_ mode, you need a Kafka cluster. You can follow the instructions from the [Apache Kafka web site](https://kafka.apache.org/quickstart) or run `docker-compose up` if you have docker installed on your machine.
 
-Then run with:
+Then run both applications respectively with:
 
-`./producer/target/kafka-quickstart-producer-1.0.0-SNAPSHOT-runner`
-`./processor/target/kafka-quickstart-processor-1.0.0-SNAPSHOT-runner`
+```bash
+./producer/target/kafka-quickstart-producer-1.0.0-SNAPSHOT-runner
+```
+
+and
+
+```bash
+./processor/target/kafka-quickstart-processor-1.0.0-SNAPSHOT-runner
+```

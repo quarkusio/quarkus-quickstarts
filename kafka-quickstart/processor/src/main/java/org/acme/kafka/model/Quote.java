@@ -5,8 +5,10 @@ public class Quote {
     public String id;
     public int price;
 
-    public Quote() {
-    }
+    /**
+     * Default constructor needed for Jackson serialization
+     */
+    public Quote() { }
 
     public Quote(String id, int price) {
         this.id = id;

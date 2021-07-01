@@ -13,7 +13,7 @@ services:
     environment:
       LOG_DIR: /tmp/logs
     networks:
-      - kafkaquickstart-network
+      - kafka-quickstart-network
 
   kafka:
     image: quay.io/strimzi/kafka:0.23.0-kafka-2.8.0
@@ -31,7 +31,7 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     networks:
-      - kafkaquickstart-network
+      - kafka-quickstart-network
 
   producer:
     image: quarkus-quickstarts/kafka-quickstart-producer:1.0
@@ -43,7 +43,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - kafkaquickstart-network
+      - kafka-quickstart-network
 
   processor:
     image: quarkus-quickstarts/kafka-quickstart-processor:1.0
@@ -53,8 +53,8 @@ services:
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     networks:
-      - kafkaquickstart-network
+      - kafka-quickstart-network
 
 networks:
-  kafkaquickstart-network:
+  kafka-quickstart-network:
     name: kafkaquickstart
