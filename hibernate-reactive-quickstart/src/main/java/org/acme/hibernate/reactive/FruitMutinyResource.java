@@ -35,24 +35,23 @@ import io.smallrye.mutiny.Uni;
 @Produces("application/json")
 @Consumes("application/json")
 public class FruitMutinyResource {
-    private static final Logger LOGGER = Logger.getLogger(FruitMutinyResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FruitMutinyResource.class);
 
     @Inject
-    Mutiny.Session session;
+    Mutiny.SessionFactory sf;
 
     @GET
     public Uni<List<Fruit>> get() {
-        // In this case, it makes sense to return a Uni<List<Fruit>> because we return a reasonable amount of results
-        // Consider returning a Multi<Fruit> for result streams
-        return session
+        return sf.withTransaction((s,t) -> s
                 .createNamedQuery("Fruits.findAll", Fruit.class)
-                .getResultList();
+                .getResultList()
+        );
     }
 
     @GET
     @Path("{id}")
     public Uni<Fruit> getSingle(@RestPath Integer id) {
-        return session.find(Fruit.class, id);
+        return sf.withTransaction((s,t) -> s.find(Fruit.class, id));
     }
 
     @POST
@@ -61,7 +60,7 @@ public class FruitMutinyResource {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
 
-        return session.withTransaction(tx -> session.persist( fruit))
+        return sf.withTransaction((s,t) -> s.persist(fruit))
                 .replaceWith(() -> Response.ok(fruit).status(CREATED).build());
     }
 
@@ -72,29 +71,27 @@ public class FruitMutinyResource {
             throw new WebApplicationException("Fruit name was not set on request.", 422);
         }
 
-        return session
-                .withTransaction(tx -> session.find(Fruit.class, id)
-                    // If entity exists then update it
-                    .onItem().ifNotNull().invoke(entity -> entity.setName(fruit.getName())))
-                .onItem().ifNotNull()
-                    .transform(entity -> Response.ok(entity).build())
-                // If entity not found return the appropriate response
-                .onItem().ifNull()
-                    .continueWith(() -> Response.ok().status(NOT_FOUND).build());
+        return sf.withTransaction((s,t) -> s.find(Fruit.class, id)
+            // If entity exists then update it
+            .onItem().ifNotNull().invoke(entity -> entity.setName(fruit.getName()))
+            .onItem().ifNotNull().transform(entity -> Response.ok(entity).build())
+            // If entity not found return the appropriate response
+            .onItem().ifNull()
+            .continueWith(() -> Response.ok().status(NOT_FOUND).build() )
+        );
     }
 
     @DELETE
     @Path("{id}")
     public Uni<Response> delete(@RestPath Integer id) {
-        return session
-                .withTransaction(tx -> session
-                    .find(Fruit.class, id)
+        return sf.withTransaction((s,t) ->
+                s.find(Fruit.class, id)
                     // If entity exists then delete it
                     .onItem().ifNotNull()
-                        .transformToUni(entity -> session.remove(entity)
-                                .replaceWith(() -> Response.ok().status(NO_CONTENT).build())))
+                        .transformToUni(entity -> s.remove(entity)
+                                .replaceWith(() -> Response.ok().status(NO_CONTENT).build()))
                 // If entity not found return the appropriate response
-                .onItem().ifNull().continueWith(() -> Response.ok().status(NOT_FOUND).build());
+                .onItem().ifNull().continueWith(() -> Response.ok().status(NOT_FOUND).build()));
     }
 
     /**
