@@ -68,6 +68,7 @@
         <module>reactive-messaging-http-quickstart</module>
         <module>redis-quickstart</module>
         <module>rest-client-quickstart</module>
+        <module>rest-client-kotlin-quickstart</module>
         <module>rest-client-multipart-quickstart</module>
         <module>rest-json-quickstart</module>
         <module>scheduler-quickstart</module>
