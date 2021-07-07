@@ -11,7 +11,7 @@ import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
 /**
- * A bean consuming data from the "request" Kafka topic and giving out a random quote.
+ * A bean consuming data from the "quote-requests" Kafka topic (mapped to "requests" channel) and giving out a random quote.
  * The result is pushed to the "quotes" Kafka topic.
  */
 @ApplicationScoped

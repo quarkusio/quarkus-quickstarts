@@ -2,7 +2,6 @@ package org.acme.kafka.producer;
 
 import java.util.UUID;
 
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -12,16 +11,12 @@ import javax.ws.rs.core.MediaType;
 import org.acme.kafka.model.Quote;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-import org.jboss.logging.Logger;
 
 import io.smallrye.mutiny.Multi;
 
 @Path("/quotes")
 public class QuotesResource {
 
-    private static final Logger LOG = Logger.getLogger(QuotesResource.class);
-
-    @Inject
     @Channel("quote-requests")
     Emitter<String> quoteRequestEmitter;
 
@@ -37,7 +32,6 @@ public class QuotesResource {
         return uuid.toString();
     }
 
-    @Inject
     @Channel("quotes")
     Multi<Quote> quotes;
 
@@ -47,6 +41,6 @@ public class QuotesResource {
     @GET
     @Produces(MediaType.SERVER_SENT_EVENTS) // denotes that server side events (SSE) will be produced
     public Multi<Quote> stream() {
-        return quotes.onItem().invoke(quote -> LOG.infov("Received quote {0}", quote));
+        return quotes.log();
     }
 }

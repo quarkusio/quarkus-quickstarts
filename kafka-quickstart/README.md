@@ -1,7 +1,7 @@
 Quarkus Kafka Quickstart
 ========================
 
-This project illustrates how you can interact with Apache Kafka using MicroProfile Reactive Messaging.
+This project illustrates how Quarkus applications can interact with Apache Kafka using MicroProfile Reactive Messaging.
 
 ## Start the application
 
@@ -14,7 +14,7 @@ They can be started in dev mode using:
 mvn -f producer quarkus:dev
 ```
 
-and
+and in another terminal:
 
 ```bash
 mvn -f processor quarkus:dev
@@ -31,7 +31,7 @@ The application is composed of the following components:
 
 #### Producer
 
-The _producer_ application sends data to the Kafka broker.
+The _producer_ application receive requests from the user (via HTTP) and sends data to the Kafka broker.
 Two main components compose the application:
 
 * `QuoteProducer` generates uniquely identified quote requests and sends them to the Kafka topic `quote-requests`.
@@ -40,8 +40,7 @@ It also consumes the Kafka topic `quotes` and relays received messages to the br
 
 #### Processor
 
-The _processor_ application receives data from Kafka.
-In our context, it receives the data sent by the _producer_ application.
+The _processor_ application receives data from Kafka, processes them, and writes the result into the `quotes` Kafka topic.
 
 Two main classes compose the application:
 
@@ -81,7 +80,7 @@ Then run both applications respectively with:
 ./producer/target/kafka-quickstart-producer-1.0.0-SNAPSHOT-runner
 ```
 
-and
+and in another terminal:
 
 ```bash
 ./processor/target/kafka-quickstart-processor-1.0.0-SNAPSHOT-runner
