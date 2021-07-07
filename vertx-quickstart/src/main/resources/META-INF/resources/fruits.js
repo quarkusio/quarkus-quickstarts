@@ -34,7 +34,7 @@ $(document).ready(function () {
             url: '/fruits',
             contentType: 'application/json',
             data: JSON.stringify({name: fruitName})
-        }).then(refresh);
+        }).then(refresh)
     });
 
     refresh();

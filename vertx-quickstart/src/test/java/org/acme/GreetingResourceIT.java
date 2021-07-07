@@ -1,9 +1,9 @@
-package org.acme.vertx;
+package org.acme;
 
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-class EventResourceIT extends GreetingResourceTest {
+class GreetingResourceIT extends GreetingResourceTest {
 
     // Runs the same tests as the parent class
 

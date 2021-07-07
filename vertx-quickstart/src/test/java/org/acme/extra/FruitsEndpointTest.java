@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package org.acme.vertx;
+package org.acme.extra;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;

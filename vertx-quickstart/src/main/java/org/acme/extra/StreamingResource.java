@@ -1,8 +1,8 @@
-package org.acme.vertx;
+package org.acme.extra;
 
 import io.smallrye.mutiny.Multi;
 import io.vertx.mutiny.core.Vertx;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import org.jboss.resteasy.reactive.RestPath;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -20,7 +20,7 @@ public class StreamingResource {
     @GET
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @Path("{name}/streaming")
-    public Multi<String> greeting(@PathParam String name) {
+    public Multi<String> greeting(@RestPath String name) {
         return vertx.periodicStream(2000).toMulti().map(l -> String.format("Hello %s! (%s)%n", name, new Date()));
     }
 }
