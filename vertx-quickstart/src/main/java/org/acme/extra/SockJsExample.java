@@ -1,4 +1,4 @@
-package org.acme.vertx;
+package org.acme.extra;
 
 import io.vertx.core.Vertx;
 import io.vertx.ext.bridge.PermittedOptions;

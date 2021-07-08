@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package org.acme.vertx;
+package org.acme.extra;
 
 import io.quarkus.test.junit.NativeImageTest;
 

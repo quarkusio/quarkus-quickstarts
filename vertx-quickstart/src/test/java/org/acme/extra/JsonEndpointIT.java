@@ -1,9 +1,9 @@
-package org.acme.vertx;
+package org.acme.extra;
 
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-class GreetingResourceIT extends GreetingResourceTest {
+public class JsonEndpointIT extends JsonEndpointTest {
 
     // Runs the same tests as the parent class
 
