@@ -20,7 +20,7 @@ public class CacheResource implements QuarkusTestResourceLifecycleManager {
     public Map<String, String> start() {
 
         INFINISPAN =
-                new GenericContainer("infinispan/server:12.1.4.Final")
+                new GenericContainer("infinispan/server:12.1.6.Final")
                         .waitingFor(new LogMessageWaitStrategy().withRegEx(".*Infinispan Server.*started in.*\\s"))
                         .withStartupTimeout(Duration.ofMillis(20000))
                 .withEnv("USER","admin")

@@ -20,7 +20,9 @@ public class InfinispanClientApp {
     @Inject
     RemoteCacheManager cacheManager;
 
-    private static final String CACHE_CONFIG = "<distributed-cache name=\"%s\"></distributed-cache>";
+    private static final String CACHE_CONFIG = "<distributed-cache name=\"%s\">"
+          + " <encoding media-type=\"application/x-protostream\"/>"
+          + "</distributed-cache>";
 
 
     void onStart(@Observes StartupEvent ev) {
