@@ -2,41 +2,60 @@ Quarkus AMQP 1.0 Quickstart
 ============================
 
 This project illustrates how you can interact with AMQP 1.0 (Apache Artemis in this quickstart) using MicroProfile Reactive Messaging.
+The complete instructions are available on https://quarkus.io/guides/amqp.
 
-## AMQP Broker
+## Start the application in dev mode
 
-First you need an AMQP broker. You can follow the instructions from the [Apache Artemis web site](https://activemq.apache.org/components/artemis/) or run `docker-compose up` if you have docker installed on your machine.
-
-## Start the application
-
-The application can be started using: 
+In a first terminal, run:
 
 ```bash
-mvn quarkus:dev
+> mvn -f amqp-quickstart-producer quarkus:dev
+```
+
+In a second terminal, run:
+
+```bash
+> mvn -f amqp-quickstart-processor quarkus:dev
 ```  
 
-Then, open your browser to `http://localhost:8080/prices.html`, and you should see a fluctuating price.
+Then, open your browser to `http://localhost:8080/quotes.html`, and click on the "Request Quote" button.
 
-## Anatomy
+## Build the application in JVM mode
 
-In addition to the `prices.html` page, the application is composed by 3 components:
+To build the applications, run:
 
-* `PriceGenerator` - a bean generating random price. They are sent to a AMQP queue.
-* `PriceConverter` - on the consuming side, the `PriceConverter` receives the AMQP message and convert the price.
-The result is sent to an in-memory stream of data
-* `PriceResource`  - the `PriceResource` retrieves the in-memory stream of data in which the converted prices are sent and send these prices to the browser using Server-Sent Events.
+```bash
+> mvn -f amqp-quickstart-producer package
+> mvn -f amqp-quickstart-processor package
+```
 
-The interaction with AMQP is managed by MicroProfile Reactive Messaging.
-The configuration is located in the application configuration.
+Because we are running in _prod_ mode, we need to provide an AMQP 1.0 broker.
+The [docker-compose.yml](docker-compose.yml) file starts the broker and your application.
 
-NOTE: Hey, it's the same code as the Kafka quickstart! Yes, it is, the only difference is the _connector_ configured in the `application.properties`.
+Start the broker and the applications using:
 
-## Running in native
+```bash
+> docker compose up --build
+```
 
-You can compile the application into a native binary using:
+Then, open your browser to `http://localhost:8080/quotes.html`, and click on the "Request Quote" button.
+ 
 
-`mvn clean install -Pnative`
+## Build the application in native mode
 
-and run with:
+To build the applications into native executables, run:
 
-`./target/amqp-quickstart-1.0.0-SNAPSHOT-runner` 
+```bash
+> mvn -f amqp-quickstart-producer package -Pnative  -Dquarkus.native.container-build=true
+> mvn -f amqp-quickstart-processor package -Pnative -Dquarkus.native.container-build=true
+```
+
+The `-Dquarkus.native.container-build=true` instructs Quarkus to build Linux 64bits native executables, who can run inside containers.  
+
+Then, start the system using:
+
+```bash
+> export QUARKUS_MODE=native
+> docker compose up
+```
+Then, open your browser to `http://localhost:8080/quotes.html`, and click on the "Request Quote" button.
