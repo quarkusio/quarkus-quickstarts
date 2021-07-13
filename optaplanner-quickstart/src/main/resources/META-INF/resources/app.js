@@ -60,6 +60,9 @@ function refreshTimeTable() {
             .append($(`<button type="button" class="ml-2 mb-1 btn btn-light btn-sm p-1"/>`)
               .append($(`<small class="fas fa-trash"/>`)
               ).click(() => deleteTimeslot(timeslot)))));
+      $.each(timeTable.roomList, (index, room) => {
+        rowByRoom.append($("<td/>").prop("id", `timeslot${timeslot.id}room${room.id}`));
+      });
 
       const rowByTeacher = $("<tr>").appendTo(tbodyByTeacher);
       rowByTeacher
@@ -70,9 +73,10 @@ function refreshTimeTable() {
                     -
                     ${moment(timeslot.endTime, "HH:mm:ss").format("HH:mm")}
                 `)));
-      $.each(timeTable.roomList, (index, room) => {
-        rowByRoom.append($("<td/>").prop("id", `timeslot${timeslot.id}room${room.id}`));
+      $.each(teacherList, (index, teacher) => {
+        rowByTeacher.append($("<td/>").prop("id", `timeslot${timeslot.id}teacher${convertToId(teacher)}`));
       });
+
       const rowByStudentGroup = $("<tr>").appendTo(tbodyByStudentGroup);
       rowByStudentGroup
         .append($(`<th class="align-middle"/>`)
@@ -82,11 +86,6 @@ function refreshTimeTable() {
                     -
                     ${moment(timeslot.endTime, "HH:mm:ss").format("HH:mm")}
                 `)));
-
-      $.each(teacherList, (index, teacher) => {
-        rowByTeacher.append($("<td/>").prop("id", `timeslot${timeslot.id}teacher${convertToId(teacher)}`));
-      });
-
       $.each(studentGroupList, (index, studentGroup) => {
         rowByStudentGroup.append($("<td/>").prop("id", `timeslot${timeslot.id}studentGroup${convertToId(studentGroup)}`));
       });

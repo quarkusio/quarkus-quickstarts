@@ -2,6 +2,9 @@ package org.acme.optaplanner.domain;
 
 import java.util.List;
 
+import org.acme.optaplanner.domain.Lesson;
+import org.acme.optaplanner.domain.Room;
+import org.acme.optaplanner.domain.Timeslot;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
