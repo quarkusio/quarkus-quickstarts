@@ -1,7 +1,13 @@
 # Getting started with the Quarkus Mailer
 
+* Quarkus guide: https://quarkus.io/guides/mailer
+
 This is a minimal application sending emails with Gmail.
-It generates the email body with a Qute template.
+It follows the instructions from the getting started guide, but also contains some extra examples:
+
+* [using template](src/main/java/org/acme/extra/ExtraMailResource.java) 
+* [using type safe template](src/main/java/org/acme/extra/TypeSafeMailResource.java)
+* [using attachments](src/main/java/org/acme/extra/ExtraMailResource.java)
 
 ## Prerequisites
 
@@ -47,10 +53,16 @@ Run the application with:
 
 Thanks to the environment properties defined above, the application should authenticate with Gmail and send the email.
 To send the email, use the `/mail` endpoint.
-If you have the [httpie](https://httpie.io/) command line, you can run:
+
+Before doing so:
+
+1. Change the email address used in `src/main/java/org/acme/MailResource.java`, so you can receive the email
+2. If you want to send an email (and not just simulate it), add `quarkus.mailer.mock=false` to the `src/main/resources/application.properties` file
+
+Then, in a terminal use
 
 ```shell script
-http :8080/mail name==some-name email==target-email-address
+curl -v :8080/mail
 ```
 
 ### Running the application as a native executable
@@ -74,4 +86,29 @@ After getting a cup of coffee, you'll be able to run this executable directly:
 > ./target/mailer-quickstart-1.0.0-SNAPSHOT-runner
 ```
 
-Then send an email using the same _http_ command. 
+Then send an email using the same _curl_ command. 
+
+
+## Other demos
+
+Before running the other demos, don't forget to edit the code to use your email address.
+
+### Using attachments
+
+* Code: [using attachments](src/main/java/org/acme/extra/ExtraMailResource.java)
+* Command: `curl -v http://localhost:8080/extra/attachment`
+
+### Using template
+
+* Code: [using template](src/main/java/org/acme/extra/ExtraMailResource.java)
+* Template: [template](src/main/resources/templates/ExtraMailResource/hello.html)  
+* Command: `curl -v http://localhost:8080/extra/template`
+
+### Using type-safe template
+
+* Code: [using type safe template](src/main/java/org/acme/extra/TypeSafeMailResource.java)
+* Template: [template](src/main/resources/templates/TypeSafeMailResource/hello.html)
+* Command: `curl -v http://localhost:8080/type-safe`
+
+
+

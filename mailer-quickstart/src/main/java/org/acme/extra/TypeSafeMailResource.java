@@ -1,4 +1,4 @@
-package org.acme.getting.started;
+package org.acme.extra;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -14,8 +14,8 @@ import io.quarkus.mailer.MailTemplate;
 import io.quarkus.qute.CheckedTemplate;
 import io.smallrye.mutiny.Uni;
 
-@Path("/mail")
-public class MailerResource {
+@Path("/type-safe")
+public class TypeSafeMailResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)

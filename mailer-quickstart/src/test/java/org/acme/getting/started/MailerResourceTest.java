@@ -31,7 +31,7 @@ class MailerResourceTest {
                 .queryParam("name", "foo")
                 .queryParam("email", TO)
                 .when()
-                .get("/mail")
+                .get("/type-safe")
                 .then()
                 .statusCode(202);
 
@@ -51,7 +51,7 @@ class MailerResourceTest {
                 .queryParam("name", "foo")
                 .queryParam("email", "not-an-email")
                 .when()
-                .get("/mail")
+                .get("/type-safe")
                 .then()
                 .statusCode(400);
 
@@ -63,7 +63,7 @@ class MailerResourceTest {
         given()
                 .queryParam("email", TO)
                 .when()
-                .get("/mail")
+                .get("/type-safe")
                 .then()
                 .statusCode(400);
 
