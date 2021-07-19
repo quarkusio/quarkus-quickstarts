@@ -36,10 +36,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-reactive-panache</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-reactive</artifactId>
-        </dependency>
         <!-- Hibernate Reactive uses the reactive-pg-client with PostgreSQL under the hood -->
         <dependency>
             <groupId>io.quarkus</groupId>
