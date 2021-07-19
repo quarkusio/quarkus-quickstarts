@@ -30,7 +30,7 @@ for help setting up your environment.
 
 Launch the Maven build on the checked out sources of this demo:
 
-> ./mvnw install
+> ./mvnw package
 
 ## Running the demo
 
@@ -62,7 +62,7 @@ conventional jar file.
 
 First compile it:
 
-> ./mvnw install
+> ./mvnw package
 
 Then run it:
 
@@ -82,7 +82,7 @@ Compiling a native executable takes a bit longer, as GraalVM performs additional
 steps to remove unnecessary codepaths. Use the  `native` profile to compile a
 native executable:
 
-> ./mvnw install -Dnative
+> ./mvnw package -Dnative
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 

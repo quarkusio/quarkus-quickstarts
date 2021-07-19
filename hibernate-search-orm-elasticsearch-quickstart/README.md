@@ -34,7 +34,7 @@ for help setting up your environment.
 
 Launch the Maven build on the checked out sources of this demo:
 
-> ./mvnw install
+> ./mvnw package
 
 Note that running this command will start an Elasticsearch cluster, start a PostgreSQL instance and run the tests.
 
@@ -76,7 +76,7 @@ conventional jar file.
 
 First compile it:
 
-> ./mvnw install
+> ./mvnw package
 
 Note that this command will start a PostgreSQL instance and an Elasticsearch cluster to execute the tests.
 Thus your PostgreSQL and Elasticsearch containers need to be stopped.
@@ -99,7 +99,7 @@ Compiling a native executable takes a bit longer, as GraalVM performs additional
 steps to remove unnecessary codepaths. Use the  `native` profile to compile a
 native executable:
 
-> ./mvnw install -Dnative
+> ./mvnw package -Dnative
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 
