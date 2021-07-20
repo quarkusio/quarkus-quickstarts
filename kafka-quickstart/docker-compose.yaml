@@ -34,10 +34,12 @@ services:
       - kafka-quickstart-network
 
   producer:
-    image: quarkus-quickstarts/kafka-quickstart-producer:1.0
+    image: quarkus-quickstarts/kafka-quickstart-producer:1.0-${QUARKUS_MODE:-jvm}
     build:
       context: producer
       dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
+    depends_on:
+      - kafka
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     ports:
@@ -46,10 +48,12 @@ services:
       - kafka-quickstart-network
 
   processor:
-    image: quarkus-quickstarts/kafka-quickstart-processor:1.0
+    image: quarkus-quickstarts/kafka-quickstart-processor:1.0-${QUARKUS_MODE:-jvm}
     build:
       context: processor
       dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
+    depends_on:
+      - kafka
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     networks:

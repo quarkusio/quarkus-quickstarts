@@ -20,9 +20,9 @@ and in another terminal:
 mvn -f processor quarkus:dev
 ```
 
-_NOTE_: Quarkus Dev Services starts a Kafka broker for you automatically. 
+_NOTE_: Quarkus Dev Services starts a Kafka broker for you automatically.
 
-Then, open your browser to `http://localhost:8080/quotes.html`.
+Then, open your browser at `http://localhost:8080/quotes.html`.
 You can send quote requests and observe received quotes.
 
 ## Anatomy
@@ -31,7 +31,7 @@ The application is composed of the following components:
 
 #### Producer
 
-The _producer_ application receive requests from the user (via HTTP) and sends data to the Kafka broker.
+The _producer_ application receive requests from the user (via HTTP) and sends _quote requests_ to the Kafka broker.
 Two main components compose the application:
 
 * `QuoteProducer` generates uniquely identified quote requests and sends them to the Kafka topic `quote-requests`.
@@ -40,26 +40,25 @@ It also consumes the Kafka topic `quotes` and relays received messages to the br
 
 #### Processor
 
-The _processor_ application receives data from Kafka, processes them, and writes the result into the `quotes` Kafka topic.
+The _processor_ application receives quote requests from Kafka, processes them, and writes results into the `quotes` Kafka topic.
+The application has one main class:
 
-Two main classes compose the application:
-
-* `QuoteProcessor` consumes quote request id's from the `quote-requests` Kafka topic and responds back to the `quotes` topic with a `Quote` object containing a random price.
+* `QuoteProcessor` consumes quote request ids from the `quote-requests` Kafka topic and responds back to the `quotes` topic with a `Quote` object containing a random price.
 
 The connection to Kafka is configured in the `src/main/resources/application.properties` file.
 
 ## Running the application in Docker
 
-To run the application on Docker:
+To run the application in Docker, first make sure that both services are built:
 
-First make sure that both services are packaged:
 ```bash
 mvn package
 ```
 
-Then launch the Docker compose:
+Then launch Docker Compose:
+
 ```bash
-docker compose up
+docker-compose up
 ```
 
 This will create a single-node Kafka cluster and launch both applications.
@@ -69,10 +68,19 @@ This will create a single-node Kafka cluster and launch both applications.
 You can compile the application into a native binary using:
 
 ```bash
-./mvn package -Pnative
+mvn package -Dnative
 ```
 
-As you are running in _prod_ mode, you need a Kafka cluster. You can follow the instructions from the [Apache Kafka web site](https://kafka.apache.org/quickstart) or run `docker-compose up` if you have docker installed on your machine.
+As you are running in _prod_ mode, you need a Kafka cluster.
+
+If you have Docker installed, you can simply run:
+
+```bash
+export QUARKUS_MODE=native
+docker-compose up --build
+```
+
+Alternatively, you can follow the instructions from the [Apache Kafka web site](https://kafka.apache.org/quickstart).
 
 Then run both applications respectively with:
 
