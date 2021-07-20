@@ -27,14 +27,14 @@
         .then(res => res.text())
         .then(qid => {
             var row = $(`<h4 class='col-md-12' id='${qid}'>Quote # <i>${qid}</i> | <strong>Pending</strong></h4>`);
-            $(".quotes").append(row);
+            $(".quotes").prepend(row);
         });
     });
 
     var source = new EventSource("/quotes");
     source.onmessage = (event) => {
       var json = JSON.parse(event.data);
-      $(`#${json.id}`).html(function(index, html) {
+      $(`#${json.id}`).html((index, html) => {
         return html.replace("Pending", `\$\xA0${json.price}`);
       });
     };

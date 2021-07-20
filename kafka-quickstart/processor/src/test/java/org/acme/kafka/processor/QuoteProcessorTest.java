@@ -18,6 +18,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,10 +37,15 @@ public class QuoteProcessorTest {
     KafkaConsumer<String, Quote> quoteConsumer;
 
     @BeforeEach
-    void beforeAll() {
-        System.out.println(kafkaConfig);
+    void setUp() {
         quoteConsumer = new KafkaConsumer<>(consumerConfig(), new StringDeserializer(), new ObjectMapperDeserializer<>(Quote.class));
         quoteRequestProducer = new KafkaProducer<>(kafkaConfig, new StringSerializer(), new StringSerializer());
+    }
+
+    @AfterEach
+    void tearDown() {
+        quoteRequestProducer.close();
+        quoteConsumer.close();
     }
 
     Properties consumerConfig() {
