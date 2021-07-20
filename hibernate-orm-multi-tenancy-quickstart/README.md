@@ -25,7 +25,7 @@ for help setting up your environment.
 
 Launch the Maven build on the checked out sources of this demo:
 
-> ./mvnw install
+> ./mvnw package
 
 ## Running the demo
 
@@ -37,7 +37,7 @@ Approach that uses a single database (default datasource) with two schemas ('bas
 
 Make sure you have a PostgreSQL instance running. To set up a PostgreSQL database with Docker:
 
-> docker run --ulimit memlock=-1:-1 -it --rm=true --memory-swappiness=0 --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:12.2
+> docker run -it --rm=true --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:13.3
 
 Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file, [src/main/resources/application.properties](src/main/resources/application.properties). The database schemas are created using [Flyway](https://quarkus.io/guides/flyway) and the configuration can be found in 
 [src/main/resources/schema/V1.0.0__create_fruits.sql](src/main/resources/schema/V1.0.0__create_fruits.sql).
@@ -72,9 +72,9 @@ Approach that uses a separate database (datasource 'base' and 'mycompany') for s
 
 Make sure you have two PostgreSQL instances running. To set up two PostgreSQL databases with Docker:
 
-> docker run -it --rm=true --ulimit memlock=-1:-1 --memory-swappiness=0 --name quarkus_test -p 127.0.0.1:5432:5432 -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test postgres:12.2
+> docker run -it --rm=true --name quarkus_test -p 127.0.0.1:5432:5432 -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test postgres:13.3
 
-> docker run -it --rm=true --ulimit memlock=-1:-1 --memory-swappiness=0 --name mycompany -p 127.0.0.1:5433:5432 -e POSTGRES_USER=mycompany -e POSTGRES_PASSWORD=mycompany -e POSTGRES_DB=mycompany postgres:12.2
+> docker run -it --rm=true --name mycompany -p 127.0.0.1:5433:5432 -e POSTGRES_USER=mycompany -e POSTGRES_PASSWORD=mycompany -e POSTGRES_DB=mycompany postgres:13.3
 
 The 'quarkus_test' database should be listening on port 5432 and the 'mycompany' on port 5433.
 

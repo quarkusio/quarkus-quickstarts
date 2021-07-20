@@ -69,7 +69,7 @@ This will create a single-node Kafka cluster and launch both applications.
 You can compile the application into a native binary using:
 
 ```bash
-mvn install -Pnative
+./mvn package -Pnative
 ```
 
 As you are running in _prod_ mode, you need a Kafka cluster. You can follow the instructions from the [Apache Kafka web site](https://kafka.apache.org/quickstart) or run `docker-compose up` if you have docker installed on your machine.

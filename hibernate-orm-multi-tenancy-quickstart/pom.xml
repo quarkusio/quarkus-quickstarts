@@ -116,7 +116,7 @@
                     <skip>${skipTests}</skip>
                     <images>
                         <image>
-                            <name>postgres:12.2</name>
+                            <name>postgres:13.3</name>
                             <alias>quarkus_test</alias>
                             <run>
                                 <env>

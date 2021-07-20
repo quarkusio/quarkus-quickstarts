@@ -30,7 +30,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
   database:
-    image: postgres:10.5
+    image: postgres:13.3
     ports:
       - "5432:5432"
     environment:

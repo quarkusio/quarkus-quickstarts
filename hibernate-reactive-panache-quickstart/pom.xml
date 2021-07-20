@@ -115,7 +115,7 @@
                     <skip>${skipTests}</skip>
                     <images>
                         <image>
-                            <name>postgres:10.5</name>
+                            <name>postgres:13.3</name>
                             <alias>postgresql</alias>
                             <run>
                                 <env>

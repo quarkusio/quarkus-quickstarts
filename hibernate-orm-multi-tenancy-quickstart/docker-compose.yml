@@ -3,7 +3,7 @@ version: '3'
 services:
 
   database1:
-    image: postgres
+    image: postgres:13.3
     environment:
       POSTGRES_USER: "quarkus_test"
       POSTGRES_PASSWORD: "quarkus_test"
@@ -11,7 +11,7 @@ services:
       - 5432:5432
 
   database2:
-    image: postgres
+    image: postgres:13.3
     environment:
       POSTGRES_USER: "mycompany"
       POSTGRES_PASSWORD: "mycompany"

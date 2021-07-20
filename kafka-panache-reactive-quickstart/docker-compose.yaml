@@ -30,7 +30,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
   postgresql:
-    image: postgres:11
+    image: postgres:13.3
     environment:
       POSTGRES_USER: "quarkus_test"
       POSTGRES_PASSWORD: "quarkus_test"
