@@ -6,7 +6,7 @@ This example showcases how to use the Infinispan client with Quarkus.
 
 You have two options:
 
-**Option 1:** Running with Docker `docker run -it -p 11222:11222 -e USER="Titus Bramble" -e PASS="Shambles" infinispan/server:latest`
+**Option 1:** Running with Docker `docker run -it -p 11222:11222 -e USER="admin" -e PASS="password" infinispan/server:latest`
 
 There is a known issue between Docker For Mac and Infinispan Client integration. Explanations can be found in
 [this blog post](https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html).

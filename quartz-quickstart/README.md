@@ -24,7 +24,7 @@ for help setting up your environment.
 
 Launch the Maven build on the checked out sources of this demo:
 
-> ./mvnw install
+> ./mvnw package
 
 ## Running the demo
 
@@ -44,11 +44,11 @@ conventional jar file.
 
 First compile it:
 
-> ./mvnw install
+> ./mvnw package
 
 Note that running this command will start a PostgreSQL instance and run the tests. To skip tests use the command below
 
-> ./mvnw install -DskipTests
+> ./mvnw package -DskipTests
 
 Next we need to make sure you have a PostgreSQL instance running (Quarkus automatically starts one for dev and test mode). To set up a PostgreSQL database with Docker:
 
@@ -74,7 +74,7 @@ Compiling a native executable takes a bit longer, as GraalVM performs additional
 steps to remove unnecessary codepaths. Use the  `native` profile to compile a
 native executable:
 
-> ./mvnw install -Dnative
+> ./mvnw package -Dnative
 
 After getting a cup of coffee, you'll be able to run this binary directly:
 

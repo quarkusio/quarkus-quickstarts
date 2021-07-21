@@ -37,7 +37,7 @@ public class TransactionalResource {
     private ExecutorService excecutorService;
 
     @PostConstruct
-    private void postConstruct() {
+    void postConstruct() {
         excecutorService = Executors.newFixedThreadPool(1);
     }
 

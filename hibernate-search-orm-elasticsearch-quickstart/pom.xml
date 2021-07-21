@@ -105,7 +105,7 @@
                     <images>
                         <!-- Automatically start PostgreSQL for integration testing - requires Docker -->
                         <image>
-                            <name>postgres:11.3</name>
+                            <name>postgres:13.3</name>
                             <alias>postgresql</alias>
                             <run>
                                 <env>

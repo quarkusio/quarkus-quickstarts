@@ -24,7 +24,7 @@ for help setting up your environment.
 
 Launch the Maven build on the checked out sources of this demo:
 
-> ./mvnw install
+> ./mvnw package
 
 ## Starting and Configuring the Keycloak Server
 
@@ -83,7 +83,7 @@ user `alice` exists in both tenants, for the application they are distinct users
 When you're done iterating in developer mode, you can run the application as a
 conventional jar file. First compile it:
 
-> ./mvnw install
+> ./mvnw package
 
 Then run it:
 
@@ -102,7 +102,7 @@ Compiling a native executable takes a bit longer, as GraalVM performs additional
 steps to remove unnecessary codepaths. Use the  `native` profile to compile a
 native executable:
 
-> ./mvnw install -Dnative
+> ./mvnw package -Dnative
 
 After getting a cup of coffee, you'll be able to run this executable directly:
 

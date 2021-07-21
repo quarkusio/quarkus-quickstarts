@@ -29,8 +29,7 @@ public class ValuesGenerator {
 
     private Random random = new Random();
 
-    private List<WeatherStation> stations = Collections.unmodifiableList(
-            Arrays.asList(
+    private List<WeatherStation> stations = List.of(
                     new WeatherStation(1, "Hamburg", 13),
                     new WeatherStation(2, "Snowdonia", 5),
                     new WeatherStation(3, "Boston", 11),
@@ -39,7 +38,7 @@ public class ValuesGenerator {
                     new WeatherStation(6, "Svalbard", -7),
                     new WeatherStation(7, "Porthsmouth", 11),
                     new WeatherStation(8, "Oslo", 7),
-                    new WeatherStation(9, "Marrakesh", 20)));
+                    new WeatherStation(9, "Marrakesh", 20));
 
     @Outgoing("temperature-values")
     public Multi<Record<Integer, String>> generate() {
