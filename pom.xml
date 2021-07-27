@@ -47,6 +47,7 @@
         <module>kafka-streams-quickstart</module>
         <module>kogito-quickstart</module>
         <module>kogito-drl-quickstart</module>
+        <module>kogito-dmn-quickstart</module>
         <module>optaplanner-quickstart</module>
         <module>lifecycle-quickstart</module>
         <module>micrometer-quickstart</module>
