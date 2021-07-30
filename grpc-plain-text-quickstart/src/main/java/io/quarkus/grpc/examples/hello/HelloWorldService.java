@@ -2,14 +2,14 @@ package io.quarkus.grpc.examples.hello;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import examples.Greeter;
 import examples.HelloReply;
 import examples.HelloRequest;
-import examples.MutinyGreeterGrpc;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.mutiny.Uni;
 
 @GrpcService
-public class HelloWorldService extends MutinyGreeterGrpc.GreeterImplBase {
+public class HelloWorldService implements Greeter {
 
     AtomicInteger counter = new AtomicInteger();
 
