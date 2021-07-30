@@ -93,6 +93,7 @@
         <module>vertx-quickstart</module>
         <module>websockets-quickstart</module>
         <module>liquibase-quickstart</module>
+        <module>maven-multi-module-quickstart</module>
         <module>mailer-quickstart</module>
         <module>kafka-panache-quickstart</module>
         <module>kafka-panache-reactive-quickstart</module>
