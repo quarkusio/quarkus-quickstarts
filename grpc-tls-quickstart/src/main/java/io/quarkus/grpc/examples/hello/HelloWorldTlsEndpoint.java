@@ -4,10 +4,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import examples.Greeter;
 import examples.GreeterGrpc;
 import examples.HelloReply;
 import examples.HelloRequest;
-import examples.MutinyGreeterGrpc;
 import io.quarkus.grpc.GrpcClient;
 import io.smallrye.mutiny.Uni;
 
@@ -18,7 +18,7 @@ public class HelloWorldTlsEndpoint {
     GreeterGrpc.GreeterBlockingStub blockingHelloService;
 
     @GrpcClient("hello")
-    MutinyGreeterGrpc.MutinyGreeterStub mutinyHelloService;
+    Greeter helloService;
 
     @GET
     @Path("/blocking/{name}")
@@ -29,7 +29,7 @@ public class HelloWorldTlsEndpoint {
     @GET
     @Path("/mutiny/{name}")
     public Uni<String> helloMutiny(@PathParam("name") String name) {
-        return mutinyHelloService.sayHello(HelloRequest.newBuilder().setName(name).build())
+        return helloService.sayHello(HelloRequest.newBuilder().setName(name).build())
                 .onItem().transform(HelloReply::getMessage);
     }
 }
