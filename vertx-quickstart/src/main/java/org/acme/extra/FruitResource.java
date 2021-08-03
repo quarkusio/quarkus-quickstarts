@@ -34,7 +34,7 @@ public class FruitResource {
         this.schemaCreate = schemaCreate;
     }
 
-    private void initdb(@Observes StartupEvent ev) {
+    void initdb(@Observes StartupEvent ev) {
         if (schemaCreate) {
             client.query("DROP TABLE IF EXISTS fruits").execute()
                     .flatMap(r -> client.query("CREATE TABLE fruits (id SERIAL PRIMARY KEY, name TEXT NOT NULL)")
