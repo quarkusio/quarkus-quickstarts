@@ -1,0 +1,24 @@
+package org.acme.kogito.queries;
+
+unit LoanUnit; // no need to using globals, all variables and facts are stored in the rule unit
+
+import org.acme.kogito.model.*;
+
+rule LargeDepositApprove when
+   $l: /loanApplications[ applicant.age >= 20, deposit >= 1000, amount <= maxAmount ] // oopath style
+then
+   modify($l) { setApproved(true) };
+end
+
+rule LargeDepositReject when
+   $l: /loanApplications[ applicant.age >= 20, deposit >= 1000, amount > maxAmount ]
+then
+   modify($l) { setApproved(false) };
+end
+
+// ... more loans approval/rejections business rules ...
+
+// approved loan applications are now retrieved through a query
+query FindApproved
+   $l: /loanApplications[ approved ]
+end
