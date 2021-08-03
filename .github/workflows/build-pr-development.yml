@@ -28,7 +28,7 @@ jobs:
           key: q2maven-pr-jdk-${{ matrix.java }}-${{ steps.get-date.outputs.date }}
       - name: Check Wildcards
         run: |
-          if [ $(git grep import | grep '\*;' | grep -E -v '(.mvn/|README.md|CONTRIBUTING.md)' | wc -l) != 0 ]; then
+          if [ $(git grep import -- '*.java' | grep '\*;' | grep -E -v '(.mvn/|README.md|CONTRIBUTING.md)' | wc -l) != 0 ]; then
             echo "Please don't use star imports in your Java files: "
             git grep import | grep '\*;' | grep -E -v '(.mvn/|README.md|CONTRIBUTING.md)'
             exit 1
