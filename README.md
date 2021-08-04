@@ -60,6 +60,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Kafka Streams](./kafka-streams-quickstart): Use the Apache Kafka Streams API to implement stream processing applications based on Apache Kafka
 * [Bare Kafka](./kafka-bare-quickstart): How to use the Apache Kafka and Kafka Vert.x clients in Quarkus
 * [Kogito](./kogito-quickstart): How to use Kogito for business process automation with Drools and jBPM
+* [Kogito](./kogito-dmn-quickstart): How to use Kogito for decision automation with Drools DMN Engine
 * [Micrometer](./micrometer-quickstart): How to use Micrometer to gather metrics
 * [MicroProfile Fault Tolerance](./microprofile-fault-tolerance-quickstart): How to use MicroProfile Fault Tolerance
 * [MicroProfile GraphQL](./microprofile-graphql-quickstart): How to use MicroProfile GraphQL
