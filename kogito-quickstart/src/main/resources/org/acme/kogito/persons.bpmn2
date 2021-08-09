@@ -18,7 +18,7 @@
       </bpmn2:extensionElements>
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:startEvent>
-    <bpmn2:businessRuleTask id="BusinessRuleTask_1" tns:ruleFlowGroup="person" name="Evaluate person">
+    <bpmn2:businessRuleTask id="BusinessRuleTask_1" tns:ruleFlowGroup="unit:org.acme.kogito.PersonUnit" name="Evaluate person">
       <bpmn2:extensionElements>
         <tns:metaData name="elementname">
           <tns:metaValue><![CDATA[Evaluate person]]></tns:metaValue>
