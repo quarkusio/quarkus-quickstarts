@@ -7,6 +7,8 @@ import java.util.Map;
 import org.testcontainers.DockerClientFactory;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
+import org.testcontainers.utility.DockerImageName;
+
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.http.urlconnection.UrlConnectionHttpClient;
@@ -14,8 +16,9 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 
 public class SqsResource implements QuarkusTestResourceLifecycleManager {
-
     public final static String QUEUE_NAME = "Quarkus";
+
+    private final static String LOCALSTACK_IMAGE = "localstack/localstack:0.11.3";
 
     private LocalStackContainer services;
     private SqsClient client;
@@ -25,7 +28,8 @@ public class SqsResource implements QuarkusTestResourceLifecycleManager {
         DockerClientFactory.instance().client();
         String queueUrl;
         try {
-            services = new LocalStackContainer("0.11.1").withServices(Service.SQS);
+            DockerImageName dockerImageName = DockerImageName.parse(LOCALSTACK_IMAGE);
+            services = new LocalStackContainer(dockerImageName).withServices(Service.SQS);
             services.start();
             StaticCredentialsProvider staticCredentials = StaticCredentialsProvider
                 .create(AwsBasicCredentials.create("accesskey", "secretKey"));
