@@ -4,9 +4,10 @@ This project illustrates how you can use Artemis JMS with Quarkus.
 
 ## Artemis server
 
-First you need an Artemis server. You can follow the instructions from the [Apache Artemis web site](https://activemq.apache.org/components/artemis/) or run via docker:
+First you need an Apache ActiveMQ Artemis server. You can follow the instructions from the [Apache Artemis web site](https://activemq.apache.org/components/artemis/) or run via docker using the https://artemiscloud.io/[ArtemisCloud] container image:
+
 ```bash
-docker run -it --rm -p 8161:8161 -p 61616:61616 -e ARTEMIS_USERNAME=quarkus -e ARTEMIS_PASSWORD=quarkus vromero/activemq-artemis:2.9.0-alpine
+docker run -it --rm -p 8161:8161 -p 61616:61616 -p 5672:5672 -e AMQ_USER=quarkus -e AMQ_PASSWORD=quarkus quay.io/artemiscloud/activemq-artemis-broker:0.1.4
 ```
 
 ## Start the application
