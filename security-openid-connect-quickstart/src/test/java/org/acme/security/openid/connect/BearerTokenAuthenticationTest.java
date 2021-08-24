@@ -3,12 +3,16 @@ package org.acme.security.openid.connect;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-@QuarkusTestResource(KeycloakServer.class)
 public class BearerTokenAuthenticationTest {
+
+    protected String getServerAddress() {
+        return ConfigProvider.getConfig().getValue("quarkus.oidc.auth-server-url", String.class);
+    }
 
     @Test
     public void testAdminAccess() {
@@ -46,7 +50,7 @@ public class BearerTokenAuthenticationTest {
                 .param("client_id", "backend-service")
                 .param("client_secret", "secret")
                 .when()
-                .post("http://localhost:8180/auth/realms/quarkus/protocol/openid-connect/token")
+                .post(getServerAddress() + "/protocol/openid-connect/token")
                 .jsonPath().get("access_token");
     }
 }

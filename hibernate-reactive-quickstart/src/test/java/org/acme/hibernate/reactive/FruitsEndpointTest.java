@@ -26,6 +26,7 @@ public class FruitsEndpointTest {
 				.extract().response();
 		assertThat(response.jsonPath().getList("name")).containsExactlyInAnyOrder("Cherry", "Apple", "Banana");
 
+
         // Update Cherry to Pineapple
         given()
 			.when()
