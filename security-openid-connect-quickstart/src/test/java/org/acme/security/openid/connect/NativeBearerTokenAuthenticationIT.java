@@ -1,8 +1,7 @@
 package org.acme.security.openid.connect;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class NativeBearerTokenAuthenticationIT extends BearerTokenAuthenticationTest {
-
 }
