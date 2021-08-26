@@ -69,6 +69,7 @@
         <module>rest-client-reactive-quickstart</module>
         <module>reactive-routes-quickstart</module>
         <module>reactive-messaging-http-quickstart</module>
+        <module>reactive-messaging-websockets-quickstart</module>
         <module>redis-quickstart</module>
         <module>rest-client-quickstart</module>
         <module>rest-client-multipart-quickstart</module>
