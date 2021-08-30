@@ -74,7 +74,9 @@ public class S3SyncClientResource extends CommonResource {
         ListObjectsRequest listRequest = ListObjectsRequest.builder().bucket(bucketName).build();
 
         //HEAD S3 objects to get metadata
-        return s3.listObjects(listRequest).contents().stream().sorted(Comparator.comparing(S3Object::lastModified).reversed())
-                .map(FileObject::from).collect(Collectors.toList());
+        return s3.listObjects(listRequest).contents().stream()
+                .map(FileObject::from)
+                .sorted(Comparator.comparing(FileObject::getObjectKey))
+                .collect(Collectors.toList());
     }
 }

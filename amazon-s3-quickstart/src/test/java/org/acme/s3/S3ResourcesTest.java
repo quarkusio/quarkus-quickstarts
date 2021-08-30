@@ -43,12 +43,12 @@ public class S3ResourcesTest {
             .when().get("/{resource}")
             .then()
             .statusCode(200)
-            //Objects are sorted by modified data, so the last added will be the first from list files
+            //Objects are sorted by objectKey
             .body("size()", equalTo(2))
-            .body("[0].objectKey", equalTo(FILE_NAME_PREFIX + data.get(1)))
-            .body("[0].size", equalTo(data.get(1).length()))
-            .body("[1].objectKey", equalTo(FILE_NAME_PREFIX + data.get(0)))
-            .body("[1].size", equalTo(data.get(0).length()));
+            .body("[0].objectKey", equalTo(FILE_NAME_PREFIX + data.get(0)))
+            .body("[0].size", equalTo(data.get(0).length()))
+            .body("[1].objectKey", equalTo(FILE_NAME_PREFIX + data.get(1)))
+            .body("[1].size", equalTo(data.get(1).length()));
 
         //Download file
         data.forEach(fruit ->
