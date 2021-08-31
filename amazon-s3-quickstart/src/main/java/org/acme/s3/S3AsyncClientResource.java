@@ -82,7 +82,8 @@ public class S3AsyncClientResource extends CommonResource {
 
     private List<FileObject> toFileItems(ListObjectsResponse objects) {
         return objects.contents().stream()
-                .sorted(Comparator.comparing(S3Object::lastModified).reversed())
-                .map(FileObject::from).collect(Collectors.toList());
+                .map(FileObject::from)
+                .sorted(Comparator.comparing(FileObject::getObjectKey))
+                .collect(Collectors.toList());
     }
 }
