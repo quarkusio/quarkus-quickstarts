@@ -121,5 +121,5 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Reactive Messaging with Web Sockets](./reactive-messaging-websockets-quickstart): How to consume and produce messages via Web Sockets with Reactive Messaging
 
 
-There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc)).
+There is documentation published at <https://quarkus.io> (docs' [sources are here](https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc)).
 
