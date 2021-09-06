@@ -14,8 +14,6 @@
     <maven.compiler.source>11</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.target>11</maven.compiler.target>
-    <testcontainers.version>1.15.2</testcontainers.version>
-    <mutiny-vertx.version>1.5.0</mutiny-vertx.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -52,7 +50,6 @@
     <dependency>
       <groupId>io.smallrye.reactive</groupId>
       <artifactId>smallrye-mutiny-vertx-kafka-client</artifactId>
-      <version>${mutiny-vertx.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
@@ -78,7 +75,6 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>kafka</artifactId>
-      <version>${testcontainers.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

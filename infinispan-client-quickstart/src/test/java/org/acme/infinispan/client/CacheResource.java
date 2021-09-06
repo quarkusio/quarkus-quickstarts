@@ -23,6 +23,7 @@ public class CacheResource implements QuarkusTestResourceLifecycleManager {
                 new GenericContainer("infinispan/server:12.1.6.Final")
                         .waitingFor(new LogMessageWaitStrategy().withRegEx(".*Infinispan Server.*started in.*\\s"))
                         .withStartupTimeout(Duration.ofMillis(20000))
+                .withExposedPorts(INFINISPAN_PORT)
                 .withEnv("USER","admin")
                 .withEnv("PASS","password");
 
