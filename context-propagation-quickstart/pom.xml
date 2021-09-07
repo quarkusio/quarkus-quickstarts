@@ -16,7 +16,6 @@
         <maven.compiler.source>11</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>11</maven.compiler.target>
-        <testcontainers.version>1.15.2</testcontainers.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -83,7 +82,6 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>kafka</artifactId>
-            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
