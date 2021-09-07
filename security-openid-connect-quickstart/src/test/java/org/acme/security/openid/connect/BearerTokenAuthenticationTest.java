@@ -1,14 +1,14 @@
 package org.acme.security.openid.connect;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.keycloak.client.KeycloakTestClient;
 import io.restassured.RestAssured;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-@QuarkusTestResource(KeycloakServer.class)
 public class BearerTokenAuthenticationTest {
+
+    KeycloakTestClient keycloakClient = new KeycloakTestClient();
 
     @Test
     public void testAdminAccess() {
@@ -37,16 +37,7 @@ public class BearerTokenAuthenticationTest {
                 .statusCode(200);
     }
 
-    private String getAccessToken(String userName) {
-        return RestAssured
-                .given()
-                .param("grant_type", "password")
-                .param("username", userName)
-                .param("password", userName)
-                .param("client_id", "backend-service")
-                .param("client_secret", "secret")
-                .when()
-                .post("http://localhost:8180/auth/realms/quarkus/protocol/openid-connect/token")
-                .jsonPath().get("access_token");
+    protected String getAccessToken(String userName) {
+        return keycloakClient.getAccessToken(userName);
     }
 }
