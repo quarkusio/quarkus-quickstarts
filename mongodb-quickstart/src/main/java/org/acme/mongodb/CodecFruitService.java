@@ -35,6 +35,6 @@ public class CodecFruitService {
     }
 
     private MongoCollection<Fruit> getCollection() {
-        return mongoClient.getDatabase("fruit").getCollection("fruit", Fruit.class);
+        return mongoClient.getDatabase("fruit").getCollection("codec_fruit", Fruit.class);
     }
 }
