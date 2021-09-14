@@ -45,7 +45,7 @@
         <!-- Vert.x Routes -->
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-vertx-web</artifactId>
+            <artifactId>quarkus-reactive-routes</artifactId>
         </dependency>
 
         <!-- Testing -->
