@@ -1,8 +1,6 @@
 package org.acme.mongodb.panache;
 
 import static io.restassured.config.LogConfig.logConfig;
-import static org.acme.mongodb.panache.MongoDbContainer.MONGODB_HOST;
-import static org.acme.mongodb.panache.MongoDbContainer.MONGODB_PORT;
 
 import java.time.LocalDate;
 
@@ -10,32 +8,22 @@ import org.assertj.core.api.Assertions;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.github.dockerjava.api.model.ExposedPort;
-import com.github.dockerjava.api.model.PortBinding;
-import com.github.dockerjava.api.model.Ports;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.config.ObjectMapperConfig;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 
-@Testcontainers
 @QuarkusTest
+@QuarkusTestResource(MongoDbResource.class)
 class PersonResourceTest {
-
-    @Container
-    static GenericContainer MONGO_DB_CONTAINER = new MongoDbContainer()
-            .withCreateContainerCmdModifier(cmd -> cmd.withHostName(MONGODB_HOST)
-                    .withPortBindings(new PortBinding(Ports.Binding.bindPort(MONGODB_PORT), new ExposedPort(MONGODB_PORT))));
 
     @BeforeAll
     static void initAll() {
