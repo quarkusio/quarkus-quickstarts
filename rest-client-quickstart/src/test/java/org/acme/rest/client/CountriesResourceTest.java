@@ -3,11 +3,14 @@ package org.acme.rest.client;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
+import org.acme.rest.client.resources.WireMockCountriesResource;
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
+@QuarkusTestResource(WireMockCountriesResource.class)
 public class CountriesResourceTest {
 
     @Test
