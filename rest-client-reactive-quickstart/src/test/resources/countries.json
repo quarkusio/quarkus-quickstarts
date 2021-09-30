@@ -1,0 +1,26 @@
+[
+  {
+    "name": "greece",
+    "capital": "Athens",
+    "currencies": [
+      {
+        "code": "EUR",
+        "name": "Euro",
+        "symbol": "€"
+      }
+    ],
+    "alpha2Code": "GR"
+  },
+  {
+    "name": "Germany",
+    "capital": "Berlin",
+    "currencies": [
+      {
+        "code": "EUR",
+        "name": "Euro",
+        "symbol": "€"
+      }
+    ],
+    "alpha2Code": "DE"
+  }
+]
