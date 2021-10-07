@@ -33,7 +33,7 @@ public class WireMockCountriesResource implements QuarkusTestResourceLifecycleMa
         wireMockServer = new WireMockServer(WIREMOCK_PORT);
         wireMockServer.start();
         stubCountries();
-        return Collections.singletonMap("org.acme.rest.client.CountriesService/mp-rest/url",
+        return Collections.singletonMap("quarkus.rest-client.\"org.acme.rest.client.CountriesService\".url",
                 wireMockServer.baseUrl() + BASE_PATH);
     }
 
