@@ -61,6 +61,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Bare Kafka](./kafka-bare-quickstart): How to use the Apache Kafka and Kafka Vert.x clients in Quarkus
 * [Kogito](./kogito-quickstart): How to use Kogito for business process automation with Drools and jBPM
 * [Kogito](./kogito-dmn-quickstart): How to use Kogito for decision automation with Drools DMN Engine
+* [Liquibase](./liquibase-quickstart): How to use Liquibase to manage you schema migrations
+* [Liquibase MongoDB](./liquibase-mongodb-quickstart): How to use Liquibase MongoDB extension to manage you MongoDB migrations
 * [Micrometer](./micrometer-quickstart): How to use Micrometer to gather metrics
 * [MicroProfile Fault Tolerance](./microprofile-fault-tolerance-quickstart): How to use MicroProfile Fault Tolerance
 * [MicroProfile GraphQL](./microprofile-graphql-quickstart): How to use MicroProfile GraphQL
