@@ -52,13 +52,6 @@
             <artifactId>quarkus-jdbc-postgresql</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-orm-deployment</artifactId>
-            <scope>provided</scope>
-            <version>${quarkus-plugin.version}</version>
-        </dependency>
-
         <!-- Testing: -->
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -98,9 +91,9 @@
             </plugin>
             <plugin>
                 <!-- This is what injects the magic Quarkus bytecode -->
-                <groupId>io.quarkus</groupId>
+                <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus-plugin.version}</version>
+                <version>${quarkus.platform.version}</version>
                 <executions>
                     <execution>
                         <goals>
