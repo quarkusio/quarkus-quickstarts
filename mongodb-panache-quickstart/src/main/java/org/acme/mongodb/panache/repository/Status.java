@@ -1,4 +1,4 @@
-package org.acme.mongodb.panache;
+package org.acme.mongodb.panache.repository;
 
 public enum Status {
     LIVING,
