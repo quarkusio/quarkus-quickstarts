@@ -46,12 +46,12 @@
           if ($scope.form.id == -1) {
             //Id is absent so add fruits - POST operation
             method = "POST";
-            url = '/fruits';
+            url = '/entity/fruits';
             data.name = $scope.form.name;
           } else {
             //If Id is present, it's edit operation - PUT operation
             method = "PUT";
-            url = '/fruits/' + $scope.form.id;
+            url = '/entity/fruits/' + $scope.form.id;
             data.name = $scope.form.name;
           }
 
@@ -69,7 +69,7 @@
         $scope.remove = function (fruit) {
           $http({
             method: 'DELETE',
-            url: '/fruits/' + fruit.id
+            url: '/entity/fruits/' + fruit.id
           }).then(_success, _error);
         };
 
@@ -84,7 +84,7 @@
         function _refreshPageData() {
           $http({
             method: 'GET',
-            url: '/fruits'
+            url: '/entity/fruits'
           }).then(function successCallback(response) {
             $scope.fruits = response.data;
           }, function errorCallback(response) {

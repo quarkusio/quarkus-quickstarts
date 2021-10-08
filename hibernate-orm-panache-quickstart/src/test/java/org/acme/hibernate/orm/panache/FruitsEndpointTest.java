@@ -12,10 +12,19 @@ import io.quarkus.test.junit.QuarkusTest;
 public class FruitsEndpointTest {
 
     @Test
-    public void testListAllFruits() {
+    public void testFruitEntity() {
+        performTest("/entity/fruits");
+    }
+
+    @Test
+    public void testFruitRepository() {
+        performTest("/repository/fruits");
+    }
+
+    private void performTest(String path) {
         //List all, should have all 3 fruits the database has initially:
         given()
-                .when().get("/fruits")
+                .when().get(path)
                 .then()
                 .statusCode(200)
                 .body(
@@ -25,13 +34,13 @@ public class FruitsEndpointTest {
 
         //Delete the Cherry:
         given()
-                .when().delete("/fruits/1")
+                .when().delete(path + "/1")
                 .then()
                 .statusCode(204);
 
         //List all, cherry should be missing now:
         given()
-                .when().get("/fruits")
+                .when().get(path)
                 .then()
                 .statusCode(200)
                 .body(
