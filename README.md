@@ -80,6 +80,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [OptaPlanner](./optaplanner-quickstart): How to use OptaPlanner to optimize business resources
 * [Quartz](./quartz-quickstart): How to schedule periodic clustered jobs
 * [Qute](./qute-quickstart): How to use the Qute templating engine in Quarkus
+* [RabbitMQ](./rabbitmq-quickstart): How to interact with RabbitMQ using MicroProfile reactive messaging
 * [Reactive Routes](./reactive-routes-quickstart): How to use Reactive Routes in Quarkus
 * [REST Client Reactive](./rest-client-quickstart): How to use MicroProfile's REST Client with Reactive client
 * [REST Client](./rest-client-quickstart): How to use MicroProfile's REST Client

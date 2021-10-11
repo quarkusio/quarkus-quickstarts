@@ -67,6 +67,7 @@
         <module>opentelemetry-quickstart</module>
         <module>quartz-quickstart</module>
         <module>qute-quickstart</module>
+        <module>rabbitmq-quickstart</module>
         <module>rest-client-reactive-quickstart</module>
         <module>reactive-routes-quickstart</module>
         <module>reactive-messaging-http-quickstart</module>
