@@ -30,7 +30,7 @@ public class EmitterResource {
     public Publisher<Double> prices() {
         // get the next three prices from the price stream
         return Multi.createFrom().publisher(prices)
-                .transform().byTakingFirstItems(3)
+                .select().first(3)
                 .map(price -> {
                     // store each price before we send them
                     Price priceEntity = new Price();
