@@ -32,18 +32,18 @@ public class FruitsRoutes {
     private static final Logger LOGGER = Logger.getLogger(FruitsRoutes.class.getName());
 
     @Inject
-    Mutiny.Session session;
+    Mutiny.SessionFactory sf;
 
     @Route(methods = GET, path = "/")
-    public Uni<List<Fruit>> getAll() throws Exception {
-        // In this case, it makes sense to return a Uni<List<Fruit>> because we return a reasonable amount of results
-        // Consider returning a Multi<Fruit> for result streams
-        return session.createNamedQuery(Fruit.FIND_ALL, Fruit.class).getResultList();
+    public Uni<List<Fruit>> getAll() {
+        return sf.withSession(session -> session
+                .createNamedQuery(Fruit.FIND_ALL, Fruit.class)
+                .getResultList());
     }
 
     @Route(methods = GET, path = "/:id")
     public Uni<Fruit> getSingle(@Param Integer id) {
-        return session.find(Fruit.class, id);
+        return sf.withSession(session -> session.find(Fruit.class, id));
     }
 
     @Route(methods = POST, path = "/")
@@ -51,7 +51,7 @@ public class FruitsRoutes {
         if (fruit == null || fruit.getId() != null) {
             return Uni.createFrom().failure(new IllegalArgumentException("Fruit id invalidly set on request."));
         }
-        return session.withTransaction(tx -> session.persist(fruit))
+        return sf.withTransaction((session, tx) -> session.persist(fruit))
                 .invoke(() -> response.setStatusCode(201))
                 .replaceWith(fruit);
     }
@@ -61,7 +61,7 @@ public class FruitsRoutes {
         if (fruit == null || fruit.getName() == null) {
             return Uni.createFrom().failure(new IllegalArgumentException("Fruit name was not set on request."));
         }
-        return session.withTransaction(tx -> session.find(Fruit.class, id)
+        return sf.withTransaction((session,tx) -> session.find(Fruit.class, id)
                 // If entity exists then update it
                 .onItem().ifNotNull().invoke(entity -> entity.setName(fruit.getName())))
                 // If entity not found, fail
@@ -70,7 +70,7 @@ public class FruitsRoutes {
 
     @Route(methods = DELETE, path = "/:id")
     public Uni<Fruit> delete(@Param Integer id, HttpServerResponse response) {
-        return session.withTransaction(tx -> session.find(Fruit.class, id)
+        return sf.withTransaction((session,tx) -> session.find(Fruit.class, id)
                 // If entity exists then delete it
                 .onItem().ifNotNull()
                     .call(entity -> session.remove(entity)
