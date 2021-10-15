@@ -1,5 +1,6 @@
 package org.acme.infinispan.client;
 
+import io.quarkus.test.infinispan.client.InfinispanTestResource;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(CacheResource.class)
+@QuarkusTestResource(InfinispanTestResource.class)
 class InfinispanGreetingResourceTest {
 
     @Test
