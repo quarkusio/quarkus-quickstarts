@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.jboss.resteasy.annotations.SseElementType;
+import org.jboss.resteasy.reactive.RestSseElementType;
 import org.reactivestreams.Publisher;
 
 import io.smallrye.mutiny.Multi;
@@ -26,7 +26,7 @@ public class EmitterResource {
     @GET
     @Path("/prices")
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    @SseElementType(MediaType.TEXT_PLAIN)
+    @RestSseElementType(MediaType.TEXT_PLAIN)
     public Publisher<Double> prices() {
         // get the next three prices from the price stream
         return Multi.createFrom().publisher(prices)

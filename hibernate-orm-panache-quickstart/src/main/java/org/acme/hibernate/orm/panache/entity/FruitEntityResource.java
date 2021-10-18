@@ -17,11 +17,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.acme.hibernate.orm.panache.repository.Fruit;
 import org.jboss.logging.Logger;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import org.jboss.resteasy.reactive.RestPath;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.quarkus.panache.common.Sort;
 
@@ -40,7 +41,7 @@ public class FruitEntityResource {
 
     @GET
     @Path("{id}")
-    public FruitEntity getSingle(@PathParam Long id) {
+    public FruitEntity getSingle(@RestPath Long id) {
         FruitEntity entity = FruitEntity.findById(id);
         if (entity == null) {
             throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
@@ -62,7 +63,7 @@ public class FruitEntityResource {
     @PUT
     @Path("{id}")
     @Transactional
-    public FruitEntity update(@PathParam Long id, Fruit fruit) {
+    public FruitEntity update(@RestPath Long id, Fruit fruit) {
         if (fruit.name == null) {
             throw new WebApplicationException("Fruit Name was not set on request.", 422);
         }
@@ -81,7 +82,7 @@ public class FruitEntityResource {
     @DELETE
     @Path("{id}")
     @Transactional
-    public Response delete(@PathParam Long id) {
+    public Response delete(@RestPath Long id) {
         FruitEntity entity = FruitEntity.findById(id);
         if (entity == null) {
             throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);

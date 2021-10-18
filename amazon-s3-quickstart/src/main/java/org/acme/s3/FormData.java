@@ -1,24 +1,21 @@
 package org.acme.s3;
 
-import java.io.InputStream;
-
-import javax.ws.rs.FormParam;
+import java.io.File;
 import javax.ws.rs.core.MediaType;
-
-import org.jboss.resteasy.annotations.providers.multipart.PartType;
+import org.jboss.resteasy.reactive.PartType;
+import org.jboss.resteasy.reactive.RestForm;
 
 public class FormData {
 
-    @FormParam("file")
-    @PartType(MediaType.APPLICATION_OCTET_STREAM)
-    public InputStream data;
+    @RestForm("file")
+    public File data;
 
-    @FormParam("filename")
+    @RestForm
     @PartType(MediaType.TEXT_PLAIN)
-    public String fileName;
+    public String filename;
 
-    @FormParam("mimetype")
+    @RestForm
     @PartType(MediaType.TEXT_PLAIN)
-    public String mimeType;
+    public String mimetype;
 
 }

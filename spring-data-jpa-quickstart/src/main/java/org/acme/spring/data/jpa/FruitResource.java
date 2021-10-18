@@ -10,7 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import org.jboss.resteasy.reactive.RestPath;
 
 @Path("/fruits")
 public class FruitResource {
@@ -29,21 +29,21 @@ public class FruitResource {
 
     @DELETE
     @Path("{id}")
-    public void delete(@PathParam long id) {
+    public void delete(@RestPath long id) {
         fruitRepository.deleteById(id);
     }
 
     @POST
     @Path("/name/{name}/color/{color}")
     @Produces("application/json")
-    public Fruit create(@PathParam String name, @PathParam String color) {
+    public Fruit create(@RestPath String name, @RestPath String color) {
         return fruitRepository.save(new Fruit(name, color));
     }
 
     @PUT
     @Path("/id/{id}/color/{color}")
     @Produces("application/json")
-    public Fruit changeColor(@PathParam Long id, @PathParam String color) {
+    public Fruit changeColor(@RestPath Long id, @RestPath String color) {
         Optional<Fruit> optional = fruitRepository.findById(id);
         if (optional.isPresent()) {
             Fruit fruit = optional.get();
@@ -57,7 +57,7 @@ public class FruitResource {
     @GET
     @Path("/color/{color}")
     @Produces("application/json")
-    public List<Fruit> findByColor(@PathParam String color) {
+    public List<Fruit> findByColor(@RestPath String color) {
         return fruitRepository.findByColor(color);
     }
 }
