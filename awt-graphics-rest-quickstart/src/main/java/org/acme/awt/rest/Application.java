@@ -21,7 +21,8 @@ public class Application {
     @PostConstruct
     public void init() throws IOException, FontFormatException {
         final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        // Font source: https://ftp.gnu.org/gnu/freefont/
+        // Original font source: https://ftp.gnu.org/gnu/freefont/
+        // Application packages them locally in ./src/main/resources
         ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(
                 Application.class.getResourceAsStream("/MyFreeMono.ttf"),
                 "MyFreeMono.ttf not found.")));
