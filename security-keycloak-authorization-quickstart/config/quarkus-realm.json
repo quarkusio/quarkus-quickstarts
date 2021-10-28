@@ -396,7 +396,7 @@
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
     "secret" : "secret",
-    "redirectUris" : [ ],
+    "redirectUris" : ["*"],
     "webOrigins" : [ ],
     "notBefore" : 0,
     "bearerOnly" : false,
