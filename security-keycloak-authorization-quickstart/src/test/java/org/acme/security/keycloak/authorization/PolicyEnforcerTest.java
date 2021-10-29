@@ -1,22 +1,18 @@
 package org.acme.security.keycloak.authorization;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import org.junit.jupiter.api.Test;
-import org.keycloak.representations.AccessTokenResponse;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.keycloak.client.KeycloakTestClient;
 import io.restassured.RestAssured;
 
 @QuarkusTest
-@QuarkusTestResource(KeycloakServer.class)
 public class PolicyEnforcerTest {
-
-    private static final String KEYCLOAK_SERVER_URL = System.getProperty("keycloak.url", "https://localhost:8543/auth");
-    private static final String KEYCLOAK_REALM = "quarkus";
-
     static {
         RestAssured.useRelaxedHTTPSValidation();
     }
+
+    KeycloakTestClient keycloakClient = new KeycloakTestClient();
 
     @Test
     public void testAccessUserResource() {
@@ -55,15 +51,6 @@ public class PolicyEnforcerTest {
     }
 
     private String getAccessToken(String userName) {
-        return RestAssured
-                .given()
-                .param("grant_type", "password")
-                .param("username", userName)
-                .param("password", userName)
-                .param("client_id", "backend-service")
-                .param("client_secret", "secret")
-                .when()
-                .post(KEYCLOAK_SERVER_URL + "/realms/" + KEYCLOAK_REALM + "/protocol/openid-connect/token")
-                .as(AccessTokenResponse.class).getToken();
+        return keycloakClient.getAccessToken(userName);
     }
 }
