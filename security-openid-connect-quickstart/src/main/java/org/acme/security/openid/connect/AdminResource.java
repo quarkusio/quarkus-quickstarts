@@ -23,9 +23,6 @@ import javax.ws.rs.core.MediaType;
 
 import io.quarkus.security.Authenticated;
 
-/**
- * @author <a href="mailto:psilva@redhat.com">Pedro Igor</a>
- */
 @Path("/api/admin")
 @Authenticated
 public class AdminResource {

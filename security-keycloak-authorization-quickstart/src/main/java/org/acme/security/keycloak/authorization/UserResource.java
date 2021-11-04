@@ -1,3 +1,18 @@
+/**
+ * Copyright 2019 Red Hat, Inc, and individual contributors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.acme.security.keycloak.authorization;
 
 import javax.inject.Inject;
@@ -12,21 +27,21 @@ import io.quarkus.security.identity.SecurityIdentity;
 public class UserResource {
 
     @Inject
-    SecurityIdentity keycloakSecurityContext;
+    SecurityIdentity identity;
 
     @GET
     @Path("/me")
     @Produces(MediaType.APPLICATION_JSON)
     public User me() {
-        return new User(keycloakSecurityContext);
+        return new User(identity);
     }
 
     public static class User {
 
         private final String userName;
 
-        User(SecurityIdentity securityContext) {
-            this.userName = securityContext.getPrincipal().getName();
+        User(SecurityIdentity identity) {
+            this.userName = identity.getPrincipal().getName();
         }
 
         public String getUserName() {
