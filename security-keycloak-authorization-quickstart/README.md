@@ -39,9 +39,9 @@ for help setting up your environment.
 ## Building the application
 
 Launch the Maven build on the checked out sources of this demo:
-
-> ./mvnw package
-
+```bash
+ ./mvnw package
+```
 ## Starting and Configuring the Keycloak Server
 
 NOTE: Do not start the Keycloak server when you run the application in a dev mode - `Dev Services for Keycloak` will launch a container for you.
@@ -52,7 +52,7 @@ To start a Keycloak Server you can use Docker and just run the following command
 docker run --name keycloak -e DB_VENDOR=H2 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8180:8080 -p 8543:8443 quay.io/keycloak/keycloak:{keycloak version}
 ```
 
-You should be able to access your Keycloak Server at http://localhost:8180/auth[localhost:8180/auth] or https://localhost:8543/auth[localhost:8543/auth].
+You should be able to access your Keycloak Server at http://localhost:8180/auth or https://localhost:8543/auth.
 
 Log in as the `admin` user to access the Keycloak Administration Console.
 Username should be `admin` and password `admin`.
@@ -64,20 +64,20 @@ For more details, see the Keycloak documentation about how to [create a new real
 
 The Maven Quarkus plugin provides a development mode that supports
 live coding. To try this out:
-
-> ./mvnw quarkus:dev
-
+```bash
+./mvnw quarkus:dev
+```
 This command will leave Quarkus running in the foreground listening on port 8080.
 
-Now open link:http://localhost:8080/q/dev[OpenId Connect Dev UI]. You will be asked to login into a `Single Page Application`. Log in as `alice:alice` - accessing the `/api/admin` will return `403` and `/api/users/me` - `200` as `alice` only has a `User Permission` to access the `/api/users/me` resource. Logout and login as `admin:admin` - accessing both `/api/admin` and `/api/users/me` will return `200` since `admin` has both `Admin Permission` to access the `/api/admin` resource and `User Permission` to access the `/api/users/me` resource.
+Now open [OpenId Connect Dev UI](http://localhost:8080/q/dev). You will be asked to login into a _Single Page Application_. Log in as `alice:alice` - accessing the `/api/admin` will return `403` and `/api/users/me` - `200` as `alice` only has a _User Permission_ to access the `/api/users/me` resource. Logout and login as `admin:admin` - accessing both `/api/admin` and `/api/users/me` will return `200` since `admin` has both _Admin Permission_ to access the `/api/admin` resource and _User Permission_ to access the `/api/users/me` resource.
 
 ### Run Quarkus in JVM mode
 
 When you're done iterating in developer mode, you can run the application as a
 conventional jar file. First compile it:
-
-> ./mvnw package
-
+```bash
+./mvnw package
+```
 Then run it:
 
 > java -jar ./target/quarkus-app/quarkus-run.jar
