@@ -110,15 +110,14 @@ You can test the application launched in JVM or Native modes with `curl`.
 The application is using bearer token authorization and the first thing to do is obtain an access token from the Keycloak Server in
 order to access the application resources:
 
-[source,bash]
-----
+```bash
 export access_token=$(\
     curl --insecure -X POST https://localhost:8543/auth/realms/quarkus/protocol/openid-connect/token \
     --user backend-service:secret \
     -H 'content-type: application/x-www-form-urlencoded' \
     -d 'username=alice&password=alice&grant_type=password' | jq --raw-output '.access_token' \
  )
-----
+```
 
 The example above obtains an access token for user `alice`.
 
@@ -126,34 +125,31 @@ Any user is allowed to access the
 `http://localhost:8080/api/users/me` endpoint
 which basically returns a JSON payload with details about the user.
 
-[source,bash]
-----
+```bash
 curl -v -X GET \
   http://localhost:8080/api/users/me \
   -H "Authorization: Bearer "$access_token
-----
+```
 
 The `http://localhost:8080/api/admin` endpoint can only be accessed by users with the `admin` role. If you try to access this endpoint with the
  previously issued access token, you should get a `403` response
  from the server.
 
-[source,bash]
-----
+```bash
 curl -v -X GET \
    http://localhost:8080/api/admin \
    -H "Authorization: Bearer "$access_token
-----
+```
 
 In order to access the admin endpoint you should obtain a token for the `admin` user:
 
-[source,bash]
-----
+```bash
 export access_token=$(\
     curl --insecure -X POST https://localhost:8543/auth/realms/quarkus/protocol/openid-connect/token \
     --user backend-service:secret \
     -H 'content-type: application/x-www-form-urlencoded' \
     -d 'username=admin&password=admin&grant_type=password' | jq --raw-output '.access_token' \
  )
-----
+```
 
 Please also note the integration tests depend on `Dev Services for Keycloak`.
