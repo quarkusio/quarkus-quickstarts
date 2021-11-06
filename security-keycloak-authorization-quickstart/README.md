@@ -44,7 +44,7 @@ Launch the Maven build on the checked out sources of this demo:
 ```
 ## Starting and Configuring the Keycloak Server
 
-NOTE: Do not start the Keycloak server when you run the application in a dev mode - `Dev Services for Keycloak` will launch a container for you.
+> :warning: **NOTE**: Do not start the Keycloak server when you run the application in a dev mode - `Dev Services for Keycloak` will launch a container for you.
 
 To start a Keycloak Server you can use Docker and just run the following command:
 
