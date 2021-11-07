@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image processing REST service</title>
+</head>
+<body>
+POST multipart, image data to receive a watermarked PNG image back.</a>
+e.g.
+<pre>
+    curl -F "image=@/tmp/my_image.jpg"  http://localhost:8080/watermark --output /tmp/result.png
+</pre>
+Watermarks the given image with some text in the top left corner and a Quarkus icon in the right bottom corner.
+</body>
+</html>
