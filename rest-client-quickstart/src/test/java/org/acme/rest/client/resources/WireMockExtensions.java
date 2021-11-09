@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.URLEncoder;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
@@ -20,10 +22,10 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
-public class WireMockCountriesResource implements QuarkusTestResourceLifecycleManager {
+public class WireMockExtensions implements QuarkusTestResourceLifecycleManager {
 
-    private static final String COUNTRIES_JSON_FILE = "/countries.json";
-    private static final String BASE_PATH = "/rest";
+    private static final String COUNTRIES_JSON_FILE = "/extensions.json";
+    private static final String BASE_PATH = "/api";
     private static final int WIREMOCK_PORT = 7777;
 
     private WireMockServer wireMockServer;
@@ -32,8 +34,8 @@ public class WireMockCountriesResource implements QuarkusTestResourceLifecycleMa
     public Map<String, String> start() {
         wireMockServer = new WireMockServer(WIREMOCK_PORT);
         wireMockServer.start();
-        stubCountries();
-        return Collections.singletonMap("quarkus.rest-client.\"org.acme.rest.client.CountriesService\".url",
+        stubExtensions();
+        return Collections.singletonMap("quarkus.rest-client.\"org.acme.rest.client.ExtensionsService\".url",
                 wireMockServer.baseUrl() + BASE_PATH);
     }
 
@@ -43,24 +45,24 @@ public class WireMockCountriesResource implements QuarkusTestResourceLifecycleMa
             wireMockServer.stop();
     }
 
-    private void stubCountries() {
+    private void stubExtensions() {
 
-        try (InputStream is = WireMockCountriesResource.class.getResourceAsStream(COUNTRIES_JSON_FILE)) {
-            String countries = new String(is.readAllBytes());
+        try (InputStream is = WireMockExtensions.class.getResourceAsStream(COUNTRIES_JSON_FILE)) {
+            String extensions = new String(is.readAllBytes());
 
-            // Stub for full list of countries:
+            // Stub for full list of extensions:
             wireMockServer.stubFor(get(urlEqualTo(BASE_PATH))
-                    .willReturn(okJson(countries)));
+                    .willReturn(okJson(extensions)));
 
             // Stub for each country
-            try (StringReader sr = new StringReader(countries);
+            try (StringReader sr = new StringReader(extensions);
                     JsonParser parser = Json.createParser(sr)) {
                 parser.next();
-                for (JsonValue country : parser.getArray()) {
-                    String name = country.asJsonObject().getString("name");
+                for (JsonValue extension : parser.getArray()) {
+                    String id = extension.asJsonObject().getString("id");
 
-                    wireMockServer.stubFor(get(urlEqualTo(BASE_PATH + "/v2/name/" + name))
-                            .willReturn(okJson("[" + country + "]")));
+                    wireMockServer.stubFor(get(urlEqualTo(BASE_PATH + "/extensions?id=" + URLEncoder.encode(id, "UTF-8")))
+                            .willReturn(okJson("[" + extension + "]")));
                 }
             }
 
