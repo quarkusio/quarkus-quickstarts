@@ -20,6 +20,7 @@ import javax.ws.rs.core.StreamingOutput;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
+import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -59,12 +60,10 @@ public class S3SyncClientResource extends CommonResource {
     @Path("download/{objectKey}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadFile(@PathParam("objectKey") String objectKey) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        GetObjectResponse object = s3.getObject(buildGetRequest(objectKey), ResponseTransformer.toOutputStream(baos));
-
-        ResponseBuilder response = Response.ok((StreamingOutput) output -> baos.writeTo(output));
+        ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(buildGetRequest(objectKey));
+        ResponseBuilder response = Response.ok(objectBytes.asUtf8String());
         response.header("Content-Disposition", "attachment;filename=" + objectKey);
-        response.header("Content-Type", object.contentType());
+        response.header("Content-Type", objectBytes.response().contentType());
         return response.build();
     }
 
