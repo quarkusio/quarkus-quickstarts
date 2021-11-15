@@ -39,12 +39,12 @@ for help setting up your environment.
 ## Building the application
 
 Launch the Maven build on the checked out sources of this demo:
-
-> ./mvnw package
-
+```bash
+ ./mvnw package
+```
 ## Starting and Configuring the Keycloak Server
 
-NOTE: Do not start the Keycloak server when you run the application in a dev mode - `Dev Services for Keycloak` will launch a container for you.
+> :warning: **NOTE**: Do not start the Keycloak server when you run the application in a dev mode - `Dev Services for Keycloak` will launch a container for you.
 
 To start a Keycloak Server you can use Docker and just run the following command:
 
@@ -52,7 +52,7 @@ To start a Keycloak Server you can use Docker and just run the following command
 docker run --name keycloak -e DB_VENDOR=H2 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8180:8080 -p 8543:8443 quay.io/keycloak/keycloak:{keycloak version}
 ```
 
-You should be able to access your Keycloak Server at http://localhost:8180/auth[localhost:8180/auth] or https://localhost:8543/auth[localhost:8543/auth].
+You should be able to access your Keycloak Server at http://localhost:8180/auth or https://localhost:8543/auth.
 
 Log in as the `admin` user to access the Keycloak Administration Console.
 Username should be `admin` and password `admin`.
@@ -64,20 +64,20 @@ For more details, see the Keycloak documentation about how to [create a new real
 
 The Maven Quarkus plugin provides a development mode that supports
 live coding. To try this out:
-
-> ./mvnw quarkus:dev
-
+```bash
+./mvnw quarkus:dev
+```
 This command will leave Quarkus running in the foreground listening on port 8080.
 
-Now open link:http://localhost:8080/q/dev[OpenId Connect Dev UI]. You will be asked to login into a `Single Page Application`. Log in as `alice:alice` - accessing the `/api/admin` will return `403` and `/api/users/me` - `200` as `alice` only has a `User Permission` to access the `/api/users/me` resource. Logout and login as `admin:admin` - accessing both `/api/admin` and `/api/users/me` will return `200` since `admin` has both `Admin Permission` to access the `/api/admin` resource and `User Permission` to access the `/api/users/me` resource.
+Now open [OpenId Connect Dev UI](http://localhost:8080/q/dev). You will be asked to login into a _Single Page Application_. Log in as `alice:alice` - accessing the `/api/admin` will return `403` and `/api/users/me` - `200` as `alice` only has a _User Permission_ to access the `/api/users/me` resource. Logout and login as `admin:admin` - accessing both `/api/admin` and `/api/users/me` will return `200` since `admin` has both _Admin Permission_ to access the `/api/admin` resource and _User Permission_ to access the `/api/users/me` resource.
 
 ### Run Quarkus in JVM mode
 
 When you're done iterating in developer mode, you can run the application as a
 conventional jar file. First compile it:
-
-> ./mvnw package
-
+```bash
+./mvnw package
+```
 Then run it:
 
 > java -jar ./target/quarkus-app/quarkus-run.jar
@@ -110,15 +110,14 @@ You can test the application launched in JVM or Native modes with `curl`.
 The application is using bearer token authorization and the first thing to do is obtain an access token from the Keycloak Server in
 order to access the application resources:
 
-[source,bash]
-----
+```bash
 export access_token=$(\
     curl --insecure -X POST https://localhost:8543/auth/realms/quarkus/protocol/openid-connect/token \
     --user backend-service:secret \
     -H 'content-type: application/x-www-form-urlencoded' \
     -d 'username=alice&password=alice&grant_type=password' | jq --raw-output '.access_token' \
  )
-----
+```
 
 The example above obtains an access token for user `alice`.
 
@@ -126,34 +125,31 @@ Any user is allowed to access the
 `http://localhost:8080/api/users/me` endpoint
 which basically returns a JSON payload with details about the user.
 
-[source,bash]
-----
+```bash
 curl -v -X GET \
   http://localhost:8080/api/users/me \
   -H "Authorization: Bearer "$access_token
-----
+```
 
 The `http://localhost:8080/api/admin` endpoint can only be accessed by users with the `admin` role. If you try to access this endpoint with the
  previously issued access token, you should get a `403` response
  from the server.
 
-[source,bash]
-----
+```bash
 curl -v -X GET \
    http://localhost:8080/api/admin \
    -H "Authorization: Bearer "$access_token
-----
+```
 
 In order to access the admin endpoint you should obtain a token for the `admin` user:
 
-[source,bash]
-----
+```bash
 export access_token=$(\
     curl --insecure -X POST https://localhost:8543/auth/realms/quarkus/protocol/openid-connect/token \
     --user backend-service:secret \
     -H 'content-type: application/x-www-form-urlencoded' \
     -d 'username=admin&password=admin&grant_type=password' | jq --raw-output '.access_token' \
  )
-----
+```
 
 Please also note the integration tests depend on `Dev Services for Keycloak`.
