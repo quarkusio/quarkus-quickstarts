@@ -2,6 +2,7 @@ package org.acme.s3;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.containsString;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -58,7 +59,7 @@ public class S3ResourcesTest {
                 .when().get("/{resource}/download/{objectKey}")
                 .then()
                 .statusCode(200)
-                .body(equalTo(fruit))
+                .body(containsString(fruit))
         );
     }
 }
