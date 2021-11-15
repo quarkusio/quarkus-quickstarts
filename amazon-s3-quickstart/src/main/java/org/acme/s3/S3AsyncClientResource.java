@@ -19,9 +19,11 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import io.smallrye.mutiny.Uni;
+import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
 import software.amazon.awssdk.services.s3.model.S3Object;
@@ -58,15 +60,13 @@ public class S3AsyncClientResource extends CommonResource {
     @GET
     @Path("download/{objectKey}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Uni<Response> downloadFile(@PathParam("objectKey") String objectKey) throws Exception {
-        File tempFile = tempFilePath();
-
+    public Uni<Response> downloadFile(@PathParam("objectKey") String objectKey) {
         return Uni.createFrom()
-                .completionStage(() -> s3.getObject(buildGetRequest(objectKey), AsyncResponseTransformer.toFile(tempFile)))
+                .completionStage(() -> s3.getObject(buildGetRequest(objectKey), AsyncResponseTransformer.toBytes()))
                 .onItem()
-                .transform(object -> Response.ok(tempFile)
+                .transform(object -> Response.ok(object.asUtf8String())
                         .header("Content-Disposition", "attachment;filename=" + objectKey)
-                        .header("Content-Type", object.contentType()).build());
+                        .header("Content-Type", object.response().contentType()).build());
     }
 
     @GET
