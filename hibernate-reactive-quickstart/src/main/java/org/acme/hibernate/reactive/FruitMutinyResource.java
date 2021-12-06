@@ -17,16 +17,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
 
 import org.hibernate.reactive.mutiny.Mutiny;
 
-import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.RestPath;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.smallrye.mutiny.Uni;
 
@@ -35,7 +29,6 @@ import io.smallrye.mutiny.Uni;
 @Produces("application/json")
 @Consumes("application/json")
 public class FruitMutinyResource {
-    private static final Logger LOGGER = Logger.getLogger(FruitMutinyResource.class);
 
     @Inject
     Mutiny.SessionFactory sf;
@@ -94,50 +87,4 @@ public class FruitMutinyResource {
                 .onItem().ifNull().continueWith(() -> Response.ok().status(NOT_FOUND).build()));
     }
 
-    /**
-     * Create a HTTP response from an exception.
-     *
-     * Response Example:
-     *
-     * <pre>
-     * HTTP/1.1 422 Unprocessable Entity
-     * Content-Length: 111
-     * Content-Type: application/json
-     *
-     * {
-     *     "code": 422,
-     *     "error": "Fruit name was not set on request.",
-     *     "exceptionType": "javax.ws.rs.WebApplicationException"
-     * }
-     * </pre>
-     */
-    @Provider
-    public static class ErrorMapper implements ExceptionMapper<Exception> {
-
-        @Inject
-        ObjectMapper objectMapper;
-
-        @Override
-        public Response toResponse(Exception exception) {
-            LOGGER.error("Failed to handle request", exception);
-
-            int code = 500;
-            if (exception instanceof WebApplicationException) {
-                code = ((WebApplicationException) exception).getResponse().getStatus();
-            }
-
-            ObjectNode exceptionJson = objectMapper.createObjectNode();
-            exceptionJson.put("exceptionType", exception.getClass().getName());
-            exceptionJson.put("code", code);
-
-            if (exception.getMessage() != null) {
-                exceptionJson.put("error", exception.getMessage());
-            }
-
-            return Response.status(code)
-                    .entity(exceptionJson)
-                    .build();
-        }
-
-    }
 }
