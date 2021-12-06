@@ -109,4 +109,17 @@ public class FruitsEndpointTest {
 				.statusCode(404)
 				.body(emptyString());
     }
+
+	@Test
+	public void testInvalidCreate() {
+		given()
+			.when()
+				.body("{\"name\" : \"Wrong\", \"id\" : \"50\"}")
+				.contentType("application/json")
+				.post("/fruits")
+			.then()
+				.statusCode(422)
+				.body(emptyString());
+	}
+
 }
