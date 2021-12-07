@@ -1,0 +1,70 @@
+####
+# ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+# ████████████░▄▄▀█░▄▄█░███░█░▄▄▀█░▄▄▀█░▄▄█████████████
+# ████████████░▄▄▀█░▄▄█▄▀░▀▄█░▀▀░█░▀▀▄█░▄▄█████████████
+# ████████████░▀▀░█▄▄▄██▄█▄██▄██▄█▄█▄▄█▄▄▄█████████████
+# ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+# Preparing distroless Dockerfile in this fashion is highly
+# application specific.
+#
+# The undermentioned example uses ubi-micro image and manually copies necessary
+# libraries and files from ubi-minimal image.
+#
+# See https://www.redhat.com/en/blog/introduction-ubi-micro on how to start using Buildah.
+#
+# ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+# ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+# ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+# This Dockerfile is used in order to build a distroless container that runs the Quarkus application in native (no JVM) mode
+#
+# Before building the container image run:
+#
+# ./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-mandrel:21.3-java11
+#
+# The previous step produces an executable compatible with ubi-minimal.
+#
+# Then, build the image with:
+#
+# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/awt-graphics-rest-micro .
+#
+# Then run the container using:
+#
+# docker run -i --rm -p 8080:8080 quarkus/awt-graphics-rest-micro
+#
+###
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.4 as nativelibs
+RUN microdnf install freetype fontconfig
+
+FROM quay.io/quarkus/quarkus-micro-image:1.0
+COPY --from=nativelibs \
+   /lib64/libfreetype.so.6 \
+   /lib64/libbz2.so.1 \
+   /lib64/libpng16.so.16 \
+   /lib64/libm.so.6 \
+   /lib64/libbz2.so.1 \
+   /lib64/libexpat.so.1 \
+   /lib64/libuuid.so.1 \
+   /lib64/
+
+COPY --from=nativelibs \
+   /usr/lib64/libfontconfig.so.1 \
+   /usr/lib64/
+
+COPY --from=nativelibs \
+    /usr/share/fonts /usr/share/fonts
+
+COPY --from=nativelibs \
+    /usr/share/fontconfig /usr/share/fontconfig
+
+COPY --from=nativelibs \
+    /usr/lib/fontconfig /usr/lib/fontconfig
+
+COPY --from=nativelibs \
+     /etc/fonts /etc/fonts
+
+COPY target/*-runner /application
+
+EXPOSE 8080
+USER 1001
+
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
