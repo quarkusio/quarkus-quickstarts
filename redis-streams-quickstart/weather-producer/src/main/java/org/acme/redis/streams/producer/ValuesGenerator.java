@@ -48,12 +48,18 @@ public class ValuesGenerator {
     @Inject
     ReactiveRedisClient client;
 
+    /**
+     * Starts up the first initialization of the weather stations and the (random) temperature generation in the given order.
+     */
     public void generateData(@Observes StartupEvent event) {
         Multi.createBy().concatenating().streams(generateStations(), generateTemperatures())
                 .subscribe()
                 .with(item -> log.debug("Added item: {}", item), err -> log.error("Caught exception: {}", err));
     }
 
+    /*
+     *  Saves the weather stations in Redis Strings store.
+     */
     private Multi<Void> generateStations() {
         return Multi.createFrom().iterable(this.stations)
                 .invoke(station -> log.debug("creating station: {}", station))
@@ -61,6 +67,9 @@ public class ValuesGenerator {
                 .onItem().transformToUniAndMerge(res -> Uni.createFrom().voidItem());
     }
 
+    /*
+     *  Generates a random temperature for a random station, and sends this to the "temperatures-values" stream as JSON payload.
+     */
     private Multi<Void> generateTemperatures() {
         return Multi.createFrom().ticks().every(Duration.ofMillis(this.rate))
                 .onItem().transform(tick -> {
