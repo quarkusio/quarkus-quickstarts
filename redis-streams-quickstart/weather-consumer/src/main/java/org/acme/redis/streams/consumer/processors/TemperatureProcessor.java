@@ -83,6 +83,8 @@ public class TemperatureProcessor {
 
         // read the latest temperatures/messages from the stream
         return this.client.xreadgroup(toXReadGroupCommand(consumerGroup, this.appName, TEMPERATURE_VALUES_STREAM))
+                 // note: you retrieve a Multi (=list) from the Stream ! Most of the time it will be 1 message, but when the load is high on the stream
+                 // you can get multiple messages at the same time ! So we need to iterate through them.
                 .onItem().ifNotNull().transformToMulti(res -> {
                     if (ResponseType.MULTI.equals(res.type()) && res.get(0) != null && res.get(0).size() >= 2) {
                         return Multi.createFrom().iterable(res.get(0).get(1));
@@ -90,20 +92,27 @@ public class TemperatureProcessor {
                     throw new ApplicationException("Wrong payload in stream: %s", res.toString());
                 })
                 .filter(msg -> msg.get(1) != null)
+                // map each message into temperature
                 .map(this::toTemperature)
+                // save incoming temperatures into a map(key=stationId, value=TemperatureAggregate) by aggregating them with .calculate(..)
                 .collectItems().in(() -> new HashMap<Long, TemperatureAggregate>(), (map, temperature) -> {
                     map.computeIfAbsent(temperature.id, key -> new TemperatureAggregate(temperature));
                     map.computeIfPresent(temperature.id, (key, value) -> value.calculate(temperature));
                 })
+                // loop over the aggregated map
                 .onItem().transformToMulti(map -> Multi.createFrom().iterable(map.entrySet()))
+                // for each entry => retrieve the old agg from Redis, if (old) agg already exists, add the current agg with the old one.
                 .onItem().transformToUniAndMerge(entry ->
                         this.client.hget(AGGREGATE_TABLE, entry.getKey().toString()).map(oldAgg -> {
                             TemperatureAggregate old = getTemperatureAggregate(oldAgg);
                             return entry.getValue().calculate(old);
                         })
                 )
+                // get the weatherstation belonging to this temperature from Redis, and set its name into the agg
                 .call(agg -> this.client.get(WEATHER_STATIONS_TABLE + agg.stationId).invoke(station -> setWeatherStationName(agg, station)))
+                // save the agg into a hash store
                 .call(agg -> this.client.hset(toHSetCommand(AGGREGATE_TABLE, agg.stationId.toString(), agg)))
+                // acknowledge the messages to the stream
                 .call(agg -> this.client.xack(toXAckCommand(TEMPERATURE_VALUES_STREAM, CONSUMER_GROUP, new ArrayList<>(agg.messageIds))))
                 .onFailure().invoke(err -> log.error("Caught exception: {}", err));
     }
@@ -119,7 +128,7 @@ public class TemperatureProcessor {
         // {json string}
         // etc.
         return this.client.hgetall(AGGREGATE_TABLE)
-                // create a pair of <stationId, json>
+                // iterate through the hash and create a pair of <stationId, json>
                 .onItem().ifNotNull().transformToMulti(res -> Multi.createBy().repeating().uni(
                         AtomicInteger::new,
                         i -> Uni.createFrom().item(() -> {
@@ -132,6 +141,7 @@ public class TemperatureProcessor {
                         }))
                         .atMost(res.size() / 2))
                 .flatMap(map -> Multi.createFrom().iterable(map.entrySet()))
+                // save each pair in a sorted map, so that we get the results sorted by stationId
                 .collectItems().in(() -> new TreeMap<String, String>(), (map, entry) -> map.put(entry.getKey(), entry.getValue()))
                 .map(map -> map.values())
                 .onFailure().recoverWithItem(Collections.emptyList());
