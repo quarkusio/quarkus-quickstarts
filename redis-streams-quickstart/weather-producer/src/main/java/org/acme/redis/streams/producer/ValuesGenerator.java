@@ -31,7 +31,8 @@ public class ValuesGenerator {
     private static final Logger log = LoggerFactory.getLogger(ValuesGenerator.class);
 
     private Random random = new Random();
-    private List<WeatherStation> stations = Arrays.asList(new WeatherStation(1, "Hamburg", 13),
+    private List<WeatherStation> stations = Arrays.asList(
+            new WeatherStation(1, "Hamburg", 13),
             new WeatherStation(2, "Snowdonia", 5),
             new WeatherStation(3, "Boston", 11),
             new WeatherStation(4, "Tokio", 16),
