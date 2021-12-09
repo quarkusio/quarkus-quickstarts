@@ -16,6 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <quarkus-amazon-services.version>1.0.1</quarkus-amazon-services.version>
         <awssdk.testcontainers.version>1.12.57</awssdk.testcontainers.version>
     </properties>
 
@@ -25,6 +26,13 @@
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>${quarkus.platform.artifact-id}</artifactId>
                 <version>${quarkus.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.amazonservices</groupId>
+                <artifactId>quarkus-amazon-services-bom</artifactId>
+                <version>${quarkus-amazon-services.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -45,7 +53,7 @@
             <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
+            <groupId>io.quarkiverse.amazonservices</groupId>
             <artifactId>quarkus-amazon-ses</artifactId>
         </dependency>
         <dependency>

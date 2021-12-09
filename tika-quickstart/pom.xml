@@ -16,6 +16,8 @@
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <quarkus-tika.version>1.0.1</quarkus-tika.version>
     </properties>
 
     <dependencyManagement>
@@ -36,8 +38,9 @@
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
+            <groupId>io.quarkiverse.tika</groupId>
             <artifactId>quarkus-tika</artifactId>
+            <version>${quarkus-tika.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
