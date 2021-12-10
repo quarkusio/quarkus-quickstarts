@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+
+  rabbit:
+    image: rabbitmq:3.9-management
+    ports:
+      - "5672:5672"
+    networks:
+      - rabbitmq-quickstart-network
+
+  producer:
+    image: quarkus-quickstarts/rabbitmq-quickstart-producer:1.0-${QUARKUS_MODE:-jvm}
+    build:
+      context: rabbitmq-quickstart-producer
+      dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
+    environment:
+      RABBITMQ_HOST: rabbit
+      RABBITMQ_PORT: 5672
+    ports:
+      - "8080:8080"
+    networks:
+      - rabbitmq-quickstart-network
+
+  processor:
+    image: quarkus-quickstarts/rabbitmq-quickstart-processor:1.0-${QUARKUS_MODE:-jvm}
+    build:
+      context: rabbitmq-quickstart-processor
+      dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
+    environment:
+      RABBITMQ_HOST: rabbit
+      RABBITMQ_PORT: 5672
+    networks:
+      - rabbitmq-quickstart-network
+
+networks:
+  rabbitmq-quickstart-network:
+    name: rabbitmq-quickstart
