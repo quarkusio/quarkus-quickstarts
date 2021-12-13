@@ -1,5 +1,7 @@
 package org.acme;
 
+import java.nio.charset.StandardCharsets;
+
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.file.OpenOptions;
@@ -30,7 +32,7 @@ public class VertxResource {
     @Path("/lorem")
     public Uni<String> readShortFile() {
         return vertx.fileSystem().readFile("lorem.txt")
-                .onItem().transform(content -> content.toString("UTF-8"));
+                .onItem().transform(content -> content.toString(StandardCharsets.UTF_8));
     }
 
 
@@ -39,7 +41,7 @@ public class VertxResource {
     public Multi<String> readLargeFile() {
         return vertx.fileSystem().open("book.txt", new OpenOptions().setRead(true))
                 .onItem().transformToMulti(file -> file.toMulti())
-                .onItem().transform(content -> content.toString("UTF-8")
+                .onItem().transform(content -> content.toString(StandardCharsets.UTF_8)
                         + "\n------------\n");
     }
 

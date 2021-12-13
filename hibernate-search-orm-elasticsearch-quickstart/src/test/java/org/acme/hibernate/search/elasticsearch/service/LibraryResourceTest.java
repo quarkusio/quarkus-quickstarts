@@ -15,6 +15,8 @@
  */
 package org.acme.hibernate.search.elasticsearch.service;
 
+import java.nio.charset.StandardCharsets;
+
 import static org.hamcrest.Matchers.contains;
 
 import org.junit.jupiter.api.Test;
@@ -46,7 +48,7 @@ public class LibraryResourceTest {
 
         // Add an author
         RestAssured.given()
-                .contentType(ContentType.URLENC.withCharset("UTF-8"))
+                .contentType(ContentType.URLENC.withCharset(StandardCharsets.UTF_8))
                 .formParam("firstName", "David")
                 .formParam("lastName", "Wrong")
                 .put("/library/author/")
@@ -61,7 +63,7 @@ public class LibraryResourceTest {
 
         // Update an author
         RestAssured.given()
-                .contentType(ContentType.URLENC.withCharset("UTF-8"))
+                .contentType(ContentType.URLENC.withCharset(StandardCharsets.UTF_8))
                 .formParam("firstName", "David")
                 .formParam("lastName", "Lodge")
                 .post("/library/author/" + davidLodgeId)
@@ -75,7 +77,7 @@ public class LibraryResourceTest {
 
         // Add a book
         RestAssured.given()
-                .contentType(ContentType.URLENC.withCharset("UTF-8"))
+                .contentType(ContentType.URLENC.withCharset(StandardCharsets.UTF_8))
                 .formParam("title", "Therapy")
                 .formParam("authorId", davidLodgeId)
                 .put("/library/book/")
