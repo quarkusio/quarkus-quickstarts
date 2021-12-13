@@ -58,7 +58,7 @@ public class WireMockExtensions implements QuarkusTestResourceLifecycleManager {
                 for (JsonValue extension : parser.getArray()) {
                     String id = extension.asJsonObject().getString("id");
 
-                    wireMockServer.stubFor(get(urlEqualTo(BASE_PATH + "/extensions?id=" + id))
+                    wireMockServer.stubFor(get(urlEqualTo(BASE_PATH + "/extensions?id=" + URLEncoder.encode(id, "UTF-8")))
                             .willReturn(okJson("[" + extension + "]")));
                 }
             }
