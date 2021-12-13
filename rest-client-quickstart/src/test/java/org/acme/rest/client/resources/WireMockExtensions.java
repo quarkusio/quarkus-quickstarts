@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Map;
@@ -61,7 +62,7 @@ public class WireMockExtensions implements QuarkusTestResourceLifecycleManager {
                 for (JsonValue extension : parser.getArray()) {
                     String id = extension.asJsonObject().getString("id");
 
-                    wireMockServer.stubFor(get(urlEqualTo(BASE_PATH + "/extensions?id=" + URLEncoder.encode(id, "UTF-8")))
+                    wireMockServer.stubFor(get(urlEqualTo(BASE_PATH + "/extensions?id=" + URLEncoder.encode(id, StandardCharsets.UTF_8)))
                             .willReturn(okJson("[" + extension + "]")));
                 }
             }
