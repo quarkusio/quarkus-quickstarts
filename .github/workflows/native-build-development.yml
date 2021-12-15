@@ -65,7 +65,7 @@ jobs:
 
       - name: Build Quickstarts with Native
         run: |
-          ./mvnw -e -B --settings .github/mvn-settings.xml clean install --fail-at-end -Pnative -Dstart-containers \
+          ./mvnw -e -B --settings .github/mvn-settings.xml clean install --fail-at-end -Dnative -Dstart-containers \
             -Dquarkus.native.container-build=true -am -pl "${{ matrix.test-modules }}"
 
       #- name: Check RSS
