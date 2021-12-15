@@ -95,9 +95,9 @@ public class TemperatureProcessor {
                 // map each message into temperature
                 .map(this::toTemperature)
                 // save incoming temperatures into a map(key=stationId, value=TemperatureAggregate) by aggregating them with .calculate(..)
-                .collectItems().in(() -> new HashMap<Long, TemperatureAggregate>(), (map, temperature) -> {
-                    map.computeIfAbsent(temperature.id, key -> new TemperatureAggregate(temperature));
+                .collectItems().in(() -> new HashMap<Long, TemperatureAggregate>(), (map, temperature) -> {                    
                     map.computeIfPresent(temperature.id, (key, value) -> value.calculate(temperature));
+                    map.computeIfAbsent(temperature.id, key -> new TemperatureAggregate(temperature));
                 })
                 // loop over the aggregated map
                 .onItem().transformToMulti(map -> Multi.createFrom().iterable(map.entrySet()))
