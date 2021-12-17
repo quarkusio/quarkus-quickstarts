@@ -16,6 +16,8 @@ The database can be started using:
 
 Once the database is up you can start your Quarkus application.
 
+Note you do not need to start the database when running your application in dev mode or testing. It will be started automatically as a Dev Service.
+
 ## Start the application
 
 The application can be started using: 
@@ -47,7 +49,8 @@ _NOTE:_ Stop the database using: `docker-compose down; docker-compose rm`
 
 ### Integration testing
 
-We have provided integration tests based on [TestContainers](https://www.testcontainers.org) to verify the security configuration in a JVM and native  mode.
+We have provided integration tests based on [Dev Services for PostgreSQL](https://quarkus.io/guides/dev-services#databases) to verify the security configuration in JVM and native modes. The test and dev modes containers will be launched automatically because all the PostgreSQL configuration properties are only enabled in production (`prod`) mode.
+
 
 The test can be executed using: 
 
@@ -57,7 +60,7 @@ mvn test
 
 # Native mode
 mvn verify -Pnative
-```  
+```
 
 ## Running in native
 
