@@ -3,7 +3,7 @@ package org.acme.rest.client;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class CountriesResourceIT extends CountriesResourceTest {
+public class ExtensionsResourceIT extends ExtensionsResourceTest {
 
     // Run the same tests
 

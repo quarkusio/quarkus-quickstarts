@@ -1,0 +1,31 @@
+[
+  {
+    "id": "io.quarkus:quarkus-rest-client",
+    "keywords": [
+      "call",
+      "microprofile-rest-client",
+      "quarkus-rest-client",
+      "rest",
+      "rest-client",
+      "services",
+      "web-client"
+    ],
+    "name": "REST Client",
+    "shortName": "REST Client"
+  },
+  {
+    "id": "io.quarkus:quarkus-resteasy",
+    "keywords": [
+      "endpoint",
+      "framework",
+      "jax",
+      "jaxrs",
+      "quarkus-resteasy",
+      "rest",
+      "resteasy",
+      "web"
+    ],
+    "name": "RESTEasy JAX-RS",
+    "shortName": "jax-rs"
+  }
+]

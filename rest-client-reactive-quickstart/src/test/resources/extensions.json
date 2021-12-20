@@ -1,0 +1,33 @@
+[
+  {
+    "id": "io.quarkus:quarkus-rest-client-reactive",
+    "keywords": [
+      "call",
+      "microprofile-rest-client",
+      "quarkus-rest-client-reactive",
+      "reactively",
+      "rest",
+      "rest-client",
+      "resteasy-reactive",
+      "services",
+      "web-client"
+    ],
+    "name": "REST Client Reactive",
+    "shortName": "REST Client Reactive"
+  },
+  {
+    "id": "io.quarkus:quarkus-resteasy",
+    "keywords": [
+      "endpoint",
+      "framework",
+      "jax",
+      "jaxrs",
+      "quarkus-resteasy",
+      "rest",
+      "resteasy",
+      "web"
+    ],
+    "name": "RESTEasy JAX-RS",
+    "shortName": "jax-rs"
+  }
+]
