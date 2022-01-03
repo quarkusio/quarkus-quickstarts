@@ -101,6 +101,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Spring Scheduled extension](./spring-scheduled-quickstart): How to use the Quarkus extension for the Spring Scheduled annotation
 * [Spring Data REST extension](./spring-data-rest-quickstart): How to use the Quarkus extension for the Spring Data REST
 * [Using STM](./software-transactional-memory-quickstart): How to use the Narayana Software Transactional Memory extension
+* [Stork](./stork-quickstart): How to discover and select services
 * [Apache Tika](./tika-quickstart): Extract metadata and content from your documents
 * [Validation with Hibernate Validator](./validation-quickstart): How to use Hibernate Validator/Bean Validation in your REST services
 * [Using Vert.x](./vertx-quickstart): How to use the Vert.x extension
