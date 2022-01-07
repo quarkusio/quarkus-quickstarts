@@ -17,7 +17,7 @@
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
-        <kogito-quarkus.version>1.12.0.Final</kogito-quarkus.version>
+        <kogito-quarkus.version>1.15.0.Final</kogito-quarkus.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     </properties>
     <dependencyManagement>
@@ -43,11 +43,10 @@
         <dependency>
             <groupId>org.kie.kogito</groupId>
             <artifactId>kogito-quarkus-rules</artifactId>
-
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy</artifactId>
+            <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
