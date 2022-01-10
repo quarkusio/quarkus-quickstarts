@@ -1,10 +1,8 @@
 package org.acme.s3;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -15,19 +13,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.StreamingOutput;
-
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
-import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
-
+import org.jboss.resteasy.reactive.MultipartForm;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
-import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
-import software.amazon.awssdk.services.s3.model.S3Object;
+
 
 @Path("/s3")
 public class S3SyncClientResource extends CommonResource {
@@ -39,16 +32,16 @@ public class S3SyncClientResource extends CommonResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadFile(@MultipartForm FormData formData) throws Exception {
 
-        if (formData.fileName == null || formData.fileName.isEmpty()) {
+        if (formData.filename == null || formData.filename.isEmpty()) {
             return Response.status(Status.BAD_REQUEST).build();
         }
 
-        if (formData.mimeType == null || formData.mimeType.isEmpty()) {
+        if (formData.mimetype == null || formData.mimetype.isEmpty()) {
             return Response.status(Status.BAD_REQUEST).build();
         }
 
         PutObjectResponse putResponse = s3.putObject(buildPutRequest(formData),
-                RequestBody.fromFile(uploadToTemp(formData.data)));
+                RequestBody.fromFile(formData.data));
         if (putResponse != null) {
             return Response.ok().status(Status.CREATED).build();
         } else {
@@ -59,7 +52,7 @@ public class S3SyncClientResource extends CommonResource {
     @GET
     @Path("download/{objectKey}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response downloadFile(@PathParam("objectKey") String objectKey) {
+    public Response downloadFile(String objectKey) {
         ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(buildGetRequest(objectKey));
         ResponseBuilder response = Response.ok(objectBytes.asUtf8String());
         response.header("Content-Disposition", "attachment;filename=" + objectKey);
