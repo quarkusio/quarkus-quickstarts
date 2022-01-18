@@ -37,13 +37,7 @@
         </dependency>
         <dependency>
             <groupId>io.smallrye.stork</groupId>
-            <artifactId>smallrye-stork-service-discovery-consul</artifactId>
-            <version>1.0.0.Beta1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.smallrye.stork</groupId>
-            <artifactId>smallrye-stork-load-balancer-round-robin</artifactId>
-            <version>1.0.0.Beta1</version>
+            <artifactId>stork-service-discovery-consul</artifactId>
         </dependency>
         <dependency>
             <groupId>io.smallrye.reactive</groupId>
