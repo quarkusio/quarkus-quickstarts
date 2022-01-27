@@ -1,6 +1,5 @@
 package org.acme.getting.started.testing;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -19,20 +18,11 @@ public class StaticContentTest {
     URL url;
 
     @Test
-    public void testIndexHtml() throws Exception {
+    public void testIndexHtml() throws IOException {
         try (InputStream in = url.openStream()) {
-            String contents = readStream(in);
+            String contents = new String(in.readAllBytes(), StandardCharsets.UTF_8);
             Assertions.assertTrue(contents.contains("<title>Testing Guide</title>"));
         }
     }
 
-    private static String readStream(InputStream in) throws IOException {
-        byte[] data = new byte[1024];
-        int r;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        while ((r = in.read(data)) > 0) {
-            out.write(data, 0, r);
-        }
-        return new String(out.toByteArray(), StandardCharsets.UTF_8);
-    }
 }
