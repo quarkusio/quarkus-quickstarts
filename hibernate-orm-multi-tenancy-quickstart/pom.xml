@@ -115,7 +115,7 @@
                     <skip>${skipTests}</skip>
                     <images>
                         <image>
-                            <name>postgres:13.3</name>
+                            <name>quay.io/bitnami/postgresql:13.5.0</name>
                             <alias>quarkus_test</alias>
                             <run>
                                 <env>
