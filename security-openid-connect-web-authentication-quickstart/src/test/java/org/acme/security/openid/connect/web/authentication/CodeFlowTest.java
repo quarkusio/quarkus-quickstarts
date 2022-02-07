@@ -66,8 +66,6 @@ public class CodeFlowTest {
 
             assertNull(sessionCookie);
 
-            page = webClient.getPage("http://localhost:8081/index.html");
-
             assertEquals("Sign in to quarkus", page.getTitleText());
         }
     }
