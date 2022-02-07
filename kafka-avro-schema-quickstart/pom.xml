@@ -17,7 +17,6 @@
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.version>2.7.1.Final</quarkus.platform.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-        <strimzi-test-container.version>0.22.1</strimzi-test-container.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -70,18 +69,6 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.strimzi</groupId>
-            <artifactId>strimzi-test-container</artifactId>
-            <version>${strimzi-test-container.version}</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.logging.log4j</groupId>
-                    <artifactId>log4j-core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>
