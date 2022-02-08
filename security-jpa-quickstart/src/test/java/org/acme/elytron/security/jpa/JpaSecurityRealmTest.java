@@ -9,32 +9,12 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-
-import com.github.dockerjava.api.model.ExposedPort;
-import com.github.dockerjava.api.model.PortBinding;
-import com.github.dockerjava.api.model.Ports;
 
 import io.quarkus.test.junit.QuarkusTest;
 
-@Testcontainers
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class JpaSecurityRealmTest {
-
-    @Container
-    public static final PostgreSQLContainer DATABASE = new PostgreSQLContainer<>()
-            .withDatabaseName("elytron_security_jpa")
-            .withUsername("quarkus")
-            .withPassword("quarkus")
-            .withExposedPorts(5432)
-            .withCreateContainerCmdModifier(cmd ->
-                    cmd
-                            .withHostName("localhost")
-                            .withPortBindings(new PortBinding(Ports.Binding.bindPort(5432), new ExposedPort(5432)))
-            );
 
     @Test
     @Order(1)

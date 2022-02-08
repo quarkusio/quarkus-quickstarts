@@ -93,6 +93,7 @@
         <module>spring-scheduled-quickstart</module>
         <module>spring-boot-properties-quickstart</module>
         <module>spring-data-rest-quickstart</module>
+        <module>stork-quickstart</module>
         <module>tests-with-coverage-quickstart</module>
         <module>tika-quickstart</module>
         <module>validation-quickstart</module>
