@@ -10,7 +10,7 @@
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>2.7.1.Final</quarkus.platform.version>
-    <optaplanner-quarkus.version>8.15.0.Final</optaplanner-quarkus.version>
+    <optaplanner-quarkus.version>8.16.1.Final</optaplanner-quarkus.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     <docker-plugin.version>0.28.0</docker-plugin.version>
