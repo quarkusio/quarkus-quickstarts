@@ -4,13 +4,9 @@ import static io.restassured.config.LogConfig.logConfig;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import io.quarkus.mongodb.panache.jackson.ObjectIdDeserializer;
-import io.quarkus.mongodb.panache.jackson.ObjectIdSerializer;
 import org.acme.mongodb.panache.repository.Person;
 import org.acme.mongodb.panache.repository.Status;
 import org.assertj.core.api.Assertions;
-import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
