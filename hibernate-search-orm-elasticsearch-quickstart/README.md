@@ -40,23 +40,6 @@ Note that running this command will start an Elasticsearch cluster, start a Post
 
 ## Running the demo
 
-### Start an Elasticsearch cluster
-
-To set up an Elasticsearch instance using Docker:
-
-> docker run -it --rm=true --name elasticsearch_quarkus_test -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.0
-
-Alternatively you can setup an Elasticsearch instance in any another way.
-
-### Prepare a PostgreSQL instance
-
-Make sure you have a PostgreSQL instance running. To set up a PostgreSQL database with Docker:
-
-> docker run -it --rm=true --name postgresql_quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:13.3
-
-Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file,
-`src/main/resources/application.properties`.
-
 ### Live coding with Quarkus
 
 The Maven Quarkus plugin provides a development mode that supports
@@ -81,7 +64,18 @@ First compile it:
 Note that this command will start a PostgreSQL instance and an Elasticsearch cluster to execute the tests.
 Thus your PostgreSQL and Elasticsearch containers need to be stopped.
 
-Then run it:
+Next we need to make sure you have a PostgreSQL instance and Elasticsearch instance running
+(Quarkus automatically starts one of each for dev and test mode).
+
+To set up a PostgreSQL database using Docker:
+
+> docker run -it --rm=true --name postgresql_quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:13.3
+
+To set up an Elasticsearch instance using Docker:
+
+> docker run -it --rm=true --name elasticsearch_quarkus_test -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.0
+
+Then run the application:
 
 > java -jar ./target/quarkus-app/quarkus-run.jar
 
