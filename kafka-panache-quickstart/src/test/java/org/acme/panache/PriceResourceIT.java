@@ -1,9 +1,8 @@
 package org.acme.panache;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class PriceResourceIT extends PriceResourceTest {
 
 }

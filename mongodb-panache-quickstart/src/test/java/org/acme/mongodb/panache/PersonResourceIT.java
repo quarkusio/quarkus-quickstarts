@@ -1,8 +1,8 @@
 package org.acme.mongodb.panache;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class PersonResourceIT extends PersonResourceTest {
 
     // Run the same tests

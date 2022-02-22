@@ -1,8 +1,8 @@
 package org.acme.redis;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class IncrementResourceInGraalIT extends IncrementResourceTest {
 
 }

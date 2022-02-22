@@ -1,7 +1,7 @@
 package org.acme.mqtt;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class PriceResourceIT extends PriceResourceTest {
 }

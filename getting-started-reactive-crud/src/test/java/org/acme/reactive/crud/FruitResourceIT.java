@@ -1,8 +1,8 @@
 package org.acme.reactive.crud;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class FruitResourceIT extends FruitResourceTest {
 
 }

@@ -7,7 +7,7 @@ Your pull request:
 - [ ] uses the `999-SNAPSHOT` version of Quarkus
 - [ ] has tests (`mvn clean test`)
 - [ ] works in native (`mvn clean package -Pnative`)
-- [ ] has native tests (`mvn clean verify -Pnative`)
+- [ ] has integration/native tests (`mvn clean verify -Pnative`)
 - [ ] makes sure the associated guide must not be updated
 - [ ] links the guide update pull request (if needed)
 - [ ] updates or creates the `README.md` file (with build and run instructions)

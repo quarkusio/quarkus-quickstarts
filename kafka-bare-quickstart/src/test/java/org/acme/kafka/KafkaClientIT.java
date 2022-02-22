@@ -1,8 +1,8 @@
 package org.acme.kafka;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class KafkaClientIT extends KafkaClientTest {
 
 }

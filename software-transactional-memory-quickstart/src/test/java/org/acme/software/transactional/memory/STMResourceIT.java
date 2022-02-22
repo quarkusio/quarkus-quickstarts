@@ -1,8 +1,8 @@
 package org.acme.software.transactional.memory;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class STMResourceIT extends STMResourceTest {
 
 }

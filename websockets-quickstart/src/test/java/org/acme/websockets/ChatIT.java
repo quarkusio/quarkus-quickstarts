@@ -1,8 +1,8 @@
 package org.acme.websockets;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class ChatIT extends ChatTest {
 
 }

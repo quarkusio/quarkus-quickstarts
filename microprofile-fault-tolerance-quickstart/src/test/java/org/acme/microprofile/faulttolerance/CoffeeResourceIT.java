@@ -1,8 +1,8 @@
 package org.acme.microprofile.faulttolerance;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class CoffeeResourceIT extends BaseTest {
 
 }

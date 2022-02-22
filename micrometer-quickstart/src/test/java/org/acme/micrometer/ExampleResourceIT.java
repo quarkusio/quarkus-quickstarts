@@ -1,8 +1,8 @@
 package org.acme.microprofile.metrics;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class ExampleResourceIT extends ExampleResourceTest {
 
 }

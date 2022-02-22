@@ -1,8 +1,8 @@
 package org.acme.microprofile.graphql;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class FilmResourceIT extends FilmResourceTest {
 
 }

@@ -1,8 +1,8 @@
 package org.acme.security.oauth2;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class TokenSecuredResourceIT extends TokenSecuredResourceTest {
 
     // Execute the same tests but in native mode.

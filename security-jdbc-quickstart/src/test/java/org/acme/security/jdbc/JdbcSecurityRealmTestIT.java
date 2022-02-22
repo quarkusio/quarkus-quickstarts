@@ -1,7 +1,7 @@
 package org.acme.security.jdbc;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class JdbcSecurityRealmTestIT extends JdbcSecurityRealmTest {
 }

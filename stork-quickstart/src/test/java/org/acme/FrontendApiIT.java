@@ -1,9 +1,9 @@
 package org.acme;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 @QuarkusTestResource(ConsulTestResource.class)
 public class FrontendApiIT extends FrontendApiTest {
 

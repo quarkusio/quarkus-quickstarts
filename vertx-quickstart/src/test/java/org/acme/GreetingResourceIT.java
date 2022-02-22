@@ -1,8 +1,8 @@
 package org.acme;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class GreetingResourceIT extends GreetingResourceTest {
 
     // Runs the same tests as the parent class

@@ -1,9 +1,8 @@
 package org.acme.kafka.producer;
 
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-import io.quarkus.test.junit.NativeImageTest;
-
-@NativeImageTest
+@QuarkusIntegrationTest
 public class QuotesResourceIT extends QuotesResourceTest {
 
 }
