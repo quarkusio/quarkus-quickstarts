@@ -1,8 +1,8 @@
 package org.acme.extra;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class ResourceUsingWebClientIT extends ResourceUsingWebClientTest {
 
 }

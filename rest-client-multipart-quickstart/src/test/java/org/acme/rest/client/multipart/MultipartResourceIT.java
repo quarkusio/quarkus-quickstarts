@@ -1,7 +1,7 @@
 package org.acme.rest.client.multipart;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class MultipartResourceIT extends MultipartResourceTest {
 }

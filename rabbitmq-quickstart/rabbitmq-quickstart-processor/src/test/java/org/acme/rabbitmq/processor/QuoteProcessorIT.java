@@ -1,8 +1,8 @@
 package org.acme.rabbitmq.processor;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class QuoteProcessorIT extends QuoteProcessorTest {
 
 }
