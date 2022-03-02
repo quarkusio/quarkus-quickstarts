@@ -37,6 +37,7 @@
         <module>grpc-plain-text-quickstart</module>
         <module>grpc-tls-quickstart</module>
         <module>hibernate-orm-panache-quickstart</module>
+        <module>hibernate-orm-panache-kotlin-quickstart</module>
         <module>hibernate-reactive-panache-quickstart</module>
         <module>hibernate-orm-multi-tenancy-quickstart</module>
         <module>hibernate-search-orm-elasticsearch-quickstart</module>
