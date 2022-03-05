@@ -17,7 +17,9 @@
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
-        <kogito-quarkus.version>1.16.1.Final</kogito-quarkus.version>
+        <kogito.platform.group-id>org.kie.kogito</kogito.platform.group-id>
+        <kogito.platform.artifact-id>kogito-quarkus-bom</kogito.platform.artifact-id>
+        <kogito.platform.version>1.16.1.Final</kogito.platform.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     </properties>
     <dependencyManagement>
@@ -29,11 +31,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- Ideally, it should import the quarkus-universe-bom instead, so it doesn't have to import this kogito-bom -->
+            <!-- Ideally, groupID should be the same as quarkus-bom -->
             <dependency>
-                <groupId>org.kie.kogito</groupId>
-                <artifactId>kogito-quarkus-bom</artifactId>
-                <version>${kogito-quarkus.version}</version>
+                <groupId>${kogito.platform.group-id}</groupId>
+                <artifactId>${kogito.platform.artifact-id}</artifactId>
+                <version>${kogito.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
