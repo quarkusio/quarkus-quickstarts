@@ -75,7 +75,6 @@
                     <systemPropertyVariables>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         <maven.home>${maven.home}</maven.home>
-                        <keycloak.version>${keycloak.version}</keycloak.version>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
