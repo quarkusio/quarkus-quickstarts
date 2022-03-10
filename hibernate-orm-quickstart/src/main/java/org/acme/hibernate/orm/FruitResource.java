@@ -19,7 +19,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 import org.jboss.logging.Logger;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import org.jboss.resteasy.reactive.RestPath;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -43,7 +43,7 @@ public class FruitResource {
 
     @GET
     @Path("{id}")
-    public Fruit getSingle(@PathParam Integer id) {
+    public Fruit getSingle(@RestPath Integer id) {
         Fruit entity = entityManager.find(Fruit.class, id);
         if (entity == null) {
             throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
@@ -65,7 +65,7 @@ public class FruitResource {
     @PUT
     @Path("{id}")
     @Transactional
-    public Fruit update(@PathParam Integer id, Fruit fruit) {
+    public Fruit update(@RestPath Integer id, Fruit fruit) {
         if (fruit.getName() == null) {
             throw new WebApplicationException("Fruit Name was not set on request.", 422);
         }
@@ -84,7 +84,7 @@ public class FruitResource {
     @DELETE
     @Path("{id}")
     @Transactional
-    public Response delete(@PathParam Integer id) {
+    public Response delete(@RestPath Integer id) {
         Fruit entity = entityManager.getReference(Fruit.class, id);
         if (entity == null) {
             throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);

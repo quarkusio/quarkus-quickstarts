@@ -3,7 +3,7 @@ package org.acme.hibernate.orm.panache
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.quarkus.panache.common.Sort
 import org.jboss.logging.Logger
-import org.jboss.resteasy.annotations.jaxrs.PathParam
+import org.jboss.resteasy.reactive.RestPath;
 import java.lang.Exception
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
@@ -32,7 +32,7 @@ class FruitResource {
 
     @GET
     @Path("{id}")
-    fun getSingle(@PathParam id: Long): Fruit {
+    fun getSingle(@RestPath id: Long): Fruit {
         return Fruit.findById(id)
             ?: throw WebApplicationException("Fruit with id of $id does not exist.", 404)
     }
@@ -50,7 +50,7 @@ class FruitResource {
     @PUT
     @Path("{id}")
     @Transactional
-    fun update(@PathParam id: Long, fruit: Fruit): Fruit {
+    fun update(@RestPath id: Long, fruit: Fruit): Fruit {
         val entity: Fruit = Fruit.findById(id)
             ?: throw WebApplicationException("Fruit with id of $id does not exist.", 404)
         entity.name = fruit.name
@@ -60,7 +60,7 @@ class FruitResource {
     @DELETE
     @Path("{id}")
     @Transactional
-    fun delete(@PathParam id: Long): Response {
+    fun delete(@RestPath id: Long): Response {
         val entity: Fruit = Fruit.findById(id)
             ?: throw WebApplicationException("Fruit with id of $id does not exist.", 404)
         entity.delete()

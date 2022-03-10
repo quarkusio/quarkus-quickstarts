@@ -16,9 +16,9 @@ public class MultipartResourceTest {
                 .when().post("/client/multipart")
                 .then()
                 .statusCode(200)
-                .body(containsString("Content-Disposition: form-data; name=\"file\""),
+                .body(containsString("content-disposition: form-data; name=\"file\""),
                         containsString("HELLO WORLD"),
-                        containsString("Content-Disposition: form-data; name=\"fileName\""),
+                        containsString("content-disposition: form-data; name=\"fileName\""),
                         containsString("greeting.txt"));
     }
 

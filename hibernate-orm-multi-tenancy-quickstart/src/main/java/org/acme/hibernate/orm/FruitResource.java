@@ -20,7 +20,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 import org.jboss.logging.Logger;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import org.jboss.resteasy.reactive.RestPath;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -55,13 +55,13 @@ public class FruitResource {
 
     @GET
     @Path("fruits/{id}")
-    public Fruit getSingleDefault(@PathParam("id") Integer id) {
+    public Fruit getSingleDefault(@RestPath Integer id) {
         return findById(id);
     }
 
     @GET
     @Path("{tenant}/fruits/{id}")
-    public Fruit getSingleTenant(@PathParam("id") Integer id) {
+    public Fruit getSingleTenant(@RestPath Integer id) {
         return findById(id);
     }
 
@@ -99,18 +99,18 @@ public class FruitResource {
     @PUT
     @Path("fruits/{id}")
     @Transactional
-    public Fruit updateDefault(@PathParam("id") Integer id, Fruit fruit) {
+    public Fruit updateDefault(@RestPath Integer id, Fruit fruit) {
         return update(id, fruit);
     }
 
     @PUT
     @Path("{tenant}/fruits/{id}")
     @Transactional
-    public Fruit updateTenant(@PathParam("id") Integer id, Fruit fruit) {
+    public Fruit updateTenant(@RestPath Integer id, Fruit fruit) {
         return update(id, fruit);
     }
 
-    public Fruit update(@PathParam Integer id, Fruit fruit) {
+    public Fruit update(@RestPath Integer id, Fruit fruit) {
         if (fruit.getName() == null) {
             throw new WebApplicationException("Fruit Name was not set on request.", 422);
         }
@@ -129,14 +129,14 @@ public class FruitResource {
     @DELETE
     @Path("fruits/{id}")
     @Transactional
-    public Response deleteDefault(@PathParam("id") Integer id) {
+    public Response deleteDefault(@RestPath Integer id) {
         return delete(id);
     }
 
     @DELETE
     @Path("{tenant}/fruits/{id}")
     @Transactional
-    public Response deleteTenant(@PathParam("id") Integer id) {
+    public Response deleteTenant(@RestPath Integer id) {
         return delete(id);
     }
 

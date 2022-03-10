@@ -17,7 +17,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
+import org.eclipse.microprofile.context.ThreadContext;
 import org.neo4j.driver.Driver;
+import org.neo4j.driver.Record;
 import org.neo4j.driver.Values;
 import org.neo4j.driver.async.AsyncSession;
 import org.neo4j.driver.exceptions.NoSuchRecordException;
@@ -29,6 +31,9 @@ public class FruitResource {
 
     @Inject
     Driver driver;
+
+    @Inject
+    ThreadContext threadContext;
 
     @GET
     public CompletionStage<Response> get() {
@@ -46,10 +51,11 @@ public class FruitResource {
     @POST
     public CompletionStage<Response> create(Fruit fruit) {
         AsyncSession session = driver.asyncSession();
-        return session
+        CompletionStage<Record> cs = session
                 .writeTransactionAsync(tx -> tx
                         .runAsync("CREATE (f:Fruit {name: $name}) RETURN f", Values.parameters("name", fruit.name))
-                        .thenCompose(fn -> fn.singleAsync()))
+                        .thenCompose(fn -> fn.singleAsync()));
+        return threadContext.withContextCapture(cs)
                 .thenApply(record -> Fruit.from(record.get("f").asNode()))
                 .thenCompose(persistedFruit -> session.closeAsync().thenApply(signal -> persistedFruit))
                 .thenApply(persistedFruit -> Response

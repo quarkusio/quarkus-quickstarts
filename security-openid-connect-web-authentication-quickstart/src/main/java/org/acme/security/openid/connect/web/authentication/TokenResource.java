@@ -3,6 +3,7 @@ package org.acme.security.openid.connect.web.authentication;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -34,10 +35,11 @@ public class TokenResource {
     /**
      * Returns the tokens available to the application. This endpoint exists only for demonstration purposes, you should not
      * expose these tokens in a real application.
-     * 
+     *
      * @return a map containing the tokens available to the application
      */
     @GET
+    @Produces("text/html")
     public String getTokens() {
         StringBuilder response = new StringBuilder().append("<html>")
                 .append("<body>")

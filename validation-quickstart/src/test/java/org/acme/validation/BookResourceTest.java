@@ -88,9 +88,10 @@ public class BookResourceTest {
                 .header("Content-Type", "application/json")
                 .when()
                 .post("/books/end-point-method-validation")
+                .prettyPeek()
                 .then()
                 .statusCode(400)
-                .body("parameterViolations.message", hasItem("Title cannot be blank"));
+                .body("violations.message", hasItem("Title cannot be blank"));
     }
 
     @Test
