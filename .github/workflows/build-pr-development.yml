@@ -7,8 +7,29 @@ on:
       - "2.2"
 
 jobs:
+  # This is a hack to work around a GitHub API limitation:
+  # when the PR is coming from another fork, the pull_requests field of the
+  # workflow_run payload is empty.
+  # For more details, see
+  # https://github.community/t/pull-request-attribute-empty-in-workflow-run-event-object-for-pr-from-forked-repo/154682
+  attach-pr-number:
+    runs-on: ubuntu-latest
+    name: Attach pull request number
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Create file
+        shell: bash
+        run: |
+          echo -n ${{ github.event.number }} > pull-request-number
+      - name: Upload pull request number
+        uses: actions/upload-artifact@v2
+        with:
+          name: pull-request-number-${{ github.event.number }}
+          path: pull-request-number
+          retention-days: 1
   build:
-    runs-on: ubuntu-18.04
+    name: Build - JDK ${{ matrix.java }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -50,3 +71,13 @@ jobs:
       - name: Delete Local Artifacts From Cache
         shell: bash
         run: rm -rf ~/.m2/repository/org/acme
+      - name: Upload build reports (if build failed)
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() || cancelled() }}
+        with:
+          name: "build-reports-Build - JDK ${{ matrix.java }}"
+          path: |
+            **/target/*-reports/TEST-*.xml
+            target/build-report.json
+            LICENSE
+          retention-days: 2
