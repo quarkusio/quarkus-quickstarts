@@ -21,7 +21,6 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 import org.jboss.logging.Logger;
-import org.jboss.resteasy.reactive.RestPath;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -46,7 +45,7 @@ public class FruitResource {
 
     @GET
     @Path("{id}")
-    public Uni<Fruit> getSingle(@RestPath Long id) {
+    public Uni<Fruit> getSingle(Long id) {
         return Fruit.findById(id);
     }
 
@@ -62,7 +61,7 @@ public class FruitResource {
 
     @PUT
     @Path("{id}")
-    public Uni<Response> update(@RestPath Long id, Fruit fruit) {
+    public Uni<Response> update(Long id, Fruit fruit) {
         if (fruit == null || fruit.name == null) {
             throw new WebApplicationException("Fruit name was not set on request.", 422);
         }
@@ -77,7 +76,7 @@ public class FruitResource {
 
     @DELETE
     @Path("{id}")
-    public Uni<Response> delete(@RestPath Long id) {
+    public Uni<Response> delete(Long id) {
         return Panache.withTransaction(() -> Fruit.deleteById(id))
                 .map(deleted -> deleted
                         ? Response.ok().status(NO_CONTENT).build()

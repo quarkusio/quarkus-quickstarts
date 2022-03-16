@@ -6,9 +6,10 @@ import javax.validation.constraints.NotBlank;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.jboss.resteasy.reactive.RestQuery;
 
 import io.quarkus.mailer.MailTemplate;
 import io.quarkus.qute.CheckedTemplate;
@@ -20,8 +21,8 @@ public class TypeSafeMailResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Uni<Response> greeting(
-            @Valid @Email @QueryParam("email") String email,
-            @Valid @NotBlank @QueryParam("name") String name) {
+            @Valid @Email @RestQuery String email,
+            @Valid @NotBlank @RestQuery String name) {
         return Templates.hello(name)
                 .to(email)
                 .subject("Ahoy " + name + "!")

@@ -1,16 +1,15 @@
 package org.acme.extra;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClientOptions;
 import io.vertx.mutiny.core.Vertx;
 import io.vertx.mutiny.ext.web.client.WebClient;
-import org.jboss.resteasy.reactive.RestPath;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 @Path("/fruit-data")
 public class ResourceUsingWebClient {
@@ -26,7 +25,7 @@ public class ResourceUsingWebClient {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{name}")
-    public Uni<JsonObject> getFruitData(@RestPath("name") String name) {
+    public Uni<JsonObject> getFruitData(String name) {
         return client.get("/api/fruit/" + name)
                 .send()
                 .map(resp -> {

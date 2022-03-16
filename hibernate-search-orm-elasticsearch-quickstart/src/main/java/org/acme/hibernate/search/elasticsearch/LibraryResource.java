@@ -19,7 +19,6 @@ import org.acme.hibernate.search.elasticsearch.model.Author;
 import org.acme.hibernate.search.elasticsearch.model.Book;
 import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.jboss.resteasy.reactive.RestForm;
-import org.jboss.resteasy.reactive.RestPath;
 import org.jboss.resteasy.reactive.RestQuery;
 
 import io.quarkus.runtime.StartupEvent;
@@ -63,7 +62,7 @@ public class LibraryResource {
     @DELETE
     @Path("book/{id}")
     @Transactional
-    public void deleteBook(@RestPath Long id) {
+    public void deleteBook(Long id) {
         Book book = Book.findById(id);
         if (book != null) {
             book.author.books.remove(book);
@@ -86,7 +85,7 @@ public class LibraryResource {
     @Path("author/{id}")
     @Transactional
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void updateAuthor(@RestPath Long id, @RestForm String firstName, @RestForm String lastName) {
+    public void updateAuthor(Long id, @RestForm String firstName, @RestForm String lastName) {
         Author author = Author.findById(id);
         if (author == null) {
             return;
@@ -99,7 +98,7 @@ public class LibraryResource {
     @DELETE
     @Path("author/{id}")
     @Transactional
-    public void deleteAuthor(@RestPath Long id) {
+    public void deleteAuthor(Long id) {
         Author author = Author.findById(id);
         if (author != null) {
             author.delete();

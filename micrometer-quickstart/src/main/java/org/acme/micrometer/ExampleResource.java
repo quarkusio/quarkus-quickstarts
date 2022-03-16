@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -28,7 +27,7 @@ public class ExampleResource {
 
     @GET
     @Path("gauge/{number}")
-    public Long checkListSize(@PathParam("number") long number) {
+    public Long checkListSize(long number) {
         if (number == 2 || number % 2 == 0) {
             // add even numbers to the list
             list.add(number);
@@ -45,7 +44,7 @@ public class ExampleResource {
 
     @GET
     @Path("prime/{number}")
-    public String checkIfPrime(@PathParam("number") long number) {
+    public String checkIfPrime(long number) {
         if (number < 1) {
             registry.counter("example.prime.number", "type", "not-natural").increment();
             return "Only natural numbers can be prime numbers.";

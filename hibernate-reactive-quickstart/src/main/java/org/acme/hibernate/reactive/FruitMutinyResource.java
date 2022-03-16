@@ -20,8 +20,6 @@ import javax.ws.rs.core.Response;
 
 import org.hibernate.reactive.mutiny.Mutiny;
 
-import org.jboss.resteasy.reactive.RestPath;
-
 import io.smallrye.mutiny.Uni;
 
 @Path("fruits")
@@ -43,7 +41,7 @@ public class FruitMutinyResource {
 
     @GET
     @Path("{id}")
-    public Uni<Fruit> getSingle(@RestPath Integer id) {
+    public Uni<Fruit> getSingle(Integer id) {
         return sf.withTransaction((s,t) -> s.find(Fruit.class, id));
     }
 
@@ -59,7 +57,7 @@ public class FruitMutinyResource {
 
     @PUT
     @Path("{id}")
-    public Uni<Response> update(@RestPath Integer id, Fruit fruit) {
+    public Uni<Response> update(Integer id, Fruit fruit) {
         if (fruit == null || fruit.getName() == null) {
             throw new WebApplicationException("Fruit name was not set on request.", 422);
         }
@@ -76,7 +74,7 @@ public class FruitMutinyResource {
 
     @DELETE
     @Path("{id}")
-    public Uni<Response> delete(@RestPath Integer id) {
+    public Uni<Response> delete(Integer id) {
         return sf.withTransaction((s,t) ->
                 s.find(Fruit.class, id)
                     // If entity exists then delete it

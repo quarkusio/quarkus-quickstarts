@@ -2,7 +2,6 @@ package io.quarkus.grpc.examples.hello;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 
 import examples.Greeter;
 import examples.GreeterGrpc;
@@ -22,13 +21,13 @@ public class HelloWorldTlsEndpoint {
 
     @GET
     @Path("/blocking/{name}")
-    public String helloBlocking(@PathParam("name") String name) {
+    public String helloBlocking(String name) {
         return blockingHelloService.sayHello(HelloRequest.newBuilder().setName(name).build()).getMessage();
     }
 
     @GET
     @Path("/mutiny/{name}")
-    public Uni<String> helloMutiny(@PathParam("name") String name) {
+    public Uni<String> helloMutiny(String name) {
         return helloService.sayHello(HelloRequest.newBuilder().setName(name).build())
                 .onItem().transform(HelloReply::getMessage);
     }

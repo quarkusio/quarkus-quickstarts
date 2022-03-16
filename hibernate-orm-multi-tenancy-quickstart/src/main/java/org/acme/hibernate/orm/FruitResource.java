@@ -13,14 +13,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 import org.jboss.logging.Logger;
-import org.jboss.resteasy.reactive.RestPath;
+import org.jboss.resteasy.reactive.RestQuery;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -55,13 +54,13 @@ public class FruitResource {
 
     @GET
     @Path("fruits/{id}")
-    public Fruit getSingleDefault(@RestPath Integer id) {
+    public Fruit getSingleDefault(Integer id) {
         return findById(id);
     }
 
     @GET
     @Path("{tenant}/fruits/{id}")
-    public Fruit getSingleTenant(@RestPath Integer id) {
+    public Fruit getSingleTenant(Integer id) {
         return findById(id);
     }
 
@@ -99,18 +98,18 @@ public class FruitResource {
     @PUT
     @Path("fruits/{id}")
     @Transactional
-    public Fruit updateDefault(@RestPath Integer id, Fruit fruit) {
+    public Fruit updateDefault(Integer id, Fruit fruit) {
         return update(id, fruit);
     }
 
     @PUT
     @Path("{tenant}/fruits/{id}")
     @Transactional
-    public Fruit updateTenant(@RestPath Integer id, Fruit fruit) {
+    public Fruit updateTenant(Integer id, Fruit fruit) {
         return update(id, fruit);
     }
 
-    public Fruit update(@RestPath Integer id, Fruit fruit) {
+    public Fruit update(Integer id, Fruit fruit) {
         if (fruit.getName() == null) {
             throw new WebApplicationException("Fruit Name was not set on request.", 422);
         }
@@ -129,14 +128,14 @@ public class FruitResource {
     @DELETE
     @Path("fruits/{id}")
     @Transactional
-    public Response deleteDefault(@RestPath Integer id) {
+    public Response deleteDefault(Integer id) {
         return delete(id);
     }
 
     @DELETE
     @Path("{tenant}/fruits/{id}")
     @Transactional
-    public Response deleteTenant(@RestPath Integer id) {
+    public Response deleteTenant(Integer id) {
         return delete(id);
     }
 
@@ -152,13 +151,13 @@ public class FruitResource {
 
     @GET
     @Path("fruitsFindBy")
-    public Response findByDefault(@QueryParam("type") String type, @QueryParam("value") String value) {
+    public Response findByDefault(@RestQuery String type, @RestQuery String value) {
         return findBy(type, value);
     }
 
     @GET
     @Path("{tenant}/fruitsFindBy")
-    public Response findByTenant(@QueryParam("type") String type, @QueryParam("value") String value) {
+    public Response findByTenant(@RestQuery String type, @RestQuery String value) {
         return findBy(type, value);
     }
 

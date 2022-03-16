@@ -6,8 +6,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.jboss.resteasy.reactive.RestPath;
-
 @Path("/hello")
 public class GreetingResource {
 
@@ -17,7 +15,7 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/greeting/{name}")
-    public String greeting(@RestPath String name) {
+    public String greeting(String name) {
         return service.greeting(name);
     }
 
