@@ -31,6 +31,5 @@ public class Registration {
                 new ServiceOptions().setPort(blue).setAddress("localhost").setName("my-service").setId("blue"));
         client.registerServiceAndAwait(
                 new ServiceOptions().setPort(red).setAddress("localhost").setName("my-service").setId("red"));
-
     }
 }
