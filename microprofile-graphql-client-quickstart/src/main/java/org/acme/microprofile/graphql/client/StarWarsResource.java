@@ -1,24 +1,24 @@
 package org.acme.microprofile.graphql.client;
 
 
+import static io.smallrye.graphql.client.core.Document.document;
+import static io.smallrye.graphql.client.core.Field.field;
+import static io.smallrye.graphql.client.core.Operation.operation;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+
+import org.acme.microprofile.graphql.client.model.Film;
+import org.acme.microprofile.graphql.client.model.FilmConnection;
+
 import io.smallrye.common.annotation.Blocking;
 import io.smallrye.graphql.client.GraphQLClient;
 import io.smallrye.graphql.client.Response;
 import io.smallrye.graphql.client.core.Document;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
-import org.acme.microprofile.graphql.client.model.Film;
-import org.acme.microprofile.graphql.client.model.FilmConnection;
-
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import java.util.List;
-
-import static io.smallrye.graphql.client.core.Document.document;
-import static io.smallrye.graphql.client.core.Field.field;
-import static io.smallrye.graphql.client.core.Operation.operation;
 
 /*
     Shows the usage of the typesafe and dynamic GraphQL clients.
@@ -52,7 +52,6 @@ public class StarWarsResource {
 
     @GET
     @Path("/typesafe")
-    @Produces(MediaType.APPLICATION_JSON)
     @Blocking
     public List<Film> getAllFilmsUsingTypesafeClient() {
         return typesafeClient.allFilms().getFilms();
@@ -66,7 +65,6 @@ public class StarWarsResource {
 
     @GET
     @Path("/dynamic")
-    @Produces(MediaType.APPLICATION_JSON)
     @Blocking
     public List<Film> getAllFilmsUsingDynamicClient() throws Exception {
         Document query = document(

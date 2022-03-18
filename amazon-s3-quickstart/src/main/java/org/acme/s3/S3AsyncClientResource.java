@@ -1,9 +1,9 @@
 package org.acme.s3;
 
-import io.smallrye.mutiny.Uni;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,7 +13,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
 import org.jboss.resteasy.reactive.MultipartForm;
+
+import io.smallrye.mutiny.Uni;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -62,7 +65,6 @@ public class S3AsyncClientResource extends CommonResource {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Uni<List<FileObject>> listFiles() {
         ListObjectsRequest listRequest = ListObjectsRequest.builder()
                 .bucket(bucketName)

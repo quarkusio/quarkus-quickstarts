@@ -2,8 +2,6 @@ package org.acme.extra;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.JsonObject;
@@ -23,7 +21,6 @@ public class ResourceUsingWebClient {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("/{name}")
     public Uni<JsonObject> getFruitData(String name) {
         return client.get("/api/fruit/" + name)

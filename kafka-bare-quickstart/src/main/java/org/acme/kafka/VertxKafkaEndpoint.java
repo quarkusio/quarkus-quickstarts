@@ -9,8 +9,6 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.reactive.RestQuery;
 
@@ -25,7 +23,6 @@ import io.vertx.mutiny.kafka.client.producer.KafkaProducerRecord;
 
 @Path("/vertx-kafka")
 @ApplicationScoped
-@Produces(MediaType.APPLICATION_JSON)
 public class VertxKafkaEndpoint {
 
     public static final String TOPIC = "hello-vertx";

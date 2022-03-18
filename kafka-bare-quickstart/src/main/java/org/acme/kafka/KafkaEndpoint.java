@@ -13,8 +13,6 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -28,7 +26,6 @@ import io.quarkus.runtime.StartupEvent;
 
 @Path("/kafka")
 @ApplicationScoped
-@Produces(MediaType.APPLICATION_JSON)
 public class KafkaEndpoint {
 
     public static final String TOPIC = "hello";

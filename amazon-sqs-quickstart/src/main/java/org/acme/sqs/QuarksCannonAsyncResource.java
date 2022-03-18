@@ -1,24 +1,22 @@
 package org.acme.sqs;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import io.smallrye.mutiny.Uni;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import org.acme.sqs.model.Quark;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
+import io.smallrye.mutiny.Uni;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 import software.amazon.awssdk.services.sqs.model.SendMessageResponse;
 
 @Path("/async/cannon")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class QuarksCannonAsyncResource {
 
     private static final Logger LOGGER = Logger.getLogger(QuarksCannonAsyncResource.class);
@@ -33,7 +31,6 @@ public class QuarksCannonAsyncResource {
 
     @POST
     @Path("/shoot")
-    @Consumes(MediaType.APPLICATION_JSON)
     public Uni<Response> sendMessage(Quark quark) throws Exception {
         String message = QUARK_WRITER.writeValueAsString(quark);
         return Uni.createFrom()

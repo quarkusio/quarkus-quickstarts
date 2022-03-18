@@ -8,8 +8,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
@@ -25,7 +23,6 @@ import org.jboss.logging.Logger;
  * Demonstrates {@link Retry}, {@link CircuitBreaker}, {@link Timeout} and {@link Fallback} policies.
  */
 @Path("/coffee")
-@Produces(MediaType.APPLICATION_JSON)
 public class CoffeeResource {
 
     private static final Logger LOGGER = Logger.getLogger(CoffeeResource.class);

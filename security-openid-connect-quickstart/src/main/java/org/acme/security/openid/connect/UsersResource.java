@@ -19,8 +19,6 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.reactive.NoCache;
 
@@ -38,7 +36,6 @@ public class UsersResource {
     @GET
     @RolesAllowed("user")
     @Path("/me")
-    @Produces(MediaType.APPLICATION_JSON)
     @NoCache
     public User me() {
         return new User(identity);

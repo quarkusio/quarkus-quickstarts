@@ -9,12 +9,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.smallrye.mutiny.infrastructure.Infrastructure;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.reactive.RestStreamElementType;
 import org.reactivestreams.Publisher;
 
 import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.infrastructure.Infrastructure;
 
 @Path("/")
 public class EmitterResource {
@@ -49,7 +49,6 @@ public class EmitterResource {
 
     @GET
     @Path("/prices/all")
-    @Produces(MediaType.APPLICATION_JSON)
     public List<Price> getAllPrices() {
         return Price.listAll();
     }

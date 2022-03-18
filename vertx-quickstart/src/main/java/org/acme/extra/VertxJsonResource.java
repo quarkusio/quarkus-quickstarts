@@ -2,14 +2,11 @@ package org.acme.extra;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
 @Path("/hello")
-@Produces(MediaType.APPLICATION_JSON)
 public class VertxJsonResource {
 
     @GET
