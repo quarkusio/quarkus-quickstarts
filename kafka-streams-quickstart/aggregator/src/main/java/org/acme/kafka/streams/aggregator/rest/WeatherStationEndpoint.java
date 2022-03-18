@@ -6,19 +6,14 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.acme.kafka.streams.aggregator.streams.GetWeatherStationDataResult;
 import org.acme.kafka.streams.aggregator.streams.InteractiveQueries;
 import org.acme.kafka.streams.aggregator.streams.PipelineMetadata;
-import org.eclipse.microprofile.config.inject.ConfigProperties;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
@@ -33,9 +28,7 @@ public class WeatherStationEndpoint {
 
     @GET
     @Path("/data/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getWeatherStationData(@PathParam("id") int id) {
+    public Response getWeatherStationData(int id) {
         GetWeatherStationDataResult result = interactiveQueries.getWeatherStationData(id);
 
         if (result.getResult().isPresent()) {
@@ -50,7 +43,6 @@ public class WeatherStationEndpoint {
 
     @GET
     @Path("/meta-data")
-    @Produces(MediaType.APPLICATION_JSON)
     public List<PipelineMetadata> getMetaData() {
         return interactiveQueries.getMetaData();
     }

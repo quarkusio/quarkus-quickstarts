@@ -1,24 +1,26 @@
 package org.acme.rest.client;
 
-import io.smallrye.mutiny.Uni;
-import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+import java.util.Set;
+import java.util.concurrent.CompletionStage;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
-import java.util.Set;
-import java.util.concurrent.CompletionStage;
+
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+import org.jboss.resteasy.reactive.RestQuery;
+
+import io.smallrye.mutiny.Uni;
 
 @Path("/extensions")
 @RegisterRestClient(configKey = "extensions-api")
 public interface ExtensionsService {
 
     @GET
-    Set<Extension> getById(@QueryParam("id") String id);
+    Set<Extension> getById(@RestQuery String id);
 
     @GET
-    CompletionStage<Set<Extension>> getByIdAsync(@QueryParam("id") String id);
+    CompletionStage<Set<Extension>> getByIdAsync(@RestQuery String id);
 
     @GET
-    Uni<Set<Extension>> getByIdAsUni(@QueryParam("id") String id);
+    Uni<Set<Extension>> getByIdAsUni(@RestQuery String id);
 }

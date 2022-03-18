@@ -8,7 +8,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.Validator;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -32,8 +31,6 @@ public class BookResource {
 
     @Path("/manual-validation")
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public Result tryMeManualValidation(Book book) {
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         if (violations.isEmpty()) {
@@ -45,16 +42,12 @@ public class BookResource {
 
     @Path("/end-point-method-validation")
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public Result tryMeEndPointMethodValidation(@Valid Book book) {
         return new Result("Book is valid! It was validated by end point method validation.");
     }
 
     @Path("/service-method-validation")
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public Result tryMeServiceMethodValidation(Book book) {
         try {
             bookService.validateBook(book);

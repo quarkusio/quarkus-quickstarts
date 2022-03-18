@@ -8,10 +8,10 @@ import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
+import org.jboss.resteasy.reactive.RestQuery;
 
 import software.amazon.awssdk.services.ssm.SsmClient;
 
@@ -31,8 +31,8 @@ public class QuarkusSsmSyncResource extends QuarkusSsmResource {
     @PUT
     @Path("/{name}")
     @Consumes(MediaType.TEXT_PLAIN)
-    public void setParameter(@PathParam("name") String name,
-            @QueryParam("secure") @DefaultValue("false") boolean secure,
+    public void setParameter(String name,
+            @RestQuery @DefaultValue("false") boolean secure,
             String value) {
 
         ssm.putParameter(generatePutParameterRequest(name, value, secure));
@@ -41,7 +41,7 @@ public class QuarkusSsmSyncResource extends QuarkusSsmResource {
     @GET
     @Path("/{name}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getParameter(@PathParam("name") String name) {
+    public String getParameter(String name) {
         return ssm.getParameter(generateGetParameterRequest(name))
                 .parameter().value();
     }

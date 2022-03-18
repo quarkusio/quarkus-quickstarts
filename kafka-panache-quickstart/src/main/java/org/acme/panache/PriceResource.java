@@ -1,12 +1,11 @@
 package org.acme.panache;
 
-import io.smallrye.common.annotation.Blocking;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import java.util.List;
+
+import io.smallrye.common.annotation.Blocking;
 
 @Path("/prices")
 public class PriceResource {
@@ -16,7 +15,6 @@ public class PriceResource {
      * @return the list of prices
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Blocking
     public List<Price> getAllPrices() {
         return Price.listAll();

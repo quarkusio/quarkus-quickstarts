@@ -8,8 +8,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
@@ -17,7 +15,6 @@ import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.jboss.logging.Logger;
-import org.jboss.resteasy.reactive.RestPath;
 
 /**
  * A JAX-RS resource that provides information about kinds of coffees we have on store and numbers of packages
@@ -26,7 +23,6 @@ import org.jboss.resteasy.reactive.RestPath;
  * Demonstrates {@link Retry}, {@link CircuitBreaker}, {@link Timeout} and {@link Fallback} policies.
  */
 @Path("/coffee")
-@Produces(MediaType.APPLICATION_JSON)
 public class CoffeeResource {
 
     private static final Logger LOGGER = Logger.getLogger(CoffeeResource.class);
@@ -64,7 +60,7 @@ public class CoffeeResource {
      */
     @Path("/{id}")
     @GET
-    public Response coffeeDetail(@RestPath int id) {
+    public Response coffeeDetail(int id) {
         final Long invocationNumber = counter.getAndIncrement();
 
         maybeFail(String.format("CoffeeResource#coffees() invocation #%d failed", invocationNumber));
@@ -89,7 +85,7 @@ public class CoffeeResource {
      */
     @Path("/{id}/availability")
     @GET
-    public Response availability(@RestPath int id) {
+    public Response availability(int id) {
         final Long invocationNumber = counter.getAndIncrement();
 
         Coffee coffee = coffeeRepository.getCoffeeById(id);
@@ -116,7 +112,7 @@ public class CoffeeResource {
     @Path("/{id}/recommendations")
     @Timeout(250)
     @Fallback(fallbackMethod = "fallbackRecommendations")
-    public List<Coffee> recommendations(@RestPath int id) {
+    public List<Coffee> recommendations(int id) {
         long started = System.currentTimeMillis();
         final long invocationNumber = counter.getAndIncrement();
 

@@ -2,6 +2,12 @@ package org.acme;
 
 import java.nio.charset.StandardCharsets;
 
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+
+import org.jboss.resteasy.reactive.RestQuery;
+
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.file.OpenOptions;
@@ -10,11 +16,6 @@ import io.vertx.mutiny.core.Vertx;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import io.vertx.mutiny.ext.web.client.HttpResponse;
 import io.vertx.mutiny.ext.web.client.WebClient;
-
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
 
 @Path("/vertx")                        // <1>
 public class VertxResource {
@@ -50,7 +51,7 @@ public class VertxResource {
 
     @GET
     @Path("/hello")
-    public Uni<String> hello(@QueryParam("name") String name) {
+    public Uni<String> hello(@RestQuery String name) {
         return bus.<String>request("greetings", name)
                 .onItem().transform(response -> response.body());
     }

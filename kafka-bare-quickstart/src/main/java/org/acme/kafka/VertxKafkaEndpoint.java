@@ -1,5 +1,17 @@
 package org.acme.kafka;
 
+import java.util.Collections;
+import java.util.Set;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+
+import org.jboss.resteasy.reactive.RestQuery;
+
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Uni;
@@ -9,21 +21,8 @@ import io.vertx.mutiny.kafka.client.consumer.KafkaConsumer;
 import io.vertx.mutiny.kafka.client.producer.KafkaProducer;
 import io.vertx.mutiny.kafka.client.producer.KafkaProducerRecord;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import java.util.Collections;
-import java.util.Set;
-
 @Path("/vertx-kafka")
 @ApplicationScoped
-@Produces(MediaType.APPLICATION_JSON)
 public class VertxKafkaEndpoint {
 
     public static final String TOPIC = "hello-vertx";
@@ -71,7 +70,7 @@ public class VertxKafkaEndpoint {
 
     @Path("/")
     @POST
-    public Uni<Long> post(@QueryParam("key") String key, @QueryParam("value") String value) {
+    public Uni<Long> post(@RestQuery String key, @RestQuery String value) {
         return producer.send(KafkaProducerRecord.create(TOPIC, key, value))
                 .onItem().transform(RecordMetadata::getOffset);
     }
