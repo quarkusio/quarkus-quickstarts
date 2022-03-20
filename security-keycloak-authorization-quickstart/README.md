@@ -46,13 +46,15 @@ Launch the Maven build on the checked out sources of this demo:
 
 > :warning: **NOTE**: Do not start the Keycloak server when you run the application in a dev mode - `Dev Services for Keycloak` will launch a container for you.
 
-To start a Keycloak Server you can use Docker and just run the following command:
+To start a Keycloak Server you can use Docker and just run the following command in the root directory of this quickstart:
 
 ```bash
-docker run --name keycloak -e DB_VENDOR=H2 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8180:8080 -p 8543:8443 quay.io/keycloak/keycloak:{keycloak version}
+docker run --name keycloak -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin -p 8543:8443 -v "$(pwd)"/config/keycloak-keystore.jks:/etc/keycloak-keystore.jks quay.io/keycloak/keycloak:{keycloak.version} start  --hostname-strict=false --https-key-store-file=/etc/keycloak-keystore.jks
 ```
 
-You should be able to access your Keycloak Server at http://localhost:8180/auth or https://localhost:8543/auth.
+where `keycloak.version` should be set to `17.0.0` or higher.
+
+You should be able to access your Keycloak Server at https://localhost:8543.
 
 Log in as the `admin` user to access the Keycloak Administration Console.
 Username should be `admin` and password `admin`.
@@ -112,7 +114,7 @@ order to access the application resources:
 
 ```bash
 export access_token=$(\
-    curl --insecure -X POST https://localhost:8543/auth/realms/quarkus/protocol/openid-connect/token \
+    curl --insecure -X POST https://localhost:8543/realms/quarkus/protocol/openid-connect/token \
     --user backend-service:secret \
     -H 'content-type: application/x-www-form-urlencoded' \
     -d 'username=alice&password=alice&grant_type=password' | jq --raw-output '.access_token' \
@@ -145,7 +147,7 @@ In order to access the admin endpoint you should obtain a token for the `admin` 
 
 ```bash
 export access_token=$(\
-    curl --insecure -X POST https://localhost:8543/auth/realms/quarkus/protocol/openid-connect/token \
+    curl --insecure -X POST https://localhost:8543/realms/quarkus/protocol/openid-connect/token \
     --user backend-service:secret \
     -H 'content-type: application/x-www-form-urlencoded' \
     -d 'username=admin&password=admin&grant_type=password' | jq --raw-output '.access_token' \
