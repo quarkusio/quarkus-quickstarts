@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <script src="/webauthn/webauthn.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="/q/webauthn/webauthn.js" type="text/javascript" charset="UTF-8"></script>
     <style>
      .container {
       display: grid;
@@ -47,7 +47,7 @@
       <li><a href="/api/public">Public API</a></li>
       <li><a href="/api/users/me">User API</a></li>
       <li><a href="/api/admin">Admin API</a></li>
-      <li><a href="/webauthn/logout">Logout</a></li>
+      <li><a href="/q/webauthn/logout">Logout</a></li>
     </nav>
     <div class="container">
      <div class="item">
@@ -73,9 +73,9 @@
     </div>
     <script type="text/javascript">
       const webAuthn = new WebAuthn({
-        callbackPath: '/webauthn/callback',
-        registerPath: '/webauthn/register',
-        loginPath: '/webauthn/login'
+        callbackPath: '/q/webauthn/callback',
+        registerPath: '/q/webauthn/register',
+        loginPath: '/q/webauthn/login'
       });
       
       const result = document.getElementById('result');
