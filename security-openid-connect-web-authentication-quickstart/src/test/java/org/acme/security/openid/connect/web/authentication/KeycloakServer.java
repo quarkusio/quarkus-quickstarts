@@ -6,6 +6,7 @@ import java.util.Map;
 import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.FixedHostPortGenericContainer;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.SelinuxContext;
 import org.testcontainers.containers.wait.strategy.Wait;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
@@ -23,7 +24,7 @@ public class KeycloakServer implements QuarkusTestResourceLifecycleManager {
                 .withEnv("KEYCLOAK_USER", "admin")
                 .withEnv("KEYCLOAK_PASSWORD", "admin")
                 .withEnv("KEYCLOAK_IMPORT", "/tmp/realm.json")
-                .withClasspathResourceMapping("quarkus-realm.json", "/tmp/realm.json", BindMode.READ_ONLY)
+                .withClasspathResourceMapping("quarkus-realm.json", "/tmp/realm.json", BindMode.READ_ONLY, SelinuxContext.SINGLE)
                 .waitingFor(Wait.forHttp("/auth"));
         keycloak.start();
         return Collections.emptyMap();
