@@ -5,6 +5,7 @@ on:
     branches:
       - development
       - "2.2"
+      - "2.7"
 
 jobs:
   # This is a hack to work around a GitHub API limitation:
