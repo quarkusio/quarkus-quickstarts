@@ -114,5 +114,5 @@ As well as running the DB on Kubernetes, a service needs to be exposed for the d
 Then, rebuild demo docker image with a system property that points to the DB. 
 
 ```bash
--Dquarkus.datasource.jdbc.url=jdbc:postgresql://<DB_SERVICE_NAME>/quarkus_test
+-Dquarkus.datasource.reactive.url=vertx-reactive:postgresql://<DB_SERVICE_NAME>/quarkus_test
 ```
