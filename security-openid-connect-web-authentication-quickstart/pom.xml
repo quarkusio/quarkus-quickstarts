@@ -17,7 +17,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <htmlunit.version>2.36.0</htmlunit.version>
+        <htmlunit.version>2.37.0</htmlunit.version>
     </properties>
 
     <dependencyManagement>
