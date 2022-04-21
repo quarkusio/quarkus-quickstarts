@@ -1,5 +1,8 @@
 package org.acme.microprofile.graphql;
 
+import io.smallrye.graphql.api.Subscription;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.operators.multi.processors.BroadcastProcessor;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Query;
 import org.eclipse.microprofile.graphql.Mutation;
@@ -8,14 +11,18 @@ import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Source;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
 
 @GraphQLApi
+@ApplicationScoped
 public class FilmResource {
 
     @Inject
     GalaxyService service;
+
+    private final BroadcastProcessor<Hero> processor = BroadcastProcessor.create();
 
     @Query("allFilms")
     @Description("Get all Films from a galaxy far far away")
@@ -36,6 +43,7 @@ public class FilmResource {
     @Mutation
     public Hero createHero(Hero hero) {
         service.addHero(hero);
+        processor.onNext(hero);
         return hero;
     }
 
@@ -47,6 +55,12 @@ public class FilmResource {
     @Query
     public List<Hero> getHeroesWithSurname(@DefaultValue("Skywalker") String surname) {
         return service.getHeroesBySurname(surname);
+    }
+
+
+    @Subscription
+    public Multi<Hero> heroCreated() {
+        return processor;
     }
 
 }
