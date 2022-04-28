@@ -1,0 +1,9 @@
+version: "3"
+services:
+  database:
+    image: "postgres:10.5"
+    container_name: "elytron-security-webauthn-database"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
