@@ -1,7 +1,5 @@
 package org.acme.security.openid.connect.client;
 
-import java.security.Principal;
-
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -11,12 +9,14 @@ import javax.ws.rs.Produces;
 import io.quarkus.security.Authenticated;
 import io.smallrye.mutiny.Uni;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
 @Path("/protected")
 @Authenticated
 public class ProtectedResource {
 
     @Inject
-    Principal principal;
+    JsonWebToken principal;
 
     @GET
     @RolesAllowed("user")
