@@ -4,8 +4,6 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -31,10 +29,8 @@ public class FrontendResource {
     @GET
     @Path("admin-name-with-oidc-client-token")
     @Produces("text/plain")
-    public Uni<Response> getAdminNameWithOidcClientToken() {
-	    return protectedResourceOidcClientFilter.getAdminName().onItem().transform(name -> Response.ok(name).build())
-        		.onFailure().recoverWithItem(t -> Response.status(((WebApplicationException)t).getResponse().getStatus()).build());
-    	
+    public Uni<String> getAdminNameWithOidcClientToken() {
+	    return protectedResourceOidcClientFilter.getAdminName();
     }
     
     @GET
