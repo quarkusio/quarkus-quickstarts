@@ -1,0 +1,156 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: development
+  name: endpoints-reader
+rules:
+  - apiGroups: [""] # "" indicates the core API group
+    resources: ["endpoints", "pods"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: stork-rb
+  namespace: development
+subjects:
+  - kind: ServiceAccount
+    # Reference to upper's `metadata.name`
+    name: default
+    # Reference to upper's `metadata.namespace`
+    namespace: development
+roleRef:
+  kind: Role
+  name: endpoints-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.quarkus.io/commit-id: f747f359406bedfb1a39c57392a5b5a9eaefec56
+    app.quarkus.io/build-timestamp: 2022-03-31 - 10:36:56 +0000
+  labels:
+    app.kubernetes.io/name: color-service
+    app.kubernetes.io/version: "1.0"
+  name: color-service
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/version: "1.0"
+    type: color-service
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    app.quarkus.io/commit-id: f747f359406bedfb1a39c57392a5b5a9eaefec56
+    app.quarkus.io/build-timestamp: 2022-03-31 - 10:46:19 +0000
+  labels:
+    app.kubernetes.io/name: color-service
+    app.kubernetes.io/version: "1.0"
+    color: blue
+    type: color-service
+  name: color-service
+spec:
+  rules:
+    - host: color-service.127.0.0.1.nip.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: color-service
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.quarkus.io/commit-id: f747f359406bedfb1a39c57392a5b5a9eaefec56
+    app.quarkus.io/build-timestamp: 2022-03-31 - 10:36:56 +0000
+  labels:
+    color: blue
+    type: color-service
+    app.kubernetes.io/name: blue-service
+    app.kubernetes.io/version: "1.0"
+  name: blue-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: blue-service
+      app.kubernetes.io/version: "1.0"
+  template:
+    metadata:
+      annotations:
+        app.quarkus.io/commit-id: f747f359406bedfb1a39c57392a5b5a9eaefec56
+        app.quarkus.io/build-timestamp: 2022-03-31 - 10:36:56 +0000
+      labels:
+        color: blue
+        type: color-service
+        app.kubernetes.io/name: blue-service
+        app.kubernetes.io/version: "1.0"
+    spec:
+      containers:
+        - env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          image: quay.io/quarkus/blue-service:1.0
+          imagePullPolicy: Always
+          name: blue-service
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.quarkus.io/commit-id: 27be03414510f776ca70d70d859b33e134570443
+    app.quarkus.io/build-timestamp: 2022-03-31 - 10:38:54 +0000
+  labels:
+    color: red
+    type: color-service
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/name: red-service
+  name: red-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/version: "1.0"
+      app.kubernetes.io/name: red-service
+  template:
+    metadata:
+      annotations:
+        app.quarkus.io/commit-id: 27be03414510f776ca70d70d859b33e134570443
+        app.quarkus.io/build-timestamp: 2022-03-31 - 10:38:54 +0000
+      labels:
+        color: red
+        type: color-service
+        app.kubernetes.io/version: "1.0"
+        app.kubernetes.io/name: red-service
+    spec:
+      containers:
+        - env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          image: quay.io/quarkus/red-service:1.0
+          imagePullPolicy: Always
+          name: red-service
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
