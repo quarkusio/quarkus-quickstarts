@@ -11,7 +11,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>2.7.5.Final</quarkus.platform.version>
+        <quarkus.platform.version>2.7.6.Final</quarkus.platform.version>
         <kogito-quarkus.version>1.16.1.Final</kogito-quarkus.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
