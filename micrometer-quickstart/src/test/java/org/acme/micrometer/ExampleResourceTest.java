@@ -1,4 +1,4 @@
-package org.acme.microprofile.metrics;
+package org.acme.micrometer;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.when;

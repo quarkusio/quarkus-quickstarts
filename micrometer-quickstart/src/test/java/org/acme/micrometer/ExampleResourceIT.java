@@ -1,4 +1,4 @@
-package org.acme.microprofile.metrics;
+package org.acme.micrometer;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
