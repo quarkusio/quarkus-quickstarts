@@ -48,7 +48,7 @@ public class PersonProcessTest {
                 .get("/persons/{uuid}/tasks?user=john", processId)
                 .then()
                 .statusCode(200)
-                .body("$.size", is(1))
+                .body("$.size()", is(1))
                 .extract().path("[0].id");
 
         given().contentType(ContentType.JSON).accept(ContentType.JSON)
