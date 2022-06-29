@@ -1,54 +1,50 @@
 package org.acme.redis;
 
-import io.quarkus.redis.client.RedisClient;
-import io.quarkus.redis.client.reactive.ReactiveRedisClient;
+import io.quarkus.redis.datasource.api.ReactiveRedisDataSource;
+import io.quarkus.redis.datasource.api.RedisDataSource;
+import io.quarkus.redis.datasource.api.keys.ReactiveKeyCommands;
+import io.quarkus.redis.datasource.api.string.StringCommands;
 import io.smallrye.mutiny.Uni;
 
-import io.vertx.mutiny.redis.client.Response;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
 class IncrementService {
 
-    @Inject
-    RedisClient redisClient;
 
-    @Inject
-    ReactiveRedisClient reactiveRedisClient;
+    
+    private ReactiveKeyCommands<String> keys;
+    private StringCommands<String, Integer> counter;
+
+    public IncrementService(RedisDataSource redisDS,  ReactiveRedisDataSource reactiveRedisDS) {
+        keys = reactiveRedisDS.key();
+        counter = redisDS.string(Integer.class);
+    }
+
 
     Uni<Void> del(String key) {
-        return reactiveRedisClient.del(Arrays.asList(key))
-                .map(response -> null);
+        return keys.del(key)
+            .replaceWithVoid();
+            
     }
 
-    String get(String key) {
-        return redisClient.get(key).toString();
+    int get(String key) {
+        return counter.get(key);
     }
 
-    void set(String key, Integer value) {
-        redisClient.set(Arrays.asList(key, value.toString()));
+    void set(String key, int value) {
+        counter.set(key, value);
     }
 
-    void increment(String key, Integer incrementBy) {
-        redisClient.incrby(key, incrementBy.toString());
+    void increment(String key, int incrementBy) {
+        counter.incrby(key, incrementBy);
     }
 
     Uni<List<String>> keys() {
-        return reactiveRedisClient
-                .keys("*")
-                .map(response -> {
-                    List<String> result = new ArrayList<>();
-                    for (Response r : response) {
-                        result.add(r.toString());
-                    }
-                    return result;
-                });
+        return keys
+                .keys("*");
     }
 }
 
