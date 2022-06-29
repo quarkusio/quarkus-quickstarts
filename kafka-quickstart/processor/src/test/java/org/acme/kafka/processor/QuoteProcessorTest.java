@@ -25,9 +25,7 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.kafka.client.serialization.ObjectMapperDeserializer;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.common.annotation.Identifier;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled
 @QuarkusTest
 public class QuoteProcessorTest {
 
