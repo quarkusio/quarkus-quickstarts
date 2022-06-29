@@ -11,6 +11,7 @@ import static org.hamcrest.Matchers.nullValue;
 
 import java.time.Duration;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.core.api.solver.SolverStatus;
 
@@ -18,6 +19,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
+@Disabled
 public class TimeTableResourceTest {
 
     @Test
