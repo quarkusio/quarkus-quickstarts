@@ -31,7 +31,7 @@ public class IncrementResource {
     @GET
     @Path("/{key}")
     public Increment get(String key) {
-        return new Increment(key, Integer.valueOf(service.get(key)));
+        return new Increment(key, service.get(key));
     }
 
     @PUT
