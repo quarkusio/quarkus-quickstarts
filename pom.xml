@@ -47,8 +47,9 @@
         <module>kafka-avro-schema-quickstart</module>
         <module>kafka-bare-quickstart</module>
         <module>kafka-streams-quickstart</module>
-        <module>kogito-quickstart</module>
-        <module>kogito-drl-quickstart</module>
+        <!-- TODO enable once https://github.com/quarkusio/quarkus-quickstarts/issues/1126 is resolved -->
+        <!-- <module>kogito-quickstart</module> -->
+        <!-- <module>kogito-drl-quickstart</module> -->
         <module>kogito-dmn-quickstart</module>
         <module>kogito-pmml-quickstart</module>
         <module>optaplanner-quickstart</module>

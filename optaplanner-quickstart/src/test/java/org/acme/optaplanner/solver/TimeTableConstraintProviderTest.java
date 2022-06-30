@@ -11,12 +11,10 @@ import org.acme.optaplanner.domain.Lesson;
 import org.acme.optaplanner.domain.Room;
 import org.acme.optaplanner.domain.TimeTable;
 import org.acme.optaplanner.domain.Timeslot;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.test.api.score.stream.ConstraintVerifier;
 
 @QuarkusTest
-@Disabled
 class TimeTableConstraintProviderTest {
 
     private static final Room ROOM1 = new Room(1, "Room1");

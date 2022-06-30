@@ -9,14 +9,12 @@ import java.time.LocalTime;
 import java.util.List;
 
 import org.acme.optaplanner.domain.Timeslot;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
-@Disabled
 public class TimeslotResourceTest {
 
     @Test

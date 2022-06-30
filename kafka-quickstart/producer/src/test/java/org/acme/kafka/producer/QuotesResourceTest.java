@@ -8,9 +8,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled
 @QuarkusTest
 public class QuotesResourceTest {
 
