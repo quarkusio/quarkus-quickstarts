@@ -18,9 +18,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-import org.hibernate.reactive.mutiny.Mutiny;
-
 import io.smallrye.mutiny.Uni;
+import org.hibernate.reactive.mutiny.Mutiny.SessionFactory;
 
 @Path("fruits")
 @ApplicationScoped
@@ -29,7 +28,7 @@ import io.smallrye.mutiny.Uni;
 public class FruitMutinyResource {
 
     @Inject
-    Mutiny.SessionFactory sf;
+    SessionFactory sf;
 
     @GET
     public Uni<List<Fruit>> get() {
@@ -52,7 +51,7 @@ public class FruitMutinyResource {
         }
 
         return sf.withTransaction((s,t) -> s.persist(fruit))
-                .replaceWith(() -> Response.ok(fruit).status(CREATED).build());
+                .replaceWith(Response.ok(fruit).status(CREATED)::build);
     }
 
     @PUT
@@ -63,26 +62,19 @@ public class FruitMutinyResource {
         }
 
         return sf.withTransaction((s,t) -> s.find(Fruit.class, id)
-            // If entity exists then update it
-            .onItem().ifNotNull().invoke(entity -> entity.setName(fruit.getName()))
-            .onItem().ifNotNull().transform(entity -> Response.ok(entity).build())
-            // If entity not found return the appropriate response
-            .onItem().ifNull()
-            .continueWith(() -> Response.ok().status(NOT_FOUND).build() )
-        );
+                .onItem().ifNull().failWith(new WebApplicationException("Fruit missing from database.", NOT_FOUND))
+                // If entity exists then update it
+                .invoke(entity -> entity.setName(fruit.getName())))
+                .map(entity -> Response.ok(entity).build());
     }
 
     @DELETE
     @Path("{id}")
     public Uni<Response> delete(Integer id) {
-        return sf.withTransaction((s,t) ->
-                s.find(Fruit.class, id)
-                    // If entity exists then delete it
-                    .onItem().ifNotNull()
-                        .transformToUni(entity -> s.remove(entity)
-                                .replaceWith(() -> Response.ok().status(NO_CONTENT).build()))
-                // If entity not found return the appropriate response
-                .onItem().ifNull().continueWith(() -> Response.ok().status(NOT_FOUND).build()));
-    }
+        return sf.withTransaction((s,t) -> s.find(Fruit.class, id)
+                .onItem().ifNull().failWith(new WebApplicationException("Fruit missing from database.", NOT_FOUND))
+                // If entity exists then delete it
+                .call(s::remove))
+                .replaceWith(Response.ok().status(NO_CONTENT)::build);    }
 
 }
