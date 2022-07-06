@@ -14,7 +14,7 @@
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
         <keycloak.version>17.0.0-legacy</keycloak.version>
-        <surefire.version>3.0.0-M5</surefire.version>
+        <surefire.version>3.0.0-M7</surefire.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
