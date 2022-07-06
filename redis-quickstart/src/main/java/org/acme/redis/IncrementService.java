@@ -1,9 +1,9 @@
 package org.acme.redis;
 
-import io.quarkus.redis.datasource.api.ReactiveRedisDataSource;
-import io.quarkus.redis.datasource.api.RedisDataSource;
-import io.quarkus.redis.datasource.api.keys.ReactiveKeyCommands;
-import io.quarkus.redis.datasource.api.string.StringCommands;
+import io.quarkus.redis.datasource.ReactiveRedisDataSource;
+import io.quarkus.redis.datasource.RedisDataSource;
+import io.quarkus.redis.datasource.keys.ReactiveKeyCommands;
+import io.quarkus.redis.datasource.string.StringCommands;
 import io.smallrye.mutiny.Uni;
 
 import java.util.List;
