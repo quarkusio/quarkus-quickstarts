@@ -13,7 +13,7 @@ import io.smallrye.mutiny.Uni;
 @RegisterRestClient
 @RegisterProvider(OidcClientRequestReactiveFilter.class)
 @Path("/")
-public interface ProtectedResourceOidcClientFilter {
+public interface RestClientWithOidcClientFilter {
 
     @GET
     @Produces("text/plain")

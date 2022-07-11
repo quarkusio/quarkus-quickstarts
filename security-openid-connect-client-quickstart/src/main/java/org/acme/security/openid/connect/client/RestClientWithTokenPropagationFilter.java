@@ -13,7 +13,7 @@ import io.smallrye.mutiny.Uni;
 @RegisterRestClient
 @RegisterProvider(AccessTokenRequestReactiveFilter.class)
 @Path("/")
-public interface ProtectedResourceTokenPropagationFilter {
+public interface RestClientWithTokenPropagationFilter {
 
     @GET
     @Produces("text/plain")

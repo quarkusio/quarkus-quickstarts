@@ -13,37 +13,37 @@ import io.smallrye.mutiny.Uni;
 public class FrontendResource {
     @Inject
     @RestClient
-    ProtectedResourceOidcClientFilter protectedResourceOidcClientFilter;
+    RestClientWithOidcClientFilter restClientWithOidcClientFilter;
 
     @Inject
     @RestClient
-    ProtectedResourceTokenPropagationFilter protectedResourceTokenPropagationFilter;
+    RestClientWithTokenPropagationFilter restClientWithTokenPropagationFilter;
 
     @GET
     @Path("user-name-with-oidc-client-token")
     @Produces("text/plain")
     public Uni<String> getUserNameWithOidcClientToken() {
-        return protectedResourceOidcClientFilter.getUserName();
+        return restClientWithOidcClientFilter.getUserName();
     }
     
     @GET
     @Path("admin-name-with-oidc-client-token")
     @Produces("text/plain")
     public Uni<String> getAdminNameWithOidcClientToken() {
-	    return protectedResourceOidcClientFilter.getAdminName();
+	    return restClientWithOidcClientFilter.getAdminName();
     }
     
     @GET
     @Path("user-name-with-propagated-token")
     @Produces("text/plain")
     public Uni<String> getUserNameWithPropagatedToken() {
-        return protectedResourceTokenPropagationFilter.getUserName();
+        return restClientWithTokenPropagationFilter.getUserName();
     }
     
     @GET
     @Path("admin-name-with-propagated-token")
     @Produces("text/plain")
     public Uni<String> getAdminNameWithPropagatedToken() {
-        return protectedResourceTokenPropagationFilter.getAdminName();
+        return restClientWithTokenPropagationFilter.getAdminName();
     }
 }
