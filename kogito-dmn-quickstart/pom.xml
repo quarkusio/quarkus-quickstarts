@@ -19,7 +19,7 @@
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
         <kogito.platform.group-id>org.kie.kogito</kogito.platform.group-id>
         <kogito.platform.artifact-id>kogito-quarkus-bom</kogito.platform.artifact-id>
-        <kogito.platform.version>1.19.0.Final</kogito.platform.version>
+        <kogito.platform.version>1.24.0.Final</kogito.platform.version>
         <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
     </properties>
     <dependencyManagement>
