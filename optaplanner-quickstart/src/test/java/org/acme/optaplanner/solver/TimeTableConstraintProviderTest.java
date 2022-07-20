@@ -6,7 +6,6 @@ import java.time.LocalTime;
 import javax.inject.Inject;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.acme.optaplanner.solver.TimeTableConstraintProvider;
 import org.acme.optaplanner.domain.Lesson;
 import org.acme.optaplanner.domain.Room;
 import org.acme.optaplanner.domain.TimeTable;
