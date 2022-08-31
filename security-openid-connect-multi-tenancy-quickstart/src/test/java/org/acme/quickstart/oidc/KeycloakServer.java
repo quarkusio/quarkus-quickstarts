@@ -17,7 +17,7 @@ public class KeycloakServer implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         keycloak = new FixedHostPortGenericContainer("quay.io/keycloak/keycloak:" + System.getProperty("keycloak.image.version"))
-                .withFixedExposedPort(8180, 8080)
+                .withExposedPorts(8080)
                 .withEnv("DB_VENDOR", "H2")
                 .withEnv("KEYCLOAK_USER", "admin")
                 .withEnv("KEYCLOAK_PASSWORD", "admin")
@@ -26,7 +26,7 @@ public class KeycloakServer implements QuarkusTestResourceLifecycleManager {
                 .withClasspathResourceMapping("tenant-a-realm.json", "/tmp/tenant-a-realm.json", BindMode.READ_ONLY, SelinuxContext.SINGLE)
                 .waitingFor(Wait.forHttp("/auth"));
         keycloak.start();
-        return Collections.emptyMap();
+        return Map.of("keycloak.url", "http://localhost:" + keycloak.getMappedPort(8080) + "/auth");
     }
 
     @Override
