@@ -10,8 +10,8 @@
       "services",
       "web-client"
     ],
-    "name": "REST Client",
-    "shortName": "REST Client"
+    "name": "REST Client Classic",
+    "shortName": "REST Client Classic"
   },
   {
     "id": "io.quarkus:quarkus-resteasy",

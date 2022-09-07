@@ -23,7 +23,7 @@ public class ExtensionsResourceTest {
             .statusCode(200)
             .body("$.size()", is(1),
                 "[0].id", is("io.quarkus:quarkus-rest-client"),
-                "[0].name", is("REST Client"),
+                "[0].name", is("REST Client Classic"),
                 "[0].keywords.size()", greaterThan(1),
                 "[0].keywords", hasItem("rest-client"));
     }
@@ -36,7 +36,7 @@ public class ExtensionsResourceTest {
             .statusCode(200)
             .body("$.size()", is(1),
                 "[0].id", is("io.quarkus:quarkus-rest-client"),
-                "[0].name", is("REST Client"),
+                "[0].name", is("REST Client Classic"),
                 "[0].keywords.size()", greaterThan(1),
                 "[0].keywords", hasItem("rest-client"));
     }
@@ -49,7 +49,7 @@ public class ExtensionsResourceTest {
             .statusCode(200)
             .body("$.size()", is(1),
                 "[0].id", is("io.quarkus:quarkus-rest-client"),
-                "[0].name", is("REST Client"),
+                "[0].name", is("REST Client Classic"),
                 "[0].keywords.size()", greaterThan(1),
                 "[0].keywords", hasItem("rest-client"));
     }
