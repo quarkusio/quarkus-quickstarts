@@ -16,7 +16,7 @@ public class TracedResource {
     private static final Logger LOG = Logger.getLogger(TracedResource.class);
 
     @Context
-    private UriInfo uriInfo;
+    UriInfo uriInfo;
 
     @GET
     @Path("/hello")

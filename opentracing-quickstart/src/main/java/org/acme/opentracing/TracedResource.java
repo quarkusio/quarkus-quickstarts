@@ -20,7 +20,7 @@ public class TracedResource {
     FrancophoneService exampleBean;
 
     @Context
-    private UriInfo uriInfo;
+    UriInfo uriInfo;
 
     @GET
     @Path("/hello")
