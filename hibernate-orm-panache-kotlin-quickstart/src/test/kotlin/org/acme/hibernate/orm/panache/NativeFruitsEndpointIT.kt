@@ -1,7 +1,7 @@
 package org.acme.hibernate.orm.panache
 
-import io.quarkus.test.junit.NativeImageTest
+import io.quarkus.test.junit.QuarkusIntegrationTest
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class NativeFruitsEndpointIT : FruitsEndpointTest() { // Runs the same tests as the parent class
 }
