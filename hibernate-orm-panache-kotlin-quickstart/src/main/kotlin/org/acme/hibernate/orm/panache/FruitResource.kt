@@ -70,7 +70,7 @@ class FruitResource {
     @Provider
     class ErrorMapper : ExceptionMapper<Exception> {
         @Inject
-        var objectMapper: ObjectMapper? = null
+        lateinit var objectMapper: ObjectMapper
 
         override fun toResponse(exception: Exception): Response {
             LOGGER.error("Failed to handle request", exception)
@@ -78,7 +78,7 @@ class FruitResource {
             if (exception is WebApplicationException) {
                 code = exception.response.status
             }
-            val exceptionJson = objectMapper!!.createObjectNode()
+            val exceptionJson = objectMapper.createObjectNode()
             exceptionJson.put("exceptionType", exception.javaClass.name)
             exceptionJson.put("code", code)
             if (exception.message != null) {
