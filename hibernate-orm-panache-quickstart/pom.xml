@@ -42,6 +42,11 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-postgresql</artifactId>
         </dependency>
+        <dependency>
+          <groupId>com.azure</groupId>
+          <artifactId>azure-identity-providers-jdbc-postgresql</artifactId>
+          <version>1.0.0-beta.1</version>
+        </dependency>
 
         <!-- Testing: -->
         <dependency>
