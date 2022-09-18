@@ -61,7 +61,7 @@ public class KafkaEndpoint {
 
 
     public void terminate(@Observes ShutdownEvent ev) {
-        done = false;
+        done = true;
         producer.close();
         admin.close();
     }
