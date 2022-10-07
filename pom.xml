@@ -83,6 +83,7 @@
         <module>security-jpa-quickstart</module>
         <module>security-jwt-quickstart</module>
         <module>security-keycloak-authorization-quickstart</module>
+        <module>security-ldap-quickstart</module>
         <module>security-oauth2-quickstart</module>
         <module>security-openid-connect-quickstart</module>
         <module>security-openid-connect-client-quickstart</module>
