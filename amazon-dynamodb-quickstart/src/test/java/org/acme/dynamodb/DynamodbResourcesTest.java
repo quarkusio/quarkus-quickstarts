@@ -22,7 +22,7 @@ public class DynamodbResourcesTest {
         .format("{\"name\":\"%s\", \"description\":\"%s\"}", name, description);
 
     @ParameterizedTest
-    @ValueSource(strings = {"fruits", "async-fruits"})
+    @ValueSource(strings = {"fruits", "async-fruits", "enhanced-fruits", "enhanced-async-fruits"})
     void testResource(final String testedResource) {
         List<String> data = Arrays.asList("Cherry", "Pear");
 
