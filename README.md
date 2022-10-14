@@ -107,6 +107,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Using STM](./software-transactional-memory-quickstart): How to use the Narayana Software Transactional Memory extension
 * [Stork Consul](./stork-quickstart): How to discover and select services with Consul
 * [Stork Kubernetes](./stork-kubernetes-quickstart): How to discover and select services with Kubernetes
+* [Stork Dns](./stork-dns-quickstart): How to discover and select services with DNS
 * [Apache Tika](./tika-quickstart): Extract metadata and content from your documents
 * [Validation with Hibernate Validator](./validation-quickstart): How to use Hibernate Validator/Bean Validation in your REST services
 * [Using Vert.x](./vertx-quickstart): How to use the Vert.x extension
