@@ -16,7 +16,7 @@ jobs:
     outputs:
       matrix: ${{ steps.generate.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - id: generate
         run: |
           json=$(.github/generate-native-matrix.sh | tr -d '\n')
@@ -31,7 +31,7 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.generate-json-matrix.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
 
@@ -115,7 +115,7 @@ jobs:
     needs: [build-with-native]
     if: "always() && github.repository == 'quarkusio/quarkus-quickstarts'"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
       - name: Report
