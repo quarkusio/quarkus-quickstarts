@@ -10,7 +10,6 @@ import javax.ws.rs.core.MediaType;
 import org.neo4j.driver.Driver;
 import org.neo4j.driver.reactive.RxResult;
 import org.neo4j.driver.reactive.RxSession;
-import org.reactivestreams.Publisher;
 
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
@@ -23,7 +22,7 @@ public class ReactiveFruitResource {
 
     @GET
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    public Publisher<String> get() {
+    public Multi<String> get() {
         return Multi.createFrom().<RxSession, String>resource(
                 driver::rxSession,
                 session -> session.readTransaction(tx -> {
