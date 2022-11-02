@@ -1,6 +1,9 @@
 package org.acme.context;
 
-import java.util.List;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.infrastructure.Infrastructure;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.jboss.resteasy.reactive.RestStreamElementType;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -8,27 +11,21 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.jboss.resteasy.reactive.RestStreamElementType;
-import org.reactivestreams.Publisher;
-
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.infrastructure.Infrastructure;
+import java.util.List;
 
 @Path("/")
 public class EmitterResource {
 
     // Get the prices stream
     @Inject
-    @Channel("prices") Publisher<Double> prices;
+    @Channel("prices") Multi<Double> prices;
 
     @Transactional
     @GET
     @Path("/prices")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @RestStreamElementType(MediaType.TEXT_PLAIN)
-    public Publisher<Double> prices() {
+    public Multi<Double> prices() {
         // get the next three prices from the price stream
         return Multi.createFrom().publisher(prices)
                 .select().first(3)

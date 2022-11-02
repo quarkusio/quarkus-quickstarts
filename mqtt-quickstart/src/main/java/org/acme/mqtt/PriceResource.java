@@ -1,14 +1,13 @@
 package org.acme.mqtt;
 
+import io.smallrye.mutiny.Multi;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.reactivestreams.Publisher;
-
-import io.smallrye.reactive.messaging.annotations.Channel;
 
 /**
  * A simple resource retrieving the "in-memory" "my-data-stream" and sending the items to a server sent event.
@@ -18,7 +17,7 @@ public class PriceResource {
 
     @Inject
     @Channel("my-data-stream")
-    Publisher<Double> prices;
+    Multi<Double> prices;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -29,7 +28,7 @@ public class PriceResource {
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    public Publisher<Double> stream() {
+    public Multi<Double> stream() {
         return prices;
     }
 }
