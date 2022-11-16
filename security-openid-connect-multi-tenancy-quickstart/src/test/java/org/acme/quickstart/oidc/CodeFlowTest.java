@@ -1,11 +1,11 @@
 package org.acme.quickstart.oidc;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import org.junit.jupiter.api.Test;
 
 import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
@@ -14,11 +14,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.keycloak.client.KeycloakTestClient;
+import io.restassured.RestAssured;
 
 @QuarkusTest
-@QuarkusTestResource(KeycloakServer.class)
 public class CodeFlowTest {
 
+	KeycloakTestClient keycloakClient = new KeycloakTestClient();
+	
     @Test
     public void testLogInDefaultTenant() throws IOException {
         try (final WebClient webClient = createWebClient()) {
@@ -38,7 +41,7 @@ public class CodeFlowTest {
     }
 
     @Test
-    public void testLogInExistingTenant() throws IOException {
+    public void testLogInTenantAWebApp() throws IOException {
         try (final WebClient webClient = createWebClient()) {
             HtmlPage page = webClient.getPage("http://localhost:8081/tenant-a");
 
@@ -53,6 +56,16 @@ public class CodeFlowTest {
 
             assertTrue(page.asText().contains("alice@tenant-a.org"));
         }
+    }
+    
+    @Test
+    public void testLogInTenantABearerToken() throws IOException {
+    	RestAssured.given().auth().oauth2(getAccessToken()).when()
+    	   .get("/tenant-a/bearer").then().body(containsString("alice@tenant-a.org"));
+    }
+
+    private String getAccessToken() {
+	return keycloakClient.getRealmAccessToken("tenant-a", "alice", "alice", "multi-tenant-client", "secret");
     }
 
     @Test
@@ -71,7 +84,7 @@ public class CodeFlowTest {
 
             assertTrue(page.asText().contains("alice@tenant-a.org"));
 
-            page = webClient.getPage("http://localhost:8081/unknown");
+            page = webClient.getPage("http://localhost:8081/default");
 
             assertEquals("Sign in to quarkus", page.getTitleText());
 

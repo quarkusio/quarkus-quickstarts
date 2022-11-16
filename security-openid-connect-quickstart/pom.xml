@@ -67,6 +67,7 @@
                 <directory>config</directory>
             </resource>
         </resources>
+
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>

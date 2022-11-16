@@ -19,20 +19,42 @@ public class HomeResource {
     @IdToken
     JsonWebToken idToken;
 
+    @Inject
+    JsonWebToken accessToken;
+
     /**
-     * Returns the tokens available to the application. This endpoint exists only for demonstration purposes, you should not
-     * expose these tokens in a real application.
+     * Returns the ID Token info. This endpoint exists only for demonstration purposes, you should not
+     * expose this token in a real application.
      *
-     * @return the landing page HTML
+     * @return ID Token info
      */
     @GET
     @Produces("text/html")
-    public String getHome() {
+    public String getIdTokenInfo() {
         StringBuilder response = new StringBuilder().append("<html>")
                 .append("<body>");
 
         response.append("<h2>Welcome, ").append(this.idToken.getClaim("email").toString()).append("</h2>\n");
         response.append("<h3>You are accessing the application within tenant <b>").append(idToken.getIssuer()).append(" boundaries</b></h3>");
+
+        return response.append("</body>").append("</html>").toString();
+    }
+
+    /**
+     * Returns the Access Token info. This endpoint exists only for demonstration purposes, you should not
+     * expose this token in a real application.
+     *
+     * @return Access Token info
+     */
+    @GET
+    @Produces("text/html")
+    @Path("bearer")
+    public String getAccessTokenInfo() {
+        StringBuilder response = new StringBuilder().append("<html>")
+                .append("<body>");
+
+        response.append("<h2>Welcome, ").append(this.accessToken.getClaim("email").toString()).append("</h2>\n");
+        response.append("<h3>You are accessing the application within tenant <b>").append(accessToken.getIssuer()).append(" boundaries</b></h3>");
 
         return response.append("</body>").append("</html>").toString();
     }
