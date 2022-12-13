@@ -24,13 +24,6 @@
     </properties>
     <dependencyManagement>
         <dependencies>
-            <!-- Temporary workaround for this specific quickstart: Quarkus and Kogito need to upgrade to ANTLR 4.10,
-                we need to keep this particular quickstart on 4.9.2 for a while longer to avoid a deadlock in the migration process -->
-            <dependency>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr4-runtime</artifactId>
-                <version>4.9.2</version>
-            </dependency>
             <dependency>
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>${quarkus.platform.artifact-id}</artifactId>
