@@ -42,6 +42,7 @@
         <module>hibernate-reactive-panache-quickstart</module>
         <module>hibernate-orm-multi-tenancy-quickstart</module>
         <module>hibernate-search-orm-elasticsearch-quickstart</module>
+        <module>hibernate-orm-rest-data-panache-quickstart</module>
         <module>infinispan-client-quickstart</module>
         <module>jms-quickstart</module>
         <module>kafka-quickstart</module>
