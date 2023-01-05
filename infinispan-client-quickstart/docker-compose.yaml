@@ -8,8 +8,8 @@ services:
   infinispan-server:
     image: infinispan/server:latest
     environment:
-      - USER=Titus Bramble
-      - PASS=Shambles
+      - USER=admin
+      - PASS=password
     ports:
       - "11222:11222"
     container_name: infinispan
@@ -27,10 +27,10 @@ services:
     command: >
       /bin/sh -c "
         echo Waiting for Infinispan service start ...;
-        while ! curl --silent --output /dev/null --fail-early --user 'Titus Bramble:Shambles' http://infinispan:11222/rest/v2/server;
+        while ! curl --silent --output /dev/null --fail-early --user 'admin:password' http://infinispan:11222/rest/v2/server;
         do
           sleep 1;
         done;
         echo Infinispan service started!;
-        ./application -Dquarkus.http.host=0.0.0.0 -Dquarkus.infinispan-client.server-list=infinispan:11222
+        ./application -Dquarkus.http.host=0.0.0.0 -Dquarkus.infinispan-client.hosts=infinispan:11222
       "
