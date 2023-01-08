@@ -1,5 +1,5 @@
 ####
-# This Dockerfile is used in order to build a container that runs the Quarkus application in native (no JVM) mode
+# This Dockerfile is used in order to build a container that runs the Quarkus application in native (no JVM) mode.
 #
 # Before building the container image run:
 #
@@ -14,7 +14,7 @@
 # docker run -i --rm -p 8080:8080 quarkus/security-ldap-quickstart
 #
 ###
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.3
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.6
 WORKDIR /work/
 RUN chown 1001 /work \
     && chmod "g+rwX" /work \
