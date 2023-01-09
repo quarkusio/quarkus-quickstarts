@@ -15,7 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.target>11</maven.compiler.target>
 
-    <quarkus-neo4j.version>1.7.0</quarkus-neo4j.version>
+    <quarkus-neo4j.version>2.1.0</quarkus-neo4j.version>
   </properties>
   <dependencyManagement>
     <dependencies>
