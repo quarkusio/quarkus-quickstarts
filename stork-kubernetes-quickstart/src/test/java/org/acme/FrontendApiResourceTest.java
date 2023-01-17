@@ -65,7 +65,7 @@ public class FrontendApiResourceTest {
         Endpoints endpoint = new EndpointsBuilder()
                 .withNewMetadata().withName("color-service").endMetadata()
                 .addToSubsets(new EndpointSubsetBuilder().withAddresses(endpointAddresses)
-                        .addToPorts(new EndpointPortBuilder().withPort(9001).build())
+                        .addToPorts(new EndpointPortBuilder().withPort(9001).withProtocol("tcp").build())
                         .build())
                 .build();
 
