@@ -39,15 +39,15 @@ public class ExampleResourceTest {
 
         when().get("/q/metrics").then().statusCode(200)
                 .body(containsString(
-                        "example_prime_number_total{type=\"prime\",}"))
+                        "example_prime_number_total{type=\"prime\"}"))
                 .body(containsString(
-                        "example_prime_number_total{type=\"not-prime\",}"))
+                        "example_prime_number_total{type=\"not-prime\"}"))
                 .body(containsString(
-                        "example_prime_number_total{type=\"one\",}"))
+                        "example_prime_number_total{type=\"one\"}"))
                 .body(containsString(
-                        "example_prime_number_total{type=\"even\",}"))
+                        "example_prime_number_total{type=\"even\"}"))
                 .body(containsString(
-                        "example_prime_number_total{type=\"not-natural\",}"));
+                        "example_prime_number_total{type=\"not-natural\"}"));
     }
 
     @Test
