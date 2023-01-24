@@ -3,21 +3,18 @@ package org.acme.s3;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Map;
 import javax.ws.rs.core.Response.Status;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import io.quarkus.test.junit.QuarkusTest;
+
 @QuarkusTest
-@QuarkusTestResource(S3Resource.class)
 public class S3ResourcesTest {
 
     private static final String FILE_NAME_PREFIX = "test-file-";
