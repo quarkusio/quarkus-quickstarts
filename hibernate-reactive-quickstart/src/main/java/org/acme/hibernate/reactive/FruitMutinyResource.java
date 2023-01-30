@@ -19,6 +19,8 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import io.smallrye.mutiny.Uni;
+
+import org.acme.hibernate.MyBean;
 import org.hibernate.reactive.mutiny.Mutiny.SessionFactory;
 
 @Path("fruits")
@@ -30,11 +32,15 @@ public class FruitMutinyResource {
     @Inject
     SessionFactory sf;
 
+    @Inject MyBean bean;
+
     @GET
     public Uni<List<Fruit>> get() {
+        System.out.println(">> " + bean.incrAndGet());
         return sf.withTransaction((s,t) -> s
                 .createNamedQuery("Fruits.findAll", Fruit.class)
                 .getResultList()
+                .invoke(() -> System.out.println(">> " + bean.incrAndGet()))
         );
     }
 
