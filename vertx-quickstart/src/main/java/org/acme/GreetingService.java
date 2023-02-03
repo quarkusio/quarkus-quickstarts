@@ -2,7 +2,7 @@ package org.acme;
 
 import io.quarkus.vertx.ConsumeEvent;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class GreetingService {

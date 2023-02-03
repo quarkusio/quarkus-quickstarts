@@ -1,8 +1,8 @@
 package org.acme.hibernate.orm.panache.entity;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import jakarta.persistence.Cacheable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 

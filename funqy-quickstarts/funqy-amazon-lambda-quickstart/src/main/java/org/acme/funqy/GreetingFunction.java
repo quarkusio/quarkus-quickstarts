@@ -2,7 +2,7 @@ package org.acme.funqy;
 
 import io.quarkus.funqy.Funq;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class GreetingFunction {
 

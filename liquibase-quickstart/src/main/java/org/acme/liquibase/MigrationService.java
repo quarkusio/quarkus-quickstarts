@@ -3,8 +3,8 @@ package org.acme.liquibase;
 import io.quarkus.liquibase.LiquibaseFactory;
 import liquibase.Liquibase;
 import liquibase.changelog.ChangeSetStatus;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped

@@ -1,7 +1,7 @@
 package org.acme.quartz;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.transaction.Transactional;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 
 import io.quarkus.scheduler.Scheduled;
 

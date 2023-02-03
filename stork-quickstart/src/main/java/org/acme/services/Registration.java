@@ -7,8 +7,8 @@ import io.vertx.ext.consul.ConsulClientOptions;
 import io.vertx.mutiny.core.Vertx;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 
 @ApplicationScoped
 public class Registration {

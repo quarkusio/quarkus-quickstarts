@@ -1,7 +1,7 @@
 package org.acme.validation;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.validation.Valid;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.validation.Valid;
 
 @ApplicationScoped
 public class BookService {

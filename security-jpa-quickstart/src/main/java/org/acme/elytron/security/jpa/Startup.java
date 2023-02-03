@@ -1,8 +1,8 @@
 package org.acme.elytron.security.jpa;
 
-import javax.enterprise.event.Observes;
-import javax.inject.Singleton;
-import javax.transaction.Transactional;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Singleton;
+import jakarta.transaction.Transactional;
 
 import io.quarkus.runtime.StartupEvent;
 

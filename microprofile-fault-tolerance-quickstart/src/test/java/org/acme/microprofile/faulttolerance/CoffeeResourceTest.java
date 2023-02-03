@@ -4,7 +4,7 @@ import static io.restassured.RestAssured.get;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

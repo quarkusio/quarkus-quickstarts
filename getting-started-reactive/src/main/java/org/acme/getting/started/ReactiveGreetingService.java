@@ -2,7 +2,7 @@ package org.acme.getting.started;
 
 import java.time.Duration;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;

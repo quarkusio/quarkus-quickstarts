@@ -1,10 +1,10 @@
 package org.acme.optaplanner.rest;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
 
 import org.acme.optaplanner.domain.Lesson;
 import org.acme.optaplanner.domain.TimeTable;

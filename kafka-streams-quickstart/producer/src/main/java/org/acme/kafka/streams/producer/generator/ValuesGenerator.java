@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import io.smallrye.mutiny.Multi;
 import io.smallrye.reactive.messaging.kafka.Record;

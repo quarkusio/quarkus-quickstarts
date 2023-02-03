@@ -6,9 +6,9 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @ApplicationScoped

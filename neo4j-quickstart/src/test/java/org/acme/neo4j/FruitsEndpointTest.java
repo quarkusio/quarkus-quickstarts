@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
 
 import org.junit.jupiter.api.Test;
 

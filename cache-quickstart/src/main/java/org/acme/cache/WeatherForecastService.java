@@ -2,7 +2,7 @@ package org.acme.cache;
 
 import java.time.LocalDate;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import io.quarkus.cache.CacheResult;
 

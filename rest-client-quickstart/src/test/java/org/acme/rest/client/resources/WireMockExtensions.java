@@ -15,9 +15,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.json.Json;
-import javax.json.JsonValue;
-import javax.json.stream.JsonParser;
+import jakarta.json.Json;
+import jakarta.json.JsonValue;
+import jakarta.json.stream.JsonParser;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 

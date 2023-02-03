@@ -6,7 +6,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;

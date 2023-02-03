@@ -2,15 +2,15 @@ package org.acme.extra;
 
 import java.net.URI;
 
-import javax.enterprise.event.Observes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.Response.Status;
+import jakarta.enterprise.event.Observes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 

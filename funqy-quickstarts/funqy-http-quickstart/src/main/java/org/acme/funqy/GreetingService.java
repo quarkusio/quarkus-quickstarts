@@ -1,6 +1,6 @@
 package org.acme.funqy;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class GreetingService {

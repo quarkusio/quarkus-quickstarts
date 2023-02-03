@@ -2,8 +2,8 @@ package org.acme.hibernate.orm.panache.rest.entity;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
+import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQuery;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 

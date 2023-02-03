@@ -11,8 +11,8 @@ import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Source;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 
 @GraphQLApi

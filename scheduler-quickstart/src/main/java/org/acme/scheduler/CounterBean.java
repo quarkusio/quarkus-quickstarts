@@ -2,7 +2,7 @@ package org.acme.scheduler;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import io.quarkus.scheduler.Scheduled;
 import io.quarkus.scheduler.ScheduledExecution;

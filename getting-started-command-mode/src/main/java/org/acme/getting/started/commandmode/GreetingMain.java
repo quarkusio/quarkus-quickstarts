@@ -1,6 +1,6 @@
 package org.acme.getting.started.commandmode;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;

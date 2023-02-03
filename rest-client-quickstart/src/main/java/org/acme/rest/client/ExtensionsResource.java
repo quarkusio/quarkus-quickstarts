@@ -3,9 +3,9 @@ package org.acme.rest.client;
 import java.util.Set;
 import java.util.concurrent.CompletionStage;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;

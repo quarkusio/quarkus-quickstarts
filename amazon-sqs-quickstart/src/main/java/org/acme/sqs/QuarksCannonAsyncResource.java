@@ -1,9 +1,9 @@
 package org.acme.sqs;
 
-import javax.inject.Inject;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Response;
 
 import org.acme.sqs.model.Quark;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

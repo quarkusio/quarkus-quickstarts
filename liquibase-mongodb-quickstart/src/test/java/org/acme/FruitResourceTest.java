@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;

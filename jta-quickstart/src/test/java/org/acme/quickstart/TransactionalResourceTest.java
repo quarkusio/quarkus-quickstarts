@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
 
-import javax.transaction.Status;
+import jakarta.transaction.Status;
 
 @QuarkusTest
 public class TransactionalResourceTest {
