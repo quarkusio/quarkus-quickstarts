@@ -5,7 +5,7 @@ import io.quarkus.funqy.gcp.functions.event.PubsubMessage;
 import io.quarkus.funqy.gcp.functions.event.StorageEvent;
 import org.acme.service.GreetingService;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class GreetingFunctions {
 

@@ -1,6 +1,6 @@
 package org.acme.optaplanner.persistence;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import org.acme.optaplanner.domain.Lesson;
 

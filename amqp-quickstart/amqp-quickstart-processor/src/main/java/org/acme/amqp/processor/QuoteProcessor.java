@@ -2,7 +2,7 @@ package org.acme.amqp.processor;
 
 import java.util.Random;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import org.acme.amqp.model.Quote;
 import org.eclipse.microprofile.reactive.messaging.Incoming;

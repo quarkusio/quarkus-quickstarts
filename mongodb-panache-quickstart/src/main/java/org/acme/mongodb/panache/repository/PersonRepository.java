@@ -2,7 +2,7 @@ package org.acme.mongodb.panache.repository;
 
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped

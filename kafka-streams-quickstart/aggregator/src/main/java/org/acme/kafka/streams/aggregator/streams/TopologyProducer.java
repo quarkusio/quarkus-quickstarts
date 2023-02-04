@@ -2,8 +2,8 @@ package org.acme.kafka.streams.aggregator.streams;
 
 import java.time.Instant;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 
 import org.acme.kafka.streams.aggregator.model.Aggregation;
 import org.acme.kafka.streams.aggregator.model.TemperatureMeasurement;

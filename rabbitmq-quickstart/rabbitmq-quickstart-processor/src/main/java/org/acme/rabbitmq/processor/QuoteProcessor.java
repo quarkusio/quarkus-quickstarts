@@ -2,7 +2,7 @@ package org.acme.rabbitmq.processor;
 
 import java.util.Random;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import org.acme.rabbitmq.model.Quote;
 import org.eclipse.microprofile.reactive.messaging.Incoming;

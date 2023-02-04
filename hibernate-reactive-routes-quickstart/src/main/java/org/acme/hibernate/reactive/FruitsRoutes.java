@@ -9,7 +9,7 @@ import static io.quarkus.vertx.web.Route.HttpMethod.DELETE;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.hibernate.reactive.mutiny.Mutiny;
 import org.jboss.logging.Logger;

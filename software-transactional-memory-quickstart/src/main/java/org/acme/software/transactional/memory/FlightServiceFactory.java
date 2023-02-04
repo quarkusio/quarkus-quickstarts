@@ -1,6 +1,6 @@
 package org.acme.software.transactional.memory;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import org.jboss.stm.Container;
 

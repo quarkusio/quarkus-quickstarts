@@ -3,7 +3,7 @@ package org.acme.optaplanner.solver;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.acme.optaplanner.domain.Lesson;

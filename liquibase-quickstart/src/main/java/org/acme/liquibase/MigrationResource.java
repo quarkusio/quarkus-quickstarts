@@ -3,11 +3,11 @@ package org.acme.liquibase;
 import liquibase.change.CheckSum;
 import liquibase.changelog.ChangeSetStatus;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

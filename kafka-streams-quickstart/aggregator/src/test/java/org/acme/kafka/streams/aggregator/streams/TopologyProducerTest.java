@@ -8,7 +8,7 @@ import static org.acme.kafka.streams.aggregator.streams.TopologyProducer.WEATHER
 import java.time.Instant;
 import java.util.Properties;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.acme.kafka.streams.aggregator.model.Aggregation;
 import org.acme.kafka.streams.aggregator.model.WeatherStation;

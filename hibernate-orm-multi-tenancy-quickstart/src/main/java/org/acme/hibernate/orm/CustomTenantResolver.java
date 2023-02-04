@@ -1,7 +1,7 @@
 package org.acme.hibernate.orm;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 
 import org.jboss.logging.Logger;
 

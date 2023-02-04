@@ -2,9 +2,9 @@ package org.acme.rest.client;
 
 import org.eclipse.microprofile.rest.client.ext.ClientHeadersFactory;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 import java.util.UUID;
 
 @ApplicationScoped

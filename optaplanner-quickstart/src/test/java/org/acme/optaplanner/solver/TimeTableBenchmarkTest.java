@@ -5,7 +5,7 @@ import org.acme.optaplanner.rest.TimeTableResource;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.benchmark.api.PlannerBenchmarkFactory;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 @QuarkusTest
 public class TimeTableBenchmarkTest {

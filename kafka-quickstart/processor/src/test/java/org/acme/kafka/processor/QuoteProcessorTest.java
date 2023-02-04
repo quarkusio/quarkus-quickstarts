@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.acme.kafka.model.Quote;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
