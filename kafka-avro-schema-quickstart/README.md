@@ -1,0 +1,1 @@
+The corresponding guide: https://quarkus.io/guides/quarkus-schema-registry-avro
