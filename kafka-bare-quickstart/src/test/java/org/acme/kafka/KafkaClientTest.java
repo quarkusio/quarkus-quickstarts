@@ -1,6 +1,6 @@
 package org.acme.kafka;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ import static org.hamcrest.core.StringContains.containsString;
 class KafkaClientTest {
 
     @Test
-    @DisabledOnNativeImage
+    @DisabledOnIntegrationTest
     void testBareClients() {
         given()
                 .queryParam("key", "my-key")
