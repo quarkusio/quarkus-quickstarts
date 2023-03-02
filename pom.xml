@@ -35,14 +35,14 @@
         <module>google-cloud-functions-quickstart</module>
         <module>google-cloud-functions-http-quickstart</module>
         <module>hibernate-orm-quickstart</module>
-        <!--<module>hibernate-reactive-quickstart</module>-->
-        <!--<module>hibernate-reactive-stateless-quickstart</module>-->
-        <!--<module>hibernate-reactive-routes-quickstart</module>-->
+        <module>hibernate-reactive-quickstart</module>
+        <module>hibernate-reactive-stateless-quickstart</module>
+        <module>hibernate-reactive-routes-quickstart</module>
         <module>grpc-plain-text-quickstart</module>
         <module>grpc-tls-quickstart</module>
         <module>hibernate-orm-panache-quickstart</module>
         <module>hibernate-orm-panache-kotlin-quickstart</module>
-        <!--<module>hibernate-reactive-panache-quickstart</module>-->
+        <module>hibernate-reactive-panache-quickstart</module>
         <module>hibernate-orm-multi-tenancy-quickstart</module>
         <module>hibernate-search-orm-elasticsearch-quickstart</module>
         <module>hibernate-orm-rest-data-panache-quickstart</module>
@@ -93,7 +93,7 @@
         <module>security-openid-connect-client-quickstart</module>
         <module>security-openid-connect-web-authentication-quickstart</module>
         <module>security-openid-connect-multi-tenancy-quickstart</module>
-        <!--<module>security-webauthn-quickstart</module>-->
+        <module>security-webauthn-quickstart</module>
         <module>software-transactional-memory-quickstart</module>
         <module>spring-di-quickstart</module>
         <module>spring-web-quickstart</module>
@@ -114,7 +114,7 @@
         <module>liquibase-mongodb-quickstart</module>
         <module>mailer-quickstart</module>
         <module>kafka-panache-quickstart</module>
-        <!--<module>kafka-panache-reactive-quickstart</module>-->
+        <module>kafka-panache-reactive-quickstart</module>
         <module>jta-quickstart</module>
     </modules>
 
