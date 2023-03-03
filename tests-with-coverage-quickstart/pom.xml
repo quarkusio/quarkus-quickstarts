@@ -9,7 +9,7 @@
     <properties>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>2.16.3.Final</quarkus.platform.version>
+        <quarkus.platform.version>2.16.4.Final</quarkus.platform.version>
         <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
         <jacoco.version>0.8.7</jacoco.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
