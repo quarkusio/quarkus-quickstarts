@@ -23,6 +23,7 @@
         <module>cache-quickstart</module>
         <module>config-quickstart</module>
         <module>context-propagation-quickstart</module>
+        <module>elasticsearch-quickstart</module>
         <module>funqy-quickstarts</module>
         <module>getting-started</module>
         <module>getting-started-async</module>
