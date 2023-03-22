@@ -1,6 +1,6 @@
 INSERT INTO author(id, firstname, lastname) VALUES (1, 'John', 'Irving');
 INSERT INTO author(id, firstname, lastname) VALUES (2, 'Paul', 'Auster');
-alter sequence Author_SEQ restart with 2;
+alter sequence Author_SEQ restart with 3;
 
 INSERT INTO book(id, title, author_id) VALUES (nextval('Book_SEQ'), 'The World According to Garp', 1);
 INSERT INTO book(id, title, author_id) VALUES (nextval('Book_SEQ'), 'The Hotel New Hampshire', 1);
