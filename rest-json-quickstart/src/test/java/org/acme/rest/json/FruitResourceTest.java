@@ -4,11 +4,10 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
-import jakarta.ws.rs.core.MediaType;
-
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
 
 @QuarkusTest
 public class FruitResourceTest {
@@ -28,7 +27,7 @@ public class FruitResourceTest {
     public void testAdd() {
         given()
                 .body("{\"name\": \"Pear\", \"description\": \"Winter fruit\"}")
-                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .header("Content-Type", ContentType.JSON)
                 .when()
                 .post("/fruits")
                 .then()
@@ -39,7 +38,7 @@ public class FruitResourceTest {
 
         given()
                 .body("{\"name\": \"Pear\", \"description\": \"Winter fruit\"}")
-                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .header("Content-Type", ContentType.JSON)
                 .when()
                 .delete("/fruits")
                 .then()
