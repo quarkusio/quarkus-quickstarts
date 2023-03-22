@@ -11,7 +11,7 @@
     <properties>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>2.16.4.Final</quarkus.platform.version>
+        <quarkus.platform.version>2.16.5.Final</quarkus.platform.version>
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
         <maven.compiler.target>11</maven.compiler.target>
