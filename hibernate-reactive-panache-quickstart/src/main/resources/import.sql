@@ -1,3 +1,4 @@
-INSERT INTO fruit(id, name) VALUES (nextval('hibernate_sequence'), 'Cherry');
-INSERT INTO fruit(id, name) VALUES (nextval('hibernate_sequence'), 'Apple');
-INSERT INTO fruit(id, name) VALUES (nextval('hibernate_sequence'), 'Banana');
+INSERT INTO fruit(id, name) VALUES (1, 'Cherry');
+INSERT INTO fruit(id, name) VALUES (2, 'Apple');
+INSERT INTO fruit(id, name) VALUES (3, 'Banana');
+ALTER SEQUENCE fruit_seq RESTART WITH 4;
