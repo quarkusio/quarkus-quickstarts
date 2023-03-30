@@ -1,43 +1,20 @@
 # Quarkus demo: Infinispan Client
 
-This example showcases how to use the Infinispan client with Quarkus. 
-
-# Start the Infinispan server
-
-You have two options:
-
-**Option 1:** Running with Docker `docker run -it -p 11222:11222 -e USER="admin" -e PASS="password" infinispan/server:latest`
-
-There is a known issue between Docker For Mac and Infinispan Client integration. Explanations can be found in
-[this blog post](https://blog.infinispan.org/2018/03/accessing-infinispan-inside-docker-for.html).
-You **won't need to do this in production**, but for Docker for Mac users we have to configure the following 
-property in the file `src/main/resources/META-INF/resources/hotrod-client.properties`: `quarkus.infinispan-client.client-intelligence=BASIC`
-
-**Option 2:** Download the server (11.x) from https://www.infinispan.org/ and run `./bin/server.sh`.
-
-Infinispan Server listens in `localhost:8080` for REST endpoints.
-
-To avoid conflicts, the quickstart configures another HTTP port in the [configuration file](/src/main/resources/application.properties) 
-with the following property:
-
-```
-quarkus.http.port=8081
-```
-
-If you use an older version of Infinispan or ``Red Hat Data Grid``, you might need to:
-
-- Create a file called `hotrod-client.properties` under `src/main/resources/META-INF/`
-- Configure the following property: `infinispan.client.hotrod.protocol_version=2.5`
-
-# Run the demo on dev mode
+# Run the demo on dev mode with Dev Services
 
 - Run `mvn clean install` and then `java -jar ./target/quarkus-app/quarkus-run.jar`
 - In dev mode `mvn clean quarkus:dev`
+- Interact with the rest api (change the port if you configured:
 
-Go to http://localhost:8081/infinispan, it should show you a message coming from the Infinispan server.
+```bash
+# Post a greeting -> Should display Greeting added!
+curl -X POST http://localhost:8080/greeting/quarkus -H "Content-Type: application/json" -d '{"name" : "Infinispan Client", "message":"Hello World, Infinispan is up!"}' 
 
+# Get the greeting -> Should display {"name":"Infinispan Client","message":"Hello World, Infinispan is up!"} 
+curl  http://localhost:8080/greeting/quarkus
+```
 
-# Use Docker compose with the native image
+# Run the demo on Prod mode with Docker compose and the native image
 
 Once you built a docker image using the `Dockerfile.native`, you might want to test this
 container connecting to a running Infinispan image.
@@ -48,5 +25,3 @@ For that, we have provided a docker-compose file. The Infinispan Server containe
 waits for it. This is done this way for local testing purposes. 
 
 Run and wait for start `docker-compose up`
-
-Go to http://localhost:8081/infinispan.
