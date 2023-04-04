@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <!--
         <module>amazon-dynamodb-quickstart</module>
         <module>amazon-kms-quickstart</module>
         <module>amazon-s3-quickstart</module>
@@ -17,7 +16,6 @@
         <module>amazon-sns-quickstart</module>
         <module>amazon-sqs-quickstart</module>
         <module>amazon-ssm-quickstart</module>
-        -->
         <module>amqp-quickstart</module>
         <module>awt-graphics-rest-quickstart</module>
         <module>cache-quickstart</module>
@@ -47,7 +45,7 @@
         <module>hibernate-search-orm-elasticsearch-quickstart</module>
         <module>hibernate-orm-rest-data-panache-quickstart</module>
         <module>infinispan-client-quickstart</module>
-        <!--<module>jms-quickstart</module>-->
+        <module>jms-quickstart</module>
         <module>kafka-quickstart</module>
         <module>kafka-avro-schema-quickstart</module>
         <module>kafka-bare-quickstart</module>
@@ -65,7 +63,9 @@
         <module>mongodb-quickstart</module>
         <module>mongodb-panache-quickstart</module>
         <module>mqtt-quickstart</module>
-        <!--<module>neo4j-quickstart</module>-->
+        <!--
+        <module>neo4j-quickstart</module>
+        -->
         <module>openapi-swaggerui-quickstart</module>
         <module>opentracing-quickstart</module>
         <module>opentelemetry-quickstart</module>
@@ -74,10 +74,8 @@
         <module>rabbitmq-quickstart</module>
         <module>rest-client-reactive-quickstart</module>
         <module>reactive-routes-quickstart</module>
-        <!--
         <module>reactive-messaging-http-quickstart</module>
         <module>reactive-messaging-websockets-quickstart</module>
-        -->
         <module>redis-quickstart</module>
         <module>rest-client-quickstart</module>
         <module>rest-client-multipart-quickstart</module>
@@ -106,7 +104,7 @@
         <module>stork-kubernetes-quickstart</module>
         <module>stork-dns-quickstart</module>
         <module>tests-with-coverage-quickstart</module>
-        <!--<module>tika-quickstart</module>-->
+        <module>tika-quickstart</module>
         <module>validation-quickstart</module>
         <module>vertx-quickstart</module>
         <module>websockets-quickstart</module>
