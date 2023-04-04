@@ -1,7 +1,7 @@
 #! /bin/bash
 
 IFS=$'\n'
-modules=($(grep -LR --include=pom.xml '<packaging>pom</packaging>' */ | xargs dirname | sort))
+modules=($(grep -LR --include=pom.xml '<packaging>pom</packaging>' */ | xargs dirname | grep -v neo4j | grep -v optaplanner | sort))
 count=${#modules[@]}
 partition=$(expr $count / 4 + 1)
 
