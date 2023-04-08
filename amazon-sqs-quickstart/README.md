@@ -5,7 +5,7 @@ This example showcases how to use the AWS SQS client with Quarkus. As a prerequi
 # AWS SQS local instance
 
 Just run it as follows in order to start SQS locally:
-`docker run --rm --name local-sqs -p 8010:4576 -e SERVICES=sqs -e START_WEB=0 -d localstack/localstack:0.11.1`
+`docker run --rm --name local-sqs -p 8010:4566 -e SERVICES=sqs -e START_WEB=0 -d localstack/localstack:1.4.0`
 SQS listens on `localhost:8010` for REST endpoints.
 
 Create an AWS profile for your local instance using AWS CLI:
@@ -77,14 +77,14 @@ Stop your localstack container you started at the beginning
 `docker stop local-sqs`
 
 Start localstack and connect to the network
-`docker run --rm --network=localstack --name localstack -p 8010:4576 -e SERVICES=sqs -e START_WEB=0 -d localstack/localstack:0.11.1`
+`docker run --rm --network=localstack --name localstack -p 8010:4566 -e SERVICES=sqs -e START_WEB=0 -d localstack/localstack:1.4.0`
 
 Create queue
 ```
 $> QUEUE_URL=`aws sqs create-queue --queue-name=ColliderQueue --profile localstack --endpoint-url=http://localhost:8010`
 ```
 Run quickstart container connected to that network (note that we're using internal port of the localstack)
-`docker run -i --rm --network=localstack -p 8080:8080 quarkus/amazon-sqs-quickstart -Dquarkus.sqs.endpoint-override=http://localstack:4576`
+`docker run -i --rm --network=localstack -p 8080:8080 quarkus/amazon-sqs-quickstart -Dquarkus.sqs.endpoint-override=http://localstack:4566`
 
 Send messsage
 ```
