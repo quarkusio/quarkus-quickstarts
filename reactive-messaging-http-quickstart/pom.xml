@@ -12,7 +12,7 @@
     <artifactId>reactive-messaging-http-quickstart</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <properties>
-        <quarkus-reactive-messaging-http.version>2.0.0.Alpha</quarkus-reactive-messaging-http.version>
+        <quarkus-reactive-messaging-http.version>2.0.1</quarkus-reactive-messaging-http.version>
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.source>11</maven.compiler.source>
