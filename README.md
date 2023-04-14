@@ -91,6 +91,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Scheduling periodic tasks](./scheduler-quickstart): How to schedule periodic jobs
 * [Security with Users stored in a Database (JDBC)](./security-jdbc-quickstart): Store your users in a database and secure your application with JDBC
 * [Security with Users stored in a Database (JPA)](./security-jpa-quickstart): Store your users in a database and secure your application with JPA
+* [Security with Users stored in a Database (JPA Reactive)](./security-jpa-reactive-quickstart): Store your users in a database and secure your application using Hibernate Reactive
 * [Security with MicroProfile JWT](./security-jwt-quickstart): How to use MicroProfile JWT RBAC
 * [Security with an LDAP realm](./security-ldap-quickstart): How to use an LDAP server to authenticate and authorize your user identities
 * [Security with OAuth2 opaque tokens](./security-oauth2-quickstart): How to use our security layer with OAuth2 opaque tokens
