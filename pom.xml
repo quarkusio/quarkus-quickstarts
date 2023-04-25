@@ -50,9 +50,7 @@
         <module>kafka-avro-schema-quickstart</module>
         <module>kafka-bare-quickstart</module>
         <module>kafka-streams-quickstart</module>
-        <!--
         <module>optaplanner-quickstart</module>
-        -->
         <module>lifecycle-quickstart</module>
         <module>micrometer-quickstart</module>
         <module>microprofile-fault-tolerance-quickstart</module>
