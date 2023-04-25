@@ -10,7 +10,7 @@
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
-    <optaplanner-quarkus.version>8.29.0.Final</optaplanner-quarkus.version>
+    <optaplanner-quarkus.version>9.37.0.Final</optaplanner-quarkus.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
     <docker-plugin.version>0.28.0</docker-plugin.version>
@@ -59,12 +59,6 @@
     <dependency>
       <groupId>org.optaplanner</groupId>
       <artifactId>optaplanner-quarkus</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jboss</groupId>
-          <artifactId>jandex</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.optaplanner</groupId>
