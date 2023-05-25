@@ -63,7 +63,8 @@ COPY --from=nativelibs \
      /etc/fonts /etc/fonts
 
 COPY target/*-runner /application
-
+# Permissions fix for Windows
+RUN chmod "ugo+x" /work/application
 EXPOSE 8080
 USER 1001
 
