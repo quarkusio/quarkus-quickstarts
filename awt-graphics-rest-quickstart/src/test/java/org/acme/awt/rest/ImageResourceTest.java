@@ -47,12 +47,14 @@ public class ImageResourceTest {
                 String.format("Image's expected dimension is %d x %d, but was %d x %d.",
                         836, 379, image.getWidth(), image.getHeight()));
         final int[] pixel = new int[4]; //4BYTE RGBA
+        // ImageIO.write(image, "PNG", new File("/tmp/test_image.png"));
         image.getData().getPixel(800, 311, pixel);
-        Assertions.assertTrue(pixel[0] > 100, "There should have been more red. Watermark failed.");
+        Assertions.assertTrue(pixel[0] > 100, "[800, 311] There should have been more red. Watermark failed.");
         image.getData().getPixel(770, 366, pixel);
-        Assertions.assertTrue(pixel[2] > 100, "There should have been more blue. Watermark failed.");
-        image.getData().getPixel(65, 51, pixel);
-        Assertions.assertTrue(pixel[0] > 100, "There should have been more red. Watermark failed.");
+        Assertions.assertTrue(pixel[2] > 100, "[770, 366] There should have been more blue. Watermark failed.");
+        image.getData().getPixel(64, 56, pixel);
+        Assertions.assertTrue(pixel[0] > 100, "[64, 56] There should have been more red. Watermark failed.");
     }
 
 }
+
