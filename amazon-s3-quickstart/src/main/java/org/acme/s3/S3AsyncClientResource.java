@@ -17,7 +17,6 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import mutiny.zero.flow.adapters.AdaptersToFlow;
 
-import org.jboss.resteasy.reactive.MultipartForm;
 import org.jboss.resteasy.reactive.RestMulti;
 import org.reactivestreams.Publisher;
 
@@ -38,7 +37,7 @@ public class S3AsyncClientResource extends CommonResource {
     @POST
     @Path("upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Uni<Response> uploadFile(@MultipartForm FormData formData) throws Exception {
+    public Uni<Response> uploadFile(FormData formData) throws Exception {
 
         if (formData.filename == null || formData.filename.isEmpty()) {
             return Uni.createFrom().item(Response.status(Status.BAD_REQUEST).build());
