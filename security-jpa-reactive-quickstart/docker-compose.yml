@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  postgres:
+    container_name: elytron-security-jpa-reactive-database
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: "quarkus"
+      POSTGRES_PASSWORD: "quarkus"
+      POSTGRES_DB: "elytron_security_jpa"
+    ports:
+      - "5431:5432"
