@@ -52,8 +52,10 @@ public class ImageResourceTest {
         Assertions.assertTrue(pixel[0] > 100, "[800, 311] There should have been more red. Watermark failed.");
         image.getData().getPixel(770, 366, pixel);
         Assertions.assertTrue(pixel[2] > 100, "[770, 366] There should have been more blue. Watermark failed.");
-        image.getData().getPixel(64, 56, pixel);
-        Assertions.assertTrue(pixel[0] > 100, "[64, 56] There should have been more red. Watermark failed.");
+        // We check the "M" in "Mandrel" for our own font MyFreeSerif.
+        // Relying on system fonts is fragile, changes across OS versions.
+        image.getData().getPixel(64, 41, pixel);
+        Assertions.assertTrue(pixel[0] > 100, "[64, 41] There should have been more red. Watermark failed.");
     }
 
 }
