@@ -1,7 +1,9 @@
 package org.acme.s3;
 
+import java.nio.ByteBuffer;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
@@ -13,10 +15,14 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
+import mutiny.zero.flow.adapters.AdaptersToFlow;
 
-import org.jboss.resteasy.reactive.MultipartForm;
+import org.jboss.resteasy.reactive.RestMulti;
+import org.reactivestreams.Publisher;
 
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
+import io.vertx.core.buffer.Buffer;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -31,7 +37,7 @@ public class S3AsyncClientResource extends CommonResource {
     @POST
     @Path("upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Uni<Response> uploadFile(@MultipartForm FormData formData) throws Exception {
+    public Uni<Response> uploadFile(FormData formData) throws Exception {
 
         if (formData.filename == null || formData.filename.isEmpty()) {
             return Uni.createFrom().item(Response.status(Status.BAD_REQUEST).build());
@@ -55,13 +61,15 @@ public class S3AsyncClientResource extends CommonResource {
     @GET
     @Path("download/{objectKey}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Uni<Response> downloadFile(String objectKey) {
-        return Uni.createFrom()
-                .completionStage(() -> s3.getObject(buildGetRequest(objectKey), AsyncResponseTransformer.toBytes()))
-                .onItem()
-                .transform(object -> Response.ok(object.asUtf8String())
-                        .header("Content-Disposition", "attachment;filename=" + objectKey)
-                        .header("Content-Type", object.response().contentType()).build());
+    public RestMulti<Buffer> downloadFile(String objectKey) {
+
+        return RestMulti.fromUniResponse(Uni.createFrom()
+                .completionStage(() -> s3.getObject(buildGetRequest(objectKey),
+                        AsyncResponseTransformer.toPublisher())),
+                response -> Multi.createFrom().safePublisher(AdaptersToFlow.publisher((Publisher<ByteBuffer>) response))
+                        .map(S3AsyncClientResource::toBuffer),
+                response -> Map.of("Content-Disposition", List.of("attachment;filename=" + objectKey), "Content-Type",
+                        List.of(response.response().contentType())));
     }
 
     @GET
@@ -72,6 +80,12 @@ public class S3AsyncClientResource extends CommonResource {
 
         return Uni.createFrom().completionStage(() -> s3.listObjects(listRequest))
                 .onItem().transform(result -> toFileItems(result));
+    }
+
+    private static Buffer toBuffer(ByteBuffer bytebuffer) {
+        byte[] result = new byte[bytebuffer.remaining()];
+        bytebuffer.get(result);
+        return Buffer.buffer(result);
     }
 
     private List<FileObject> toFileItems(ListObjectsResponse objects) {

@@ -3,6 +3,7 @@ package org.acme.s3;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -13,7 +14,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.ResponseBuilder;
 import jakarta.ws.rs.core.Response.Status;
-import org.jboss.resteasy.reactive.MultipartForm;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -30,7 +30,7 @@ public class S3SyncClientResource extends CommonResource {
     @POST
     @Path("upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadFile(@MultipartForm FormData formData) throws Exception {
+    public Response uploadFile(FormData formData) throws Exception {
 
         if (formData.filename == null || formData.filename.isEmpty()) {
             return Response.status(Status.BAD_REQUEST).build();

@@ -121,7 +121,7 @@
         <div class="col-4">Size</div>
     </div>
     <div class="row" ng-repeat="file in files">
-        <div class="col-8"><a href="{{ '/s3/download/' + file.objectKey }}">{{ file.objectKey }}</a></div>
+        <div class="col-8"><a href="{{ '/async-s3/download/' + file.objectKey }}">{{ file.objectKey }}</a></div>
         <div class="col-4">{{ file.size }} B</div>
     </div>
 </div>
