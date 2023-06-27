@@ -18,7 +18,7 @@
 #
 # or use the builder image if your host is not CentOS/Fedora based:
 #
-# ./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-mandrel:22.3-java17
+# ./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-17
 #
 # Then, build the image with:
 #
@@ -29,7 +29,7 @@
 # docker run -i --rm -p 8080:8080 quarkus/awt-graphics-rest-quickstart
 #
 ###
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.6 as nativelibs
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.7 as nativelibs
 RUN microdnf install freetype fontconfig
 
 FROM quay.io/quarkus/quarkus-micro-image:2.0
@@ -62,10 +62,13 @@ COPY --from=nativelibs \
 COPY --from=nativelibs \
      /etc/fonts /etc/fonts
 
-COPY target/*-runner /application
+RUN mkdir /work
+# Shared objects to be dynamically loaded at runtime as needed,
+COPY target/*.properties target/*.so /work/
+COPY target/*-runner /work/application
 # Permissions fix for Windows
 RUN chmod "ugo+x" /work/application
 EXPOSE 8080
 USER 1001
 
-CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+CMD ["./work/application", "-Dquarkus.http.host=0.0.0.0"]
