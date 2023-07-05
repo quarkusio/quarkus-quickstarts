@@ -76,7 +76,6 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [MongoDB with Panache](./mongodb-panache-quickstart): Simplify your MongoDB applications with Panache
 * [MicroProfile Messaging MQTT](./mqtt-quickstart): How to interact with MQTT using MicroProfile reactive messaging
 * [Neo4j](./neo4j-quickstart): How to connect to a Neo4j graph datastore
-* [Pulsar](./pulsar-quickstart):  How to interact with Apache Pulsar using MicroProfile reactive messaging
 * [OpenAPI and Swagger UI](./openapi-swaggerui-quickstart): Use OpenAPI and Swagger UI to expose your REST API and test your REST services
 * [OpenTelemetry](./opentelemetry-quickstart): How to use OpenTelemetry to monitor application performance
 * [OpenTracing and Jaeger](./opentracing-quickstart): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
