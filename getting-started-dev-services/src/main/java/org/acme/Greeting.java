@@ -5,5 +5,5 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class Greeting extends PanacheEntity {
-    String name;
+    public String name;
 }
