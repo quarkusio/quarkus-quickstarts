@@ -1,29 +1,40 @@
-Quarkus Elytron Security with JPA
+Quarkus Security with JPA
 ========================
 
 This guide demonstrates how your Quarkus application can use a database and JPA to store your user identities.
 
-## Start the database
+## Run quickstart in developer mode
 
-You need a database to store the user identities/roles. Here, we are using [PostgreSQL](https://www.postgresql.org).
-To ease the setup, we have provided a `docker-compose.yml` file which start a PostgreSQL container, bind the network ports
-and finally creates the users and their credentials by importing the `import.sql` file.
-
-The database can be started using:
- ```bash
- docker-compose up
- ```  
-
-Once the database is up you can start your Quarkus application.
-
-Note you do not need to start the database when running your application in dev mode or testing. It will be started automatically as a Dev Service.
-
-## Start the application
-
-The application can be started using: 
+Quarkus provides developer mode, in which you can try this example. Just try:
 
 ```bash
-mvn compile quarkus:dev
+mvn quarkus:dev
+```
+
+Now the application will listen on `localhost:8080`.
+In developer mode quarkus will also start its own postgres database.
+
+## Run quickstart in JVM mode
+
+### Start the database
+
+Now we need to start a [PostgreSQL](https://www.postgresql.org) database on our own.
+To set it up with docker:
+
+```bash
+docker run -it --rm=true --name quarkus_test -e POSTGRES_USER=quarkus -e POSTGRES_PASSWORD=quarkus -e POSTGRES_DB=quarkus -p 5432:5432 postgres:15.3
+```
+
+Once the database is up, you can start your Quarkus application.
+Application will fill in the users and their credentials on `StartupEvent`.
+
+### Start the application
+
+The application can be build & started using: 
+
+```bash
+mvn clean package
+java -jar target/quarkus-app/quarkus-run.jar 
 ```  
 
 ## Test the application
@@ -34,7 +45,7 @@ The application exposes 3 endpoints:
 * `/api/admin`
 * `/api/users/me`
 
-You can try these endpoints with an http client (`curl`, `HTTPie`, etc).
+You can try these endpoints with a http client (`curl`, `HTTPie`, etc).
 Here you have some examples to check the security configuration:
 
 ```bash
@@ -44,8 +55,6 @@ curl -i -X GET -u admin:admin http://localhost:8080/api/admin # 'admin'
 curl -i -X GET http://localhost:8080/api/users/me # 'unauthorized'
 curl -i -X GET -u user:user http://localhost:8080/api/users/me # 'user'
 ```
-
-_NOTE:_ Stop the database using: `docker-compose down; docker-compose rm`
 
 ### Integration testing
 
