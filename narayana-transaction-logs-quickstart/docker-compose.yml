@@ -1,0 +1,16 @@
+version: '2.4'
+
+services:
+  postgres:
+    container_name: narayana-transaction-logs-database
+    image: "postgres:latest"
+    restart: always
+    volumes:
+      - ./init-script.sql:/docker-entrypoint-initdb.d/init-script.sql
+    command: "--max_prepared_transactions=100"
+    environment:
+      POSTGRES_USER: "quarkus_test"
+      POSTGRES_PASSWORD: "quarkus_test"
+      POSTGRES_DB: "narayana_transaction_logs_db"
+    ports:
+      - "5432:5432"

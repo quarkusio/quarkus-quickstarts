@@ -130,6 +130,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Google Cloud Functions](./google-cloud-functions-quickstart): How to create Google Cloud Functions
 * [Google Cloud Functions HTTP](./google-cloud-functions-http-quickstart): How to bind our HTTP layer (JAX-RS, Servlet or Reactive Route) to Google Cloud Functions
 * [JTA](./jta-quickstart): How use JTA transactions with HTTP/REST
+* [Quarkus transaction logs in a database](https://quarkus.io/guides/transaction#jdbcstore) How to configure app for automatic transaction recovery
 * [Reactive Messaging with HTTP](./reactive-messaging-http-quickstart): How to consume and produce HTTP messages with Reactive Messaging
 * [Reactive Messaging with Web Sockets](./reactive-messaging-websockets-quickstart): How to consume and produce messages via Web Sockets with Reactive Messaging
 * [Elasticsearch](./elasticsearch-quickstart): How to use the Elasticsearch REST client and the Java API client
