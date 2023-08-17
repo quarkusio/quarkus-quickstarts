@@ -1,5 +1,6 @@
 package org.acme.getting.started;
 
+import io.smallrye.common.annotation.NonBlocking;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -40,6 +41,7 @@ public class ReactiveGreetingResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
+    @NonBlocking
     public String hello() {
         return "hello";
     }
