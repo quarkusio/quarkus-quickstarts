@@ -19,6 +19,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
 import org.acme.rabbitmq.model.Quote;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -26,6 +27,8 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTest
 public class QuoteProcessorTest {
 
+    @ConfigProperty(name = "rabbitmq-host") String host;
+    @ConfigProperty(name = "rabbitmq-port") int port;
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
@@ -63,8 +66,8 @@ public class QuoteProcessorTest {
 
     Channel getChannel() throws Exception {
         ConnectionFactory connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost("localhost");
-        connectionFactory.setPort(5672);
+        connectionFactory.setHost(host);
+        connectionFactory.setPort(port);
         connectionFactory.setUsername("guest");
         connectionFactory.setPassword("guest");
         connectionFactory.setChannelRpcTimeout((int) SECONDS.toMillis(3));
