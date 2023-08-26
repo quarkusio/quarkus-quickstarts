@@ -13,7 +13,7 @@
         <quarkus.platform.version>3.2.4.Final</quarkus.platform.version>
         <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
-        <kotlin.version>1.7.20</kotlin.version>
+        <kotlin.version>1.8.22</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
