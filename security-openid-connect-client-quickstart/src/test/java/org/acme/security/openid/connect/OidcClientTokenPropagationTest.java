@@ -30,6 +30,22 @@ public class OidcClientTokenPropagationTest {
                 .statusCode(200)
                 .body(is("admin"));
     }
+    
+    @Test
+    public void testGetNameWithUserTokenPropagated() {
+    	String userToken = getAccessToken("alice");
+    	
+        RestAssured.given().auth().oauth2(userToken)
+                .when().get("/frontend/user-name-with-propagated-token")
+                .then()
+                .statusCode(200)
+                .body(is("alice"));
+
+        RestAssured.given().auth().oauth2(userToken)
+                .when().get("/frontend/admin-name-with-propagated-token")
+                .then()
+                .statusCode(403);
+    }
 
     @Test
     public void testGetNameWithOidcClient() {
