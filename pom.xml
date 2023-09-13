@@ -30,6 +30,7 @@
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
         <module>getting-started-command-mode</module>
+        <module>getting-started-dev-services</module>
         <module>google-cloud-functions-quickstart</module>
         <module>google-cloud-functions-http-quickstart</module>
         <module>hibernate-orm-quickstart</module>
