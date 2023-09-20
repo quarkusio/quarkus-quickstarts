@@ -77,7 +77,7 @@
         <module>reactive-messaging-http-quickstart</module>
         <module>reactive-messaging-websockets-quickstart</module>
         <module>redis-quickstart</module>
-        <module>redis-stream-quickstart</module>
+        <module>redis-streams-quickstart</module>
         <module>rest-client-quickstart</module>
         <module>rest-client-multipart-quickstart</module>
         <module>rest-json-quickstart</module>
