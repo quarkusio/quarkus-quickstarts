@@ -8,6 +8,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>producer</module>
-<!--        <module>aggre</module>-->
+        <module>aggregator</module>
     </modules>
 </project>

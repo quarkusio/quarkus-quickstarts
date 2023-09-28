@@ -1,58 +1,80 @@
-# redis-stream-quickstart
+# Quarkus Redis Streams Quickstart 
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This project illustrates how you can build Redis Stream applications using Quarkus, 
+inspired by kafka-streams-quickstart project
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
 ## Running the application in dev mode
 
-You can run your application in dev mode that enables live coding using:
+This quickstart is made up of the following parts:
 
-```shell script
-./mvnw compile quarkus:dev
+* Redis Server
+* _producer_, a Quarkus application that publishes some test data on `station#` and `temperature-values` redis stream
+* _aggregator_, a Quarkus application processing redis-stream, using the Reactive Redis Streams API
+
+The _aggregator_ application is the interesting piece; it
+
+* runs a listener in stream `temperature-values` and groups the values by weather station and emits 
+the minimum/maximum temperature value per station to the `temperatures-aggregated` table.
+* exposes an HTTP endpoint for getting the current minimum/maximum values
+  for a given station using reactive redis commands.
+
+## Building
+
+To build the _producer_ and _aggregator_ applications, run
+
+```bash
+mvn clean install
+```
+## Running
+A Docker Compose file is provided for running all the components.
+Start all containers by running:
+
+```bash
+docker-compose up -d --build
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+### Check the values inside Redis
+you can check available keys in redis by using the following command: 
 
-## Packaging and running the application
+```shell
+docker exec -ti redis-streams-quickstart-redis-1 sh -c "redis-cli keys '*'"
+```
+To retrieve all keys related to published weather station you can use the following command: 
 
-The application can be packaged using:
-
-```shell script
-./mvnw package
+```shell
+docker exec -ti redis-streams-quickstart-redis-1 sh -c "redis-cli keys 'station#*'"
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+To retrieve all entries from temperature-aggregates you can use the following command: 
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
+```shell
+ocker exec -ti redis-streams-quickstart-redis-1 sh -c "redis-cli hgetall temperature-aggregates" 
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+### Consuming using REST API 
+Retrieve the aggregated data from aggregator using the following http command
+(your actual host names will differ):
 
-## Creating a native executable
+```bash
+curl http://localhost:8080/temperatures/{id}
+```
+where the id you can put the id of the weather stations. 
 
-You can create a native executable using:
+## Running in native
 
-```shell script
-./mvnw package -Dnative
+To run the _producer_ and _aggregator_ applications as native binaries via GraalVM,
+first run the Maven builds using the `native` profile:
+
+```bash
+mvn clean install -Pnative -Dnative-image.container-runtime=docker
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+Then create an environment variable named `QUARKUS_MODE` and with value set to "native":
 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
+```bash
+export QUARKUS_MODE=native
 ```
 
-You can then execute your native executable with: `./target/redis-stream-quickstart-1.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
-
-- Redis Client ([guide](https://quarkus.io/guides/redis)): Connect to Redis in either imperative or reactive style
+Now start Docker Compose as described above.

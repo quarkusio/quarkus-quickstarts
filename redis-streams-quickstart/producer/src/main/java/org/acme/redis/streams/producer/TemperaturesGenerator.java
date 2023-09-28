@@ -8,7 +8,6 @@ import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.Json;
-import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -19,48 +18,36 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.math.RoundingMode.HALF_UP;
 
 @ApplicationScoped
-public class ValuesGenerator {
+public class TemperaturesGenerator {
+    private static final Logger LOG = Logger.getLogger(TemperaturesGenerator.class);
 
-    private static final Logger LOG = Logger.getLogger(ValuesGenerator.class);
-
-    public static final String TEMPERATURE_VALUES_STREAM = "temperature-values";
-
-    public static final String TEMPERATURE_VALUES_KEY = "temperature";
-
-    private static final String STATION_TABLE = "station:";
-
+    private static final String TEMPERATURE_VALUES_STREAM = "temperature-values";
+    private static final String TEMPERATURE_VALUES_KEY = "temperature";
+    private static final String STATION_TABLE = "station#";
     public static final Long MAX_LEN = 1_000L;
 
     @ConfigProperty(name = "producer.rate", defaultValue = "1000")
     int rate;
-
     record WeatherStation(int id, String name, int averageTemperature){}
-
     record Temperature(int id, double temperature, String date){}
 
-
     private List<WeatherStation> stations = List.of(
-            new WeatherStation(1, "Hamburg", 13),
-            new WeatherStation(2, "Snowdonia", 5),
+            new WeatherStation(1, "Athens", 13),
+            new WeatherStation(2, "Helsinki", -10),
             new WeatherStation(3, "Boston", 11),
             new WeatherStation(4, "Tokio", 16),
-            new WeatherStation(5, "Cusco", 12),
-            new WeatherStation(6, "Svalbard", -7),
-            new WeatherStation(7, "Porthsmouth", 11),
-            new WeatherStation(8, "Oslo", 7),
-            new WeatherStation(9, "Marrakesh", 20));
+            new WeatherStation(5, "Berlin", 12));
 
     ReactiveStreamCommands<String, String, String> stream;
 
     ReactiveValueCommands<String, String> values;
 
-    public ValuesGenerator(ReactiveRedisDataSource dataSource) {
+    public TemperaturesGenerator(ReactiveRedisDataSource dataSource) {
         this.stream = dataSource.stream(String.class);
         this.values = dataSource.value(String.class);
     }
@@ -70,7 +57,7 @@ public class ValuesGenerator {
                 .concatenating()
                 .streams(generateStations(), generateTemperatures())
                 .subscribe()
-                .with(item -> LOG.debugv("Added item: {0}", item),
+                .with(item -> LOG.infov("Added item: {0}", item),
                         err -> LOG.errorv("Caught exception: {0}", err));
     }
 
@@ -82,7 +69,8 @@ public class ValuesGenerator {
     }
 
     /*
-     *  Generates a random temperature for a random station, and sends this to the "temperatures-values" stream as JSON payload.
+     *  Generates a random temperature for a random station,
+     * and sends this to the "temperatures-values" stream as JSON payload.
      */
     private Multi<Void> generateTemperatures() {
         return Multi.createFrom()
@@ -106,11 +94,11 @@ public class ValuesGenerator {
                 .onItem().transformToUniAndMerge(temp -> {
                     var args = new XAddArgs().maxlen(MAX_LEN);
 
-                    return this.stream.xadd(TEMPERATURE_VALUES_STREAM, args, Map.of(TEMPERATURE_VALUES_KEY, Json.encode(temp)))
-                            .invoke(res -> LOG.debugv("Added Message(id={0}, payload={1})", res.toString(), temp));
+                    return this.stream.xadd(TEMPERATURE_VALUES_STREAM, args,
+                                    Map.of(TEMPERATURE_VALUES_KEY, Json.encode(temp)))
+                            .invoke(res ->
+                                    LOG.debugv("Added Message(id={0}, payload={1})", res.toString(), temp));
                 })
                 .onItem().transformToUniAndMerge(res -> Uni.createFrom().voidItem());
     }
-
-
 }

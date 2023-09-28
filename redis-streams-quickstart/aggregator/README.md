@@ -1,0 +1,1 @@
+# Redis Stream quickstart guide Aggregator
