@@ -14,7 +14,7 @@
     <quarkus.platform.version>3.4.3</quarkus.platform.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <wiremock.version>2.26.3</wiremock.version>
+    <wiremock.version>2.35.1</wiremock.version>
   </properties>
   <dependencyManagement>
     <dependencies>
