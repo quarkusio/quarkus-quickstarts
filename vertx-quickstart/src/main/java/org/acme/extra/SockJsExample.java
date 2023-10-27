@@ -19,9 +19,9 @@ public class SockJsExample {
 
     public void init(@Observes Router router) {
         SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
-        sockJSHandler.bridge(new SockJSBridgeOptions()
+        Router bridge = sockJSHandler.bridge(new SockJSBridgeOptions()
                 .addOutboundPermitted(new PermittedOptions().setAddress("ticks")));
-        router.route("/eventbus/*").handler(sockJSHandler);
+        router.route("/eventbus/*").subRouter(bridge);
 
         AtomicInteger counter = new AtomicInteger();
         vertx.setPeriodic(1000,
