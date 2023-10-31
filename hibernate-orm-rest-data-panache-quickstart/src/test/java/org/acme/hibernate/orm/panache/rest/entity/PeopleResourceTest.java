@@ -6,6 +6,10 @@ import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
@@ -113,4 +117,30 @@ public class PeopleResourceTest {
         given().when().delete("/my-people/1")
                 .then().statusCode(405);
     }
+
+    @Test
+    void shouldUpdatePerson() { 
+    	
+		Person newPerson = new Person();
+		newPerson.name = "Holly";
+		newPerson.birthDate = LocalDate.of(2001, 11, 20);
+
+		Map<String, Object> jsonObject = new HashMap<>();
+		jsonObject.put("zipcode", 95014);
+		jsonObject.put("city", "cupertino");
+		newPerson.jsonAddress = jsonObject;
+
+		given().accept(ContentType.JSON).and().contentType(ContentType.JSON).and().body(newPerson).when()
+				.put("/my-people/1").then().statusCode(204);
+
+		// verify after updating that the new json address fields were stored
+		given().accept(ContentType.JSON)
+        		.when().get("/my-people/1")
+    			.then().statusCode(200)
+    			.and().body("id", is(equalTo(1)))
+    			.and().body("name", is(equalTo("Holly")))
+				.and().body("jsonAddress", is( equalTo(jsonObject)));
+    
+    }
+
 }
