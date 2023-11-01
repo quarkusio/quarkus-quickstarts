@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,12 +65,12 @@ public class PeopleResourceTest {
     @Test
     void shouldListPersonsWithPageAndSize() {
         given().accept(ContentType.JSON)
-                .and().queryParam("page", 0)
-                .and().queryParam("size", 1)
-                .when().get("/my-people/all")
-                .then().statusCode(200)
-                .and().body("id", contains(1))
-                .and().body("name", contains("John Johnson"));
+                 .and().queryParam("page", 0)
+                 .and().queryParam("size", 1)
+                 .when().get("/my-people/all?sort=name")
+                 .then().statusCode(200)
+                 .and().body("id", contains(1))
+                 .and().body("name", contains("John Johnson"));
     }
 
     @Test
@@ -119,27 +118,34 @@ public class PeopleResourceTest {
     }
 
     @Test
-    void shouldUpdatePerson() { 
-    	
-		Person newPerson = new Person();
-		newPerson.name = "Holly";
-		newPerson.birthDate = LocalDate.of(2001, 11, 20);
+    void shouldUpdatePerson() {
+        given().accept(ContentType.JSON)
+                .when().get("/my-people/1")
+                .then().statusCode(200)
+                .and().body("id", is(equalTo(1)))
+                .and().body("name", is(equalTo("John Johnson")));
 
-		Map<String, Object> jsonObject = new HashMap<>();
-		jsonObject.put("zipcode", 95014);
-		jsonObject.put("city", "cupertino");
-		newPerson.jsonAddress = jsonObject;
+        Person newPerson = new Person();
+        newPerson.id = 1L;
+        newPerson.name = "John Johnson";
 
-		given().accept(ContentType.JSON).and().contentType(ContentType.JSON).and().body(newPerson).when()
-				.put("/my-people/1").then().statusCode(204);
+        Map<String, Object> jsonObject = new HashMap<>();
+        jsonObject.put("zipcode", 95014);
+        jsonObject.put("city", "cupertino");
+        newPerson.jsonAddress = jsonObject;
 
-		// verify after updating that the new json address fields were stored
-		given().accept(ContentType.JSON)
-        		.when().get("/my-people/1")
-    			.then().statusCode(200)
-    			.and().body("id", is(equalTo(1)))
-    			.and().body("name", is(equalTo("Holly")))
-				.and().body("jsonAddress", is( equalTo(jsonObject)));
+        given().accept(ContentType.JSON)
+                .and().contentType(ContentType.JSON)
+                .and().body(newPerson)
+                .when().put("/my-people/1").then().statusCode(204);
+
+        // verify after updating that the new json address fields were stored
+        given().accept(ContentType.JSON)
+                .when().get("/my-people/1")
+                .then().statusCode(200)
+                .and().body("id", is(equalTo(1)))
+                .and().body("name", is(equalTo("John Johnson")))
+                .and().body("jsonAddress", is(equalTo(jsonObject)));
     
     }
 
