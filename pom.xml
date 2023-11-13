@@ -66,7 +66,6 @@
         <module>neo4j-quickstart</module>
         -->
         <module>openapi-swaggerui-quickstart</module>
-        <module>opentracing-quickstart</module>
         <module>opentelemetry-quickstart</module>
         <module>pulsar-quickstart</module>
         <module>quartz-quickstart</module>

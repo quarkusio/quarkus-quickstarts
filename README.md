@@ -77,7 +77,6 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Pulsar](./pulsar-quickstart):  How to interact with Apache Pulsar using MicroProfile reactive messaging
 * [OpenAPI and Swagger UI](./openapi-swaggerui-quickstart): Use OpenAPI and Swagger UI to expose your REST API and test your REST services
 * [OpenTelemetry](./opentelemetry-quickstart): How to use OpenTelemetry to monitor application performance
-* [OpenTracing and Jaeger](./opentracing-quickstart): How to use MicroProfile OpenTracing and Jaeger to monitor application performances
 * [OptaPlanner](./optaplanner-quickstart): How to use OptaPlanner to optimize business resources
 * [Quartz](./quartz-quickstart): How to schedule periodic clustered jobs
 * [Qute](./qute-quickstart): How to use the Qute templating engine in Quarkus
