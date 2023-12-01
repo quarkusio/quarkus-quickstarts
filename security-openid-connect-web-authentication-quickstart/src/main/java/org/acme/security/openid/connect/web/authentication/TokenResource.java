@@ -5,6 +5,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 
+import org.eclipse.microprofile.jwt.Claims;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import io.quarkus.oidc.IdToken;
@@ -45,7 +46,7 @@ public class TokenResource {
                 .append("<body>")
                 .append("<ul>");
 
-        Object userName = this.idToken.getClaim("preferred_username");
+        Object userName = this.idToken.getClaim(Claims.preferred_username);
 
         if (userName != null) {
             response.append("<li>username: ").append(userName.toString()).append("</li>");
