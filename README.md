@@ -6,8 +6,8 @@ This repository contains a set of Quickstarts for the Quarkus framework. Each of
 
 To compile and run these demos you will need:
 
-- JDK 8 or 11+
-- GraalVM
+- JDK 17+
+- Mandrel or GraalVM
 
 See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image) for help setting up your environment.
 
