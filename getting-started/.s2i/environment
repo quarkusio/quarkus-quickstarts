@@ -1,2 +1,1 @@
 JAVA_OPTIONS=-Dquarkus.http.host=0.0.0.0
-AB_JOLOKIA_OFF=true
