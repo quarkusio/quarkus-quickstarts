@@ -16,7 +16,9 @@ jobs:
     outputs:
       matrix: ${{ steps.generate.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
       - id: generate
         run: |
           json=$(.github/generate-native-matrix.sh | tr -d '\n')
@@ -31,7 +33,7 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.generate-json-matrix.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
 
