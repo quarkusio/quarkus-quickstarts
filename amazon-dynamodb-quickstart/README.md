@@ -1,127 +1,180 @@
-# Quarkus demo: DynamoDB Client
+# Quarkus demo: Amazon DynamoDB Client
 
-This example showcases how to use the AWS DynamoDB client with Quarkus. As a prerequisite install Install [AWS Command line interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+This example showcases how to use the AWS DynamoDB client with Quarkus.
 
-# DynamoDB local instance
+## Run the Demo in Dev Mode
 
-Just run it as follows:
-`docker run --rm --name local-dynamo -p 8000:4569 -e SERVICES=dynamodb -e START_WEB=0 -d localstack/localstack`
-
-DynamoDB listens on `localhost:8000` for REST endpoints.
-
-Create an AWS profile for your local instance using AWS CLI:
-
-```
-$ aws configure --profile localstack
-AWS Access Key ID [None]: test-key
-AWS Secret Access Key [None]: test-secret
-Default region name [None]: us-east-1
-Default output format [None]:
-```
-
-## Create table
-
-Create a DynamoDB table using AWS CLI and the localstack profile.
-```
-aws dynamodb create-table --table-name QuarkusFruits \
-                          --attribute-definitions AttributeName=fruitName,AttributeType=S \
-                          --key-schema AttributeName=fruitName,KeyType=HASH \
-                          --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
-                          --profile localstack --endpoint-url=http://localhost:8000
-```
-
-# Run the demo on dev mode
-
-- Run `./mvnw clean package` and then `java -jar ./target/quarkus-app/quarkus-run.jar`
-- In dev mode `./mvnw clean quarkus:dev`
+- Run `./mvnw clean quarkus:dev`
 
 Go to [`http://localhost:8080/fruits.html`](http://localhost:8080/fruits.html), it should show a simple App to manage a list of Fruits. 
 You can add fruits to the list via the form.
 
 Alternatively, go to [`http://localhost:8080/async-fruits.html`](http://localhost:8080/async-fruits.html) with the simple App communicating with Async resources.
 
-# Running in native
+# Using LocalStack
+
+As a prerequisite, install the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+
+Start LocalStack:
+
+ ```sh
+ docker run \
+  --rm \
+  --name local-dynamodb \
+  -p 4566:4566 \
+  locals
+
+DynamoDB listens on `localhost:4566` for REST endpoints.
+
+Create an AWS profile for your local instance using AWS CLI:
+
+```sh
+aws configure --profile localstack
+```
+
+```plain
+AWS Access Key ID [None]: test-key
+AWS Secret Access Key [None]: test-secret
+Default region name [None]: us-east-1
+Default output format [None]:
+```
+
+## Create a DynamoDB table
+
+Create a DynamoDB table using AWS CLI and the localstack profile.
+
+```sh
+aws dynamodb create-table \
+    --table-name QuarkusFruits \
+    --attribute-definitions AttributeName=fruitName,AttributeType=S \
+    --key-schema AttributeName=fruitName,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+    --profile localstack --endpoint-url=http://localhost:4566`
+```
+
+## Run the demo
+
+You can compile the application and run it with:
+
+```sh
+./mvnw install
+AWS_PROFILE=localstack java -Dquarkus.dynamodb.endpoint-override=http://localhost:4566 -jar ./target/quarkus-app/quarkus-run.jar
+```
+
+Go to [`http://localhost:8080/fruits.html`](http://localhost:8080/fruits.html) or [`http://localhost:8080/async-fruits.html`](http://localhost:8080/async-fruits.html), to test the application.
+
+## Running in native
 
 You can compile the application into a native executable using:
 
-`./mvnw clean install -Pnative`
+```sh
+./mvnw install -Dnative
+```
 
-and run with:
+And run it with:
 
-`./target/amazon-dynamodb-quickstart-1.0.0-SNAPSHOT-runner` 
-
+```sh
+AWS_PROFILE=localstack ./target/amazon-dynamodb-quickstart-1.0.0-SNAPSHOT-runner -Dquarkus.dynamodb.endpoint-override=http://localhost:4566
+```
 
 # Running native in container
 
-Build a native image in container by running:
+Build a native image in a container by running:
 
-`./mvnw package -Pnative -Dnative-image.docker-build=true`
-
-Build a docker image:
-`docker build -f src/main/docker/Dockerfile.native -t quarkus/amazon-dynamodb-quickstart .`
-
-Create a network that connects your container with localstack
-`docker network create localstack`
-
-Stop your localstack container you started at the beginning
-`docker stop local-dynamo`
-
-Start localstack and connect to the network
-`docker run --rm --network=localstack --name localstack -p 8000:4569 -e SERVICES=dynamodb -e START_WEB=0 -d localstack/localstack`
-
-Create Dynamo table
-```
-aws dynamodb create-table --table-name QuarkusFruits \
-                          --attribute-definitions AttributeName=fruitName,AttributeType=S \
-                          --key-schema AttributeName=fruitName,KeyType=HASH \
-                          --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
-                          --profile localstack --endpoint-url=http://localhost:8000
+```sh
+./mvnw install -Dnative -DskipTests -Dquarkus.native.container-build=true
 ```
 
-Run quickstart container connected to that network (note that we're using internal port of the localstack)
-`docker run -i --rm --network=localstack -p 8080:8080 quarkus/amazon-dynamodb-quickstart -Dquarkus.dynamodb.endpoint-override=http://localstack:4569`
+Build a Docker image:
 
-Go to [`http://localhost:8080/fruits.html`](http://localhost:8080/fruits.html) or [`http://localhost:8080/async-fruits.html`](http://localhost:8080/async-fruits.html)
+```sh
+docker build -f src/main/docker/Dockerfile.native -t quarkus/amazon-dynamodb-quickstart .
+```
+
+Create a network that connects your container with LocalStack:
+
+```sh
+docker network create localstack
+```
+
+Stop your LocalStack container you started at the beginning:
+
+```sh
+docker stop local-dynamodb
+```
+
+Start LocalStack and connect to the network:
+
+```sh
+docker run \
+  --rm \
+  --name local-dynamodb \
+  --network=localstack \
+  -p 4566:4566 \
+  localstack/localstack
+```
+
+Create a DynamoDB table using AWS CLI and the localstack profile.
+
+```sh
+aws dynamodb create-table \
+    --table-name QuarkusFruits \
+    --attribute-definitions AttributeName=fruitName,AttributeType=S \
+    --key-schema AttributeName=fruitName,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+    --profile localstack --endpoint-url=http://localhost:4566`
+```
+
+Run the Quickstart container connected to that network (note that we're using the internal port of the LocalStack container):
+
+```sh
+docker run -i --rm --network=localstack \
+  -p 8080:8080 \
+  -e QUARKUS_DYNAMODB_ENDPOINT_OVERRIDE="http://local-dynamodb:4566" \
+  -e QUARKUS_DYNAMODB_AWS_REGION="us-east-1" \
+  -e QUARKUS_DYNAMODB_AWS_CREDENTIALS_TYPE="static" \
+  -e QUARKUS_DYNAMODB_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID="test-key" \
+  -e QUARKUS_DYNAMODB_AWS_CREDENTIALS_STATIC_PROVIDER_SECRET_ACCESS_KEY="test-secret" \
+  quarkus/amazon-dynamodb-quickstart
+```
+
+Go to `http://localhost:8080/dynamodb.html` or `http://localhost:8080/async-dynamodb.html`, to test the application.
+
+Clean up your environment:
+
+```sh
+docker stop local-dynamodb
+docker network rm localstack
+```
 
 # Using AWS account
 
-Before you can use the AWS SDKs with DynamoDB, you must get an AWS access key ID and secret access key. 
-For more information, see [Setting Up DynamoDB (Web Service)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html).
+Before you can use the AWS SDKs with DynamoDB, you must get an AWS access key ID and secret access key.
+For more information, see:
+ - [Sign up for AWS and Create an IAM User](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/signup-create-iam-user.html)
+ - [Set Up AWS Credentials and Region for Development](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html)
 
-Create a DynamoDB table using AWS CLI and your default AWS profile:
+Create a DynamoDB table using AWS CLI and the localstack profile.
 
+```sh
+aws dynamodb create-table \
+    --table-name QuarkusFruits \
+    --attribute-definitions AttributeName=fruitName,AttributeType=S \
+    --key-schema AttributeName=fruitName,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 ```
-aws dynamodb create-table --table-name QuarkusFruits \
-                          --attribute-definitions AttributeName=fruitName,AttributeType=S \
-                          --key-schema AttributeName=fruitName,KeyType=HASH \
-                          --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
-```
-
 ## Run demo
 
-You can run the demo the same way as for a local instance, but you need to change the `application.properties`.
+You can run the demo the same way as for a local instance, but you don't need to override the endpoint as you are going to communicate with the AWS service with the default AWS profile.
 
-- remove or comment out `quarkus.dynamodb.endpoint-override` - as you are going to communicate with the AWS service now
-- remove or comment out `quarkus.dynamodb.aws.region` - region is going to be retrieved via the default providers chain in the following order:
-    - `aws.region` system property
-    - `region` property from the profile file
-- remove or comment out `quarkus.dynamodb.aws.credentials.type` - if not configured the client uses `default` credentials provider chain that looks for credentials in this order:
-    - Java System Properties - `aws.accessKeyId` and `aws.secretKey`
-    - Environment Variables - `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
-    - Credential profiles file at the default location (`~/.aws/credentials`) shared by all AWS SDKs and the AWS CLI
-    
-Build the application
+Run it:
 
-`./mvnw clean package`
- 
-And then run it
+```sh
+java -Dbucket.name=quarkus.dynamodb.12.345.99 -jar ./target/quarkus-app/quarkus-run.jar
+```
 
-`java -jar ./target/quarkus-app/quarkus-run.jar`
+Or, run it natively:
 
-Or, build as native executable
-
-`./mvnw clean package -Pnative` 
-
-And then run it
-
-`./target/amazon-dynamodb-quickstart-1.0.0-SNAPSHOT-runner` 
+```sh
+./target/amazon-dynamodb-quickstart-1.0.0-SNAPSHOT-runner -Dbucket.name=quarkus.dynamodb.12.345.99
+```

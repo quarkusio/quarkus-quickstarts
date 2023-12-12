@@ -1,30 +1,38 @@
-# Quarkus demo: AWS S3 Client
+# Quarkus demo: Amazon S3 Client
 
-This example showcases how to use the AWS S3 client with Quarkus. As a prerequisite install [AWS Command line interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+This example showcases how to use the AWS S3 client with Quarkus.
 
-# Run the demo in dev mode
+## Run the Demo in Dev Mode
 
-- Run `./mvnw clean package` and then `java -jar ./target/quarkus-app/quarkus-run.jar`
-- In dev mode `./mvnw clean quarkus:dev`
+- Run `./mvnw clean quarkus:dev`
 
 Go to `http://localhost:8080/s3.html`, it should show a simple App to manage files on your Bucket. 
 You can upload files to the bucket via the form.
 
 Alternatively, go to `http://localhost:8080/async-s3.html` with the simple App communicating with Async resources.
 
-# Running in native (using localstack)
+# Using LocalStack
 
-## S3 local instance
+As a prerequisite, install the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
 
-Start localstack:
-`docker run --rm --name local-s3 -p 8008:4566 -e SERVICES=s3 -e EAGER_SERVICE_LOADING=1 -e START_WEB=0 -d localstack/localstack`
+Start LocalStack:
 
-S3 listens on `localhost:8008` for REST endpoints.
+ ```sh
+ docker run \
+  --rm \
+  --name local-s3 \
+  -p 4566:4566 \
+  locals
+
+S3 listens on `localhost:4566` for REST endpoints.
 
 Create an AWS profile for your local instance using AWS CLI:
 
+```sh
+aws configure --profile localstack
 ```
-$ aws configure --profile localstack
+
+```plain
 AWS Access Key ID [None]: test-key
 AWS Secret Access Key [None]: test-secret
 Default region name [None]: us-east-1
@@ -34,84 +42,131 @@ Default output format [None]:
 ## Create bucket
 
 Create a S3 bucket using AWS CLI and the localstack profile.
-`aws s3 mb s3://quarkus.s3.quickstart --profile localstack --endpoint-url=http://localhost:8008`
+
+```sh
+aws s3 mb s3://quarkus.s3.quickstart --profile localstack --endpoint-url=http://localhost:4566`
+```
+
+## Run the demo
+
+You can compile the application and run it with:
+
+```sh
+./mvnw install
+AWS_PROFILE=localstack java -Dquarkus.s3.endpoint-override=http://localhost:4566 -jar ./target/quarkus-app/quarkus-run.jar
+```
+
+Go to `http://localhost:8080/s3.html` or `http://localhost:8080/async-s3.html`, to test the application.
+
+## Running in native
 
 You can compile the application into a native executable using:
 
-`./mvnw clean package -Pnative`
+```sh
+./mvnw install -Dnative
+```
 
-and run with:
+And run it with:
 
-AWS_PROFILE=localstack `./target/amazon-s3-quickstart-1.0.0-SNAPSHOT-runner` -Dquarkus.s3.endpoint-override=http://localhost:8008 -Dquarkus.s3.path-style-access=true
+```sh
+AWS_PROFILE=localstack ./target/amazon-s3-quickstart-1.0.0-SNAPSHOT-runner -Dquarkus.s3.endpoint-override=http://localhost:4566
+```
 
-# Running native in container (using localstack)
+# Running native in container
 
-Build a native image in container by running:
-`./mvnw package -Pnative -Dnative-image.docker-build=true`
+Build a native image in a container by running:
 
-Build a docker image:
-`docker build -f src/main/docker/Dockerfile.native -t quarkus/amazon-s3-quickstart .`
+```sh
+./mvnw install -Dnative -DskipTests -Dquarkus.native.container-build=true
+```
 
-Create a network that connects your container with localstack
-`docker network create localstack`
+Build a Docker image:
 
-Stop your localstack container you started at the beginning
-`docker stop local-s3`
+```sh
+docker build -f src/main/docker/Dockerfile.native -t quarkus/amazon-s3-quickstart .
+```
 
-Start localstack and connect to the network
-`docker run --rm --network=localstack --name localstack -p 8008:4566 -e SERVICES=s3 -e EAGER_SERVICE_LOADING=1 -e START_WEB=0 -d localstack/localstack`
+Create a network that connects your container with LocalStack:
+
+```sh
+docker network create localstack
+```
+
+Stop your LocalStack container you started at the beginning:
+
+```sh
+docker stop local-s3
+```
+
+Start LocalStack and connect to the network:
+
+```sh
+docker run \
+  --rm \
+  --name local-s3 \
+  --network=localstack \
+  -p 4566:4566 \
+  localstack/localstack
+```
 
 Create a S3 bucket using AWS CLI and the localstack profile.
-`aws s3 mb s3://quarkus.s3.quickstart --profile localstack --endpoint-url=http://localhost:8008`
 
-Run quickstart container connected to that network (note that we're using internal port of the S3 localstack)
-`docker run -i --rm --network=localstack -p 8080:8080 -e quarkus.s3.endpoint-override=http://localstack:4566 -e quarkus.s3.path-style-access=true -e quarkus.s3.aws.region=us-east-1 -e quarkus.s3.aws.credentials.type=static -e quarkus.s3.aws.credentials.static-provider.access-key-id=test-key -e quarkus.s3.aws.credentials.static-provider.secret-access-key=test-secret quarkus/amazon-s3-quickstart`
+```sh
+aws s3 mb s3://quarkus.s3.quickstart --profile localstack --endpoint-url=http://localhost:4566`
+```
 
-Go to `http://localhost:8080/s3.html` or `http://localhost:8080/async-s3.html`
+Run the Quickstart container connected to that network (note that we're using the internal port of the LocalStack container):
 
-Clean up your environment
-`docker stop localstack`
+```sh
+docker run -i --rm --network=localstack \
+  -p 8080:8080 \
+  -e QUARKUS_S3_ENDPOINT_OVERRIDE="http://local-s3:4566" \
+  -e QUARKUS_S3_AWS_REGION="us-east-1" \
+  -e QUARKUS_S3_AWS_CREDENTIALS_TYPE="static" \
+  -e QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID="test-key" \
+  -e QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_SECRET_ACCESS_KEY="test-secret" \
+  -e QUARKUS_S3_PATH_STYLE_ACCESS="true" \
+  quarkus/amazon-s3-quickstart
+```
 
-`docker network rm localstack`
+Go to `http://localhost:8080/s3.html` or `http://localhost:8080/async-s3.html`, to test the application.
+
+Clean up your environment:
+
+```sh
+docker stop local-s3
+docker network rm localstack
+```
 
 # Using AWS account
 
-Before you can use the AWS SDKs with S3, you must get an AWS access key ID and secret access key. 
+Before you can use the AWS SDKs with S3, you must get an AWS access key ID and secret access key.
 For more information, see:
  - [Sign up for AWS and Create an IAM User](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/signup-create-iam-user.html)
  - [Set Up AWS Credentials and Region for Development](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html)
 
-Create a S3 bucket using AWS CLI using your default AWS profile
-`aws s3 mb s3://quarkus.s3.quickstart.11.22.33`
 
-**NOTE: Please assure the bucket name you created is unique across AWS S3. 
+Create a S3 bucket using AWS CLI and the localstack profile.
+
+```sh
+aws s3 mb s3://quarkus.s3.12.345.99`
+```
+
+**NOTE: Please assure the bucket name you created is unique across AWS S3 and update . 
 See [Amazon S3 Bucket Naming Requirements](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules)**
 
 ## Run demo
 
-You can run the demo the same way as for a local instance, but you need to change the `application.properties`.
+You can run the demo the same way as for a local instance, but you don't need to override the endpoint as you are going to communicate with the AWS service with the default AWS profile.
 
-- remove or comment out `quarkus.s3.endpoint-override` - as you are going to communicate with the AWS service now
-- remove or comment out `quarkus.s3.aws.region` - region is going to be retrieved via the default providers chain in the following order:
-    - `aws.region` system property
-    - `region` property from the profile file
-- remove or comment out `quarkus.s3.aws.credentials.type` - if not configured the client uses `default` credentials provider chain that looks for credentials in this order:
-    - Java System Properties - `aws.accessKeyId` and `aws.secretKey`
-    - Environment Variables - `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
-    - Credential profiles file at the default location (`~/.aws/credentials`) shared by all AWS SDKs and the AWS CLI
-    
-Build the application
+Run it:
 
-`./mvnw clean package`
- 
-And then run it
+```sh
+java -Dbucket.name=quarkus.s3.12.345.99 -jar ./target/quarkus-app/quarkus-run.jar
+```
 
-`java -jar ./target/quarkus-app/quarkus-run.jar -Dbucket.name=quarkus.s3.12.345.99`
+Or, run it natively:
 
-Or, build as native executable
-
-`./mvnw clean package -Pnative` 
-
-And then run it
-
-`./target/amazon-s3-quickstart-1.0.0-SNAPSHOT-runner -Dbucket.name=quarkus.s3.12.345.99` 
+```sh
+./target/amazon-s3-quickstart-1.0.0-SNAPSHOT-runner -Dbucket.name=quarkus.s3.12.345.99
+```
