@@ -1,1 +1,1 @@
-Quarkus guide: https://quarkus.io/guides/funqy-google-cloud-functions-http
+Quarkus guide: https://quarkus.io/guides/funqy-gcp-functions-http
