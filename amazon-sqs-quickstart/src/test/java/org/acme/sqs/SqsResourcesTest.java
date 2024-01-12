@@ -4,7 +4,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.containsString;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +15,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 @QuarkusTest
-@QuarkusTestResource(SqsResource.class)
 public class SqsResourcesTest {
 
     private static final BiFunction<String, String, String> QUARK = (flavor, spin) -> String

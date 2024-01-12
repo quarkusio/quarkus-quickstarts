@@ -3,7 +3,6 @@ package org.acme.dynamodb;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +14,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 @QuarkusTest
-@QuarkusTestResource(DynamodbResource.class)
 public class DynamodbResourcesTest {
 
     private static final BiFunction<String, String, String> FRUIT = (name, description) -> String

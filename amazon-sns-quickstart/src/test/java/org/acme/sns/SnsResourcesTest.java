@@ -3,7 +3,6 @@ package org.acme.sns;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.any;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
@@ -12,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 @QuarkusTest
-@QuarkusTestResource(SnsResource.class)
 public class SnsResourcesTest {
 
     @ParameterizedTest

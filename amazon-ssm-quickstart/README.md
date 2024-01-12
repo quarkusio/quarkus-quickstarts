@@ -1,87 +1,168 @@
 # Quarkus demo: Amazon SSM Client
 
-This example showcases how to use the AWS SSM client with Quarkus. As a prerequisite install [AWS Command line interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+This example showcases how to use the AWS SSM client with Quarkus.
 
-# AWS SSM local instance
+# Run the demo on dev mode
 
-Just run it as follows in order to start SSM locally:
+- Run `./mvnw clean quarkus:dev`
 
-`docker run --rm --name local-ssn -p 8014:4583 -e SERVICES=ssm -e START_WEB=0 -d localstack/localstack:0.11.1`
+## Set some parameters
 
-SSM listens on `localhost:8014` for REST endpoints.
+First, add as many paramters as you like using the following patterns for secure and plain parameters:
+
+```sh
+curl -XPUT -H"Content-type: text/plain" "http://localhost:8080/sync/secure?secure=true" -d"stored as cipher text"
+curl -XPUT -H"Content-type: text/plain" "http://localhost:8080/sync/plain" -d"stored as plain text"
+```
+
+## List all parameters
+
+You can now list the parameters you added:
+
+```sh
+curl http://localhost:8080/sync
+```
+
+You should see output like this:
+
+```plain
+{"plain":"stored as plain text","secure":"stored as cipher text"}
+```
+
+## Test the async endpoints
+
+Replace `sync` with `async` in the examples above to test the asynchronous endpoints.
+
+# Using LocalStack
+
+As a prerequisite, install the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+
+Start LocalStack:
+
+ ```sh
+ docker run \
+  --rm \
+  --name local-ssm \
+  -p 4566:4566 \
+  localstack/localstack
+```
+
+SSM listens on `localhost:4566` for REST endpoints.
 
 Create an AWS profile for your local instance using AWS CLI:
 
+```sh
+aws configure --profile localstack
 ```
-$ aws configure --profile localstack
+
+```plain
 AWS Access Key ID [None]: test-key
 AWS Secret Access Key [None]: test-secret
 Default region name [None]: us-east-1
 Default output format [None]:
 ```
 
-# Run the demo on dev mode
+## Run the demo
 
-- Run `./mvnw clean package` and then `java -Dparameters.path=/quarkus/is/awesome/ -jar ./target/quarkus-app/quarkus-run.jar`
-- In dev mode `./mvnw clean quarkus:dev -Dparameters.path=/quarkus/is/awesome/`
+You can compile the application and run it with:
 
-## Set some parameters
-First, add as many paramters as you like using the following patterns for secure and plain parameters:
-
-```
-curl -XPUT -H"Content-type: text/plain" "http://localhost:8080/sync/secure?secure=true" -d"stored as cipher text"
-curl -XPUT -H"Content-type: text/plain" "http://localhost:8080/sync/plain" -d"stored as plain text"
+```sh
+./mvnw install
+AWS_PROFILE=localstack java -Dquarkus.ssm.endpoint-override=http://localhost:4566 -jar ./target/quarkus-app/quarkus-run.jar
 ```
 
-## List all parameters
-You can now list the parameters you added:
+## Running in native
 
-```
-curl http://localhost:8080/sync
-```
+You can compile the application into a native executable using:
 
-You should see output like this:
-
-```
-{"plain":"stored as plain text","secure":"stored as cipher text"}
+```sh
+./mvnw install -Dnative
 ```
 
-## Test the async endpoints
-Replace `sync` with `async` in the examples above to test the asynchronous endpoints.
+And run it with:
 
-# Running in native
+```sh
+AWS_PROFILE=localstack ./target/amazon-ssm-quickstart-1.0.0-SNAPSHOT-runner -Dquarkus.ssm.endpoint-override=http://localhost:4566
+```
 
-You can compile the application into a native binary using:
+## Running native in container
 
-`./mvnw clean install -Pnative`
+Build a native image in a container by running:
 
-and run with:
+```sh
+./mvnw install -Dnative -DskipTests -Dquarkus.native.container-build=true
+```
 
-`./target/amazon-ssm-quickstart-1.0.0-SNAPSHOT-runner -Dparameters.path=/quarkus/is/awesome/` 
+Build a Docker image:
 
+```sh
+docker build -f src/main/docker/Dockerfile.native -t quarkus/amazon-ssm-quickstart .
+```
 
-# Running native in container
+Create a network that connects your container with LocalStack:
 
-Build a native image in container by running:
+```sh
+docker network create localstack
+```
 
-`./mvnw clean package -Pnative -Dnative-image.docker-build=true`
+Stop your LocalStack container you started at the beginning:
 
-Build a docker image:
+```sh
+docker stop local-ssm
+```
 
-`docker build -f src/main/docker/Dockerfile.native -t quarkus/amazon-ssm-quickstart .`
+Start LocalStack and connect to the network:
 
-Create a network that connect your container with localstack:
+```sh
+docker run \
+  --rm \
+  --name local-ssm \
+  --network=localstack \
+  -p 4566:4566 \
+  localstack/localstack
+```
 
-`docker network create localstack`
+Run the Quickstart container connected to that network (note that we're using the internal port of the LocalStack container):
 
-Stop your localstack container you started at the beginning:
+```sh
+docker run -i --rm --network=localstack \
+  -p 8080:8080 \
+  -e QUARKUS_SSM_ENDPOINT_OVERRIDE="http://local-ssm:4566" \
+  -e QUARKUS_SSM_AWS_REGION="us-east-1" \
+  -e QUARKUS_SSM_AWS_CREDENTIALS_TYPE="static" \
+  -e QUARKUS_SSM_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID="test-key" \
+  -e QUARKUS_SSM_AWS_CREDENTIALS_STATIC_PROVIDER_SECRET_ACCESS_KEY="test-secret" \
+  quarkus/amazon-ssm-quickstart
+```
 
-`docker stop local-ssm`
+You can now replay the `curl` commands above.
 
-Start localstack and connect to the network:
+Clean up your environment:
 
-`docker run --rm --network=localstack --name localstack -p 8014:4583 -e SERVICES=ssm -e START_WEB=0 -d localstack/localstack:0.11.1`
+```sh
+docker stop local-ssm
+docker network rm localstack
+```
 
-Run quickstart container connected to that network (note that we're using internal port of the localstack):
+# Using AWS account
 
-`docker run -i --rm --network=localstack -p 8080:8080 -e QUARKUS_SSM_ENDPOINT_OVERRIDE="http://localstack:4583" -e PARAMETERS_PATH="/quarkus/is/awesome/" quarkus/amazon-ssm-quickstart`
+Before you can use the AWS SDKs with SSM, you must get an AWS access key ID and secret access key.
+For more information, see:
+ - [Sign up for AWS and Create an IAM User](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/signup-create-iam-user.html)
+ - [Set Up AWS Credentials and Region for Development](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html)
+
+## Run demo
+
+You can run the demo the same way as for a local instance, but you don't need to override the endpoint as you are going to communicate with the AWS service with the default AWS profile.
+
+Run it:
+
+```sh
+java -jar ./target/quarkus-app/quarkus-run.jar
+```
+
+Or, run it natively:
+
+```sh
+./target/amazon-ssm-quickstart-1.0.0-SNAPSHOT-runner
+```
