@@ -1,10 +1,12 @@
 package org.acme.security.webauthn;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
+import io.quarkus.hibernate.reactive.panache.PanacheEntity;
+import io.smallrye.mutiny.Uni;
 
 @Table(name = "user_table")
 @Entity
@@ -17,7 +19,7 @@ public class User extends PanacheEntity {
     @OneToOne(mappedBy = "user")
     public WebAuthnCredential webAuthnCredential;
 
-    public static User findByUserName(String userName) {
-        return User.find("userName", userName).firstResult();
+    public static Uni<User> findByUserName(String userName) {
+        return find("userName", userName).firstResult();
     }
 }
