@@ -1,1 +1,1 @@
-Quarkus guide: https://quarkus.io/guides/microprofile-graphql
+Quarkus guide: https://quarkus.io/guides/smallrye-graphql
