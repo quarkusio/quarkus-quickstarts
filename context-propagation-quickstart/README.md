@@ -4,15 +4,15 @@
 
 To compile and run this demo you will need:
 
-- JDK 11+
+- JDK 17+
 - GraalVM
 - Docker (and Docker Compose)
 - httpie (or curl)
 
-### Configuring GraalVM and JDK 11+
+### Configuring GraalVM and JDK 17+
 
 Make sure that both the `GRAALVM_HOME` and `JAVA_HOME` environment variables have
-been set, and that a JDK 11+ `java` command is on the path.
+been set, and that a JDK 17+ `java` command is on the path.
 
 See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image)
 for help setting up your environment.

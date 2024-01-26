@@ -13,7 +13,7 @@ Please note that code coverage is not supported in native mode.
 
 You need:
 
-* JDK 11+ installed with JAVA_HOME configured appropriately
+* JDK 17+ installed with JAVA_HOME configured appropriately
 * Apache Maven 3.5.3+
 
 This way, the ```QuarkusTest``` instances will be executed as part of the ```integration-test``` build phase while the other JUnit tests will still be ran during the ```test``` phase.
