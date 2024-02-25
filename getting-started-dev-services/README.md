@@ -13,13 +13,13 @@ Under the hood, this demo uses:
 
 To compile and run this demo you will need:
 
-- JDK 11+
+- JDK 17+
 - A container runtime, such as Docker or Podman
 
-### Configuring JDK 11+
+### Configuring JDK 17+
 
 Make sure that the `JAVA_HOME` environment variables have
-been set, and that a JDK 11+ `java` command is on the path.
+been set, and that a JDK 17+ `java` command is on the path.
 
 ### Live coding with Quarkus
 
