@@ -10,5 +10,5 @@ CREATE TABLE test_user (
     role VARCHAR(255)
 );
 GRANT ALL PRIVILEGES ON TABLE  test_user TO quarkus;
-INSERT INTO test_user (id, username, password, role) VALUES (1, 'admin', 'admin', 'admin');
-INSERT INTO test_user (id, username, password, role) VALUES (2, 'user','user', 'user');
+INSERT INTO test_user (id, username, password, role) VALUES (1, 'admin', '$2a$10$Uc.SZ0hvGJQlYdsAp7be1.lFjmOnc7aAr4L0YY3/VN3oK.F8zJHRG', 'admin');
+INSERT INTO test_user (id, username, password, role) VALUES (2, 'user','$2a$10$Uc.SZ0hvGJQlYdsAp7be1.lFjmOnc7aAr4L0YY3/VN3oK.F8zJHRG', 'user');

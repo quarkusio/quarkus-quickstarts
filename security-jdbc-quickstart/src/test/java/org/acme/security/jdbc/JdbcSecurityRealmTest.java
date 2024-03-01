@@ -38,7 +38,7 @@ public class JdbcSecurityRealmTest {
     @Order(3)
     void shouldAccessAdminWhenAdminAuthenticated() {
         given()
-                .auth().preemptive().basic("admin", "admin")
+                .auth().preemptive().basic("admin", "password")
                 .when()
                 .get("/api/admin")
                 .then()
@@ -50,7 +50,7 @@ public class JdbcSecurityRealmTest {
     @Order(4)
     void shouldNotAccessUserWhenAdminAuthenticated() {
         given()
-                .auth().preemptive().basic("admin", "admin")
+                .auth().preemptive().basic("admin", "password")
                 .when()
                 .get("/api/users/me")
                 .then()
@@ -61,7 +61,7 @@ public class JdbcSecurityRealmTest {
     @Order(5)
     void shouldAccessUserAndGetIdentityWhenUserAuthenticated() {
         given()
-                .auth().preemptive().basic("user", "user")
+                .auth().preemptive().basic("user", "password")
                 .when()
                 .get("/api/users/me")
                 .then()
