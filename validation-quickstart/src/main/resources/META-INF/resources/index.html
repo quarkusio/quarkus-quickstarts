@@ -141,7 +141,7 @@
                 }).fail(function (jqXHR) {
                     $("#result").removeClass("hidden").show();
                     if (jqXHR.responseJSON) {
-                       $(".message").html($.map(jqXHR.responseJSON.parameterViolations, function(v){
+                       $(".message").html($.map(jqXHR.responseJSON.violations, function(v){
                                 return v.message;
                             }).join(', '));
                     } else {
