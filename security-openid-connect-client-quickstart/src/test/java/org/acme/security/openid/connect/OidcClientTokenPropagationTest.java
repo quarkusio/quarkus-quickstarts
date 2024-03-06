@@ -62,6 +62,21 @@ public class OidcClientTokenPropagationTest {
     }
     
     @Test
+    public void testGetNameWithCustomOidcClient() {
+    	
+        RestAssured.given()
+                .when().get("/frontend/user-name-with-custom-oidc-client-token")
+                .then()
+                .statusCode(200)
+                .body(is("alice"));
+
+        //RestAssured.given()
+        //        .when().get("/frontend/admin-name-with-custom-oidc-client-token")
+        //        .then()
+        //        .statusCode(403);
+    }
+    
+    @Test
     public void testGetNameWithDynamicOidcClient() {
     	
         RestAssured.given()

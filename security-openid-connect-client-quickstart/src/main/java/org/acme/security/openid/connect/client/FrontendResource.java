@@ -27,6 +27,10 @@ public class FrontendResource {
     @Inject
     @RestClient
     RestClientWithOidcClientFilter restClientWithOidcClientFilter;
+    
+    @Inject
+    @RestClient
+    RestClientWithCustomOidcClientFilter restClientWithCustomOidcClientFilter;
 
     @Inject
     @RestClient
@@ -48,6 +52,20 @@ public class FrontendResource {
     @Produces("text/plain")
     public Uni<String> getAdminNameWithOidcClientToken() {
 	    return restClientWithOidcClientFilter.getAdminName();
+    }
+    
+    @GET
+    @Path("user-name-with-custom-oidc-client-token")
+    @Produces("text/plain")
+    public Uni<String> getUserNameWithCustomOidcClientToken() {
+        return restClientWithCustomOidcClientFilter.getUserName();
+    }
+    
+    @GET
+    @Path("admin-name-with-custom-oidc-client-token")
+    @Produces("text/plain")
+    public Uni<String> getAdminNameWithCustomOidcClientToken() {
+	    return restClientWithCustomOidcClientFilter.getAdminName();
     }
     
     @GET
