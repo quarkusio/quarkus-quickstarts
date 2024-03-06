@@ -2,7 +2,6 @@ package org.acme.security.openid.connect;
 
 import static org.hamcrest.Matchers.is;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -58,6 +57,36 @@ public class OidcClientTokenPropagationTest {
 
         RestAssured.given()
                 .when().get("/frontend/admin-name-with-oidc-client-token")
+                .then()
+                .statusCode(403);
+    }
+    
+    @Test
+    public void testGetNameWithDynamicOidcClient() {
+    	
+        RestAssured.given()
+                .when().get("/frontend/user-name-with-oidc-client-token-header-param")
+                .then()
+                .statusCode(200)
+                .body(is("alice"));
+
+        RestAssured.given()
+                .when().get("/frontend/admin-name-with-oidc-client-token-header-param")
+                .then()
+                .statusCode(403);
+    }
+    
+    @Test
+    public void testGetNameWithBlockingDynamicOidcClient() {
+    	
+        RestAssured.given()
+                .when().get("/frontend/user-name-with-oidc-client-token-header-param-blocking")
+                .then()
+                .statusCode(200)
+                .body(is("alice"));
+
+        RestAssured.given()
+                .when().get("/frontend/admin-name-with-oidc-client-token-header-param-blocking")
                 .then()
                 .statusCode(403);
     }
