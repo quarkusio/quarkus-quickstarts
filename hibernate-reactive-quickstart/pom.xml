@@ -48,13 +48,13 @@
         <!-- We are using RESTEasy Reactive in this quickstart -->
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-reactive</artifactId>
+            <artifactId>quarkus-rest</artifactId>
         </dependency>
         <!-- These dependencies convert the entity and Mutiny/CompletionStage results into
                 RESTEasy responses -->
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
+            <artifactId>quarkus-rest-jackson</artifactId>
         </dependency>
 
         <!-- Testing -->

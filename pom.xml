@@ -71,10 +71,8 @@
         <module>quartz-quickstart</module>
         <module>qute-quickstart</module>
         <module>rabbitmq-quickstart</module>
-        <module>rest-client-reactive-quickstart</module>
+        <module>rest-client-quickstart</module>
         <module>reactive-routes-quickstart</module>
-        <module>reactive-messaging-http-quickstart</module>
-        <module>reactive-messaging-websockets-quickstart</module>
         <module>redis-quickstart</module>
         <module>resteasy-client-quickstart</module>
         <module>resteasy-client-multipart-quickstart</module>

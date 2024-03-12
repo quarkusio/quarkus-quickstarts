@@ -31,7 +31,7 @@
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-smallrye-reactive-messaging-amqp</artifactId>
+      <artifactId>quarkus-messaging-amqp</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
