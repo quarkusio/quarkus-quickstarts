@@ -38,9 +38,9 @@ Here you have some examples to check the security configuration:
 ```bash
 curl -i -X GET http://localhost:8080/api/public  # 'public'
 curl -i -X GET http://localhost:8080/api/admin  # unauthorized
-curl -i -X GET -u admin:admin http://localhost:8080/api/admin # 'admin'
+curl -i -X GET -u admin:password http://localhost:8080/api/admin # 'admin'
 curl -i -X GET http://localhost:8080/api/users/me # 'unauthorized'
-curl -i -X GET -u user:user http://localhost:8080/api/users/me # 'user'
+curl -i -X GET -u user:password http://localhost:8080/api/users/me # 'user'
 ```
 
 _NOTE:_ Stop the database using: `docker-compose down; docker-compose rm`
