@@ -16,6 +16,8 @@ import jakarta.ws.rs.core.MediaType;
 
 import org.acme.hibernate.search.elasticsearch.model.Author;
 import org.acme.hibernate.search.elasticsearch.model.Book;
+
+import org.hibernate.search.mapper.orm.mapping.SearchMapping;
 import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.RestQuery;
@@ -28,11 +30,14 @@ public class LibraryResource {
     @Inject
     SearchSession searchSession;
 
-    @Transactional
+    @Inject
+    SearchMapping searchMapping;
+
     void onStart(@Observes StartupEvent ev) throws InterruptedException {
         // only reindex if we imported some content
         if (Book.count() > 0) {
-            searchSession.massIndexer()
+            searchMapping.scope(Object.class)
+                    .massIndexer()
                     .startAndWait();
         }
     }
