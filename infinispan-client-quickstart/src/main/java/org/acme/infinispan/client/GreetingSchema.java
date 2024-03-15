@@ -1,8 +1,8 @@
 package org.acme.infinispan.client;
 
 import org.infinispan.protostream.GeneratedSchema;
-import org.infinispan.protostream.annotations.AutoProtoSchemaBuilder;
+import org.infinispan.protostream.annotations.ProtoSchema;
 
-@AutoProtoSchemaBuilder(includeClasses = Greeting.class)
+@ProtoSchema(includeClasses = Greeting.class)
 public interface GreetingSchema extends GeneratedSchema {
 }
