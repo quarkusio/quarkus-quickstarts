@@ -1,11 +1,6 @@
 package org.acme.infinispan.client;
 
-import org.infinispan.protostream.annotations.ProtoField;
+import org.infinispan.protostream.annotations.Proto;
 
-public class Greeting {
-   @ProtoField(number = 1)
-   public String name;
-
-   @ProtoField(number = 2)
-   public String message;
-}
+@Proto
+public record Greeting(String name, String message) { }
