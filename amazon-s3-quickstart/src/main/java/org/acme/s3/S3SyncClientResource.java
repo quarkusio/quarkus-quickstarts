@@ -54,7 +54,7 @@ public class S3SyncClientResource extends CommonResource {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadFile(String objectKey) {
         ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(buildGetRequest(objectKey));
-        ResponseBuilder response = Response.ok(objectBytes.asUtf8String());
+        ResponseBuilder response = Response.ok(objectBytes.asByteArray());
         response.header("Content-Disposition", "attachment;filename=" + objectKey);
         response.header("Content-Type", objectBytes.response().contentType());
         return response.build();
