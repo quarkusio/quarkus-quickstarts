@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import jakarta.enterprise.context.ApplicationScoped;
-
-import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
+import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
 import io.quarkus.security.webauthn.WebAuthnUserProvider;
 import io.smallrye.mutiny.Uni;
 import io.vertx.ext.auth.webauthn.AttestationCertificates;
@@ -17,21 +16,21 @@ import io.vertx.ext.auth.webauthn.Authenticator;
 @ApplicationScoped
 public class MyWebAuthnSetup implements WebAuthnUserProvider {
 
-    @ReactiveTransactional
+    @WithTransaction
     @Override
     public Uni<List<Authenticator>> findWebAuthnCredentialsByUserName(String userName) {
         return WebAuthnCredential.findByUserName(userName)
                 .flatMap(MyWebAuthnSetup::toAuthenticators);
     }
 
-    @ReactiveTransactional
+    @WithTransaction
     @Override
     public Uni<List<Authenticator>> findWebAuthnCredentialsByCredID(String credID) {
         return WebAuthnCredential.findByCredID(credID)
                 .flatMap(MyWebAuthnSetup::toAuthenticators);
     }
 
-    @ReactiveTransactional
+    @WithTransaction
     @Override
     public Uni<Void> updateOrStoreWebAuthnCredentials(Authenticator authenticator) {
         // leave the scooby user to the manual endpoint, because if we do it here it will be
