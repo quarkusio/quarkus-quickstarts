@@ -48,7 +48,6 @@
       <li><a href="/api/users/me">User API</a></li>
       <li><a href="/api/admin">Admin API</a></li>
       <li><a href="/q/webauthn/logout">Logout</a></li>
-     </ul>
     </nav>
     <div class="container">
      <div class="item">
@@ -87,7 +86,7 @@
       
       const loginButton = document.getElementById('login');
       
-      loginButton.addEventListener("click", (e) => {
+      loginButton.onclick = () => {
         var userName = document.getElementById('userNameLogin').value;
         result.replaceChildren();
         webAuthn.login({ name: userName })
@@ -98,11 +97,11 @@
             result.append("Login failed: "+err);
           });
         return false;
-      });
+      };
 
       const registerButton = document.getElementById('register');
       
-      registerButton.addEventListener("click", (e) => {
+      registerButton.onclick = () => {
         var userName = document.getElementById('userNameRegister').value;
         var firstName = document.getElementById('firstName').value;
         var lastName = document.getElementById('lastName').value;
@@ -115,7 +114,7 @@
             result.append("Registration failed: "+err);
           });
         return false;
-      });
+      };
     </script>
   </body>
 </html>

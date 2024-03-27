@@ -96,9 +96,9 @@ public class WebAuthnResourceTest {
         .then()
         .statusCode(200)
         .log().ifValidationFails()
-        .cookie(WebAuthnEndpointHelper.getChallengeCookie(), Matchers.is(""))
-        .cookie(WebAuthnEndpointHelper.getChallengeUsernameCookie(), Matchers.is(""))
-        .cookie(WebAuthnEndpointHelper.getMainCookie(), Matchers.notNullValue());
+        .cookie(WebAuthnController.CHALLENGE_COOKIE, Matchers.is(""))
+        .cookie(WebAuthnController.USERNAME_COOKIE, Matchers.is(""))
+        .cookie("quarkus-credential", Matchers.notNullValue());
     }
 
     private void verifyLoggedIn(Filter cookieFilter, String userName, User user) {
