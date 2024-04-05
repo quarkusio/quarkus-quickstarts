@@ -20,7 +20,7 @@ import io.restassured.RestAssured;
 @QuarkusTest
 public class CodeFlowTest {
 
-	KeycloakTestClient keycloakClient = new KeycloakTestClient();
+    KeycloakTestClient keycloakClient = new KeycloakTestClient();
 	
     @Test
     public void testLogInDefaultTenant() throws IOException {
@@ -37,6 +37,8 @@ public class CodeFlowTest {
             page = loginForm.getInputByName("login").click();
 
             assertTrue(page.asText().contains("tenant"));
+
+            webClient.getCookieManager().clearCookies();
         }
     }
 
@@ -55,6 +57,7 @@ public class CodeFlowTest {
             page = loginForm.getInputByName("login").click();
 
             assertTrue(page.asText().contains("alice@tenant-a.org"));
+            webClient.getCookieManager().clearCookies();
         }
     }
     
@@ -96,6 +99,8 @@ public class CodeFlowTest {
             page = loginForm.getInputByName("login").click();
 
             assertTrue(page.asText().contains("alice@keycloak.org"));
+
+            webClient.getCookieManager().clearCookies();
         }
     }
 
