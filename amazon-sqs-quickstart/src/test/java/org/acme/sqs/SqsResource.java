@@ -20,7 +20,7 @@ import software.amazon.awssdk.services.sqs.SqsClient;
 public class SqsResource implements QuarkusTestResourceLifecycleManager {
 
     private static final DockerImageName LOCALSTACK_IMAGE_NAME = DockerImageName.parse("localstack/localstack")
-            .withTag("0.12.17");
+            .withTag("3.3");
 
     public final static String QUEUE_NAME = "Quarkus";
 
