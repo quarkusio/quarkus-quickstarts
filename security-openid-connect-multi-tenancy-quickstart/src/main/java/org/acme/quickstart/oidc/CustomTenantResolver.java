@@ -8,6 +8,7 @@ import io.quarkus.oidc.OidcRequestContext;
 import io.quarkus.oidc.OidcTenantConfig;
 import io.quarkus.oidc.OidcTenantConfig.ApplicationType;
 import io.quarkus.oidc.TenantConfigResolver;
+import io.quarkus.oidc.runtime.OidcUtils;
 import io.smallrye.mutiny.Uni;
 import io.vertx.ext.web.RoutingContext;
 
@@ -17,7 +18,7 @@ public class CustomTenantResolver implements TenantConfigResolver {
     @Override 
     public Uni<OidcTenantConfig> resolve(RoutingContext context, OidcRequestContext<OidcTenantConfig> requestContext) {
         String path = context.request().path();
-        
+
         if (path.startsWith("/tenant-a")) {
         
 	        String keycloakUrl = ConfigProvider.getConfig().getValue("keycloak.url", String.class);
@@ -30,7 +31,7 @@ public class CustomTenantResolver implements TenantConfigResolver {
 	        config.setApplicationType(ApplicationType.HYBRID);
 	        return Uni.createFrom().item(config);
         } else {
-        	// resolve to default tenant config
+            context.put(OidcUtils.TENANT_ID_ATTRIBUTE, OidcUtils.DEFAULT_TENANT_ID);
             return Uni.createFrom().nullItem();
         }
     }
