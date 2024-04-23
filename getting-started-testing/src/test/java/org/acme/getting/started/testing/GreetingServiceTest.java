@@ -2,7 +2,7 @@ package org.acme.getting.started.testing;
 
 import jakarta.inject.Inject;
 
-import org.junit.jupiter.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -15,6 +15,6 @@ public class GreetingServiceTest {
 
     @Test
     public void testGreetingService() {
-        Assertions.assertEquals("hello Quarkus", service.greeting("Quarkus"));
+        assertThat(service.greeting("Quarkus")).isEqualTo("hello Quarkus");
     }
 }
