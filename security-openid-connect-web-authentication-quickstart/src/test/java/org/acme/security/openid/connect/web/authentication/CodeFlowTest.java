@@ -1,10 +1,13 @@
 package org.acme.security.openid.connect.web.authentication;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +28,10 @@ public class CodeFlowTest {
             HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 
             assertEquals("Sign in to quarkus", page.getTitleText());
-
+            List<Cookie> stateCookies = getStateCookies(webClient); 
+            assertNotNull(stateCookies);
+            assertEquals(1, stateCookies.size());
+            
             HtmlForm loginForm = page.getForms().get(0);
 
             loginForm.getInputByName("username").setValueAttribute("alice");
@@ -39,6 +45,10 @@ public class CodeFlowTest {
 
             assertEquals("Welcome to Your Quarkus Application", page.getTitleText(),
                     "A second request should not redirect and just re-authenticate the user");
+            assertNotNull(getSessionCookie(webClient));
+            assertNull(getStateCookies(webClient));
+            
+            webClient.getCookieManager().clearCookies();
         }
     }
 
@@ -48,7 +58,10 @@ public class CodeFlowTest {
             HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 
             assertEquals("Sign in to quarkus", page.getTitleText());
-
+            List<Cookie> stateCookies = getStateCookies(webClient); 
+            assertNotNull(stateCookies);
+            assertEquals(1, stateCookies.size());
+            
             HtmlForm loginForm = page.getForms().get(0);
 
             loginForm.getInputByName("username").setValueAttribute("alice");
@@ -58,15 +71,22 @@ public class CodeFlowTest {
 
             assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
 
+            assertNotNull(getSessionCookie(webClient));
+            assertNull(getStateCookies(webClient));
+            
             Thread.sleep(5000);
 
             page = webClient.getPage("http://localhost:8081/index.html");
 
-            Cookie sessionCookie = getSessionCookie(webClient);
-
-            assertNull(sessionCookie);
-
+            assertNull(getSessionCookie(webClient));
+            
             assertEquals("Sign in to quarkus", page.getTitleText());
+            
+            stateCookies = getStateCookies(webClient); 
+            assertNotNull(stateCookies);
+            assertEquals(1, stateCookies.size());
+            
+            webClient.getCookieManager().clearCookies();
         }
     }
 
@@ -76,6 +96,10 @@ public class CodeFlowTest {
             HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
 
             assertEquals("Sign in to quarkus", page.getTitleText());
+            List<Cookie> stateCookies = getStateCookies(webClient); 
+            assertNotNull(stateCookies);
+            assertEquals(1, stateCookies.size());
+            assertNull(getSessionCookie(webClient));
 
             HtmlForm loginForm = page.getForms().get(0);
 
@@ -91,11 +115,22 @@ public class CodeFlowTest {
             assertTrue(page.getBody().asText().contains("username"));
             assertTrue(page.getBody().asText().contains("scopes"));
             assertTrue(page.getBody().asText().contains("refresh_token: true"));
+            
+            assertNotNull(getSessionCookie(webClient));
+            assertNull(getStateCookies(webClient));
+            
+            webClient.getCookieManager().clearCookies();
         }
     }
 
     private Cookie getSessionCookie(WebClient webClient) {
         return webClient.getCookieManager().getCookie("q_session");
+    }
+    
+    private List<Cookie> getStateCookies(WebClient webClient) {
+        List<Cookie> cookies = webClient.getCookieManager().getCookies().stream().filter(c -> c.getName().startsWith("q_auth"))
+        		.collect(Collectors.toList());
+        return cookies.isEmpty() ? null : cookies;
     }
 
     private WebClient createWebClient() {
