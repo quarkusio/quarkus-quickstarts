@@ -1,6 +1,7 @@
 package org.acme.security.openid.connect.web.authentication;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -71,21 +72,39 @@ public class CodeFlowTest {
 
             assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
 
-            assertNotNull(getSessionCookie(webClient));
+            Cookie sessionCookie = getSessionCookie(webClient);
+            assertNotNull(sessionCookie);
             assertNull(getStateCookies(webClient));
-            
-            Thread.sleep(5000);
 
+            page = webClient.getPage("http://localhost:8081/index.html");
+            assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
+
+            // The same session cookie value is expected after 2 consecutive calls
+            assertEquals(sessionCookie.getValue(), getSessionCookie(webClient).getValue());
+
+            // Session refresh skew is 7 seconds, ID token lifespan is 9 seconds, therefore a new session
+            // must be automatically created after waiting for 3 seconds
+            Thread.sleep(3000);
+
+            page = webClient.getPage("http://localhost:8081/index.html");
+            assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
+            Cookie refreshSkewSessionCookie = getSessionCookie(webClient);
+            assertNotEquals(sessionCookie.getValue(), refreshSkewSessionCookie.getValue());
+
+            // Lets wait till the session cookie itself has expired who age is ID token 9 secs plus session age extension 3 secs = 12 secs
+            Thread.sleep(13000);
+
+            // Re-authentication request is expected
             page = webClient.getPage("http://localhost:8081/index.html");
 
             assertNull(getSessionCookie(webClient));
-            
+
             assertEquals("Sign in to quarkus", page.getTitleText());
-            
+
             stateCookies = getStateCookies(webClient); 
             assertNotNull(stateCookies);
             assertEquals(1, stateCookies.size());
-            
+
             webClient.getCookieManager().clearCookies();
         }
     }
