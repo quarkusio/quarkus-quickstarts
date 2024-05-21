@@ -44,6 +44,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Amazon S3](./amazon-s3-quickstart): How to connect to an Amazon S3 cloud storage
 * [Amazon SNS](./amazon-sns-quickstart): How to connect to an Amazon SNS (Simple Messaging Service)
 * [Amazon SQS](./amazon-sqs-quickstart): How to connect to an Amazon SQS (Simple Queue Service)
+* [Amazon SQS Connector](./amazon-sqs-connector-quickstart): How to connect to an Amazon SQS (Simple Queue Service) using the Reactive Messaging connector
 * [Amazon SSM](./amazon-ssm-quickstart): How to connect to Amazon SSM (Simple Systems Manager)
 * [AWT Graphics, ImageIO](./awt-graphics-rest-quickstart): How to create a service that watermarks images and draws text
 * [Hibernate Reactive Panache and RESTEasy Reactive](./hibernate-reactive-quickstart): Exposing a CRUD service over REST using Hibernate Reactive and Panache to connect to a PostgreSQL database
