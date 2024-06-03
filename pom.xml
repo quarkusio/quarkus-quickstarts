@@ -109,6 +109,7 @@
         <module>validation-quickstart</module>
         <module>vertx-quickstart</module>
         <module>websockets-quickstart</module>
+        <module>websockets-next-quickstart</module>
         <module>liquibase-quickstart</module>
         <module>liquibase-mongodb-quickstart</module>
         <module>mailer-quickstart</module>
