@@ -192,9 +192,10 @@
         </plugins>
       </build>
       <properties>
-        <quarkus.package.type>native</quarkus.package.type>
         <!-- To allow application.properties to avoid using the in-memory database for native builds. -->
         <quarkus.profile>native</quarkus.profile>
+        <quarkus.native.enabled>true</quarkus.native.enabled>
+        <quarkus.package.jar.enabled>false</quarkus.package.jar.enabled>
       </properties>
     </profile>
   </profiles>
