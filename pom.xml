@@ -16,6 +16,7 @@
         <module>amazon-sns-quickstart</module>
         <module>amazon-sqs-quickstart</module>
         <module>amazon-ssm-quickstart</module>
+        <module>amazon-sqs-connector-quickstart</module>
         <module>amqp-quickstart</module>
         <module>awt-graphics-rest-quickstart</module>
         <module>cache-quickstart</module>
