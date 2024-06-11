@@ -1,6 +1,6 @@
 package org.acme.spring.data.rest;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FruitsRepository extends PagingAndSortingRepository<Fruit, Long> {
+public interface FruitsRepository extends JpaRepository<Fruit, Long> {
 }
