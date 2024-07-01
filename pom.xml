@@ -117,6 +117,7 @@
         <module>kafka-panache-quickstart</module>
         <module>kafka-panache-reactive-quickstart</module>
         <module>jta-quickstart</module>
+        <module>narayana-transaction-logs-quickstart</module>
     </modules>
 
     <build>
