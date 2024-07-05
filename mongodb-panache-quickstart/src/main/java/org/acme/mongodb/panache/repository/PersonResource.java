@@ -41,7 +41,7 @@ public class PersonResource {
 
     @PUT
     @Path("/{id}")
-    public void update(String id, Person person) {
+    public void update(Person person) {
         personRepository.update(person);
     }
 
