@@ -33,14 +33,14 @@ import org.junit.jupiter.api.Timeout;
 
 import io.quarkus.kafka.client.serialization.ObjectMapperDeserializer;
 import io.quarkus.kafka.client.serialization.ObjectMapperSerializer;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 /**
  * Integration testing of the application with an embedded broker.
  */
 @QuarkusTest
-@QuarkusTestResource(KafkaResource.class)
+@WithTestResource(KafkaResource.class)
 public class AggregatorTest {
 
     KafkaProducer<Integer, String> temperatureProducer;

@@ -1,6 +1,6 @@
 package org.acme.mongodb;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import org.apache.http.HttpStatus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,7 +12,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
-@QuarkusTestResource(MongoDbResource.class)
+@WithTestResource(MongoDbResource.class)
 public class FruitResourceTest {
 
     @ParameterizedTest

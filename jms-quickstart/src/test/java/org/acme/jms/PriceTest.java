@@ -5,14 +5,14 @@ import static org.awaitility.Awaitility.await;
 
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 
 import java.time.Duration;
 
 @QuarkusTest
-@QuarkusTestResource(ArtemisTestResource.class)
+@WithTestResource(ArtemisTestResource.class)
 public class PriceTest {
 
     @Test
