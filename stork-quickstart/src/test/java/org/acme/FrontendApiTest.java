@@ -1,6 +1,6 @@
 package org.acme;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Assertions;
@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @QuarkusTest
-@QuarkusTestResource(ConsulTestResource.class)
+@WithTestResource(ConsulTestResource.class)
 public class FrontendApiTest {
 
     @Test

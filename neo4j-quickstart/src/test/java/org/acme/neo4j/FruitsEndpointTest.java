@@ -14,11 +14,11 @@ import jakarta.ws.rs.core.MediaType;
 
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-@QuarkusTestResource(Neo4jResource.class)
+@WithTestResource(Neo4jResource.class)
 class FruitsEndpointTest {
 
     private static final Map<String, String> fruitIdMap = new HashMap<>();

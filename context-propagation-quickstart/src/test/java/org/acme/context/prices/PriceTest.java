@@ -15,13 +15,13 @@ import org.acme.context.Price;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
 
 @QuarkusTest
-@QuarkusTestResource(KafkaResource.class)
+@WithTestResource(KafkaResource.class)
 public class PriceTest {
 
     private static final String PRICES_SSE_ENDPOINT = "http://localhost:8081/prices";

@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.config.ObjectMapperConfig;
@@ -23,7 +23,7 @@ import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 
 @QuarkusTest
-@QuarkusTestResource(MongoDbResource.class)
+@WithTestResource(MongoDbResource.class)
 class PersonResourceTest {
 
     @BeforeAll
