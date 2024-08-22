@@ -17,7 +17,7 @@ class TokenSecuredResourceTest {
     void testPermitAll() {
         RestAssured.given()
                 .when()
-                .header("Authorization", "Bearer: " + BEARER_TOKEN)
+                .header("Authorization", "Bearer " + BEARER_TOKEN)
                 .get("/secured/permit-all")
                 .then()
                 .statusCode(200)
@@ -28,7 +28,7 @@ class TokenSecuredResourceTest {
     void testRolesAllowed() {
         RestAssured.given()
                 .when()
-                .header("Authorization", "Bearer: " + BEARER_TOKEN)
+                .header("Authorization", "Bearer " + BEARER_TOKEN)
                 .get("/secured/roles-allowed")
                 .then()
                 .statusCode(200)
