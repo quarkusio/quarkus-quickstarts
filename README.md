@@ -56,6 +56,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Hibernate ORM REST Data with Panache](./hibernate-orm-rest-data-panache-quickstart): Automatically generate the CRUD endpoints for your entities and repositories using Hibernate ORM with Panache.
 * [Hibernate ORM Multitenancy](./hibernate-orm-multi-tenancy-quickstart): Multitenant CRUD service over REST using Hibernate ORM to connect to a PostgreSQL database (schema or database approach)
 * [Hibernate Search + Elasticsearch](./hibernate-search-orm-elasticsearch-quickstart): Index your Hibernate entities in Elasticsearch to get full text search
+* [Blazebit Persistency](./blazebit-quickstart): How to use Blazebit Persistency. Exposes a REST service to load and store data in PostgreSQL
 * [Infinispan Client](./infinispan-client-quickstart): How to use Infinispan Client. Covers creating caches and simple get/put
 * [Artemis JMS](./jms-quickstart): How to use the Artemis JMS extension
 * [Kafka](./kafka-quickstart): Use MicroProfile Reactive Messaging to interact with Apache Kafka
