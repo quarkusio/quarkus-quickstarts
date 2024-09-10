@@ -47,14 +47,14 @@ jobs:
         shell: bash
       - name: Cache Maven Repository
         id: cache-maven
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           # refresh cache every month to avoid unlimited growth
           key: q2maven-native-${{ steps.get-date.outputs.date }}
 
       - name: Install JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
@@ -117,7 +117,7 @@ jobs:
     needs: [build-with-native]
     if: "always() && github.repository == 'quarkusio/quarkus-quickstarts'"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
       - name: Report
