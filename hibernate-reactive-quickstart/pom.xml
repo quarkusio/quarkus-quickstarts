@@ -10,7 +10,7 @@
     <properties>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.14.2</quarkus.platform.version>
+        <quarkus.platform.version>3.14.3</quarkus.platform.version>
         <surefire-plugin.version>3.1.2</surefire-plugin.version>
         <compiler-plugin.version>3.11.0</compiler-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
