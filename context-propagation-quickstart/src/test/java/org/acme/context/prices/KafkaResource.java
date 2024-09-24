@@ -9,7 +9,7 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class KafkaResource implements QuarkusTestResourceLifecycleManager {
 
-    private final KafkaContainer kafka = new KafkaContainer();
+    private final KafkaContainer kafka = new KafkaContainer("7.7.0");
 
     @Override
     public Map<String, String> start() {

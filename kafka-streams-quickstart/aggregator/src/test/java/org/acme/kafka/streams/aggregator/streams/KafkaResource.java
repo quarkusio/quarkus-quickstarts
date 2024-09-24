@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class KafkaResource implements QuarkusTestResourceLifecycleManager {
 
-    private final static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.4.3"));
+    private final static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.7.0"));
 
     @Override
     public Map<String, String> start() {
