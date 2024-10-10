@@ -47,6 +47,7 @@
         <module>hibernate-search-orm-elasticsearch-quickstart</module>
         <module>hibernate-search-standalone-elasticsearch-quickstart</module>
         <module>hibernate-orm-rest-data-panache-quickstart</module>
+        <module>hibernate-reactive-rest-data-panache-quickstart</module>
         <module>infinispan-client-quickstart</module>
         <module>infinispan-cache-quickstart</module>
         <module>jms-quickstart</module>
