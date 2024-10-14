@@ -9,21 +9,21 @@ import io.vertx.ext.web.client.WebClientOptions;
 import io.vertx.mutiny.core.Vertx;
 import io.vertx.mutiny.ext.web.client.WebClient;
 
-@Path("/fruit-data")
+@Path("/character-data")
 public class ResourceUsingWebClient {
 
     private final WebClient client;
 
     public ResourceUsingWebClient(Vertx vertx) {
         this.client = WebClient.create(vertx,
-                new WebClientOptions().setDefaultHost("fruityvice.com").setDefaultPort(443).setSsl(true)
+                new WebClientOptions().setDefaultHost("swapi.dev").setDefaultPort(443).setSsl(true)
                         .setTrustAll(true));
     }
 
     @GET
-    @Path("/{name}")
-    public Uni<JsonObject> getFruitData(String name) {
-        return client.get("/api/fruit/" + name)
+    @Path("/{id}")
+    public Uni<JsonObject> getStarWarsData(String id) {
+        return client.get("/api/people/" + id)
                 .send()
                 .map(resp -> {
                     if (resp.statusCode() == 200) {
