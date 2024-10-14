@@ -11,12 +11,13 @@ import io.quarkus.test.junit.QuarkusTest;
 class ResourceUsingWebClientTest {
 
     @Test
-    void testBananaData() {
+    void testStarWarsData() {
         given()
-                .when().get("/fruit-data/banana")
+                .when().get("/character-data/1")
                 .then()
                 .statusCode(200)
-                .body(containsString("Musaceae"));
+                .body(containsString("Luke Skywalker"));
+
     }
 
 }
