@@ -28,4 +28,17 @@ public class TracedResourceTest {
                 .body(is("chain -> hello"));
     }
 
+    @Test
+    public void testSetMetricEndpoint() {
+        long testValue = 42L;
+
+        given()
+                .queryParam("value", testValue)
+                .when().get("/metrics/set")
+                .then()
+                .statusCode(200)
+                .body("status", is("success"))
+                .body("xvalue", is((int)testValue));
+    }
+
 }
