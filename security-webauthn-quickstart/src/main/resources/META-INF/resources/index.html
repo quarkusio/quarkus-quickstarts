@@ -58,7 +58,6 @@
      <div class="item">
       <h1>Login</h1>
       <p>
-       <input id="userNameLogin" placeholder="User name"/><br/>
        <button id="login">Login</button>
       </p>
      </div>
@@ -73,11 +72,7 @@
      </div>
     </div>
     <script type="text/javascript">
-      const webAuthn = new WebAuthn({
-        callbackPath: '/q/webauthn/callback',
-        registerPath: '/q/webauthn/register',
-        loginPath: '/q/webauthn/login'
-      });
+      const webAuthn = new WebAuthn();
       
       const result = document.getElementById('result');
       
@@ -88,10 +83,11 @@
       const loginButton = document.getElementById('login');
       
       loginButton.addEventListener("click", (e) => {
-        var userName = document.getElementById('userNameLogin').value;
         result.replaceChildren();
-        webAuthn.login({ name: userName })
-          .then(body => {
+        webAuthn.login()
+          .then(x => fetch('/api/public/me'))
+          .then(response => response.text())
+          .then(userName => {
             result.append("User: "+userName);
           })
           .catch(err => {
