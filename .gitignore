@@ -11,6 +11,10 @@ buildNumber.properties
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
 
+.gradle/
+build/
+.gradletasknamecache
+
 *.log
 graph-output.dot
 
@@ -24,3 +28,14 @@ graph-output.dot
 
 settings.xml
 quarkus.log
+
+bin/
+.DS_Store
+ObjectStore
+
+lsp/
+
+*.swp
+*.swo
+
+.quarkus

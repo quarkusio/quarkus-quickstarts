@@ -1,0 +1,14 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: configchain
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: defaultChain.output
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: funqy-knative-events-quickstart

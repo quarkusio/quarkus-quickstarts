@@ -1,0 +1,14 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: lastchainlink
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: lastChainLink
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: funqy-knative-events-quickstart

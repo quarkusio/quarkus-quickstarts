@@ -5,27 +5,127 @@
 
     <groupId>io.quarkus.quickstarts</groupId>
     <artifactId>quickstart-projects</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>application-configuration</module>
-        <module>application-lifecycle-events</module>
+        <module>amazon-dynamodb-quickstart</module>
+        <module>amazon-kms-quickstart</module>
+        <module>amazon-s3-quickstart</module>
+        <module>amazon-ses-quickstart</module>
+        <module>amazon-sns-quickstart</module>
+        <module>amazon-sqs-quickstart</module>
+        <module>amazon-ssm-quickstart</module>
+        <module>amazon-sqs-connector-quickstart</module>
+        <module>amqp-quickstart</module>
+        <module>awt-graphics-rest-quickstart</module>
+        <module>cache-quickstart</module>
+        <module>config-quickstart</module>
+        <module>context-propagation-quickstart</module>
+        <module>elasticsearch-quickstart</module>
+        <module>funqy-quickstarts</module>
         <module>getting-started</module>
         <module>getting-started-async</module>
-        <module>hibernate-orm-resteasy</module>
-        <module>hibernate-orm-panache-resteasy</module>
-        <module>infinispan-client</module>
-        <module>validation</module>
-        <module>scheduling-periodic-tasks</module>
-        <module>using-websockets</module>
-        <module>using-opentracing</module>
-        <module>using-spring-di</module>
-        <module>using-jwt-rbac</module>
-        <module>rest-client</module>
-        <module>kafka-quickstart</module>
-        <module>rest-json</module>
+        <module>getting-started-reactive</module>
+        <module>getting-started-reactive-crud</module>
         <module>getting-started-knative</module>
         <module>getting-started-testing</module>
+        <module>getting-started-command-mode</module>
+        <module>getting-started-dev-services</module>
+        <module>google-cloud-functions-quickstart</module>
+        <module>google-cloud-functions-http-quickstart</module>
+        <module>hibernate-orm-quickstart</module>
+        <module>hibernate-reactive-quickstart</module>
+        <module>hibernate-reactive-stateless-quickstart</module>
+        <module>hibernate-reactive-routes-quickstart</module>
+        <module>grpc-plain-text-quickstart</module>
+        <module>grpc-tls-quickstart</module>
+        <module>hibernate-orm-panache-quickstart</module>
+        <module>hibernate-orm-panache-kotlin-quickstart</module>
+        <module>hibernate-reactive-panache-quickstart</module>
+        <module>hibernate-orm-multi-tenancy-quickstart</module>
+        <module>hibernate-search-orm-elasticsearch-quickstart</module>
+        <module>hibernate-search-standalone-elasticsearch-quickstart</module>
+        <module>hibernate-orm-rest-data-panache-quickstart</module>
+        <module>infinispan-client-quickstart</module>
+        <module>infinispan-cache-quickstart</module>
+        <module>jms-quickstart</module>
+        <module>kafka-quickstart</module>
+        <module>kafka-avro-schema-quickstart</module>
+        <module>kafka-bare-quickstart</module>
+        <module>kafka-streams-quickstart</module>
+        <module>optaplanner-quickstart</module>
+        <module>lifecycle-quickstart</module>
+        <module>micrometer-quickstart</module>
+        <module>microprofile-fault-tolerance-quickstart</module>
+        <module>microprofile-graphql-quickstart</module>
+        <module>microprofile-graphql-client-quickstart</module>
+        <module>microprofile-health-quickstart</module>
+        <module>microprofile-metrics-quickstart</module>
+        <module>mongodb-quickstart</module>
+        <module>mongodb-panache-quickstart</module>
+        <module>mqtt-quickstart</module>
+        <!--
+        <module>neo4j-quickstart</module>
+        -->
+        <module>openapi-swaggerui-quickstart</module>
+        <module>opentelemetry-quickstart</module>
+        <module>pulsar-quickstart</module>
+        <module>quartz-quickstart</module>
+        <module>qute-quickstart</module>
+        <module>rabbitmq-quickstart</module>
+        <module>rest-client-quickstart</module>
+        <module>reactive-routes-quickstart</module>
+        <module>redis-quickstart</module>
+        <module>resteasy-client-quickstart</module>
+        <module>resteasy-client-multipart-quickstart</module>
+        <module>rest-json-quickstart</module>
+        <module>scheduler-quickstart</module>
+        <module>security-jdbc-quickstart</module>
+        <module>security-jpa-quickstart</module>
+        <module>security-jpa-reactive-quickstart</module>
+        <module>security-jwt-quickstart</module>
+        <module>security-keycloak-authorization-quickstart</module>
+        <module>security-ldap-quickstart</module>
+        <module>security-oauth2-quickstart</module>
+        <module>security-openid-connect-quickstart</module>
+        <module>security-openid-connect-client-quickstart</module>
+        <module>security-openid-connect-web-authentication-quickstart</module>
+        <module>security-openid-connect-multi-tenancy-quickstart</module>
+        <module>security-webauthn-quickstart</module>
+        <module>security-webauthn-reactive-quickstart</module>
+        <module>software-transactional-memory-quickstart</module>
+        <module>spring-di-quickstart</module>
+        <module>spring-web-quickstart</module>
+        <module>spring-data-jpa-quickstart</module>
+        <module>spring-security-quickstart</module>
+        <module>spring-scheduled-quickstart</module>
+        <module>spring-boot-properties-quickstart</module>
+        <module>spring-data-rest-quickstart</module>
+        <module>stork-quickstart</module>
+        <module>stork-kubernetes-quickstart</module>
+        <module>stork-dns-quickstart</module>
+        <module>tests-with-coverage-quickstart</module>
+        <module>tika-quickstart</module>
+        <module>validation-quickstart</module>
+        <module>vertx-quickstart</module>
+        <module>websockets-quickstart</module>
+        <module>websockets-next-quickstart</module>
+        <module>liquibase-quickstart</module>
+        <module>liquibase-mongodb-quickstart</module>
+        <module>mailer-quickstart</module>
+        <module>kafka-panache-quickstart</module>
+        <module>kafka-panache-reactive-quickstart</module>
+        <module>jta-quickstart</module>
     </modules>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>io.quarkus.bot</groupId>
+                <artifactId>build-reporter-maven-extension</artifactId>
+                <version>2.2.0</version>
+            </extension>
+        </extensions>
+    </build>
 </project>

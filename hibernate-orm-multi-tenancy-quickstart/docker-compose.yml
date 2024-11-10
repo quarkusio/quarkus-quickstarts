@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  database1:
+    image: postgres:13.3
+    environment:
+      POSTGRES_USER: "quarkus_test"
+      POSTGRES_PASSWORD: "quarkus_test"
+    ports:
+      - 5432:5432
+
+  database2:
+    image: postgres:13.3
+    environment:
+      POSTGRES_USER: "mycompany"
+      POSTGRES_PASSWORD: "mycompany"
+    ports:
+      - 5433:5432
+
+  quarkus:
+    image: quarkus/hibernate-orm-multi-tenancy
+    environment:
+      DB_HOST_TENANT_BASE: "database1"
+      DB_HOST_TENANT_MYCOMPANY: "database2"
+      DB_PORT_TENANT_BASE: "5432"
+      DB_PORT_TENANT_MYCOMPANY: "5432"
+    depends_on:
+      - database1
+      - database2
+    ports:
+      - 8080:8080

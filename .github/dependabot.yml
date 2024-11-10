@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "23:00"
+      timezone: Europe/Paris
+    open-pull-requests-limit: 6
+    target-branch: "development"
+    allow:
+      - dependency-name: io.quarkiverse.*:*
+    rebase-strategy: disabled

@@ -1,0 +1,13 @@
+apiVersion: skaffold/v1
+kind: Config
+metadata:
+  name: getting-started-knative
+build:
+  artifacts:
+  - image: dev.local/quarkus-quickstarts/getting-started-knative
+  local:
+    push: false
+deploy:
+  kubectl:
+    manifests:
+    - k8s/service.yaml

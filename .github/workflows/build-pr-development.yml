@@ -1,0 +1,83 @@
+name: "Pull Request Build - development"
+
+on:
+  pull_request:
+    branches:
+      - development
+      - "[0-9]+.[0-9]+"
+
+jobs:
+  # This is a hack to work around a GitHub API limitation:
+  # when the PR is coming from another fork, the pull_requests field of the
+  # workflow_run payload is empty.
+  # For more details, see
+  # https://github.community/t/pull-request-attribute-empty-in-workflow-run-event-object-for-pr-from-forked-repo/154682
+  attach-pr-number:
+    runs-on: ubuntu-latest
+    name: Attach pull request number
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Create file
+        shell: bash
+        run: |
+          echo -n ${{ github.event.number }} > pull-request-number
+      - name: Upload pull request number
+        uses: actions/upload-artifact@v4
+        with:
+          name: pull-request-number-${{ github.event.number }}
+          path: pull-request-number
+          retention-days: 1
+  build:
+    name: Build - JDK ${{ matrix.java }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [ 17 ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "::set-output name=date::$(/bin/date -u "+%Y-%m")"
+        shell: bash
+      - name: Cache Maven Repository
+        id: cache-maven
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          # refresh cache every month to avoid unlimited growth
+          key: q2maven-pr-jdk-${{ matrix.java }}-${{ steps.get-date.outputs.date }}
+      - name: Check Wildcards
+        run: |
+          if [ $(git grep import -- '*.java' | grep '\*;' | grep -E -v '(.mvn/|README.md|CONTRIBUTING.md)' | wc -l) != 0 ]; then
+            echo "Please don't use star imports in your Java files: "
+            git grep import | grep '\*;' | grep -E -v '(.mvn/|README.md|CONTRIBUTING.md)'
+            exit 1
+          fi
+      - name: Install JDK ${{ matrix.java }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - name: Build Quarkus main
+        if: ${{ github.base_ref == 'development' }}
+        run: |
+          git clone https://github.com/quarkusio/quarkus.git
+          cd quarkus
+          ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
+      - name: Build with Maven
+        run: export LANG=en_US && ./mvnw -e -B -fae --settings .github/mvn-settings.xml clean install -Dstart-containers
+      - name: Delete Local Artifacts From Cache
+        shell: bash
+        run: rm -rf ~/.m2/repository/org/acme
+      - name: Upload build reports (if build failed)
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() || cancelled() }}
+        with:
+          name: "build-reports-Build - JDK ${{ matrix.java }}"
+          path: |
+            **/target/*-reports/TEST-*.xml
+            target/build-report.json
+            LICENSE
+          retention-days: 2

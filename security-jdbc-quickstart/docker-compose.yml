@@ -1,0 +1,9 @@
+version: "3"
+services:
+  database:
+    image: "postgres:10.5"
+    container_name: "elytron-security-jdbc-database"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./import.sql:/docker-entrypoint-initdb.d/init.sql

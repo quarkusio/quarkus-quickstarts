@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Hibernate Search + Elasticsearch quickstart - Quarkus</title>
+    <!-- Semantic UI -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <style type="text/css">
+        .ui.menu .item {
+            font-size: 20px;
+        }
+        .presentation {
+            margin-top: 5em;
+            background-color: #F0F0F0;
+            border-bottom: 1px solid #CCC;
+            border-top: 1px solid #CCC;
+            padding-top: 1em;
+            padding-bottom: 1em;
+        }
+        .search {
+            margin-top: 2em;
+        }
+        .authors {
+            margin-top: 2em;
+        }
+        .authors .meta {
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
+    <!-- Load AngularJS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+      var app = angular.module("LibraryManagement", []);
+
+      //Controller Part
+      app.controller("LibraryManagementController", ['$scope', '$http', '$httpParamSerializerJQLike', function ($scope, $http, $httpParamSerializerJQLike) {
+
+        // initialize page with default data which is blank in this example
+        $scope.authors = [];
+        $scope.pattern = '';
+        $scope.form = {};
+
+        // initializes the data from the REST endpoint
+        _refreshPageData();
+        $('.authors').show();
+        _clearForm();
+
+        $scope.refresh = function () {
+            _refreshPageData();
+        }
+
+        $scope.remove = function (type, element) {
+            $http({
+                method: 'DELETE',
+                url: '/library/' + type + '/' + element.id
+            }).then(_success, _error);
+        };
+
+        $scope.showAddAuthorModal = function () {
+            $scope.authorModalTitle = "Add author";
+            $('#modal-author').modal('show');
+        }
+
+        $scope.showEditAuthorModal = function (author) {
+            $scope.authorModalTitle = "Edit author " + author.firstName + ' ' + author.lastName;
+            $scope.form.author = author;
+            $('#modal-author').modal('show');
+        }
+
+        $scope.addOrEditAuthor = function () {
+            data = {};
+            if ($scope.form.author.id == -1) {
+                method = 'PUT';
+                url = '/library/author';
+                data.firstName = $scope.form.author.firstName;
+                data.lastName = $scope.form.author.lastName;
+            } else {
+                method = 'POST';
+                url = '/library/author/' + $scope.form.author.id;
+                data.firstName = $scope.form.author.firstName;
+                data.lastName = $scope.form.author.lastName;
+            }
+            $http({
+                method: method,
+                url: url,
+                data: $httpParamSerializerJQLike(data),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(_success, _error);
+        }
+
+        $scope.showBookModal = function (author) {
+            $scope.form.book.authorId = author.id;
+            $('#modal-book').modal('show');
+        }
+
+        $scope.addBook = function () {
+            data = {
+                authorId: $scope.form.book.authorId,
+                title: $scope.form.book.title
+            };
+            $http({
+                method: 'PUT',
+                url: '/library/book/',
+                data: $httpParamSerializerJQLike(data),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(_success, _error);
+        }
+
+        function _refreshPageData() {
+            $http({
+                method: 'GET',
+                url: '/library/author/search?pattern=' + $scope.pattern
+            }).then(function successCallback(response) {
+                $scope.authors = response.data;
+            }, function errorCallback(response) {
+                console.log(response.statusText);
+            });
+        }
+
+        function _success(response) {
+            $scope.pattern = '';
+            _refreshPageData();
+            _clearForm();
+        }
+
+        function _clearForm() {
+            $scope.form.author = {
+                id: -1,
+                firstName: '',
+                lastName: ''
+            };
+            $scope.form.book = {
+                id: -1,
+                title: '',
+                authorId: ''
+            };
+        }
+
+        function _error(response) {
+            alert(response.data.message || response.statusText);
+            _clearForm();
+        }
+      }]);
+    </script>
+</head>
+<body ng-app="LibraryManagement" ng-controller="LibraryManagementController">
+    <div class="ui fixed inverted menu">
+        <div class="ui container">
+            <a class="header item" href="https://quarkus.io/">
+                <img class="logo" src="https://quarkus.io/assets/images/quarkus_logo_horizontal_rgb_reverse.svg" alt="Quarkus logo" style="width:200px;">
+            </a>
+            <span class="header item">
+                Hibernate Search + Elasticsearch quickstart
+            </span>
+        </div>
+    </div>
+    <div class="presentation">
+        <div class="ui main container">
+            <p>This Quarkus application demonstrates how to implement a CRUD endpoint to manage a library using Hibernate ORM with Panache and Hibernate Search.</p>
+            <p>Entities are automatically indexed in an Elasticsearch cluster.</p>
+            <div class="ui tablet stackable three steps">
+                <div class="step">
+                    <i class="list icon"></i>
+                    <div class="content">
+                        <div class="title">RESTEasy</div>
+                        <div class="description">JAX-RS endpoints</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <i class="random icon"></i>
+                    <div class="content">
+                        <div class="title">Hibernate ORM<br />Hibernate Search</div>
+                        <div class="description">Store in the database and index automatically</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <i class="database icon"></i>
+                    <div class="content">
+                        <div class="title">PostgreSQL<br />Elasticsearch</div>
+                        <div class="description">Relational mapping and full text search</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui container search">
+        <form class="ui form" ng-submit="refresh()">
+            <div class="fluid big left ui action input">
+                <input type="text" placeholder="Search for an author name or a book title. Try searching for aus*, owen or mystery." ng-model="pattern">
+                <button class="ui blue right labeled icon button" ng-click="refresh()"><i class="search icon"></i> Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="ui container authors" style="display:none;">
+        <div class="ui cards">
+            <div class="card" ng-repeat="author in authors">
+                <div class="content">
+                    <div class="header">{{ author.firstName }} {{ author.lastName }}</div>
+                    <div class="meta">
+                        {{ author.books.length }} <i class="book icon"></i>
+                        <button class="ui basic blue icon button mini right floated" ng-click="showBookModal(author)"><i class="plus circle icon"></i> Add book</button>
+                    </div>
+                    <div class="description">
+                        <div ng-repeat="book in author.books">
+                            <div>
+                                {{ book.title }}
+                                <a ng-click="remove('book', book)"><i class="trash alternate outline right floated icon"></i></a>
+                            </div>
+                            <div class="ui divider"></div>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <div class="ui two buttons">
+                            <button class="ui basic green button" ng-click="showEditAuthorModal(author)"><i class="pencil alternate icon"></i> Edit</button>
+                            <button class="ui basic red button" ng-click="remove('author', author)"><i class="trash alternate outline icon"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="content">
+                    <button class="ui blue labeled icon button" ng-click="showAddAuthorModal()"><i class="plus circle icon"></i> Add author</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui modal" id="modal-author">
+        <i class="close icon"></i>
+        <div class="header">
+            {{ authorModalTitle }}
+        </div>
+        <div class="content">
+            <div class="description">
+                <form class="ui form" id="author-form">
+                    <input type="hidden" name="authorId" ng-model="form.author.id" />
+                    <div class="required field">
+                        <label>First name</label>
+                        <input type="text" name="firstName" placeholder="First name" ng-model="form.author.firstName" required>
+                    </div>
+                    <div class="required field">
+                        <label>Last name</label>
+                        <input type="text" name="lastName" placeholder="Last name" ng-model="form.author.lastName" required>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="actions">
+            <button type="submit" class="ui positive right labeled icon button" form="author-form" ng-click="addOrEditAuthor()">
+                <i class="checkmark icon"></i>
+                Submit
+            </button>
+        </div>
+    </div>
+    <div class="ui modal" id="modal-book">
+        <i class="close icon"></i>
+        <div class="header">
+            Add book
+        </div>
+        <div class="content">
+            <div class="description">
+                <form class="ui form" id="book-form">
+                    <input type="hidden" name="authorId" ng-model="form.book.authorId" />
+                    <div class="required field">
+                        <label>Title</label>
+                        <input type="text" name="title" placeholder="Title" ng-model="form.book.title" required>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="actions">
+            <button type="submit" class="ui positive right labeled icon button" form="book-form" ng-click="addBook()">
+                <i class="checkmark icon"></i>
+                Submit
+            </button>
+        </div>
+    </div>
+</body>
+</html>

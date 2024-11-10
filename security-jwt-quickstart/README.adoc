@@ -1,0 +1,7 @@
+= Using Smallrye-JWT Quickstart
+
+This quickstart project is the code part of the Quarkus Smallrye-JWT guide. It contains
+the final solution as well as the incremental versions leading up to the final solution
+and some additional features beyond that.
+
+Quarkus guide: https://quarkus.io/guides/security-jwt

@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>SockJS example - Quarkus</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="application/javascript" src="https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vertx3-eventbus-client@3.8.5/vertx-eventbus.min.js"></script>
+</head>
+<body>
+
+<h1>SockJS Examples</h1>
+
+<p><strong>Last Tick:</strong> <span id="tick"></span></p>
+
+</body>
+<script>
+    var eb = new EventBus('/eventbus');
+
+    eb.onopen = function () {
+
+        eb.registerHandler('ticks', function (error, message) {
+            $("#tick").html(message.body);
+        });
+    }
+
+</script>
+</html>

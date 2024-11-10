@@ -1,0 +1,15 @@
+= Apache Tika Quickstart
+
+This quickstart project demonstrates how to use Apache Tika Quarkus extension to parse PDF and OpenDocument format files.
+Build and start the application, either in the HotSpot or native mode.
+
+PDF Format:
+
+curl -v -X POST -H "Content-type: application/pdf" --data-binary @target/classes/quarkus.pdf http://localhost:8080/parse/text
+
+OpenDocument Format:
+
+curl -v -X POST -H "Content-type: application/vnd.oasis.opendocument.text" --data-binary @target/classes/quarkus.odt http://localhost:8080/parse/text
+
+
+Quarkus guide: https://quarkus.io/guides/tika

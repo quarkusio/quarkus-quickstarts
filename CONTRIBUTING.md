@@ -15,15 +15,14 @@ This project uses GitHub issues to manage the issues. Open an issue directly in 
 
 To contribute, use GitHub Pull Requests, from your **own** fork.
 
-* The `master` branch uses the latest release of Quarkus.
+* The `main` branch uses the latest release of Quarkus.
 * The `development` branch uses a snapshot version of Quarkus.
 
-Depending on your contribution, you may want to target the `master` or `development` branch. Here are a few rules:
+All contributions must target the `development` branch. The `main` branch is reset for each release.
 
-* If your changes require a snapshot version of Quarkus -> `development`
-* If your changes impact the documentation -> `development`
-* If your changes are just a hot fix and do not require an update of Quarkus or the documentation -> `master`
-* For pull requests depending on features not yet merged in Quarkus, prepend the title with "[DO NOT MERGE]"
+**All changes made only to the `main` branch will be definitely lost.**
+
+For pull requests depending on features not yet merged in Quarkus, prepend the title with "[DO NOT MERGE]".
 
 ### Code reviews
 
@@ -41,7 +40,7 @@ Please make sure to monitor the output of the build and act accordingly.
 * If your quickstart does not work in native mode, point it out in the pull request,
 * New quickstarts must be listed in the [README.md](./README.md) page
 
-## Build
+## Build with Maven
 
 * Clone the repository: `git clone https://github.com/quarkusio/quarkus-quickstarts.git`
 * Navigate to the directory: `cd quarkus-quickstarts`
@@ -53,6 +52,14 @@ cd quarkus-quickstarts
 mvn clean verify -Pnative
 # Wait... success!
 ```
+
+## Build with Gradle
+
+Clone like above, and build e.g. `getting-started` using:
+
+    ../gradlew build
+
+You'll find the `quarkus-app/quarkus-run.jar` in `build` (not `build/libs`).
 
 ## The small print
 

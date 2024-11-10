@@ -1,0 +1,30 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: otel-collector:4317
+  otlp/2:
+    protocols:
+      grpc:
+        endpoint: otel-collector:55680
+
+exporters:
+  otlp/jaeger: # Jaeger supports OTLP directly. The default port for OTLP/gRPC is 4317
+    endpoint: jaeger-all-in-one:4317
+    tls:
+      insecure: true
+
+processors:
+  batch:
+
+extensions:
+  health_check:
+
+service:
+  extensions: [health_check]
+  pipelines:
+    traces:
+      receivers: [otlp,otlp/2]
+      processors: [batch]
+      exporters: [otlp/jaeger]
+

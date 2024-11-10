@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prices</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+</head>
+<body>
+<div class="container">
+
+    <h2>Last price</h2>
+    <p>To retrieve the last emitted price, click on the <code>Fetch</code> button.</p>
+    <div class="row">
+            <p class="col-md-1"><button class="btn btn-info" id="fetch">Fetch</button></p>
+            <p class="col-md-6">The last price is <strong><span id="content">N/A</span>&nbsp;&euro;</strong>.</p>
+    </div>
+</div>
+</body>
+<script>
+    document.getElementById("fetch").addEventListener("click", function() {
+        fetch("/prices/last").then(function (response) {
+            response.text().then(function (text) {
+                document.getElementById("content").textContent = text;
+            })
+        })
+    })
+</script>
+</html>

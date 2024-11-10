@@ -1,0 +1,14 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: annotatedchain
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: annotated
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: funqy-knative-events-quickstart
