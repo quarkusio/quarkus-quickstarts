@@ -1,6 +1,15 @@
 ---
 # The format of this file is documented here:
 # https://github.com/quarkusio/quarkus-bot#triage-issues
-features: [ANALYZE_WORKFLOW_RUN_RESULTS]
+features: [ANALYZE_WORKFLOW_RUN_RESULTS,TRIAGE_ISSUES_AND_PULL_REQUESTS,SET_AREA_LABEL_COLOR]
 workflowRunAnalysis:
   workflows: ["Pull Request Build - development"]
+triage:
+  rules:
+    - id: amazon
+      labels: [area/amazon-services]
+      title: "amazon"
+      notify: [scrocquesel]
+      notifyInPullRequest: true
+      files:
+        - 'amazon-*/**'
