@@ -67,7 +67,7 @@ public class LoginResource {
         }
         try {
             // store the user
-        	WebAuthnCredentialRecord credentialRecord = this.webAuthnSecurity.register(webAuthnResponse, ctx).await().indefinitely();
+            WebAuthnCredentialRecord credentialRecord = this.webAuthnSecurity.register(userName, webAuthnResponse, ctx).await().indefinitely();
             User newUser = new User();
             newUser.userName = credentialRecord.getUserName();
             WebAuthnCredential credential = new WebAuthnCredential(credentialRecord, newUser);

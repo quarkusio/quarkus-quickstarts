@@ -51,7 +51,7 @@ public class WebAuthnResourceTest {
         String challenge = WebAuthnEndpointHelper.obtainRegistrationChallenge(userName, cookieFilter);
         JsonObject registrationJson = token.makeRegistrationJson(challenge);
         if(endpoint == Endpoint.DEFAULT)
-            WebAuthnEndpointHelper.invokeRegistration(registrationJson, cookieFilter);
+            WebAuthnEndpointHelper.invokeRegistration(userName, registrationJson, cookieFilter);
         else {
             invokeCustomEndpoint("/register", cookieFilter, request -> {
                 WebAuthnEndpointHelper.addWebAuthnRegistrationFormParameters(request, registrationJson);
@@ -100,7 +100,6 @@ public class WebAuthnResourceTest {
         .statusCode(200)
         .log().ifValidationFails()
         .cookie(WebAuthnEndpointHelper.getChallengeCookie(), Matchers.is(""))
-        .cookie(WebAuthnEndpointHelper.getChallengeUsernameCookie(), Matchers.is(""))
         .cookie(WebAuthnEndpointHelper.getMainCookie(), Matchers.notNullValue());
     }
 

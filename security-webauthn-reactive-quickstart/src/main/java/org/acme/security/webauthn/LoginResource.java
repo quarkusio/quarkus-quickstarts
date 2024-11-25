@@ -74,7 +74,7 @@ public class LoginResource {
                 // Duplicate user
                 return Uni.createFrom().item(Response.status(Status.BAD_REQUEST).build());
             }
-            Uni<WebAuthnCredentialRecord> credentialRecord = this.webAuthnSecurity.register(webAuthnResponse, ctx);
+            Uni<WebAuthnCredentialRecord> credentialRecord = this.webAuthnSecurity.register(userName, webAuthnResponse, ctx);
 
             return credentialRecord
                     // store the user
