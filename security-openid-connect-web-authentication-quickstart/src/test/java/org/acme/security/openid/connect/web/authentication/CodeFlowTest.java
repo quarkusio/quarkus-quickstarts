@@ -156,6 +156,9 @@ public class CodeFlowTest {
         WebClient webClient = new WebClient();
 
         webClient.setCssErrorHandler(new SilentCssErrorHandler());
+        // Setting the cache size to zero as webClient by default can store cached request,
+        // which causing the `testTokenTimeoutLogout` fail as the session cookie is not changed
+        webClient.getCache().setMaxSize(0);
 
         return webClient;
     }
