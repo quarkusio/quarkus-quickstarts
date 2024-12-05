@@ -1,10 +1,10 @@
 [
   {
-    "id": "io.quarkus:quarkus-rest-client-reactive",
+    "id": "io.quarkus:quarkus-rest-client",
     "keywords": [
       "call",
       "microprofile-rest-client",
-      "quarkus-rest-client-reactive",
+      "quarkus-rest-client",
       "reactively",
       "rest",
       "rest-client",
@@ -12,8 +12,8 @@
       "services",
       "web-client"
     ],
-    "name": "REST Client Reactive",
-    "shortName": "REST Client Reactive"
+    "name": "REST Client",
+    "shortName": "REST Client"
   },
   {
     "id": "io.quarkus:quarkus-resteasy",
