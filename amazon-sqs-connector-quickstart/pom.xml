@@ -13,7 +13,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <quarkus-amazon-services.version>2.18.1</quarkus-amazon-services.version>
+    <quarkus-amazon-services.version>2.20.1</quarkus-amazon-services.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -44,21 +44,12 @@
     </dependency>
     <dependency>
       <groupId>io.quarkiverse.amazonservices</groupId>
-      <artifactId>quarkus-amazon-sqs</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.smallrye.reactive</groupId>
-      <artifactId>smallrye-reactive-messaging-aws-sqs</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>url-connection-client</artifactId>
+      <artifactId>quarkus-messaging-amazon-sqs</artifactId>
     </dependency>
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>netty-nio-client</artifactId>
     </dependency>
-
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
