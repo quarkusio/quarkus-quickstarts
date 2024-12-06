@@ -2,12 +2,13 @@ package org.acme.security.webauthn.test;
 
 import static io.restassured.RestAssured.given;
 
+import java.net.URL;
 import java.util.function.Consumer;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.security.webauthn.WebAuthnController;
+import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.webauthn.WebAuthnEndpointHelper;
 import io.quarkus.test.security.webauthn.WebAuthnHardware;
@@ -26,6 +27,9 @@ public class WebAuthnResourceTest {
         DEFAULT, MANUAL;
     }
 
+    @TestHTTPResource
+    URL url;
+    
     @Test
     public void testWebAuthnUser() {
         testWebAuthn("FroMage", User.USER, Endpoint.DEFAULT);
@@ -39,15 +43,15 @@ public class WebAuthnResourceTest {
     
     private void testWebAuthn(String userName, User user, Endpoint endpoint) {
         Filter cookieFilter = new RenardeCookieFilter();
-        WebAuthnHardware token = new WebAuthnHardware();
+        WebAuthnHardware token = new WebAuthnHardware(url);
 
         verifyLoggedOut(cookieFilter);
 
         // two-step registration
-        String challenge = WebAuthnEndpointHelper.invokeRegistration(userName, cookieFilter);
+        String challenge = WebAuthnEndpointHelper.obtainRegistrationChallenge(userName, cookieFilter);
         JsonObject registrationJson = token.makeRegistrationJson(challenge);
         if(endpoint == Endpoint.DEFAULT)
-            WebAuthnEndpointHelper.invokeCallback(registrationJson, cookieFilter);
+            WebAuthnEndpointHelper.invokeRegistration(userName, registrationJson, cookieFilter);
         else {
             invokeCustomEndpoint("/register", cookieFilter, request -> {
                 WebAuthnEndpointHelper.addWebAuthnRegistrationFormParameters(request, registrationJson);
@@ -64,14 +68,13 @@ public class WebAuthnResourceTest {
         verifyLoggedOut(cookieFilter);
         
         // two-step login
-        challenge = WebAuthnEndpointHelper.invokeLogin(userName, cookieFilter);
+        challenge = WebAuthnEndpointHelper.obtainLoginChallenge(null, cookieFilter);
         JsonObject loginJson = token.makeLoginJson(challenge);
         if(endpoint == Endpoint.DEFAULT)
-            WebAuthnEndpointHelper.invokeCallback(loginJson, cookieFilter);
+            WebAuthnEndpointHelper.invokeLogin(loginJson, cookieFilter);
         else {
             invokeCustomEndpoint("/login", cookieFilter, request -> {
                 WebAuthnEndpointHelper.addWebAuthnLoginFormParameters(request, loginJson);
-                request.formParam("userName", userName);
             });
         }
 
@@ -97,7 +100,6 @@ public class WebAuthnResourceTest {
         .statusCode(200)
         .log().ifValidationFails()
         .cookie(WebAuthnEndpointHelper.getChallengeCookie(), Matchers.is(""))
-        .cookie(WebAuthnEndpointHelper.getChallengeUsernameCookie(), Matchers.is(""))
         .cookie(WebAuthnEndpointHelper.getMainCookie(), Matchers.notNullValue());
     }
 
