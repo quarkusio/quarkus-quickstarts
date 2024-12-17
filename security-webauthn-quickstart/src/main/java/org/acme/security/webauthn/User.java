@@ -11,13 +11,13 @@ import jakarta.persistence.Table;
 public class User extends PanacheEntity {
 
     @Column(unique = true)
-    public String userName;
+    public String username;
 
     // non-owning side, so we can add more credentials later
     @OneToOne(mappedBy = "user")
     public WebAuthnCredential webAuthnCredential;
 
-    public static User findByUserName(String userName) {
-        return User.find("userName", userName).firstResult();
+    public static User findByUsername(String username) {
+        return User.find("username", username).firstResult();
     }
 }

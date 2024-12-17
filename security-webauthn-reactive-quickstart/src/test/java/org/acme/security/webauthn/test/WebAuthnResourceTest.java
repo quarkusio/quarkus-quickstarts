@@ -41,26 +41,26 @@ public class WebAuthnResourceTest {
         testWebAuthn("admin", User.ADMIN, Endpoint.DEFAULT);
     }
     
-    private void testWebAuthn(String userName, User user, Endpoint endpoint) {
+    private void testWebAuthn(String username, User user, Endpoint endpoint) {
         Filter cookieFilter = new RenardeCookieFilter();
         WebAuthnHardware token = new WebAuthnHardware(url);
 
         verifyLoggedOut(cookieFilter);
 
         // two-step registration
-        String challenge = WebAuthnEndpointHelper.obtainRegistrationChallenge(userName, cookieFilter);
+        String challenge = WebAuthnEndpointHelper.obtainRegistrationChallenge(username, cookieFilter);
         JsonObject registrationJson = token.makeRegistrationJson(challenge);
         if(endpoint == Endpoint.DEFAULT)
-            WebAuthnEndpointHelper.invokeRegistration(userName, registrationJson, cookieFilter);
+            WebAuthnEndpointHelper.invokeRegistration(username, registrationJson, cookieFilter);
         else {
             invokeCustomEndpoint("/register", cookieFilter, request -> {
                 WebAuthnEndpointHelper.addWebAuthnRegistrationFormParameters(request, registrationJson);
-                request.formParam("userName", userName);
+                request.formParam("username", username);
             });
         }
         
         // verify that we can access logged-in endpoints
-        verifyLoggedIn(cookieFilter, userName, user);
+        verifyLoggedIn(cookieFilter, username, user);
         
         // logout
         WebAuthnEndpointHelper.invokeLogout(cookieFilter);
@@ -79,7 +79,7 @@ public class WebAuthnResourceTest {
         }
 
         // verify that we can access logged-in endpoints
-        verifyLoggedIn(cookieFilter, userName, user);
+        verifyLoggedIn(cookieFilter, username, user);
 
         // logout
         WebAuthnEndpointHelper.invokeLogout(cookieFilter);
@@ -103,7 +103,7 @@ public class WebAuthnResourceTest {
         .cookie(WebAuthnEndpointHelper.getMainCookie(), Matchers.notNullValue());
     }
 
-    private void verifyLoggedIn(Filter cookieFilter, String userName, User user) {
+    private void verifyLoggedIn(Filter cookieFilter, String username, User user) {
         // public API still good
         RestAssured.given().filter(cookieFilter)
         .when()
@@ -117,7 +117,7 @@ public class WebAuthnResourceTest {
         .get("/api/public/me")
         .then()
         .statusCode(200)
-        .body(Matchers.is(userName));
+        .body(Matchers.is(username));
 
         // user API accessible
         RestAssured.given().filter(cookieFilter)
@@ -125,7 +125,7 @@ public class WebAuthnResourceTest {
         .get("/api/users/me")
         .then()
         .statusCode(200)
-        .body(Matchers.is(userName));
+        .body(Matchers.is(username));
         
         // admin API?
         if(user == User.ADMIN) {

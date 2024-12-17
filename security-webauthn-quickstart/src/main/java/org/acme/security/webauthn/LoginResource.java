@@ -33,7 +33,7 @@ public class LoginResource {
 
         try {
             WebAuthnCredentialRecord credentialRecord = this.webAuthnSecurity.login(webAuthnResponse, ctx).await().indefinitely();
-            User user = User.findByUserName(credentialRecord.getUserName());
+            User user = User.findByUsername(credentialRecord.getUsername());
             if(user == null) {
                 // Invalid user
                 return Response.status(Status.BAD_REQUEST).build();
@@ -41,7 +41,7 @@ public class LoginResource {
             // bump the auth counter
             user.webAuthnCredential.counter = credentialRecord.getCounter();
             // make a login cookie
-            this.webAuthnSecurity.rememberUser(credentialRecord.getUserName(), ctx);
+            this.webAuthnSecurity.rememberUser(credentialRecord.getUsername(), ctx);
             return Response.ok().build();
         } catch (Exception exception) {
             // handle login failure - make a proper error response
@@ -52,29 +52,29 @@ public class LoginResource {
     @Path("/register")
     @POST
     @Transactional
-    public Response register(@RestForm String userName,
+    public Response register(@RestForm String username,
                                   @BeanParam WebAuthnRegisterResponse webAuthnResponse,
                                   RoutingContext ctx) {
         // Input validation
-        if(userName == null || userName.isEmpty() || !webAuthnResponse.isSet() || !webAuthnResponse.isValid()) {
+        if(username == null || username.isEmpty() || !webAuthnResponse.isSet() || !webAuthnResponse.isValid()) {
             return Response.status(Status.BAD_REQUEST).build();
         }
 
-        User user = User.findByUserName(userName);
+        User user = User.findByUsername(username);
         if(user != null) {
             // Duplicate user
             return Response.status(Status.BAD_REQUEST).build();
         }
         try {
             // store the user
-            WebAuthnCredentialRecord credentialRecord = this.webAuthnSecurity.register(userName, webAuthnResponse, ctx).await().indefinitely();
+            WebAuthnCredentialRecord credentialRecord = this.webAuthnSecurity.register(username, webAuthnResponse, ctx).await().indefinitely();
             User newUser = new User();
-            newUser.userName = credentialRecord.getUserName();
+            newUser.username = credentialRecord.getUsername();
             WebAuthnCredential credential = new WebAuthnCredential(credentialRecord, newUser);
             credential.persist();
             newUser.persist();
             // make a login cookie
-            this.webAuthnSecurity.rememberUser(newUser.userName, ctx);
+            this.webAuthnSecurity.rememberUser(newUser.username, ctx);
             return Response.ok().build();
         } catch (Exception ignored) {
             // handle login failure
