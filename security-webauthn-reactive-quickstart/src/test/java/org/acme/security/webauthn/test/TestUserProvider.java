@@ -16,7 +16,7 @@ public class TestUserProvider extends MyWebAuthnSetup {
     @Override
     public Uni<Void> store(WebAuthnCredentialRecord credentialRecord) {
         // this user is handled in the LoginResource endpoint manually
-        if (credentialRecord.getUserName().equals("scooby")) {
+        if (credentialRecord.getUsername().equals("scooby")) {
             return Uni.createFrom().voidItem();
         }
         return super.store(credentialRecord);
@@ -28,7 +28,7 @@ public class TestUserProvider extends MyWebAuthnSetup {
         return WebAuthnCredential.findByCredentialId(credentialId)
         		.flatMap(credential -> {
         			// this user is handled in the LoginResource endpoint manually
-        			if (credential.user.userName.equals("scooby")) {
+        			if (credential.user.username.equals("scooby")) {
         				return Uni.createFrom().voidItem();
         			}
         			return super.update(credentialId, counter);

@@ -35,7 +35,7 @@ public class LoginResource {
 
         return this.webAuthnSecurity.login(webAuthnResponse, ctx)
         		.flatMap(auth -> {
-        			return User.findByUserName(auth.getUserName())
+        			return User.findByUsername(auth.getUsername())
         					.map(user -> {
         						if(user == null) {
         							// Invalid user
@@ -44,7 +44,7 @@ public class LoginResource {
         						// bump the auth counter
         						user.webAuthnCredential.counter = auth.getCounter();
         						// make a login cookie
-        						this.webAuthnSecurity.rememberUser(auth.getUserName(), ctx);
+        						this.webAuthnSecurity.rememberUser(auth.getUsername(), ctx);
         						return Response.ok().build();
         					});
         		})
@@ -58,29 +58,29 @@ public class LoginResource {
     @Path("/register")
     @POST
     @WithTransaction
-    public Uni<Response> register(@RestForm String userName, 
+    public Uni<Response> register(@RestForm String username,
                                   @BeanParam WebAuthnRegisterResponse webAuthnResponse,
                                   RoutingContext ctx) {
         // Input validation
-        if(userName == null || userName.isEmpty()
+        if(username == null || username.isEmpty()
                 || !webAuthnResponse.isSet()
                 || !webAuthnResponse.isValid()) {
             return Uni.createFrom().item(Response.status(Status.BAD_REQUEST).build());
         }
 
-        Uni<User> userUni = User.findByUserName(userName);
+        Uni<User> userUni = User.findByUsername(username);
         return userUni.flatMap(user -> {
             if(user != null) {
                 // Duplicate user
                 return Uni.createFrom().item(Response.status(Status.BAD_REQUEST).build());
             }
-            Uni<WebAuthnCredentialRecord> credentialRecord = this.webAuthnSecurity.register(userName, webAuthnResponse, ctx);
+            Uni<WebAuthnCredentialRecord> credentialRecord = this.webAuthnSecurity.register(username, webAuthnResponse, ctx);
 
             return credentialRecord
                     // store the user
                     .flatMap(auth -> {
                         User newUser = new User();
-                        newUser.userName = auth.getUserName();
+                        newUser.username = auth.getUsername();
                         WebAuthnCredential credential = new WebAuthnCredential(auth, newUser);
                         return credential.persist()
                                 .flatMap(c -> newUser.<User>persist());
@@ -88,7 +88,7 @@ public class LoginResource {
                     })
                     .map(newUser -> {
                         // make a login cookie
-                        this.webAuthnSecurity.rememberUser(newUser.userName, ctx);
+                        this.webAuthnSecurity.rememberUser(newUser.username, ctx);
                         return Response.ok().build();
                     })
                     // handle login failure

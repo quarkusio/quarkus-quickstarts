@@ -17,8 +17,8 @@ public class MyWebAuthnSetup implements WebAuthnUserProvider {
 
     @Transactional
     @Override
-    public Uni<List<WebAuthnCredentialRecord>> findByUserName(String userId) {
-        return Uni.createFrom().item(WebAuthnCredential.findByUserName(userId).stream().map(WebAuthnCredential::toWebAuthnCredentialRecord).toList());
+    public Uni<List<WebAuthnCredentialRecord>> findByUsername(String userId) {
+        return Uni.createFrom().item(WebAuthnCredential.findByUsername(userId).stream().map(WebAuthnCredential::toWebAuthnCredentialRecord).toList());
     }
 
     @Transactional
@@ -34,7 +34,7 @@ public class MyWebAuthnSetup implements WebAuthnUserProvider {
     @Override
     public Uni<Void> store(WebAuthnCredentialRecord credentialRecord) {
         User newUser = new User();
-        newUser.userName = credentialRecord.getUserName();
+        newUser.username = credentialRecord.getUsername();
         WebAuthnCredential credential = new WebAuthnCredential(credentialRecord, newUser);
         credential.persist();
         newUser.persist();
