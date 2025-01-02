@@ -16,7 +16,7 @@ public class ResourceUsingWebClient {
 
     public ResourceUsingWebClient(Vertx vertx) {
         this.client = WebClient.create(vertx,
-                new WebClientOptions().setDefaultHost("swapi.dev").setDefaultPort(443).setSsl(true)
+                new WebClientOptions().setDefaultHost("swapi.tech").setDefaultPort(443).setSsl(true)
                         .setTrustAll(true));
     }
 
