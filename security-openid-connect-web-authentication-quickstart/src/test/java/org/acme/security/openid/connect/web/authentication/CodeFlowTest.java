@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.util.Cookie;
+import org.htmlunit.SilentCssErrorHandler;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.util.Cookie;
 
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -38,7 +38,7 @@ public class CodeFlowTest {
             loginForm.getInputByName("username").setValueAttribute("alice");
             loginForm.getInputByName("password").setValueAttribute("alice");
 
-            page = loginForm.getInputByName("login").click();
+            page = loginForm.getButtonByName("login").click();
 
             assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
 
@@ -68,7 +68,7 @@ public class CodeFlowTest {
             loginForm.getInputByName("username").setValueAttribute("alice");
             loginForm.getInputByName("password").setValueAttribute("alice");
 
-            page = loginForm.getInputByName("login").click();
+            page = loginForm.getButtonByName("login").click();
 
             assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
 
@@ -125,15 +125,16 @@ public class CodeFlowTest {
             loginForm.getInputByName("username").setValueAttribute("alice");
             loginForm.getInputByName("password").setValueAttribute("alice");
 
-            page = loginForm.getInputByName("login").click();
+            page = loginForm.getButtonByName("login").click();
 
             assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
 
             page = webClient.getPage("http://localhost:8081/tokens");
 
-            assertTrue(page.getBody().asText().contains("username"));
-            assertTrue(page.getBody().asText().contains("scopes"));
-            assertTrue(page.getBody().asText().contains("refresh_token: true"));
+            String text = page.getBody().asNormalizedText();
+            assertTrue(text.contains("username"));
+            assertTrue(text.contains("scopes"));
+            assertTrue(text.contains("refresh_token: true"));
             
             assertNotNull(getSessionCookie(webClient));
             assertNull(getStateCookies(webClient));
