@@ -8,10 +8,10 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.SilentCssErrorHandler;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlPage;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.keycloak.client.KeycloakTestClient;
@@ -34,9 +34,9 @@ public class CodeFlowTest {
             loginForm.getInputByName("username").setValueAttribute("alice");
             loginForm.getInputByName("password").setValueAttribute("alice");
 
-            page = loginForm.getInputByName("login").click();
+            page = loginForm.getButtonByName("login").click();
 
-            assertTrue(page.asText().contains("tenant"));
+            assertTrue(page.asNormalizedText().contains("tenant"));
 
             webClient.getCookieManager().clearCookies();
         }
@@ -54,9 +54,9 @@ public class CodeFlowTest {
             loginForm.getInputByName("username").setValueAttribute("alice");
             loginForm.getInputByName("password").setValueAttribute("alice");
 
-            page = loginForm.getInputByName("login").click();
+            page = loginForm.getButtonByName("login").click();
 
-            assertTrue(page.asText().contains("alice@tenant-a.org"));
+            assertTrue(page.asNormalizedText().contains("alice@tenant-a.org"));
             webClient.getCookieManager().clearCookies();
         }
     }
@@ -83,9 +83,9 @@ public class CodeFlowTest {
             loginForm.getInputByName("username").setValueAttribute("alice");
             loginForm.getInputByName("password").setValueAttribute("alice");
 
-            page = loginForm.getInputByName("login").click();
+            page = loginForm.getButtonByName("login").click();
 
-            assertTrue(page.asText().contains("alice@tenant-a.org"));
+            assertTrue(page.asNormalizedText().contains("alice@tenant-a.org"));
 
             page = webClient.getPage("http://localhost:8081/default");
 
@@ -96,9 +96,9 @@ public class CodeFlowTest {
             loginForm.getInputByName("username").setValueAttribute("alice");
             loginForm.getInputByName("password").setValueAttribute("alice");
 
-            page = loginForm.getInputByName("login").click();
+            page = loginForm.getButtonByName("login").click();
 
-            assertTrue(page.asText().contains("alice@keycloak.org"));
+            assertTrue(page.asNormalizedText().contains("alice@keycloak.org"));
 
             webClient.getCookieManager().clearCookies();
         }
