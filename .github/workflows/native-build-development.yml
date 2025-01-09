@@ -133,5 +133,5 @@ jobs:
           curl -s "https://get.sdkman.io" | bash
           source ~/.sdkman/bin/sdkman-init.sh
           sed -i -e 's/sdkman_auto_answer=false/sdkman_auto_answer=true/g' ~/.sdkman/etc/config
-          sdk install jbang 0.50.1
+          sdk install jbang 0.122.0
           jbang .github/NativeBuildReport.java token="${GITHUB_TOKEN}" status="${STATUS}" issueRepo="quarkusio/quarkus" issueNumber="6588" thisRepo="${GITHUB_REPOSITORY}" runId="${GITHUB_RUN_ID}"
