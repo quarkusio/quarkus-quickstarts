@@ -1,7 +1,7 @@
 //usr/bin/env jbang "$0" "$@" ; exit $?
 
-//DEPS org.kohsuke:github-api:1.101
-//DEPS info.picocli:picocli:4.2.0
+//DEPS org.kohsuke:github-api:1.326
+//DEPS info.picocli:picocli:4.7.6
 
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
