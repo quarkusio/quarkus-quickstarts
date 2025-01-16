@@ -21,5 +21,6 @@ public class GenerateToken {
                 .claim(Claims.birthdate.name(), "2001-07-13")
                 .sign();
         System.out.println(token);
+        System.exit(0);
     }
 }
