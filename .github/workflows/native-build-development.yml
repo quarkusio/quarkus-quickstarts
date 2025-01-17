@@ -120,18 +120,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
-      - name: Report
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
-          STATUS: ${{ needs.build-with-native.result }}
-        run: |
-          echo "The report step got status: ${STATUS}"
-          sudo apt-get update -o Dir::Etc::sourcelist="sources.list" \
-            -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
-          sudo apt-get install -y gnupg2 gnupg-agent
-          echo Installing SDKMAN
-          curl -s "https://get.sdkman.io" | bash
-          source ~/.sdkman/bin/sdkman-init.sh
-          sed -i -e 's/sdkman_auto_answer=false/sdkman_auto_answer=true/g' ~/.sdkman/etc/config
-          sdk install jbang 0.50.1
-          jbang .github/NativeBuildReport.java token="${GITHUB_TOKEN}" status="${STATUS}" issueRepo="quarkusio/quarkus" issueNumber="6588" thisRepo="${GITHUB_REPOSITORY}" runId="${GITHUB_RUN_ID}"
+      - uses: quarkusio/report-status-in-issue@main
+        with:
+          github-token: ${{ secrets.GITHUB_API_TOKEN }}
+          status: ${{ needs.build-with-native.result }}
+          issue-repository: quarkusio/quarkus
+          issue-number: 6588
