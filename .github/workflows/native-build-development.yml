@@ -22,7 +22,7 @@ jobs:
       - id: generate
         run: |
           json=$(.github/generate-native-matrix.sh | tr -d '\n')
-          echo "::set-output name=matrix::${json}"
+          echo "matrix=${json}" >> $GITHUB_OUTPUT
   build-with-native:
     name: ${{matrix.category}}
     runs-on: ubuntu-latest
@@ -43,7 +43,7 @@ jobs:
       - name: Get Date
         id: get-date
         run: |
-          echo "::set-output name=date::$(/bin/date -u "+%Y-%m")"
+          echo "date=$(/bin/date -u "+%Y-%m")" >> $GITHUB_OUTPUT
         shell: bash
       - name: Cache Maven Repository
         id: cache-maven
