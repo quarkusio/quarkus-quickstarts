@@ -16,15 +16,15 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Uni;
-import io.vertx.mutiny.pgclient.PgPool;
+import io.vertx.mutiny.sqlclient.Pool;
 
 @Path("fruits")
 public class FruitResource {
 
-    private final PgPool client;
+    private final Pool client;
     private final boolean schemaCreate;
 
-    public FruitResource(PgPool client, @ConfigProperty(name = "myapp.schema.create", defaultValue = "true") boolean schemaCreate) {
+    public FruitResource(Pool client, @ConfigProperty(name = "myapp.schema.create", defaultValue = "true") boolean schemaCreate) {
         this.client = client;
         this.schemaCreate = schemaCreate;
     }
