@@ -43,7 +43,8 @@
         <module>hibernate-orm-panache-quickstart</module>
         <module>hibernate-orm-panache-kotlin-quickstart</module>
         <module>hibernate-reactive-panache-quickstart</module>
-        <module>hibernate-orm-multi-tenancy-quickstart</module>
+        <module>hibernate-orm-multi-tenancy-database-quickstart</module>
+        <module>hibernate-orm-multi-tenancy-schema-quickstart</module>
         <module>hibernate-search-orm-elasticsearch-quickstart</module>
         <module>hibernate-search-standalone-elasticsearch-quickstart</module>
         <module>hibernate-orm-rest-data-panache-quickstart</module>
