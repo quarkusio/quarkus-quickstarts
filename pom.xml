@@ -38,6 +38,7 @@
         <module>hibernate-reactive-quickstart</module>
         <module>hibernate-reactive-stateless-quickstart</module>
         <module>hibernate-reactive-routes-quickstart</module>
+        <module>blazebit-quickstart</module>
         <module>grpc-plain-text-quickstart</module>
         <module>grpc-tls-quickstart</module>
         <module>hibernate-orm-panache-quickstart</module>
