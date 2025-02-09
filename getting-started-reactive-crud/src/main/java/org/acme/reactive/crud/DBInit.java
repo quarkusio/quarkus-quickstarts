@@ -1,7 +1,7 @@
 package org.acme.reactive.crud;
 
 import io.quarkus.runtime.StartupEvent;
-import io.vertx.mutiny.pgclient.PgPool;
+import io.vertx.mutiny.sqlclient.Pool;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -10,10 +10,10 @@ import jakarta.enterprise.event.Observes;
 @ApplicationScoped
 public class DBInit {
 
-    private final PgPool client;
+    private final Pool client;
     private final boolean schemaCreate;
 
-    public DBInit(PgPool client, @ConfigProperty(name = "myapp.schema.create", defaultValue = "true") boolean schemaCreate) {
+    public DBInit(Pool client, @ConfigProperty(name = "myapp.schema.create", defaultValue = "true") boolean schemaCreate) {
         this.client = client;
         this.schemaCreate = schemaCreate;
     }
