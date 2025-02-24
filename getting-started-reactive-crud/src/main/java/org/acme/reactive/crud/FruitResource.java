@@ -29,14 +29,14 @@ import jakarta.ws.rs.core.Response.Status;
 
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
-import io.vertx.mutiny.pgclient.PgPool;
+import io.vertx.mutiny.sqlclient.Pool;
 
 @Path("fruits")
 public class FruitResource {
 
-    private final PgPool client;
+    private final Pool client;
 
-    public FruitResource(PgPool client) {
+    public FruitResource(Pool client) {
         this.client = client;
     }
 
