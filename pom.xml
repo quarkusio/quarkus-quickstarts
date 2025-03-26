@@ -53,6 +53,7 @@
         <module>jms-quickstart</module>
         <module>kafka-quickstart</module>
         <module>kafka-avro-schema-quickstart</module>
+        <module>kafka-json-schema-quickstart</module>
         <module>kafka-bare-quickstart</module>
         <module>kafka-streams-quickstart</module>
         <module>optaplanner-quickstart</module>
