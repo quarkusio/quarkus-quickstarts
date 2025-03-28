@@ -35,6 +35,7 @@
         <module>google-cloud-functions-quickstart</module>
         <module>google-cloud-functions-http-quickstart</module>
         <module>hibernate-orm-quickstart</module>
+        <module>hibernate-orm-jakarta-data-quickstart</module>
         <module>hibernate-reactive-quickstart</module>
         <module>hibernate-reactive-stateless-quickstart</module>
         <module>hibernate-reactive-routes-quickstart</module>
