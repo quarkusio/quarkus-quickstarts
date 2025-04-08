@@ -12,6 +12,8 @@ While the code is surprisingly simple, under the hood this is using:
  - Infinispan based caching
  - All safely coordinated by the Narayana Transaction Manager
 
+These examples show how to call methods directly on the entity (`FruitEntity`). For the repository example, see the `hibernate-orm-panache-quickstart`.
+
 ## Requirements
 
 To compile and run this demo you will need:
