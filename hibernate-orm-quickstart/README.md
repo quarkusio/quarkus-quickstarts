@@ -46,6 +46,14 @@ live coding. To try this out:
 
 In this mode you can make changes to the code and have the changes immediately applied, by just refreshing your browser.
 
+Dev Mode automatically starts a Docker container with a Postgres database. This feature is called ["Dev Services."](https://quarkus.io/guides/dev-services)
+
+To access the database from the terminal, run:
+
+```sh
+docker exec -it <container-name> psql -U quarkus
+```
+
 Hot reload works even when modifying your JPA entities.
 Try it! Even the database schema will be updated on the fly.
 
@@ -58,7 +66,8 @@ First compile it:
 
 > ./mvnw package
 
-Next we need to make sure you have a PostgreSQL instance running (Quarkus automatically starts one for dev and test mode). To set up a PostgreSQL database with Docker:
+Next, make sure you have a PostgreSQL database running. In production, Quarkus does not start a container for you like it does in Dev Mode.
+To set up a PostgreSQL database with Docker:
 
 > docker run --rm=true --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:13.3
 
