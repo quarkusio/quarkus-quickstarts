@@ -54,8 +54,8 @@ To access the database from the terminal, run:
 docker exec -it <container-name> psql -U quarkus
 ```
 
-Hot reload works even when modifying your JPA entities.
-Try it! Even the database schema will be updated on the fly.
+    Hot reload works even when modifying your JPA entities.
+    Try it! Even the database schema will be updated on the fly.
 
 ### Run Quarkus in JVM mode
 
@@ -69,7 +69,7 @@ First compile it:
 Next, make sure you have a PostgreSQL database running. In production, Quarkus does not start a container for you like it does in Dev Mode.
 To set up a PostgreSQL database with Docker:
 
-> docker run --rm=true --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:13.3
+> docker run -it --rm=true --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:13.3
 
 Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file,
 `src/main/resources/application.properties`.
