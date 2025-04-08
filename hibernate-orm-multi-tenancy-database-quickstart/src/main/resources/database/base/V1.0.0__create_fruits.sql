@@ -1,10 +1,11 @@
-CREATE SEQUENCE known_fruits_id_seq;
-SELECT setval('known_fruits_id_seq', 3);
-CREATE TABLE known_fruits
+CREATE SEQUENCE fruit_seq INCREMENT BY 50; -- 50 is quarkus default
+SELECT setval('fruit_seq', 3);
+CREATE TABLE fruit
 (
-  id   INT,
-  name VARCHAR(40)
+    id   INT,
+    name VARCHAR(40)
 );
-INSERT INTO known_fruits(id, name) VALUES (1, 'Cherry');
-INSERT INTO known_fruits(id, name) VALUES (2, 'Apple');
-INSERT INTO known_fruits(id, name) VALUES (3, 'Banana');
+INSERT INTO fruit(id, name) VALUES (1, 'Cherry');
+INSERT INTO fruit(id, name) VALUES (2, 'Apple');
+INSERT INTO fruit(id, name) VALUES (3, 'Banana');
+ALTER SEQUENCE fruit_seq RESTART WITH 4;

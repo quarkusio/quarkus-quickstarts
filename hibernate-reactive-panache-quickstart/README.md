@@ -9,6 +9,8 @@ While the code is surprisingly simple, under the hood this is using:
  - A PostgreSQL database; see below to run one via Docker
  - ArC, the CDI inspired dependency injection tool with zero overhead
 
+These examples show how to call methods directly on the entity (`FruitEntity`). For the repository example, see the `hibernate-orm-panache-quickstart`.
+
 ## Requirements
 
 To compile and run this demo you will need:
@@ -34,15 +36,6 @@ Launch the Maven build on the checked out sources of this demo:
 
 ## Running the demo
 
-### Prepare a PostgreSQL instance
-
-Make sure you have a PostgreSQL instance running. To set up a PostgreSQL database with Docker:
-
-> docker run -it --rm=true --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:13.3
-
-Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file,
-`src/main/resources/application.properties`.
-
 ### Live coding with Quarkus
 
 The Maven Quarkus plugin provides a development mode that supports
@@ -51,6 +44,14 @@ live coding. To try this out:
 > ./mvnw quarkus:dev
 
 In this mode you can make changes to the code and have the changes immediately applied, by just refreshing your browser.
+
+Dev Mode automatically starts a Docker container with a Postgres database. This feature is called ["Dev Services."](https://quarkus.io/guides/dev-services)
+
+To access the database from the terminal, run:
+
+```sh
+docker exec -it <container-name> psql -U quarkus
+```
 
     Hot reload works even when modifying your JPA entities.
     Try it! Even the database schema will be updated on the fly.
@@ -63,6 +64,14 @@ conventional jar file.
 First compile it:
 
 > ./mvnw package
+
+Next, make sure you have a PostgreSQL database running. In production, Quarkus does not start a container for you like it does in Dev Mode.
+To set up a PostgreSQL database with Docker:
+
+> docker run -it --rm=true --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:13.3
+
+Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file,
+`src/main/resources/application.properties`.
 
 Then run it:
 
