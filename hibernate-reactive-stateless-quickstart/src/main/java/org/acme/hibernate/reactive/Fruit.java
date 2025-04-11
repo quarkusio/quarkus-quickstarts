@@ -8,7 +8,6 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
-@Table
 public class Fruit {
 
     @Id

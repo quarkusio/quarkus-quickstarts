@@ -5,10 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.Table;
 
 @Entity
-@Table
 @NamedQuery(name = "Fruits.findAll", query = "SELECT f FROM Fruit f ORDER BY f.name")
 public class Fruit {
 
