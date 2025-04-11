@@ -1,5 +1,4 @@
 CREATE SEQUENCE base.fruit_seq INCREMENT BY 50; -- 50 is quarkus default
-SELECT setval('base."fruit_seq"', 3);
 CREATE TABLE base.fruit
 (
     id   INT,
@@ -11,7 +10,6 @@ INSERT INTO base.fruit(id, name) VALUES (3, 'Banana');
 ALTER SEQUENCE base.fruit_seq RESTART WITH 4;
 
 CREATE SEQUENCE mycompany.fruit_seq INCREMENT BY 50; -- 50 is quarkus default
-SELECT setval('mycompany."fruit_seq"', 3);
 CREATE TABLE mycompany.fruit
 (
   id   INT,
