@@ -18,3 +18,4 @@ CREATE TABLE mycompany.fruit
 INSERT INTO mycompany.fruit(id, name) VALUES (1, 'Avocado');
 INSERT INTO mycompany.fruit(id, name) VALUES (2, 'Apricots');
 INSERT INTO mycompany.fruit(id, name) VALUES (3, 'Blackberries');
+ALTER SEQUENCE mycompany.fruit_seq RESTART WITH 4;
