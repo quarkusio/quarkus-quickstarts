@@ -50,6 +50,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Hibernate Reactive Panache and RESTEasy Reactive](./hibernate-reactive-quickstart): Exposing a CRUD service over REST using Hibernate Reactive and Panache to connect to a PostgreSQL database
 * [Hibernate Reactive and RESTEasy](./hibernate-reactive-quickstart): Exposing a CRUD service over REST using Hibernate Reactive to connect to a PostgreSQL database
 * [Hibernate Reactive and Vert.x Web](./hibernate-reactive-routes-quickstart): Exposing a CRUD service with Reactive Routes using Hibernate Reactive to connect to a PostgreSQL database
+* [Hibernate Reactive with StatelessSession](./hibernate-reactive-stateless-quickstart): Exposing a CRUD service with Reactive Routes using Hibernate Reactive  using `StatelessSession` to connect to a PostgreSQL database
 * [Hibernate ORM and RESTEasy](./hibernate-orm-quickstart): Exposing a CRUD service over REST using Hibernate ORM to connect to a PostgreSQL database
 * [Hibernate ORM with Panache and RESTEasy](./hibernate-orm-panache-quickstart): Exposing a CRUD service over REST using Panache to connect to a PostgreSQL database
 * [Hibernate ORM with Panache and RESTEasy in Kotlin](./hibernate-orm-panache-kotlin-quickstart): Exposing a CRUD service over REST using Panache and kotlin to connect to a PostgreSQL database
@@ -57,6 +58,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Hibernate ORM Multitenancy Database](./hibernate-orm-multi-tenancy-database-quickstart): Multitenant CRUD service over REST using Hibernate ORM to connect to multiple PostgreSQL databases (database approach)
 * [Hibernate ORM Multitenancy Schema](./hibernate-orm-multi-tenancy-schema-quickstart): Multitenant CRUD service over REST using Hibernate ORM to connect to a PostgreSQL database (schema approach)
 * [Hibernate Search + Elasticsearch](./hibernate-search-orm-elasticsearch-quickstart): Index your Hibernate entities in Elasticsearch to get full text search
+* [Hibernate Search Standalone + Elasticsearch](./hibernate-search-orm-elasticsearch-quickstart): Index your Hibernate entities in Elasticsearch without Hibernate ORM to get full text search
 * [Infinispan Client](./infinispan-client-quickstart): How to use Infinispan Client. Covers creating caches and simple get/put
 * [Artemis JMS](./jms-quickstart): How to use the Artemis JMS extension
 * [Kafka](./kafka-quickstart): Use MicroProfile Reactive Messaging to interact with Apache Kafka

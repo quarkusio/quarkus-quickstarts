@@ -45,9 +45,17 @@ Note that running this command will start an Elasticsearch cluster, start a Post
 The Maven Quarkus plugin provides a development mode that supports
 live coding. To try this out:
 
->  ./mvnw quarkus:dev
+> ./mvnw quarkus:dev
 
 In this mode you can make changes to the code and have the changes immediately applied, by just refreshing your browser.
+
+Dev Mode automatically starts a Docker container with a Postgres database. This feature is called ["Dev Services."](https://quarkus.io/guides/dev-services)
+
+To access the database from the terminal, run:
+
+```sh
+docker exec -it <container-name> psql -U quarkus
+```
 
     Hot reload works even when modifying your JPA entities.
     Try it! Even the database schema and the Elasticsearch mapping will be updated on the fly.
@@ -64,7 +72,8 @@ First compile it:
 Note that this command will start a PostgreSQL instance and an Elasticsearch cluster to execute the tests.
 Thus your PostgreSQL and Elasticsearch containers need to be stopped.
 
-Next we need to make sure you have a PostgreSQL instance and Elasticsearch instance running
+Next, make sure you have a PostgreSQL database running and an ElasticSearch instance. 
+In production, Quarkus does not start a container for you like it does in Dev Mode.
 (Quarkus automatically starts one of each for dev and test mode, but not for prod mode).
 
 To set up a PostgreSQL database using Docker:
