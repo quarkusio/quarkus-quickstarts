@@ -40,13 +40,23 @@ live coding. To try this out:
 
 In this mode you can make changes to the code and have the changes immediately applied, by just refreshing your browser.
 
-Dev Mode automatically starts a Docker container with a Postgres database. This feature is called ["Dev Services."](https://quarkus.io/guides/dev-services)
+Dev Mode automatically starts two Docker containers running Postgres databases. This feature is called ["Dev Services."](https://quarkus.io/guides/dev-services)
 
 To access the database from the terminal, run:
 
 ```sh
-docker exec -it <container-name> psql -U quarkus
+docker container list
 ```
+
+To get the id or the name of the created containers and then to access the database machine use 
+
+```sh
+docker exec -it <container-name> psql -U quarkus -d base
+docker exec -it <container-name> psql -U quarkus -d mycompany
+```
+
+As the ids and names are auto generated, you should try the command with both ids or names to see what works.
+If the wrong one is provided, you'll get a `FATAL:  role "base" does not exist`. Try the other container instance instead.
 
     Hot reload works even when modifying your JPA entities.
     Try it! Even the database schema will be updated on the fly.
@@ -60,13 +70,25 @@ First compile it:
 
 > ./mvnw package
 
-Next, make sure you have a PostgreSQL database running. In production, Quarkus does not start a container for you like it does in Dev Mode.
-To set up a PostgreSQL database with Docker:
+Next, make sure you have the two PostgreSQL databases running. In production, Quarkus does not start any container for you like it does in Dev Mode.
+To set up two PostgreSQL databases with Docker:
 
-> docker run -it --rm=true --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:13.3
+```sh
+
+docker run -it --rm=true --name base-container -e POSTGRES_USER=base -e POSTGRES_PASSWORD=base -e POSTGRES_DB=base -p 5432:5432 postgres:13.3
+docker run -it --rm=true --name mycompany-container -e POSTGRES_USER=mycompany -e POSTGRES_PASSWORD=mycompany -e POSTGRES_DB=mycompany -p 5433:5432 postgres:13.3
+```
 
 Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file,
 `src/main/resources/application.properties`.
+
+To access these databases, since the usernames and passwords are set inside the `%prod` profile, and the usernames are the same as the Postgres database names, we can use to access those:
+
+```sh
+docker exec -it base-container psql -U base
+docker exec -it mycompany-container psql -U mycompany
+```
+
 
 Then run it:
 
