@@ -120,6 +120,7 @@
         <module>jta-quickstart</module>
     </modules>
 
+
     <build>
         <extensions>
             <extension>
@@ -129,4 +130,16 @@
             </extension>
         </extensions>
     </build>
+
+    <profiles>
+        <profile>
+            <id>java-21+</id>
+            <activation>
+                <jdk>[21,)</jdk>
+            </activation>
+            <modules>
+                <module>crud-movie-quickstart</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>
