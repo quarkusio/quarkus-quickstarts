@@ -9,7 +9,6 @@ While the code is surprisingly simple, under the hood this is using:
  - A PostgreSQL database; see below to run one via Docker
  - ArC, the CDI inspired dependency injection tool with zero overhead
  - The high performance Agroal connection pool
- - Infinispan based caching
  - All safely coordinated by the Narayana Transaction Manager
 
 ## Requirements
@@ -46,8 +45,16 @@ live coding. To try this out:
 
 In this mode you can make changes to the code and have the changes immediately applied, by just refreshing your browser.
 
-Hot reload works even when modifying your JPA entities.
-Try it! Even the database schema will be updated on the fly.
+Dev Mode automatically starts a Docker container with a Postgres database. This feature is called ["Dev Services."](https://quarkus.io/guides/dev-services)
+
+To access the database from the terminal, run:
+
+```sh
+docker exec -it <container-name> psql -U quarkus
+```
+
+    Hot reload works even when modifying your JPA entities.
+    Try it! Even the database schema will be updated on the fly.
 
 ### Run Quarkus in JVM mode
 
@@ -58,9 +65,10 @@ First compile it:
 
 > ./mvnw package
 
-Next we need to make sure you have a PostgreSQL instance running (Quarkus automatically starts one for dev and test mode). To set up a PostgreSQL database with Docker:
+Next, make sure you have a PostgreSQL database running. In production, Quarkus does not start a container for you like it does in Dev Mode.
+To set up a PostgreSQL database with Docker:
 
-> docker run --rm=true --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:13.3
+> docker run -it --rm=true --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:13.3
 
 Connection properties for the Agroal datasource are defined in the standard Quarkus configuration file,
 `src/main/resources/application.properties`.
@@ -69,8 +77,8 @@ Then run it:
 
 > java -jar ./target/quarkus-app/quarkus-run.jar
 
-Have a look at how fast it boots.
-Or measure total native memory consumption...
+    Have a look at how fast it boots.
+    Or measure total native memory consumption...
 
 ### Run Quarkus as a native application
 
@@ -89,11 +97,11 @@ After getting a cup of coffee, you'll be able to run this binary directly:
 
 > ./target/hibernate-orm-quickstart-1.0.0-SNAPSHOT-runner
 
-Please brace yourself: don't choke on that fresh cup of coffee you just got.
+    Please brace yourself: don't choke on that fresh cup of coffee you just got.
     
-Now observe the time it took to boot, and remember: that time was mostly spent to generate the tables in your database and import the initial data.
+    Now observe the time it took to boot, and remember: that time was mostly spent to generate the tables in your database and import the initial data.
     
-Next, maybe you're ready to measure how much memory this service is consuming.
+    Next, maybe you're ready to measure how much memory this service is consuming.
 
 N.B. This implies all dependencies have been compiled to native;
 that's a whole lot of stuff: from the bytecode enhancements that Hibernate ORM
