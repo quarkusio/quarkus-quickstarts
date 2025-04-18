@@ -9,7 +9,6 @@ While the code is surprisingly simple, under the hood this is using:
  - A PostgreSQL database; see below to run one via Docker
  - ArC, the CDI inspired dependency injection tool with zero overhead
  - The high performance Agroal connection pool
- - Infinispan based caching
  - All safely coordinated by the Narayana Transaction Manager
 
 ## Requirements
