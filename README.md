@@ -114,6 +114,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Stork Consul](./stork-quickstart): How to discover and select services with Consul
 * [Stork Kubernetes](./stork-kubernetes-quickstart): How to discover and select services with Kubernetes
 * [Stork Dns](./stork-dns-quickstart): How to discover and select services with DNS
+* [Stork Service Registration](./stork-registration-quickstart): How to registrer services with Consul
 * [Validation with Hibernate Validator](./validation-quickstart): How to use Hibernate Validator/Bean Validation in your REST services
 * [Using Vert.x](./vertx-quickstart): How to use the Vert.x extension
 * [Using Web Sockets](./websockets-quickstart): Demonstrate how to use web sockets and serve static assets
