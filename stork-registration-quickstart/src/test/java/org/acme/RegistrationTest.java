@@ -3,19 +3,9 @@ package org.acme;
 import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.smallrye.stork.Stork;
-import io.vertx.core.Vertx;
-import io.vertx.ext.consul.ConsulClient;
-import io.vertx.ext.consul.ConsulClientOptions;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import jakarta.inject.Inject;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.utility.DockerImageName;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -25,11 +15,20 @@ import static org.hamcrest.core.IsNot.not;
 @WithTestResource(ConsulTestResource.class)
 public class RegistrationTest {
 
+    @Inject
+    @ConfigProperty(name = "consul.host")
+    String consulHost;
 
-       @Test
+    @Inject
+    @ConfigProperty(name = "consul.port")
+    String consulPort;
+
+
+    @Test
     public void test() {
+           String consulUrl = "http://" + consulHost + ":" + consulPort;
            // curl -X GET http://127.0.0.1:8500/v1/agent/service/red
-           RestAssured.get("http://127.0.0.1:8500/v1/agent/service/red").then().statusCode(200).body(containsString("red"), containsString("my-service"));
+           RestAssured.get(consulUrl+"/v1/agent/service/red").then().statusCode(200).body(containsString("red"), containsString("\"Service\": \"red\""));
 
     }
 
