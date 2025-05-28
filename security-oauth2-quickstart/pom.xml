@@ -11,7 +11,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-    <quarkus.platform.version>3.23.0.CR1</quarkus.platform.version>
+    <quarkus.platform.version>3.23.0</quarkus.platform.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <wiremock.version>2.26.3</wiremock.version>
