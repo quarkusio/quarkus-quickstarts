@@ -10,7 +10,7 @@
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
-    <optaplanner-quarkus.version>9.37.0.Final</optaplanner-quarkus.version>
+    <optaplanner-quarkus.version>10.0.0</optaplanner-quarkus.version>
     <compiler-plugin.version>3.11.0</compiler-plugin.version>
     <surefire-plugin.version>3.1.2</surefire-plugin.version>
     <docker-plugin.version>0.28.0</docker-plugin.version>
@@ -43,10 +43,6 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-rest-jackson</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-vertx-http-dev-console-spi</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
