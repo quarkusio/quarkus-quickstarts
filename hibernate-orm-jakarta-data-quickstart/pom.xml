@@ -78,11 +78,11 @@
                 <configuration>
                     <!-- the parameters=true option is critical so that RESTEasy works fine -->
                     <parameters>true</parameters>
-                    <!-- the jpamodelgen annotation processor provides both static metamodel and Jakarta Data capabilities: -->
+                    <!-- the hibernate annotation processor provides both static metamodel and Jakarta Data capabilities: -->
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.hibernate.orm</groupId>
-                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <artifactId>hibernate-processor</artifactId>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
