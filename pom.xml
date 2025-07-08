@@ -95,6 +95,7 @@
         <module>security-openid-connect-client-quickstart</module>
         <module>security-openid-connect-web-authentication-quickstart</module>
         <module>security-openid-connect-multi-tenancy-quickstart</module>
+        <module>security-openid-connect-websockets-next-quickstart</module>
         <module>security-webauthn-quickstart</module>
         <module>security-webauthn-reactive-quickstart</module>
         <module>software-transactional-memory-quickstart</module>
