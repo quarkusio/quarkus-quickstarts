@@ -28,7 +28,7 @@ public class RegistrationTest {
     public void test() {
            String consulUrl = "http://" + consulHost + ":" + consulPort;
            // curl -X GET http://127.0.0.1:8500/v1/agent/service/red
-           RestAssured.get(consulUrl+"/v1/agent/service/red").then().statusCode(200).body(containsString("red"), containsString("\"Service\": \"red\""));
+           RestAssured.get(consulUrl+"/v1/agent/service/red-service").then().statusCode(200).body(containsString("\"Service\": \"red-service\""));
 
     }
 
