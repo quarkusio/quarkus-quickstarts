@@ -12,7 +12,7 @@ jobs:
   generate-json-matrix:
     name: Native Tests - Read JSON matrix
     runs-on: ubuntu-latest
-    if: "github.repository == 'quarkusio/quarkus-quickstarts' || github.event_name == 'workflow_dispatch'"
+    if: github.repository == 'quarkusio/quarkus-quickstarts' || github.event_name == 'workflow_dispatch'
     outputs:
       matrix: ${{ steps.generate.outputs.matrix }}
     steps:
@@ -27,7 +27,10 @@ jobs:
     name: ${{matrix.category}}
     runs-on: ubuntu-latest
     needs: [generate-json-matrix]
-    if: "github.repository == 'quarkusio/quarkus-quickstarts' || github.event_name == 'workflow_dispatch'"
+    if: github.repository == 'quarkusio/quarkus-quickstarts' || github.event_name == 'workflow_dispatch'
+    outputs:
+      quarkus-sha: ${{ steps.build-quarkus.outputs.sha }}
+      project-sha: ${{ steps.project-sha.outputs.sha }}
     strategy:
       max-parallel: 5
       fail-fast: false
@@ -36,6 +39,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
+      - name: Get current SHA
+        id: project-sha
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       - name: Reclaim Disk Space
         run: .github/ci-prerequisites.sh
@@ -60,7 +67,9 @@ jobs:
           java-version: 17
 
       - name: Build Quarkus main
+        id: build-quarkus
         run: |
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           git clone https://github.com/quarkusio/quarkus.git
           cd quarkus
           ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
@@ -115,7 +124,7 @@ jobs:
     name: Report
     runs-on: ubuntu-latest
     needs: [build-with-native]
-    if: "always() && github.repository == 'quarkusio/quarkus-quickstarts'"
+    if: always() && github.repository == 'quarkusio/quarkus-quickstarts'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -126,3 +135,5 @@ jobs:
           status: ${{ needs.build-with-native.result }}
           issue-repository: quarkusio/quarkus
           issue-number: 6588
+          quarkus-sha: ${{ needs.build-with-native.outputs.quarkus-sha }}
+          project-sha: ${{ needs.build-with-native.outputs.project-sha }}
