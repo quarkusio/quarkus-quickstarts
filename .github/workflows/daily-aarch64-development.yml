@@ -72,7 +72,7 @@ jobs:
           echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           git clone https://github.com/quarkusio/quarkus.git
           cd quarkus
-          ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
+          ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci -Prelocations
 
       - name: Test Quickstarts in Native mode
         run: |
