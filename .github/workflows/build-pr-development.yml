@@ -65,7 +65,7 @@ jobs:
         run: |
           git clone https://github.com/quarkusio/quarkus.git
           cd quarkus
-          ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci
+          ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci -Prelocations
       - name: Build with Maven
         run: export LANG=en_US && ./mvnw -e -B -fae --settings .github/mvn-settings.xml clean install -Dstart-containers
       - name: Delete Local Artifacts From Cache
