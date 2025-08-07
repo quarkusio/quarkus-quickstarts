@@ -3,8 +3,6 @@ package org.acme.services;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.stork.Stork;
 import io.vertx.mutiny.core.Vertx;
