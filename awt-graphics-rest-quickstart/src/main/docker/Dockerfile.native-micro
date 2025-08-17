@@ -18,7 +18,12 @@
 #
 # The `quay.io/quarkus/ubi9-quarkus-micro-image:2.0` base image is based on UBI 9.
 # To use UBI 8, switch to `quay.io/quarkus/quarkus-micro-image:2.0`.
+#
+# WARNING: Copying transitive dependencies is brittle, depends on the UBI version
+# and it's subject to change on the UBI side.
+#
 ###
+
 FROM registry.access.redhat.com/ubi9/ubi-minimal:9.5 as nativelibs
 RUN microdnf install -y freetype fontconfig expat
 
@@ -32,9 +37,16 @@ COPY --from=nativelibs \
    /lib64/libbz2.so.1 \
    /lib64/libpng16.so.16 \
    /lib64/libm.so.6 \
-   /lib64/libbz2.so.1 \
    /lib64/libexpat.so.1 \
    /lib64/libuuid.so.1 \
+   /lib64/libxml2.so.2 \
+   /lib64/libharfbuzz.so.0 \
+   /lib64/libbrotlidec.so.1 \
+   /lib64/libbrotlicommon.so.1 \
+   /lib64/liblzma.so.5 \
+   /lib64/libglib-2.0.so.0 \
+   /lib64/libgraphite2.so.3 \
+   /lib64/libpcre.so.1 \
    /lib64/
 COPY --from=nativelibs \
    /usr/lib64/libfontconfig.so.1 \
