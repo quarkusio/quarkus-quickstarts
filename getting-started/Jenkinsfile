@@ -1,15 +1,13 @@
-// Define a pipeline completa
 pipeline {
-    // Especifica onde a pipeline vai rodar. 'any' significa em qualquer agente disponível.
     agent any
-    // Define as etapas do seu processo CI/CD
     stages {
         stage('Executar Pipeline Completa') {
             steps {
                 echo 'Iniciando o script de automacao...'
-                // A linha abaixo executa o seu script de shell
-                //bat 'bash.exe ./pipeline.sh'
-                sh './pipeline.sh'
+                // O Jenkins agora entrará no diretório do projeto antes de rodar o script
+                dir('getting-started') {
+                    sh './pipeline.sh'
+                }
             }
         }
     }
