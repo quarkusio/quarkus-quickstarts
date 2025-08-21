@@ -38,7 +38,7 @@ echo "Imagem Docker '$APP_NAME' construída e tagueada com sucesso."
 # --- 5. IMPLANTAR NO AMBIENTE DES (Desenvolvimento) ---
 echo "Passo 5: Implantando no ambiente DES..."
 kubectl create namespace des --dry-run=client -o yaml | kubectl apply -f -
-kubectl apply -f ../kubernetes/des/
+kubectl apply -f ./kubernetes/des/
 
 echo "Aguardando o Deployment 'getting-started-des' ficar pronto..."
 kubectl rollout status deployment/getting-started-des -n des
@@ -58,7 +58,7 @@ fi
 # --- 7. IMPLANTAR NO AMBIENTE PRD (Produção) ---
 echo "Passo 7: Implantando no ambiente PRD..."
 kubectl create namespace prd --dry-run=client -o yaml | kubectl apply -f -
-kubectl apply -f ../kubernetes/prd/
+kubectl apply -f ./kubernetes/prd/
 
 echo "Aguardando o Deployment 'getting-started-prd' ficar pronto..."
 kubectl rollout status deployment/getting-started-prd -n prd
