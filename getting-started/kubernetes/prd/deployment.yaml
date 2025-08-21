@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: getting-started
-        image: getting-started:1.0.0 # A imagem é a mesma
+        image: raphaelcarvalho30/getting-started:1.0.0
         ports:
         - containerPort: 8080
