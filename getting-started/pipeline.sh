@@ -45,7 +45,7 @@ kubectl rollout status deployment/getting-started-des -n des
 echo "Implantação no ambiente DES concluída com sucesso!"
 
 # --- 6. EXECUTAR TESTES DE VALIDAÇÃO ---
-echo "Passo 6: Executando validação de saude do serviço DES..."
+echo "Passo 6: Executando validação de saude do serviÃ§o DES..."
 # A flag --url é crucial para que o comando retorne o URL e o script possa prosseguir
 SERVICE_URL=$(minikube service getting-started-service-des --namespace=des --url)
 
