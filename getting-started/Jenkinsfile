@@ -1,0 +1,15 @@
+// Define a pipeline completa
+pipeline {
+    // Especifica onde a pipeline vai rodar. 'any' significa em qualquer agente disponível.
+    agent any
+    // Define as etapas do seu processo CI/CD
+    stages {
+        stage('Executar Pipeline Completa') {
+            steps {
+                echo 'Iniciando o script de automacao...'
+                // A linha abaixo executa o seu script de shell
+                sh './pipeline.sh'
+            }
+        }
+    }
+}

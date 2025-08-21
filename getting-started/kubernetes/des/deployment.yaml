@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: getting-started-des
+  namespace: des
+spec:
+  replicas: 1  # Vamos rodar apenas uma réplica para o ambiente de desenvolvimento
+  selector:
+    matchLabels:
+      app: getting-started
+  template:
+    metadata:
+      labels:
+        app: getting-started
+    spec:
+      containers:
+      - name: getting-started
+        image: raphaelcarvalho30/getting-started:1.0.0  # Nome da sua imagem Docker que você construiu
+        ports:
+        - containerPort: 8080

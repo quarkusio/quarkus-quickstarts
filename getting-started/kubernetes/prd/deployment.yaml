@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: getting-started-prd
+  namespace: prd
+spec:
+  replicas: 3  # Aumentamos o número de réplicas para alta disponibilidade
+  selector:
+    matchLabels:
+      app: getting-started
+  template:
+    metadata:
+      labels:
+        app: getting-started
+    spec:
+      containers:
+      - name: getting-started
+        image: getting-started:1.0.0 # A imagem é a mesma
+        ports:
+        - containerPort: 8080
