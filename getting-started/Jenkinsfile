@@ -8,7 +8,7 @@ pipeline {
             steps {
                 echo 'Iniciando o script de automacao...'
                 // A linha abaixo executa o seu script de shell
-                bat './pipeline.sh'
+                bat 'bash.exe ./pipeline.sh'
             }
         }
     }
