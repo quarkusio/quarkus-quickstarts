@@ -22,7 +22,7 @@ cd "$PROJECT_DIR"
 
 # --- 2. OBTER A VERSÃO DA APLICAÇÃO ---
 echo "Passo 2: Lendo a versão do pom.xml..."
-APP_VERSION=$(grep -oP '<version>\K[^<]+' pom.xml | head -n 1)
+APP_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
 echo "Versão da aplicação encontrada: $APP_VERSION"
 
 # --- 3. COMPILAR APLICAÇÃO ---
