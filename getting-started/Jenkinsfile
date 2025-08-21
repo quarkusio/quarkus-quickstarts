@@ -4,13 +4,10 @@ pipeline {
         stage('Executar Pipeline Completa') {
             steps {
                 echo 'Limpando o workspace para garantir um ambiente limpo...'
-                // Limpa o workspace e faz um novo checkout
                 cleanWs()
-                
                 echo 'Iniciando o script de automacao...'
-                dir('getting-started') {
-                    sh './pipeline.sh'
-                }
+                // Agora o Jenkins está na pasta correta e pode rodar o script diretamente
+                sh './pipeline.sh'
             }
         }
     }
