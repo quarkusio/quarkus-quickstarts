@@ -64,7 +64,6 @@
         <module>microprofile-graphql-quickstart</module>
         <module>microprofile-graphql-client-quickstart</module>
         <module>microprofile-health-quickstart</module>
-        <module>microprofile-metrics-quickstart</module>
         <module>mongodb-quickstart</module>
         <module>mongodb-panache-quickstart</module>
         <module>mqtt-quickstart</module>
