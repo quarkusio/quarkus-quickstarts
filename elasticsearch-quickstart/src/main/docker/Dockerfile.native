@@ -13,6 +13,8 @@
 #
 # docker run -i --rm -p 8080:8080 quarkus/elasticsearch-quickstart
 #
+# The ` registry.access.redhat.com/ubi8/ubi-minimal:8.10` base image is based on UBI 9.
+# To use UBI 8, switch to `quay.io/ubi8/ubi-minimal:8.10`.
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.10
 WORKDIR /work/
