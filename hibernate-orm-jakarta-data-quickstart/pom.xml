@@ -78,6 +78,8 @@
                 <configuration>
                     <!-- the parameters=true option is critical so that RESTEasy works fine -->
                     <parameters>true</parameters>
+                    <!-- for the annotation processor transitive dependencies to be managed by Quarkus, we need this setting -->
+                    <annotationProcessorPathsUseDepMgmt>true</annotationProcessorPathsUseDepMgmt>
                     <!-- the hibernate annotation processor provides both static metamodel and Jakarta Data capabilities: -->
                     <annotationProcessorPaths>
                         <path>
