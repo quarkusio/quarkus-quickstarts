@@ -50,7 +50,7 @@ To build the applications into native executables, run:
 > mvn -f amqp-quickstart-processor package -Pnative -Dquarkus.native.container-build=true
 ```
 
-The `-Dquarkus.native.container-build=true` instructs Quarkus to build Linux 64bits native executables, who can run inside containers.  
+The `-Dquarkus.native.container-build=true` instructs Quarkus to build Linux 64-bit native executables, which can run inside containers.  
 
 Then, start the system using:
 

@@ -1,7 +1,7 @@
 # Quarkus demo: Amazon SES Client
 
 This example showcases how to use the AWS SES client with Quarkus.
-Despite the fact, this example uses local AWS SES for integration test purposes, we encourage you to use SES from the AWS account as it allows you to send emails.
+Despite the fact that this example uses local AWS SES for integration test purposes, we encourage you to use SES from an AWS account as it allows you to send emails.
 Local instance of SES only mocks service APIs and doesn't send any emails.
 
 ## Run the Demo in Dev Mode
@@ -13,13 +13,13 @@ Local instance of SES only mocks service APIs and doesn't send any emails.
 Using sync endpoint
 
 ```sh
-curl -XPOST -H"Content-type: application/json" http://localhost:8080/sync/email -d'{"from": "from-quarkus@example.com", "to": "to-quarkus@example.com", "subject": "Hello from Quarkus", "body": "Quarkus is awsome"}'
+curl -XPOST -H"Content-type: application/json" http://localhost:8080/sync/email -d'{"from": "from-quarkus@example.com", "to": "to-quarkus@example.com", "subject": "Hello from Quarkus", "body": "Quarkus is awesome"}'
 ```
 
 Or async endpoint
 
 ```sh
-curl -XPOST -H"Content-type: application/json" http://localhost:8080/async/email -d'{"from": "from-quarkus@example.com", "to": "to-quarkus@example.com", "subject": "Hello from Quarkus", "body": "Quarkus is awsome"}'
+curl -XPOST -H"Content-type: application/json" http://localhost:8080/async/email -d'{"from": "from-quarkus@example.com", "to": "to-quarkus@example.com", "subject": "Hello from Quarkus", "body": "Quarkus is awesome"}'
 ```
 
 As a result, you will see the ID of the message as SES returned. E.g.:
@@ -168,7 +168,7 @@ Verify the email addresses:
 aws ses verify-email-identity --email-address from-quarkus@example.com
 ```
 
-On AWS, verifying email identities or domain identities require additional steps like changing DNS configuration or clicking verification links respectively. Use email address that you can verify.
+On AWS, verifying email identities or domain identities requires additional steps like changing DNS configuration or clicking verification links respectively. Use an email address that you can verify.
 
 ## Run demo
 

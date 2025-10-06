@@ -152,7 +152,7 @@ Create a S3 bucket using AWS CLI and the localstack profile.
 aws s3 mb s3://quarkus.s3.12.345.99`
 ```
 
-**NOTE: Please assure the bucket name you created is unique across AWS S3 and update . 
+**NOTE: Please ensure the bucket name you created is unique across AWS S3 and update. 
 See [Amazon S3 Bucket Naming Requirements](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules)**
 
 ## Run demo
