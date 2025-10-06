@@ -147,7 +147,7 @@ For more information, see:
 - [Sign up for AWS and Create an IAM User](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/signup-create-iam-user.html)
 - [Set Up AWS Credentials and Region for Development](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html)
 
-Create a SQS queue and store the queue url in an environment variable as we will need to provide it to the our app:
+Create a SQS queue and store the queue url in an environment variable as we will need to provide it to our app:
 
 ```sh
 aws sqs create-queue --queue-name=quotes

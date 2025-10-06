@@ -1,6 +1,6 @@
 # Getting started with Quarkus command mode
 
-This is a minimal command mode application that access Quarkus API's.
+This is a minimal command mode application that accesses Quarkus APIs.
 
 Under the hood, this demo uses:
 

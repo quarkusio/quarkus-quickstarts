@@ -29,7 +29,7 @@ To build the applications, run:
 > mvn -f rabbitmq-quickstart-processor package
 ```
 
-Because we are running in _prod_ mode, we need to provide an RabbitMQ broker.
+Because we are running in _prod_ mode, we need to provide a RabbitMQ broker.
 The [docker-compose.yml](docker-compose.yml) file starts the broker and your application.
 
 Start the broker and the applications using:
@@ -50,7 +50,7 @@ To build the applications into native executables, run:
 > mvn -f rabbitmq-quickstart-processor package -Pnative -Dquarkus.native.container-build=true
 ```
 
-The `-Dquarkus.native.container-build=true` instructs Quarkus to build Linux 64bits native executables, who can run inside containers.  
+The `-Dquarkus.native.container-build=true` instructs Quarkus to build Linux 64-bit native executables, which can run inside containers.  
 
 Then, start the system using:
 

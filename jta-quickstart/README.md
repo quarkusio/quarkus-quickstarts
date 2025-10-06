@@ -1,6 +1,6 @@
 # Quarkus guide: https://quarkus.io/guides/transaction
 
-This quickstart shows how to JTA transactions with core quarkus features like JAX-RS and async support.
+This quickstart shows how to use JTA transactions with core Quarkus features like JAX-RS and async support.
 It does not perform actual transactional work since there are other quickstarts and extensions for that
 (such as hibernate-orm, hibernate-reactive, agroal, etc).
 
@@ -64,7 +64,7 @@ Do transactional work by explicitly managing the transaction boundaries:
 
 Do transactional work in an asynchronous JAX-RS method using AsyncResponse and MicroProfile Context Propagation:
 
-> curl -XPOST http://0.0.0.0:8080/jta/async-with-suspended # This should return the value 3 which corresponds to an transaction
+> curl -XPOST http://0.0.0.0:8080/jta/async-with-suspended # This should return the value 3 which corresponds to a transaction
 
 Do transactional work in a completion stage:
 

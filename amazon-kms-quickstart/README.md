@@ -9,7 +9,7 @@ This example showcases how to use the AWS KMS client with Quarkus.
 ## Encrypt your text
 
 ```sh
-curl -XPOST -H"Content-type: text/plain" http://localhost:8080/sync/encrypt -d'Quarkus is awsome'
+curl -XPOST -H"Content-type: text/plain" http://localhost:8080/sync/encrypt -d'Quarkus is awesome'
 ```
 
 And the result similar to this output:
@@ -29,7 +29,7 @@ curl -XPOST -H"Content-type: text/plain" http://localhost:8080/sync/decrypt -d '
 Repeat the same using async endpoints. Encrypt
 
 ```sh
-curl -XPOST -H"Content-type: text/plain" http://localhost:8080/async/encrypt -d 'Quarkus is awsome'
+curl -XPOST -H"Content-type: text/plain" http://localhost:8080/async/encrypt -d 'Quarkus is awesome'
 ```
 
 And then decrypt
@@ -69,7 +69,7 @@ Default output format [None]:
 
 ## Create KMS master key
 
-Create a master key with an alias for simplier configuration.
+Create a master key with an alias for simpler configuration.
 
 ```sh
 key_id=$(aws kms create-key --query KeyMetadata.KeyId --output text  --profile localstack --endpoint-url=http://localhost:4566)
@@ -138,7 +138,7 @@ docker run \
   localstack/localstack
 ```
 
-Create a master key with an alias for simplier configuration.
+Create a master key with an alias for simpler configuration.
 
 ```sh
 key_id=$(aws kms create-key --query KeyMetadata.KeyId --output text  --profile localstack --endpoint-url=http://localhost:4566)
@@ -174,7 +174,7 @@ For more information, see:
  - [Sign up for AWS and Create an IAM User](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/signup-create-iam-user.html)
  - [Set Up AWS Credentials and Region for Development](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html)
 
-Create a master key with an alias for simplier configuration.
+Create a master key with an alias for simpler configuration.
 
 ```sh
 key_id=$(aws kms create-key --query KeyMetadata.KeyId --output text)
