@@ -1,164 +1,173 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quarkus Chat!</title>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+    <title>Quarkus Chat</title>
 
     <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        input {
+            padding: 0.3em 1em;
+            background: WhiteSmoke;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+            box-shadow: rgba(0, 0, 0, 0.05) 0 1px 0 0;
+        }
+
+        input[type="text"] {
+            min-width: 30em;
+        }
+
+        input[type="button"] {
+            min-width: 7em;
+        }
+
         #chat {
-            resize: none;
-            overflow: hidden;
-            min-height: 300px;
-            max-height: 300px;
-            border: 1px solid darkslategray;
-            margin-bottom: 1em;
-            padding: 1em;
+            border: 1px solid black;
+            min-height: 2em;
+            padding: 0.3em 0.8em;
         }
 
-        .message {
-
+        #sendButton {
+            background-color: #2B7FFF;
+            color: white;
         }
 
-        .system-message {
+        .label {
+            min-width: 5em;
+            display: inline-block;
             font-weight: bold;
+        }
+
+        .system {
+            color: #E12AFB;
         }
 
         .user {
-            font-weight: bold;
-            color: cornflowerblue;
+            color: #51A2FF;
         }
 
-        .system-user {
-            font-weight: bold;
-            color: deeppink;
+        .info {
+            color: gray;
         }
     </style>
 </head>
 
 <body>
-<nav class="navbar navbar-default navbar-pf" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="/">
-            <p><strong>>> Quarkus Chat!</strong></p>
-        </a>
-    </div>
-</nav>
-<div class="container">
-    <br/>
-    <div class="row">
-        <input id="name" class="col-md-4" type="text" placeholder="your name">
-        <button id="connect" class="col-md-1 btn btn-primary" type="button">connect</button>
-        <br/>
-        <br/>
-    </div>
-    <div class="row">
-        <div class="col-md-8" id="chat"></div>
-    </div>
-    <div class="row">
-        <input class="col-md-6" id="msg" type="text" placeholder="enter your message">
-        <button class="col-md-1 btn btn-primary" id="send" type="button" disabled>send</button>
+    <div class="container">
+        <h2>Simple WebSocket Chat</h2>
+        <form action="">
+            <input id="user" type="text" placeholder="your name">
+            <input id="connectButton" type="button" onclick="openWebsocket()" value="connect">
+        </form>
+        <br>
+        <div id="chat"></div>
+        <br>
+        <form action="">
+            <input id="message" type="text" placeholder="enter your message" disabled>
+            <input id="sendButton" type="button" onclick="sendMessage()" value="send" disabled>
+        </form>
+        <br>
     </div>
 
-</div>
+    <script type="text/javascript">
+        let websocket = undefined;
+        let connected = false;
+        let username = "";
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
-
-<script type="text/javascript">
-    // State
-    let connected = false;
-    let socket;
-    let username = "";
-
-
-
-    $(document).ready(function () {
-        let name = $("#name");
-
-        $("#connect").click(connect);
-        $("#send").click(send);
-
-        name.keypress(function (event) {
-            if (event.keyCode == 13 || event.which == 13) {
-                connect();
+        function openWebsocket() {
+            if (connected) {
+                return;
             }
-        });
 
-        $("#msg").keypress(function (event) {
-            if (event.keyCode == 13 || event.which == 13) {
-                send();
-            }
-        });
+            const secure = location.protocol === "https:" ? "s" : "";
+            websocket = new WebSocket(`ws${secure}://` + location.host + "/chat/" + user.value);
 
-        $("#chat").change(function () {
-            scrollToBottom();
-        });
+            websocket.onopen = function() {
+                console.log("Connected to " + websocket.url);
 
-        name.focus();
-    });
-
-    let connect = function () {
-        if (!connected) {
-            let name = $("#name");
-            username = name.val();
-            socket = new WebSocket("ws://" + location.host + "/chat/" + username);
-            socket.onopen = function () {
+                $("user").disabled = true;
+                $("connectButton").disabled = true;
+                $("message").disabled = false;
+                $("sendButton").disabled = false;
+                $("message").focus()
                 connected = true;
-                console.log("Connected to the web socket");
-                $("#send").attr("disabled", false);
-                $("#connect").attr("disabled", true);
-                name.attr("disabled", true);
-                $("#msg").focus();
-            };
-            socket.onmessage = function (m) {
-                const chatMessage = JSON.parse(m.data);
-                let chat = $("#chat");
-                switch (chatMessage.type) {
+                username = user.value
+            }
+
+            const chat = $("chat");
+            websocket.onmessage = function(event) {
+                const msg = JSON.parse(event.data);
+
+                switch (msg.type) {
                     case "USER_JOINED":
-                        if (chatMessage.from !== username) {
-                            chat.append(`<span class='system-message'>${chatMessage.from} joined the chatroom.</span><br>`);
+                        if (msg.from !== username) {
+                            appendLine(chat, null, `${msg.from} joined the chatroom.`, "info")
                         } else {
-                            chat.append(`<span class='message'></span><span class='system-user'>System</span> : Howdy <span class="user">${chatMessage.from}</span>!.</span><br>`);
+                            appendLine(chat, "System", `Howdy ${msg.from}!`, "system")
                         }
                         break;
                     case "USER_LEFT":
-                        chat.append(`<span class='system-message'>${chatMessage.from} left the chatroom.</span><br>`);
+                        appendLine(chat, null, `${msg.from} left the chatroom.`, "info")
                         break;
                     case "CHAT_MESSAGE":
-                        chat.append(`<span class='message'></span><span class='user'>${chatMessage.from}</span> : ${chatMessage.message} </span><br>`);
+                        appendLine(chat, msg.from, msg.message, "user")
                         break;
                 }
-                scrollToBottom();
-            };
-        }
-    };
 
-    let send = function () {
-        if (connected) {
-            let msg = $("#msg");
-            var value = msg.val();
-            var chatMessage = {
+                $("message").value = ""
+            }
+
+            websocket.onerror = function(event) {
+                chat.innerHTML = `<p>Error: ${event.data}<p>` + chat.innerHTML;
+            }
+        }
+
+        // probably you want to escape user input on the backend
+        function appendLine(chat, username, text, clazz) {
+            const span = document.createElement("span");
+            if (username) {
+                span.classList.add("label", clazz);
+                span.innerText = username + ":";
+            }
+
+            const p = document.createElement("p");
+            p.append(span)
+            span.after(text);
+
+            chat.append(p);
+        }
+
+        function sendMessage() {
+            const chatMessage = {
                 type: "CHAT_MESSAGE",
-                from: username,
-                message: value
+                from: user.value,
+                message: message.value
             };
-            socket.send(JSON.stringify(chatMessage));
-            msg.val("");
+            websocket.send(JSON.stringify(chatMessage));
         }
-    };
 
-    let scrollToBottom = function () {
-        let chat = $('#chat');
-        chat.scrollTop(chat[0].scrollHeight);
-    };
+        // poor man's version of jquery selector
+        function $(elementId) {
+            return document.getElementById(elementId);
+        }
 
-</script>
+        function mapEnterKeyToFunction(elementId, functionName) {
+            const inputElement = $(elementId);
+            inputElement.addEventListener("keydown", event => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    functionName();
+                }
+            })
+        }
+
+        mapEnterKeyToFunction("user", openWebsocket);
+        mapEnterKeyToFunction("message", sendMessage);
+    </script>
 </body>
 
 </html>
