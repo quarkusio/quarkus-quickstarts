@@ -110,7 +110,6 @@
         <module>stork-kubernetes-quickstart</module>
         <module>stork-dns-quickstart</module>
         <module>tests-with-coverage-quickstart</module>
-        <module>tika-quickstart</module>
         <module>validation-quickstart</module>
         <module>vertx-quickstart</module>
         <module>websockets-quickstart</module>
