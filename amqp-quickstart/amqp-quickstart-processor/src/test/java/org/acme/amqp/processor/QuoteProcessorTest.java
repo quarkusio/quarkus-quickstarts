@@ -23,11 +23,13 @@ public class QuoteProcessorTest {
 
     @ConfigProperty(name = "amqp-host") String host;
     @ConfigProperty(name = "amqp-port") int port;
+    @ConfigProperty(name = "amqp-username") String username;
+    @ConfigProperty(name = "amqp-password") String password;
     private AmqpClient client;
 
     @BeforeEach
     void setUp() {
-        client = AmqpClient.create(new AmqpClientOptions().setHost(host).setPort(port));
+        client = AmqpClient.create(new AmqpClientOptions().setHost(host).setPort(port).setUsername(username).setPassword(password));
     }
 
     @AfterEach
