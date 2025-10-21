@@ -1,6 +1,6 @@
 # QuickStarts for Getting Started Guides
 
-This repository contains a set of Quickstarts for the Quarkus framework. Each of them have a Getting started guide.
+This repository contains a set of Quickstarts for the Quarkus framework. Each of them has a Getting started guide.
 
 ## Requirements
 
@@ -13,7 +13,7 @@ See the [Building a Native Executable guide](https://quarkus.io/guides/building-
 
 ## Use alternative platforms
 
-These quickstart by default currently uses the Quarkus core BOM.
+These quickstarts by default currently use the Quarkus core BOM.
 
 If you want to use an alternative BOM when building the quickstart you can override the `quarkus.platform.*` properties. The following example shows how to set `quarkus.platform.artifact-id` to use the universe-bom.
 
@@ -67,8 +67,8 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Kafka and Hibernate Reactive with Panache](./kafka-panache-reactive-quickstart): Shows how to combine Kafka and Hibernate Reactive with Panache
 * [Kafka Streams](./kafka-streams-quickstart): Use the Apache Kafka Streams API to implement stream processing applications based on Apache Kafka
 * [Bare Kafka](./kafka-bare-quickstart): How to use the Apache Kafka and Kafka Vert.x clients in Quarkus
-* [Liquibase](./liquibase-quickstart): How to use Liquibase to manage you schema migrations
-* [Liquibase MongoDB](./liquibase-mongodb-quickstart): How to use Liquibase MongoDB extension to manage you MongoDB migrations
+* [Liquibase](./liquibase-quickstart): How to use Liquibase to manage your schema migrations
+* [Liquibase MongoDB](./liquibase-mongodb-quickstart): How to use Liquibase MongoDB extension to manage your MongoDB migrations
 * [Micrometer](./micrometer-quickstart): How to use Micrometer to gather metrics
 * [MicroProfile Fault Tolerance](./microprofile-fault-tolerance-quickstart): How to use MicroProfile Fault Tolerance
 * [MicroProfile GraphQL](./microprofile-graphql-quickstart): How to use MicroProfile GraphQL

@@ -8,7 +8,7 @@ This example showcases how to use the AWS SSM client with Quarkus.
 
 ## Set some parameters
 
-First, add as many paramters as you like using the following patterns for secure and plain parameters:
+First, add as many parameters as you like using the following patterns for secure and plain parameters:
 
 ```sh
 curl -XPUT -H"Content-type: text/plain" "http://localhost:8080/sync/secure?secure=true" -d"stored as cipher text"
