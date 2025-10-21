@@ -17,7 +17,7 @@ public class ExampleResource {
 
     private final MeterRegistry registry;
 
-    LinkedList<Long> list = new LinkedList<>();
+    private final LinkedList<Long> list = new LinkedList<>();
 
     // Update the constructor to create the gauge
     ExampleResource(MeterRegistry registry) {
