@@ -74,7 +74,6 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [MicroProfile GraphQL](./microprofile-graphql-quickstart): How to use MicroProfile GraphQL
 * [MicroProfile GraphQL Client](./microprofile-graphql-client-quickstart): How to use MicroProfile GraphQL Client
 * [MicroProfile Health](./microprofile-health-quickstart): How to use MicroProfile Health
-* [MicroProfile Metrics](./microprofile-metrics-quickstart): How to use MicroProfile Metrics
 * [MongoDB](./mongodb-quickstart): How to connect to a MongoDB datastore
 * [MongoDB with Panache](./mongodb-panache-quickstart): Simplify your MongoDB applications with Panache
 * [MicroProfile Messaging MQTT](./mqtt-quickstart): How to interact with MQTT using MicroProfile reactive messaging
