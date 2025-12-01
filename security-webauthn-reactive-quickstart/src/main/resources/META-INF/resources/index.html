@@ -103,7 +103,7 @@
         var firstName = document.getElementById('firstName').value;
         var lastName = document.getElementById('lastName').value;
         result.replaceChildren();
-        webAuthn.register({ name: username, displayName: firstName + " " + lastName })
+        webAuthn.register({ username: username, displayName: firstName + " " + lastName })
           .then(body => {
             result.append("User: "+username);
           })
