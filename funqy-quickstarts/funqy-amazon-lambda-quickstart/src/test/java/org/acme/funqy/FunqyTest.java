@@ -1,16 +1,24 @@
 package org.acme.funqy;
 
-import io.quarkus.amazon.lambda.test.LambdaClient;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 @QuarkusTest
 public class FunqyTest {
     @Test
-    public void testSimpleLambdaSuccess() throws Exception {
+    public void testSimpleLambdaSuccess() {
         Friend friend = new Friend("Bill");
-        Greeting out = LambdaClient.invoke(Greeting.class, friend);
-        Assertions.assertEquals("Hello Bill", out.getMessage());
+        given()
+                .contentType("application/json")
+                .accept("application/json")
+                .body(friend)
+                .when()
+                .post()
+                .then()
+                .statusCode(200)
+                .body("message", equalTo("Hello Bill"));
     }
 }
