@@ -2,10 +2,11 @@ package org.acme.infinispan.client;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 class InfinispanGreetingResourceTest {
@@ -20,10 +21,13 @@ class InfinispanGreetingResourceTest {
               .then()
               .statusCode(200);
 
-        given()
+       Greeting greeting = given()
                 .when().get("/greeting/quarkus")
                 .then()
                 .statusCode(200)
-                .body(is("{\"name\":\"Infinispan Client\",\"message\":\"Hello World, Infinispan is up!\"}"));
+                .extract()
+                .as(Greeting.class);
+       Assertions.assertThat(greeting.name()).isEqualTo("Infinispan Client");
+       Assertions.assertThat(greeting.message()).isEqualTo("Hello World, Infinispan is up!");
     }
 }
