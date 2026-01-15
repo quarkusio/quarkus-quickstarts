@@ -24,6 +24,7 @@ class InfinispanGreetingResourceTest {
                 .when().get("/greeting/quarkus")
                 .then()
                 .statusCode(200)
-                .body(is("{\"name\":\"Infinispan Client\",\"message\":\"Hello World, Infinispan is up!\"}"));
+                .body("name", is("Infinispan Client"))
+                .body("message", is("Hello World, Infinispan is up!"));
     }
 }
