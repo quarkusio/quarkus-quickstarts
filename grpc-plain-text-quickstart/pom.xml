@@ -14,7 +14,7 @@
         <quarkus.platform.version>3.30.8</quarkus.platform.version>
         <surefire-plugin.version>3.1.2</surefire-plugin.version>
         <compiler-plugin.version>3.11.0</compiler-plugin.version>
-        <assertj.version>3.22.0</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
