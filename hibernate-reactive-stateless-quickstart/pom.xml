@@ -15,7 +15,7 @@
         <compiler-plugin.version>3.11.0</compiler-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <assertj.version>3.22.0</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
         <maven.compiler.release>17</maven.compiler.release>
     </properties>
 
