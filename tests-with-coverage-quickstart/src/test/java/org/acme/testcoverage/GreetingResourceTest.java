@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-@Tag("integration")
 public class GreetingResourceTest {
 
     @Test
