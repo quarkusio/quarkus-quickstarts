@@ -5,6 +5,7 @@
   <groupId>org.acme</groupId>
   <artifactId>getting-started-knative</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+  <packaging>quarkus</packaging>
   <properties>
     <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
     <compiler-plugin.version>3.11.0</compiler-plugin.version>
@@ -71,13 +72,6 @@
         <artifactId>quarkus-maven-plugin</artifactId>
         <version>${quarkus.platform.version}</version>
         <extensions>true</extensions>
-        <executions>
-          <execution>
-            <goals>
-              <goal>build</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>

@@ -7,6 +7,7 @@
     <groupId>io.quarkus.quickstarts</groupId>
     <artifactId>getting-started-reactive-rest</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>quarkus</packaging>
 
     <properties>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
@@ -75,13 +76,6 @@
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <version>${quarkus.platform.version}</version>
                 <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
