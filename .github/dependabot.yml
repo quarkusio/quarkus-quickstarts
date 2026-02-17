@@ -10,4 +10,5 @@ updates:
     target-branch: "development"
     allow:
       - dependency-name: io.quarkiverse.*:*
+      - dependency-name: io.fabric8:docker-maven-plugin
     rebase-strategy: disabled
