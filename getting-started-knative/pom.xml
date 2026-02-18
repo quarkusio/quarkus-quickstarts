@@ -8,7 +8,7 @@
   <packaging>quarkus</packaging>
   <properties>
     <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
-    <compiler-plugin.version>3.11.0</compiler-plugin.version>
+    <compiler-plugin.version>3.15.0</compiler-plugin.version>
     <maven.compiler.parameters>true</maven.compiler.parameters>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
