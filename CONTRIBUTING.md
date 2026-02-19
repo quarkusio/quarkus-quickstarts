@@ -55,7 +55,7 @@ mvn clean verify -Pnative
 
 ## Build with Gradle
 
-Clone like above, and build e.g. `getting-started` using:
+Clone like above, and build e.g. `getting-started-gradle` using:
 
     ../gradlew build
 

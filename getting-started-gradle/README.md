@@ -1,4 +1,4 @@
-# Getting started with Quarkus
+# Getting started with Quarkus and Gradle
 
 This is a minimal CRUD service exposing a couple of endpoints over REST.
 
@@ -11,29 +11,29 @@ Under the hood, this demo uses:
 
 To compile and run this demo you will need:
 
-- JDK 17+
+- JDK 1.8+
 - GraalVM
 
-### Configuring GraalVM and JDK 17+
+### Configuring GraalVM and JDK 1.8+
 
 Make sure that both the `GRAALVM_HOME` and `JAVA_HOME` environment variables have
-been set, and that a JDK 17+ `java` command is on the path.
+been set, and that a JDK 1.8+ `java` command is on the path.
 
 See the [Building a Native Executable guide](https://quarkus.io/guides/building-native-image-guide)
 for help setting up your environment.
 
 ## Building the application
 
-Launch the Maven build on the checked out sources of this demo:
+Launch the Gradle build on the checked out sources of this demo:
 
-> ./mvnw package
+> ./gradlew build
 
 ### Live coding with Quarkus
 
-The Maven Quarkus plugin provides a development mode that supports
+The Gradle Quarkus plugin provides a development mode that supports
 live coding. To try this out:
 
-> ./mvnw quarkus:dev
+> ./gradlew quarkusDev
 
 This command will leave Quarkus running in the foreground listening on port 8080.
 
@@ -53,11 +53,11 @@ conventional jar file.
 
 First compile it:
 
-> ./mvnw package
+> ./gradlew quarkusBuild
 
 Then run it:
 
-> java -jar ./target/quarkus-app/quarkus-run.jar
+> java -jar ./build/getting-started-gradle-1.0-SNAPSHOT-runner.jar
 
 Have a look at how fast it boots, or measure the total native memory consumption.
 
@@ -72,8 +72,8 @@ Compiling a native executable takes a bit longer, as GraalVM performs additional
 steps to remove unnecessary codepaths. Use the  `native` profile to compile a
 native executable:
 
-> ./mvnw package -Dnative
+> ./gradlew quarkusBuild -Dquarkus.package.type=native
 
 After getting a cup of coffee, you'll be able to run this executable directly:
 
-> ./target/getting-started-1.0.0-SNAPSHOT-runner
+> ./build/getting-started-gradle-1.0-SNAPSHOT-runner
