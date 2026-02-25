@@ -3,104 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <title>Quarkus Chat</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        input {
+            padding: 0.3em 1em;
+            background: WhiteSmoke;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px 0px;
+        }
+
+        input[type="text"] {
+            min-width: 30em;
+        }
+
+        input[type="button"] {
+            min-width: 7em;
+        }
+
+        #chat {
+            border: 1px solid black;
+            min-height: 2em;
+            padding: 0.3em 0.8em;
+        }
+
+        #sendButton {
+            background-color: #2B7FFF;
+            color: white;
+        }
+
+        .label {
+            min-width: 5em;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .system {
+            color: #E12AFB;
+        }
+
+        .user {
+            color: #51A2FF;
+        }
+
+        .info {
+            color: gray;
+        }
+    </style>
 </head>
+
 <body>
+    <div class="container">
+        <h2>Simple WebSocket Chat</h2>
+        <form action="">
+            <input id="user" type="text" placeholder="your name">
+            <input id="connectButton" type="button" onclick="openWebsocket()" value="connect">
+        </form>
+        <br>
+        <div id="chat"></div>
+        <br>
+        <form action="">
+            <input id="message" type="text" placeholder="enter your message" disabled>
+            <input id="sendButton" type="button" onclick="sendMessage()" value="send" disabled>
+        </form>
+        <br>
+    </div>
 
-<div class="container">
-    <h2>Simple WebSocket Chat</h2>
-    <form id="" action="">
-        <label for="user">User </label><input id="user">
-        <input id="connectButton" type="button" onclick="openWebsocket()" value="Connect">
-    </form>
-    <br>
-    <form action="">
-        <label for="message">Message </label><input id="message" disabled>
-        <input id="sendButton" type="button" onclick="sendMessage()" value="Send" disabled>
-    </form>
-    <br>
-    <div id="chat"></div>
-</div>
+    <script type="text/javascript">
+        let websocket = undefined;
+        let connected = false;
+        let username = "";
 
-<script type="text/javascript">
-    let websocket = undefined;
-    let connected = false;
-    let username = "";
-
-    function openWebsocket() {
-        if (connected) {
-            return;
-        }
-
-        const secure = location.protocol === "https:" ? "s" : "";
-        websocket = new WebSocket(`ws${secure}://` + location.host + "/chat/" + user.value);
-
-        websocket.onopen = function() {
-            console.log("Connected to " + websocket.url);
-
-            $("user").disabled = true;
-            $("connectButton").disabled = true;
-            $("message").disabled = false;
-            $("sendButton").disabled = false;
-            $("message").focus()
-            connected = true;
-            username = user.value
-        }
-
-        const chat = $("chat");
-        websocket.onmessage = function(event) {
-            const chatMessage = JSON.parse(event.data);
-
-            switch (chatMessage.type) {
-                case "USER_JOINED":
-                    if (chatMessage.from !== username) {
-                        chat.innerHTML = `<p><b>${chatMessage.from} joined the chatroom.</b></p>` + chat.innerHTML;
-                    } else {
-                        chat.innerHTML = `<p><b>System</b>: Howdy ${chatMessage.from}</p>` + chat.innerHTML;
-                    }
-                    break;
-                case "USER_LEFT":
-                    chat.innerHTML = `<p><b>${chatMessage.from} left the chatroom.</b></p>` + chat.innerHTML;
-                    break;
-                case "CHAT_MESSAGE":
-                    chat.innerHTML = `<p><b>${chatMessage.from}</b>: ${chatMessage.message} </p>` + chat.innerHTML;
-                    break;
+        function openWebsocket() {
+            if (connected) {
+                return;
             }
 
-            $("message").value = ""
-        }
+            const secure = location.protocol === "https:" ? "s" : "";
+            websocket = new WebSocket(`ws${secure}://` + location.host + "/chat/" + user.value);
 
-        websocket.onerror = function(event) {
-            chat.innerHTML = `Error: ${event.data} <br>` + chat.innerHTML;
-        }
-    }
+            websocket.onopen = function() {
+                console.log("Connected to " + websocket.url);
 
-    function sendMessage() {
-        const chatMessage = {
-            type: "CHAT_MESSAGE",
-            from: user.value,
-            message: message.value
-        };
-        websocket.send(JSON.stringify(chatMessage));
-    }
-
-    // poor man's version of jquery selector
-    function $(elementId) {
-        return document.getElementById(elementId);
-    }
-
-    function mapEnterKeyToFunction(elementId, functionName) {
-        const inputElement = $(elementId);
-        inputElement.addEventListener("keydown", event => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                functionName();
+                $("user").disabled = true;
+                $("connectButton").disabled = true;
+                $("message").disabled = false;
+                $("sendButton").disabled = false;
+                $("message").focus()
+                connected = true;
+                username = user.value
             }
-        })
-    }
 
-    mapEnterKeyToFunction("user", openWebsocket);
-    mapEnterKeyToFunction("message", sendMessage);
-</script>
+            const chat = $("chat");
+            websocket.onmessage = function(event) {
+                const chatMessage = JSON.parse(event.data);
 
+                switch (chatMessage.type) {
+                    case "USER_JOINED":
+                        if (chatMessage.from !== username) {
+                            chat.innerHTML = chat.innerHTML + `<p><span class="info">${chatMessage.from} joined the chatroom.</span><p>`;
+                        } else {
+                            chat.innerHTML = chat.innerHTML + `<p><span class="system label">System:</span> Howdy ${chatMessage.from}!</p>`;
+                        }
+                        break;
+                    case "USER_LEFT":
+                        chat.innerHTML = chat.innerHTML + `<p><span class="info">${chatMessage.from} left the chatroom.</span></p>`;
+                        break;
+                    case "CHAT_MESSAGE":
+                        chat.innerHTML = chat.innerHTML + `<p><span class="user label">${chatMessage.from}:</span> ${chatMessage.message} </p>`;
+                        break;
+                }
+
+                $("message").value = ""
+            }
+
+            websocket.onerror = function(event) {
+                chat.innerHTML = `<p>Error: ${event.data}<p>` + chat.innerHTML;
+            }
+        }
+
+        function sendMessage() {
+            const chatMessage = {
+                type: "CHAT_MESSAGE",
+                from: user.value,
+                message: message.value
+            };
+            websocket.send(JSON.stringify(chatMessage));
+        }
+
+        // poor man's version of jquery selector
+        function $(elementId) {
+            return document.getElementById(elementId);
+        }
+
+        function mapEnterKeyToFunction(elementId, functionName) {
+            const inputElement = $(elementId);
+            inputElement.addEventListener("keydown", event => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    functionName();
+                }
+            })
+        }
+
+        mapEnterKeyToFunction("user", openWebsocket);
+        mapEnterKeyToFunction("message", sendMessage);
+    </script>
 </body>
+
 </html>
