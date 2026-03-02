@@ -20,8 +20,8 @@
         <quarkus-artemis.version>3.12.1</quarkus-artemis.version>
 
         <!-- Tests are unstable -->
-        <skipTests>true</skipTests>
-        <skipITs>true</skipITs>
+        <skipTests>false</skipTests>
+        <skipITs>false</skipITs>
     </properties>
 
     <dependencyManagement>
