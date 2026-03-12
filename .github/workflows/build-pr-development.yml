@@ -3,6 +3,7 @@ name: "Pull Request Build - development"
 on:
   pull_request:
     branches:
+      - main
       - development
       - "[0-9]+.[0-9]+"
 
@@ -35,6 +36,12 @@ jobs:
       matrix:
         java: [ 17 ]
     steps:
+      - name: "Fail if targeted against main branch"
+        if: github.base_ref == 'main'
+        run: |
+          echo "::error::This PR targets 'main' but it should target 'development'."
+          echo "::error::Please retarget your PR to 'development'."
+          exit 1
       - uses: actions/checkout@v4
       - name: Get Date
         id: get-date
