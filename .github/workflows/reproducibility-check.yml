@@ -1,0 +1,53 @@
+name: Reproducibility Check
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  reproducibility-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Java 25 Temurin
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 25
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y xmlstarlet diffoscope
+
+      - name: Run reproducibility check
+        run: |
+          chmod +x check-reproducibility.sh
+          ./check-reproducibility.sh
+
+      - name: Find output directory
+        if: always()
+        id: find-output
+        run: |
+          OUTPUT_DIR=$(ls -td reproducibility-checks/*/ | head -1)
+          echo "output_dir=$OUTPUT_DIR" >> "$GITHUB_OUTPUT"
+
+      - name: Add job summary
+        if: always()
+        run: cat "${{ steps.find-output.outputs.output_dir }}/report.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload summary report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: reproducibility-summary
+          path: ${{ steps.find-output.outputs.output_dir }}/report.md
+          archive: false
+
+      - name: Upload all reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: reproducibility-reports
+          path: ${{ steps.find-output.outputs.output_dir }}
