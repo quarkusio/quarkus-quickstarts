@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ConsulTestResource implements QuarkusTestResourceLifecycleManager {
 
-    private static final String IMAGE = "consul:1.7";
+    private static final String IMAGE = "consul:latest";
     private GenericContainer<?> container;
 
     @Override

@@ -1,6 +1,6 @@
 Quarkus guide: https://quarkus.io/guides/stork-registration
 
-This example describes how Stork can registers automatically service instances using Consul.
+This example describes how Stork can register automatically service instances using Consul.
 
 You can start the Consul instance using:
 
