@@ -1,4 +1,4 @@
-Quarkus guide: https://quarkus.io/guides/stork-registration
+Quarkus guide: https://quarkus.io/guides/stork-manual-service-registration
 
 This example describes how you can register service instances extending Stork registration.
 
