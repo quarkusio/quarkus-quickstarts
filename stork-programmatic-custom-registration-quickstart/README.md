@@ -1,31 +1,43 @@
 Quarkus guide: https://quarkus.io/guides/stork-manual-service-registration
 
-This example describes how you can register service instances extending Stork registration.
+# Stork Programmatic Custom Registration Quickstart
 
-You can start the Consul instance using:
+This quickstart demonstrates how to extend SmallRye Stork's service registration by implementing a custom `ServiceRegistrar` 
+and programmatically registering service instances at application startup.
 
+The custom registrar stores registered instances in memory.
 
-```shell
-docker run \
-    -d \
-    -p 8500:8500 \
-    -p 8600:8600/udp \
-    consul agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0
+## Architecture
+
+The project implements two Stork SPI interfaces:
+
+- **`CustomServiceRegistrarProvider`** — Factory annotated with `@ServiceRegistrarType("custom")` that creates `CustomServiceRegistrar` instances.
+- **`CustomServiceRegistrar`** — Holds registered service instances in a `ConcurrentHashMap`. Receives host/port configuration from `CustomRegistrarConfiguration` (generated at build time from `@ServiceRegistrarAttribute` annotations).
+- **`Registration`** — CDI bean that observes `StartupEvent` and programmatically registers a service instance via `Stork.getInstance().getService("my-service").registerInstance(...)`.
+
+## Configuration
+
+The custom registrar is configured in `application.properties`:
+
+```properties
+quarkus.stork.my-service.service-registrar.type=custom
+quarkus.stork.my-service.service-registrar.host=localhost
 ```
-Registering services in command line:
+
+## Running the application in dev mode
 
 ```bash
-curl -X PUT -d '{"ID": "red", "Name": "red-service", "Address": "localhost", "Port": 9000, "Tags": ["color"]}' http://127.0.0.1:8500/v1/agent/service/register
+./mvnw quarkus:dev
 ```
 
-Deleting a service instance
+## Running tests
 
 ```bash
-curl -X PUT http://127.0.0.1:8500/v1/agent/service/deregister/red
+./mvnw test
 ```
 
-Getting a service by name
+## Building a native executable
 
 ```bash
- curl -X GET http://127.0.0.1:8500/v1/agent/service/red 
+./mvnw verify -Pnative
 ```
