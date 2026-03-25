@@ -24,8 +24,8 @@ public class ConsulTestResource implements QuarkusTestResourceLifecycleManager {
         return Map.of(
                 "consul.host", container.getContainerIpAddress(),
                 "consul.port", Integer.toString(container.getMappedPort(8500)),
-                "quarkus.stork.my-service.service-discovery.consul-host", container.getContainerIpAddress(),
-                "quarkus.stork.my-service.service-discovery.consul-port", Integer.toString(container.getMappedPort(8500))
+                "quarkus.stork.red-service.service-registrar.consul-host", container.getContainerIpAddress(),
+                "quarkus.stork.red-service.service-registrar.consul-port", Integer.toString(container.getMappedPort(8500))
         );
 
     }
