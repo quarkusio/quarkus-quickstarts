@@ -2,6 +2,8 @@ package org.acme.quickstart;
 
 import com.arjuna.ats.jta.TransactionManager;
 import io.quarkus.runtime.StartupEvent;
+import io.smallrye.common.annotation.Blocking;
+
 import org.eclipse.microprofile.context.ManagedExecutor;
 import org.eclipse.microprofile.context.ThreadContext;
 import org.eclipse.microprofile.context.spi.ContextManagerProvider;
@@ -56,6 +58,7 @@ public class TransactionalResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Transactional
+    @Blocking
     @Path("cmt")
     public int cmt() throws SystemException {
         // the @Transactional annotation will have started a transaction
@@ -83,6 +86,7 @@ public class TransactionalResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Transactional
+    @Blocking
     @Path("async-with-suspended")
     public void async1(@Suspended AsyncResponse ar) throws SystemException {
         // the framework will have started a transaction because of the @Transactional annotation
@@ -118,6 +122,7 @@ public class TransactionalResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Transactional
+    @Blocking
     @Path("async-with-completion-stage")
     public CompletionStage<Integer> async2() throws SystemException {
         System.out.printf("submitting async job ...%n");
@@ -147,6 +152,7 @@ public class TransactionalResource {
 
     @POST
     @Produces(MediaType.TEXT_PLAIN)
+    @Blocking
     @Transactional
     @Path("async-6471-reproducer")
     public void asyncIssue6471Reproducer(@Suspended AsyncResponse ar) throws SystemException {
