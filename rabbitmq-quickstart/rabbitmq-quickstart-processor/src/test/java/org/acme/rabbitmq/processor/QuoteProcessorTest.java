@@ -57,6 +57,9 @@ public class QuoteProcessorTest {
         AMQP.BasicProperties props = new AMQP.BasicProperties.Builder()
             .contentType("text/plain")
             .build();
+
+        await().until(() -> channel.consumerCount("quote-requests") >= 1);
+
         channel.basicPublish("quote-requests", quoteId, props, quoteId.getBytes(UTF_8));
 
         await().atMost(3, SECONDS).untilAtomic(receivedQuote, notNullValue());
