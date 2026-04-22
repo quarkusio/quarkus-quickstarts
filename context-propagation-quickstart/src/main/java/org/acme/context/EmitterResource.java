@@ -12,6 +12,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.reactive.RestStreamElementType;
 
+import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.infrastructure.Infrastructure;
 
@@ -23,6 +24,7 @@ public class EmitterResource {
     @Channel("prices") Multi<Double> prices;
 
     @Transactional
+    @Blocking
     @GET
     @Path("/prices")
     @Produces(MediaType.SERVER_SENT_EVENTS)

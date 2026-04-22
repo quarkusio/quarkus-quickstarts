@@ -39,3 +39,5 @@ lsp/
 *.swo
 
 .quarkus
+
+reproducibility-checks/
