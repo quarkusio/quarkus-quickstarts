@@ -130,4 +130,30 @@
             </extension>
         </extensions>
     </build>
+    <profiles>
+        <profile>
+            <id>incremental</id>
+            <activation>
+                <property>
+                    <name>incremental</name>
+                    <value>!false</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.github.gitflow-incremental-builder</groupId>
+                        <artifactId>gitflow-incremental-builder</artifactId>
+                        <version>4.6.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <referenceBranch>HEAD</referenceBranch>
+                            <uncommitted>false</uncommitted>
+                            <untracked>false</untracked>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
