@@ -136,7 +136,6 @@
             <activation>
                 <property>
                     <name>incremental</name>
-                    <value>!false</value>
                 </property>
             </activation>
             <build>
