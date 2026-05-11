@@ -105,6 +105,7 @@
         <module>spring-scheduled-quickstart</module>
         <module>spring-boot-properties-quickstart</module>
         <module>spring-data-rest-quickstart</module>
+        <module>spring-test-quickstart</module>
         <module>stork-quickstart</module>
         <module>stork-kubernetes-quickstart</module>
         <module>stork-dns-quickstart</module>
