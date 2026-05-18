@@ -19,6 +19,7 @@
         <module>amazon-sqs-connector-quickstart</module>
         <module>amqp-quickstart</module>
         <module>awt-graphics-rest-quickstart</module>
+        <module>awt-graphics-pdfbox-quickstart</module>
         <module>cache-quickstart</module>
         <module>config-quickstart</module>
         <module>context-propagation-quickstart</module>
