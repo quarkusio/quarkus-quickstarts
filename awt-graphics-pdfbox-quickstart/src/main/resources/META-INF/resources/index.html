@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF preview, PDF to PNG</title>
+</head>
+<body>
+POST multipart, PDF file to receive a PNG image of its first page back.</a>
+e.g.
+<pre>
+    curl -F "pdf=@/tmp/test-pdf.pdf"  http://localhost:8080/pdf2png --output /tmp/result.png
+</pre>
+Converts PDF's first page to PNG using Apache PDFBox.
+</body>
+</html>
