@@ -66,7 +66,8 @@
         <module>microprofile-health-quickstart</module>
         <module>mongodb-quickstart</module>
         <module>mongodb-panache-quickstart</module>
-        <module>mqtt-quickstart</module>
+        <!-- Quarkus 4 main disables reactive-messaging-mqtt extension for now -->
+        <!-- <module>mqtt-quickstart</module> -->
         <!--
         <module>neo4j-quickstart</module>
         -->
