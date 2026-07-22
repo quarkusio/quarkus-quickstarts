@@ -1,16 +1,15 @@
 package org.acme.elasticsearch.rest;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.acme.elasticsearch.Fruit;
-import org.apache.http.util.EntityUtils;
-import org.elasticsearch.client.Request;
-import org.elasticsearch.client.Response;
-import org.elasticsearch.client.RestClient;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import co.elastic.clients.transport.rest5_client.low_level.Request;
+import co.elastic.clients.transport.rest5_client.low_level.Response;
+import co.elastic.clients.transport.rest5_client.low_level.Rest5Client;
 
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -18,9 +17,9 @@ import io.vertx.core.json.JsonObject;
 @ApplicationScoped
 public class FruitService {
     @Inject
-    RestClient restClient;
+    Rest5Client restClient;
 
-    public void index(Fruit fruit) throws IOException {
+    public void index(Fruit fruit) throws Exception {
         Request request = new Request(
             "PUT",
             "/fruits/_doc/" + fruit.id);
@@ -28,7 +27,7 @@ public class FruitService {
         restClient.performRequest(request);
     }
 
-    public Fruit get(String id) throws IOException {
+    public Fruit get(String id) throws Exception {
         Request request = new Request(
             "GET",
             "/fruits/_doc/" + id);
@@ -38,15 +37,15 @@ public class FruitService {
         return json.getJsonObject("_source").mapTo(Fruit.class);
     }
 
-    public List<Fruit> searchByColor(String color) throws IOException {
+    public List<Fruit> searchByColor(String color) throws Exception {
         return search("color", color);
     }
 
-    public List<Fruit> searchByName(String name) throws IOException {
+    public List<Fruit> searchByName(String name) throws Exception {
         return search("name", name);
     }
 
-    private List<Fruit> search(String term, String match) throws IOException {
+    private List<Fruit> search(String term, String match) throws Exception {
         Request request = new Request(
             "GET",
             "/fruits/_search");
