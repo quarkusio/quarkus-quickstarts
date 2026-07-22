@@ -1,7 +1,6 @@
 package org.acme.elasticsearch.rest;
 
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +21,7 @@ public class FruitResource {
     FruitService fruitService;
 
     @POST
-    public Response index(Fruit fruit) throws IOException {
+    public Response index(Fruit fruit) throws Exception {
         if (fruit.id == null) {
             fruit.id = UUID.randomUUID().toString();
         }
@@ -32,13 +31,13 @@ public class FruitResource {
 
     @GET
     @Path("/{id}")
-    public Fruit get(String id) throws IOException {
+    public Fruit get(String id) throws Exception {
         return fruitService.get(id);
     }
 
     @GET
     @Path("/search")
-    public List<Fruit> search(@RestQuery String name, @RestQuery String color) throws IOException {
+    public List<Fruit> search(@RestQuery String name, @RestQuery String color) throws Exception {
         if (name != null) {
             return fruitService.searchByName(name);
         } else if (color != null) {
