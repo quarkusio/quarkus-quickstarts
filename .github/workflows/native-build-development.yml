@@ -69,9 +69,9 @@ jobs:
       - name: Build Quarkus main
         id: build-quarkus
         run: |
-          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           git clone https://github.com/quarkusio/quarkus.git
           cd quarkus
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci -Prelocations
 
       - name: Build Quickstarts with Native
