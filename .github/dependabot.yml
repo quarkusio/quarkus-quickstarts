@@ -12,3 +12,14 @@ updates:
       - dependency-name: io.quarkiverse.*:*
       - dependency-name: io.fabric8:docker-maven-plugin
     rebase-strategy: disabled
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "23:00"
+      timezone: Europe/Paris
+    open-pull-requests-limit: 6
+    target-branch: "development"
+    rebase-strategy: disabled
+    cooldown:
+      default-days: 10
