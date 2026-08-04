@@ -1,8 +1,8 @@
 package org.acme.sns;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectReader;
+import tools.jackson.databind.json.JsonMapper;
 import io.smallrye.mutiny.Uni;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,9 +44,9 @@ public class QuarksShieldAsyncResource {
     static Map<Class<?>, ObjectReader> READERS = new HashMap<>();
 
     static {
-        READERS.put(SnsNotification.class, new ObjectMapper().readerFor(SnsNotification.class));
-        READERS.put(SnsSubscriptionConfirmation.class, new ObjectMapper().readerFor(SnsSubscriptionConfirmation.class));
-        READERS.put(Quark.class, new ObjectMapper().readerFor(Quark.class));
+        READERS.put(SnsNotification.class, JsonMapper.builder().build().readerFor(SnsNotification.class));
+        READERS.put(SnsSubscriptionConfirmation.class, JsonMapper.builder().build().readerFor(SnsSubscriptionConfirmation.class));
+        READERS.put(Quark.class, JsonMapper.builder().build().readerFor(Quark.class));
     }
 
     @POST
@@ -115,7 +115,7 @@ public class QuarksShieldAsyncResource {
         T object = null;
         try {
             object = READERS.get(clazz).readValue(message);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             LOGGER.errorv("Unable to deserialize message <{0}> to Class <{1}>", message, clazz.getSimpleName());
             throw new RuntimeException(e);
         }

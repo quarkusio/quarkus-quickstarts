@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -29,7 +29,7 @@ public class QuoteProcessorTest {
 
     @ConfigProperty(name = "rabbitmq-host") String host;
     @ConfigProperty(name = "rabbitmq-port") int port;
-    ObjectMapper objectMapper = new ObjectMapper();
+    JsonMapper objectMapper = JsonMapper.builder().build();
 
     @Test
     void testProcessor() throws Exception {

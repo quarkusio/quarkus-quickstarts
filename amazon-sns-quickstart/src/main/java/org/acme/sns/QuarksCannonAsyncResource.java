@@ -1,7 +1,7 @@
 package org.acme.sns;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import tools.jackson.databind.ObjectWriter;
+import tools.jackson.databind.json.JsonMapper;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -29,7 +29,7 @@ public class QuarksCannonAsyncResource {
     @ConfigProperty(name = "topic.arn")
     String topicArn;
 
-    static ObjectWriter QUARK_WRITER = new ObjectMapper().writerFor(Quark.class);
+    static ObjectWriter QUARK_WRITER = JsonMapper.builder().build().writerFor(Quark.class);
 
     @POST
     @Path("/shoot")

@@ -1,6 +1,6 @@
 package org.acme.hibernate.orm.panache
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.json.JsonMapper
 import io.quarkus.panache.common.Sort
 import org.jboss.logging.Logger
 import org.jboss.resteasy.reactive.RestPath;
@@ -70,7 +70,7 @@ class FruitResource {
     @Provider
     class ErrorMapper : ExceptionMapper<Exception> {
         @Inject
-        lateinit var objectMapper: ObjectMapper
+        lateinit var objectMapper: JsonMapper
 
         override fun toResponse(exception: Exception): Response {
             LOGGER.error("Failed to handle request", exception)

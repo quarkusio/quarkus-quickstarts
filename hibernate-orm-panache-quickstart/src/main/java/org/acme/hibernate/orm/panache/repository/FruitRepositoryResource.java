@@ -19,8 +19,8 @@ import jakarta.ws.rs.ext.Provider;
 
 import org.jboss.logging.Logger;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ObjectNode;
 
 import io.quarkus.panache.common.Sort;
 
@@ -96,7 +96,7 @@ public class FruitRepositoryResource {
     public static class ErrorMapper implements ExceptionMapper<Exception> {
 
         @Inject
-        ObjectMapper objectMapper;
+        JsonMapper objectMapper;
 
         @Override
         public Response toResponse(Exception exception) {

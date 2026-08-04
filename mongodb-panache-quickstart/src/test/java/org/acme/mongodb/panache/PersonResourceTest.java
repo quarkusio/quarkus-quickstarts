@@ -10,10 +10,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -31,10 +29,9 @@ class PersonResourceTest {
         RestAssured.defaultParser = Parser.JSON;
         RestAssured.config
                 .logConfig((logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
-                .objectMapperConfig(new ObjectMapperConfig().jackson2ObjectMapperFactory((type, s) -> new ObjectMapper()
-                        .registerModule(new Jdk8Module())
-                        .registerModule(new JavaTimeModule())
-                        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)));
+                .objectMapperConfig(new ObjectMapperConfig().jackson3ObjectMapperFactory((type, s) -> JsonMapper.builder()
+                        .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+                        .build()));
     }
 
     @Test
