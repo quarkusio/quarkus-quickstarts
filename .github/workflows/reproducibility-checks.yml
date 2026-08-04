@@ -1,4 +1,4 @@
-name: Reproducibility Check
+name: Reproducibility checks
 
 on:
   schedule:
@@ -11,15 +11,30 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
+      - name: Get current SHA
+        id: project-sha
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       - name: Set up Java 25 Temurin
         uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 25
+          cache: maven
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y xmlstarlet diffoscope
+        run: sudo apt-get update && sudo apt-get install -y xmlstarlet diffoscope procyon-decompiler
+
+      - name: Build Quarkus main
+        id: build-quarkus
+        run: |
+          git clone https://github.com/quarkusio/quarkus.git $HOME/quarkus
+          cd $HOME/quarkus
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci -Prelocations
 
       - name: Run reproducibility check
         run: |
@@ -51,3 +66,12 @@ jobs:
         with:
           name: reproducibility-reports
           path: ${{ steps.find-output.outputs.output_dir }}
+
+      - uses: quarkusio/report-status-in-issue@main
+        with:
+          github-token: ${{ secrets.GITHUB_API_TOKEN }}
+          status: ${{ job.status }}
+          issue-repository: quarkusio/quarkus
+          issue-number: 55836
+          quarkus-sha: ${{ steps.build-quarkus.outputs.sha }}
+          project-sha: ${{ steps.project-sha.outputs.sha }}
