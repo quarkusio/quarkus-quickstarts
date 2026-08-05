@@ -16,7 +16,7 @@ jobs:
     outputs:
       matrix: ${{ steps.generate.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
       - id: generate
@@ -36,7 +36,7 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.generate-json-matrix.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
       - name: Get current SHA
@@ -54,14 +54,14 @@ jobs:
         shell: bash
       - name: Cache Maven Repository
         id: cache-maven
-        uses: actions/cache@v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.m2/repository
           # refresh cache every month to avoid unlimited growth
           key: q2maven-native-${{ steps.get-date.outputs.date }}
 
       - name: Install JDK 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
         with:
           distribution: temurin
           java-version: 21
@@ -126,7 +126,7 @@ jobs:
     needs: [build-with-native]
     if: always() && github.repository == 'quarkusio/quarkus-quickstarts'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
       - uses: quarkusio/report-status-in-issue@main

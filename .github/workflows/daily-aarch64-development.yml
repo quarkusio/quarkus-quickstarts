@@ -15,7 +15,7 @@ jobs:
     outputs:
       matrix: ${{ steps.generate.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
       - id: generate
@@ -36,7 +36,7 @@ jobs:
       max-parallel: 3
       matrix: ${{fromJson(needs.generate-json-matrix.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
       - name: Get current SHA
@@ -53,13 +53,13 @@ jobs:
 
       - name: Cache Maven Repository
         id: cache-maven
-        uses: actions/cache@v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.m2/repository
           key: q2maven-native-aarch64-${{ steps.get-date.outputs.date }}
 
       - name: Install JDK 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
         with:
           distribution: temurin
           java-version: 21
@@ -90,7 +90,7 @@ jobs:
               LICENSE
 
       - name: Upload build reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
           name: "build-reports-${{ github.run_attempt }}-Native Tests - ${{matrix.category}}"
@@ -107,11 +107,11 @@ jobs:
     needs: [ build-with-native ]
     if: always()
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           path: build-reports-artifacts
       - name: Set up JDK 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
         with:
           distribution: temurin
           java-version: 21
@@ -126,7 +126,7 @@ jobs:
     needs: [ build-with-native ]
     if: always() && github.repository == 'quarkusio/quarkus-quickstarts'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.ref || 'development' }}
       - uses: quarkusio/report-status-in-issue@main
