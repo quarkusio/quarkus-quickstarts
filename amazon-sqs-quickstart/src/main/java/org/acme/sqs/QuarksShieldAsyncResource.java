@@ -11,8 +11,8 @@ import org.acme.sqs.model.Quark;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
+import tools.jackson.databind.ObjectReader;
+import tools.jackson.databind.json.JsonMapper;
 
 import io.smallrye.mutiny.Uni;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
@@ -30,7 +30,7 @@ public class QuarksShieldAsyncResource {
     @ConfigProperty(name = "queue.url")
     String queueUrl;
 
-    static ObjectReader QUARK_READER = new ObjectMapper().readerFor(Quark.class);
+    static ObjectReader QUARK_READER = JsonMapper.builder().build().readerFor(Quark.class);
 
     @GET
     public Uni<List<Quark>> receive() {

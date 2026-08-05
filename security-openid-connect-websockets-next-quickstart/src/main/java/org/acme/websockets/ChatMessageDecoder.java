@@ -1,7 +1,7 @@
 package org.acme.websockets;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 import io.quarkus.logging.Log;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.quarkus.websockets.next.TextMessageCodec;
@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
 public class ChatMessageDecoder implements TextMessageCodec<ChatWebSocket.ChatMessage> {
 
     @Inject
-    ObjectMapper objectMapper;
+    JsonMapper objectMapper;
 
     @Inject
     WebSocketSecurity webSocketSecurity;
@@ -36,7 +36,7 @@ public class ChatMessageDecoder implements TextMessageCodec<ChatWebSocket.ChatMe
     public String encode(ChatWebSocket.ChatMessage value) {
         try {
             return objectMapper.writeValueAsString(value);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new RuntimeException(e);
         }
     }
@@ -58,7 +58,7 @@ public class ChatMessageDecoder implements TextMessageCodec<ChatWebSocket.ChatMe
                         });
             }
             return dto.chatMessage;
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             Log.info("Failed to decode message", e);
             throw new RuntimeException(e);
         }

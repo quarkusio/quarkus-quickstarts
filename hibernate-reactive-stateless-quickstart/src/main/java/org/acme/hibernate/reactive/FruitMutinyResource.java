@@ -24,8 +24,8 @@ import org.hibernate.reactive.mutiny.Mutiny.SessionFactory;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.RestPath;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ObjectNode;
 
 import io.smallrye.mutiny.Uni;
 

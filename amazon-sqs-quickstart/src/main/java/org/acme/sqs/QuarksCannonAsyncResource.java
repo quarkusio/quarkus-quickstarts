@@ -9,8 +9,8 @@ import org.acme.sqs.model.Quark;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import tools.jackson.databind.ObjectWriter;
+import tools.jackson.databind.json.JsonMapper;
 
 import io.smallrye.mutiny.Uni;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
@@ -27,7 +27,7 @@ public class QuarksCannonAsyncResource {
     @ConfigProperty(name = "queue.url")
     String queueUrl;
 
-    static ObjectWriter QUARK_WRITER = new ObjectMapper().writerFor(Quark.class);
+    static ObjectWriter QUARK_WRITER = JsonMapper.builder().build().writerFor(Quark.class);
 
     @POST
     @Path("/shoot")

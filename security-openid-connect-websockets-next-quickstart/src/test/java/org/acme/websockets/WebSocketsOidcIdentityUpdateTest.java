@@ -1,7 +1,7 @@
 package org.acme.websockets;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.oidc.client.OidcTestClient;
@@ -55,7 +55,7 @@ public class WebSocketsOidcIdentityUpdateTest {
     }
 
     @Test
-    public void testIdentityUpdate() throws InterruptedException, ExecutionException, TimeoutException, JsonProcessingException {
+    public void testIdentityUpdate() throws InterruptedException, ExecutionException, TimeoutException, JacksonException {
         CountDownLatch connectedLatch = new CountDownLatch(1);
         CountDownLatch messagesLatch = new CountDownLatch(2);
         List<String> messages = new CopyOnWriteArrayList<>();
@@ -90,7 +90,7 @@ public class WebSocketsOidcIdentityUpdateTest {
             assertTrue(messagesLatch.await(5, TimeUnit.SECONDS), "Messages: " + messages);
             assertEquals(2, messages.size(), "Messages: " + messages);
             assertTrue(messages.get(0).contains("USER_JOINED"), messages.get(0));
-            var objectMapper = new ObjectMapper();
+            var objectMapper = JsonMapper.builder().build();
             var message = objectMapper.readValue(messages.get(1), ChatWebSocket.ChatMessage.class);
             assertNotNull(message);
             assertEquals(ChatWebSocket.MessageType.CHAT_MESSAGE, message.type());
