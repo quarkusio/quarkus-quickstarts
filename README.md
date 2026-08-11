@@ -35,6 +35,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Application Configuration](./config-quickstart): How to configure your application
 * [Startup and Shutdown actions](./lifecycle-quickstart): Explains how to execute code when the application starts and stops
 * [Getting Started - Reactive CRUD](./getting-started-reactive-crud): Reactive REST API with a (reactive) database backend
+* [Getting Started - AI Java](./getting-started-ai-java-apps): Getting started with writing AI Java applications with LangChain4j
 
 
 * [AMQP](./amqp-quickstart): How to interact with AMQP using MicroProfile reactive messaging
