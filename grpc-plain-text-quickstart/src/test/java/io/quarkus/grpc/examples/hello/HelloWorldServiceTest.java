@@ -2,6 +2,7 @@ package io.quarkus.grpc.examples.hello;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.net.URL;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
@@ -15,16 +16,20 @@ import examples.HelloRequest;
 import examples.MutinyGreeterGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 class HelloWorldServiceTest {
 
+    @TestHTTPResource
+    URL url;
+
     private ManagedChannel channel;
 
     @BeforeEach
     public void init() {
-        channel = ManagedChannelBuilder.forAddress("localhost", 9001).usePlaintext().build();
+        channel = ManagedChannelBuilder.forAddress("localhost", url.getPort()).usePlaintext().build();
     }
 
     @AfterEach
