@@ -14,12 +14,11 @@
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.version>3.38.2</quarkus.platform.version>
-        <keycloak.image.version>19.0.1-legacy</keycloak.image.version>
         <surefire.version>3.0.0-M7</surefire.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <htmlunit.version>4.7.0</htmlunit.version>
+        <htmlunit.version>5.2.0</htmlunit.version>
     </properties>
 
     <dependencyManagement>
@@ -85,7 +84,6 @@
                     <systemPropertyVariables>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         <maven.home>${maven.home}</maven.home>
-                        <keycloak.image.version>${keycloak.image.version}</keycloak.image.version>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -130,7 +128,6 @@
                                             org.jboss.logmanager.LogManager
                                         </java.util.logging.manager>
                                         <maven.home>${maven.home}</maven.home>
-                                        <keycloak.image.version>${keycloak.image.version}</keycloak.image.version>
                                     </systemPropertyVariables>
                                 </configuration>
                             </execution>
