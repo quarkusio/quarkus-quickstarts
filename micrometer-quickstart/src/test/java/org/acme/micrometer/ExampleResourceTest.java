@@ -59,10 +59,10 @@ public class ExampleResourceTest {
                 .body(containsString(
                         "example_prime_number_test_seconds_max"))
                 .body(containsString(
-                        "example_prime_number_test_seconds_count 1.0"));
+                        "example_prime_number_test_seconds_count 1"));
         when().get("/example/prime/7919").then().statusCode(200);
         when().get("/q/metrics").then().statusCode(200)
                 .body(containsString(
-                        "example_prime_number_test_seconds_count 2.0"));
+                        "example_prime_number_test_seconds_count 2"));
     }
 }
