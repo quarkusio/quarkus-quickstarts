@@ -31,7 +31,7 @@ public class DnsTestResource implements QuarkusTestResourceLifecycleManager {
         return Map.of(
                 "consul.host", container.getHost(),
                 "consul.port", Integer.toString(container.getMappedPort(8500)),
-                "quarkus.stork.my-service.service-discovery.dns-servers", container.getHost() + ":" + 8601
+                "quarkus.stork.my-service.service-discovery.dns-servers", "127.0.0.1:" + 8601
         );
     }
 
