@@ -3,6 +3,7 @@ package io.quarkus.grpc.examples.hello;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
+import java.net.URL;
 import java.time.Duration;
 
 import javax.net.ssl.SSLException;
@@ -20,10 +21,14 @@ import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyChannelBuilder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
+import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 class HelloWorldTlsServiceTest {
+
+    @TestHTTPResource(tls = true)
+    URL url;
 
     private ManagedChannel channel;
 
@@ -33,7 +38,7 @@ class HelloWorldTlsServiceTest {
         builder.trustManager(new File("src/main/resources/tls/ca.pem"));
         SslContext context = builder.build();
 
-        channel = NettyChannelBuilder.forAddress("localhost", 9001)
+        channel = NettyChannelBuilder.forAddress("localhost", url.getPort())
                 .sslContext(context)
                 .build();
     }
