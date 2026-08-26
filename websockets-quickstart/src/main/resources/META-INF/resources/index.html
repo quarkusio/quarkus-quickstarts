@@ -82,6 +82,7 @@
               socket.onopen = function() {
                   connected = true;
                   console.log("Connected to the web socket");
+                  socket.send("_ready_");
                   $("#send").attr("disabled", false);
                   $("#connect").attr("disabled", true);
                   $("#name").attr("disabled", true);
