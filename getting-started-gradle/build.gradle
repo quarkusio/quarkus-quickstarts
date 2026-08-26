@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'io.quarkus', name: 'quarkus-resteasy', version: quarkusVersion
+
+    testCompile group: 'io.quarkus', name: 'quarkus-junit5', version: quarkusVersion
+    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.3.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+sourceSets {
+    test {
+        java.srcDir 'src/test/java'
+    }
+    integration {
+        java.srcDir 'src/it/java'
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
+}
+
+configurations {
+    integrationCompile.extendsFrom testCompile
+    integrationRuntime.extendsFrom testRuntime
+}
+
+task integrationTest(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.integration.output.classesDirs
+    classpath = sourceSets.integration.runtimeClasspath
+    shouldRunAfter test
+}
+
+check.dependsOn integrationTest
