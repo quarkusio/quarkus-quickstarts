@@ -108,6 +108,8 @@
         <module>stork-quickstart</module>
         <module>stork-kubernetes-quickstart</module>
         <module>stork-dns-quickstart</module>
+        <module>stork-automatic-consul-registration-quickstart</module>
+        <module>stork-programmatic-custom-registration-quickstart</module>
         <module>tests-with-coverage-quickstart</module>
         <module>validation-quickstart</module>
         <module>vertx-quickstart</module>
