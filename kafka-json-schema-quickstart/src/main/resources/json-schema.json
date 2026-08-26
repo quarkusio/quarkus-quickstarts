@@ -1,0 +1,16 @@
+{
+  "$id": "https://example.com/person.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Movie",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "The movie's title."
+    },
+    "yeay": {
+      "type": "integer",
+      "description": "The movie's year."
+    }
+  }
+}
