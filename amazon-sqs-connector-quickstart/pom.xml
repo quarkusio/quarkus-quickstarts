@@ -14,7 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
-    <quarkus-amazon-services.version>3.21.1</quarkus-amazon-services.version>
+    <quarkus-amazon-services.version>3.21.3</quarkus-amazon-services.version>
   </properties>
   <dependencyManagement>
     <dependencies>
