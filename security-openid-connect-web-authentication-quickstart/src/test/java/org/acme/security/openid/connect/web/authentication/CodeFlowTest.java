@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import org.htmlunit.SilentCssErrorHandler;
 import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlAnchor;
 import org.htmlunit.html.HtmlForm;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.http.Cookie;
@@ -40,11 +41,11 @@ public class CodeFlowTest {
 
             page = loginForm.getButtonByName("login").click();
 
-            assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
+            assertEquals("Welcome, alice!", page.getTitleText());
 
             page = webClient.getPage("http://localhost:8081/index.html");
 
-            assertEquals("Welcome to Your Quarkus Application", page.getTitleText(),
+            assertEquals("Welcome, alice!", page.getTitleText(),
                     "A second request should not redirect and just re-authenticate the user");
             assertNotNull(getSessionCookie(webClient));
             assertNull(getStateCookies(webClient));
@@ -70,14 +71,14 @@ public class CodeFlowTest {
 
             page = loginForm.getButtonByName("login").click();
 
-            assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
+            assertEquals("Welcome, alice!", page.getTitleText());
 
             Cookie sessionCookie = getSessionCookie(webClient);
             assertNotNull(sessionCookie);
             assertNull(getStateCookies(webClient));
 
             page = webClient.getPage("http://localhost:8081/index.html");
-            assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
+            assertEquals("Welcome, alice!", page.getTitleText());
 
             // The same session cookie value is expected after 2 consecutive calls
             assertEquals(sessionCookie.getValue(), getSessionCookie(webClient).getValue());
@@ -87,7 +88,7 @@ public class CodeFlowTest {
             Thread.sleep(3000);
 
             page = webClient.getPage("http://localhost:8081/index.html");
-            assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
+            assertEquals("Welcome, alice!", page.getTitleText());
             Cookie refreshSkewSessionCookie = getSessionCookie(webClient);
             assertNotEquals(sessionCookie.getValue(), refreshSkewSessionCookie.getValue());
 
@@ -127,7 +128,7 @@ public class CodeFlowTest {
 
             page = loginForm.getButtonByName("login").click();
 
-            assertEquals("Welcome to Your Quarkus Application", page.getTitleText());
+            assertEquals("Welcome, alice!", page.getTitleText());
 
             page = webClient.getPage("http://localhost:8081/tokens");
 
@@ -139,6 +140,33 @@ public class CodeFlowTest {
             assertNotNull(getSessionCookie(webClient));
             assertNull(getStateCookies(webClient));
             
+            webClient.getCookieManager().clearCookies();
+        }
+    }
+
+    @Test
+    public void testUserInitiatedLogout() throws IOException {
+        try (final WebClient webClient = createWebClient()) {
+            HtmlPage page = webClient.getPage("http://localhost:8081/index.html");
+
+            HtmlForm loginForm = page.getForms().get(0);
+            loginForm.getInputByName("username").setValueAttribute("alice");
+            loginForm.getInputByName("password").setValueAttribute("alice");
+            page = loginForm.getButtonByName("login").click();
+
+            assertEquals("Welcome, alice!", page.getTitleText());
+            assertNotNull(getSessionCookie(webClient));
+
+            HtmlAnchor logoutLink = page.getAnchorByHref("/logout");
+            page = logoutLink.click();
+
+            assertEquals("Logged out", page.getTitleText());
+            assertNull(getSessionCookie(webClient));
+
+            // The goodbye page is public, so a direct hit must not trigger a fresh login redirect
+            page = webClient.getPage("http://localhost:8081/goodbye");
+            assertEquals("Logged out", page.getTitleText());
+
             webClient.getCookieManager().clearCookies();
         }
     }
