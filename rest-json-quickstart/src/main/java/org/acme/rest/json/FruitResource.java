@@ -1,22 +1,36 @@
 package org.acme.rest.json;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Set;
-
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+
 @Path("/fruits")
 public class FruitResource {
 
-    private Set<Fruit> fruits = Collections.newSetFromMap(Collections.synchronizedMap(new LinkedHashMap<>()));
+    private final Set<Fruit> fruits = new CopyOnWriteArraySet<>();
 
-    public FruitResource() {
-        fruits.add(new Fruit("Apple", "Winter fruit"));
-        fruits.add(new Fruit("Pineapple", "Tropical fruit"));
+    public FruitResource(ObjectMapper mapper) {
+        // To demonstrate how you can load initial data from a JSON file on the classpath, we read fruits.json
+        // and populate the set. The file is located in src/main/resources.
+        try (InputStream is = getClass().getResourceAsStream("/fruits.json")) {
+            if (is == null) {
+                throw new IllegalStateException("fruits.json not found on classpath");
+            }
+            List<Fruit> loadedFruits = mapper.readValue(is, new TypeReference<List<Fruit>>() {
+            });
+            fruits.addAll(loadedFruits);
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to load fruits.json", e);
+        }
     }
 
     @GET
