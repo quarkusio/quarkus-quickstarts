@@ -9,6 +9,16 @@
     <packaging>pom</packaging>
 
     <modules>
+        <!--
+        Disabled for now: quarkus-amazon-services (3.21.3, and still 3.23.0) ships
+        LegacyDevServicesLocalStackProcessor, which references
+        DevServicesResultBuildItem.RunningDevService. That class was removed from Quarkus main by
+        quarkusio/quarkus@77ea3e99be52f406dfecf52c062e4155b412a210 ("Remove the old Dev Services
+        infrastructure"), so loading the build steps fails with a NoClassDefFoundError.
+        The legacy provider is already gone from quarkus-amazon-services main, but is still present
+        in every release up to and including 3.23.0. The removal is tracked by
+        https://github.com/quarkiverse/quarkus-amazon-services/issues/2253 ("Next major todos
+        (Quarkus 4)"). Re-enable once a release without it is available.
         <module>amazon-dynamodb-quickstart</module>
         <module>amazon-kms-quickstart</module>
         <module>amazon-s3-quickstart</module>
@@ -17,6 +27,7 @@
         <module>amazon-sqs-quickstart</module>
         <module>amazon-ssm-quickstart</module>
         <module>amazon-sqs-connector-quickstart</module>
+        -->
         <module>amqp-quickstart</module>
         <module>awt-graphics-rest-quickstart</module>
         <module>cache-quickstart</module>
