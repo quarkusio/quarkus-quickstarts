@@ -28,6 +28,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 ## Quick Start list
 
 * [Getting Started](./getting-started): Application creation, Rest endpoint, Dependency Injection, Test, Packaging
+* [Getting Started Gradle](./getting-started-gradle): Getting started with Gradle and Quarkus
 * [Getting Started - Reactive](./getting-started-reactive): Getting started with Reactive and Quarkus
 * [Getting Started - Async](./getting-started-async): Illustrate how to use `Uni` to handle asynchronous actions
 * [Getting Started - Knative](./getting-started-knative): Deployment of the Knative service to Kubernetes and/or OpenShift
