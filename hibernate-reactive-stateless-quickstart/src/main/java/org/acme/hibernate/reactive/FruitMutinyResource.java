@@ -47,7 +47,7 @@ public class FruitMutinyResource {
     @GET
     @Path("{id}")
     public Uni<Fruit> getSingle(@RestPath Integer id) {
-        return factory.withStatelessSession(s -> s.get(Fruit.class, id));
+        return factory.withStatelessSession(s -> s.find(Fruit.class, id));
     }
 
     @POST
@@ -67,7 +67,7 @@ public class FruitMutinyResource {
             throw new WebApplicationException("Fruit name was not set on request.", 422);
         }
 
-        return factory.withStatelessSession(s -> s.get(Fruit.class, id)
+        return factory.withStatelessSession(s -> s.find(Fruit.class, id)
                 .onItem().ifNull().failWith(new WebApplicationException("Fruit missing from database.", NOT_FOUND))
                 // If entity exists then update it
                 .invoke(entity -> entity.setName(fruit.getName()))
@@ -78,7 +78,7 @@ public class FruitMutinyResource {
     @DELETE
     @Path("{id}")
     public Uni<Response> delete(@RestPath Integer id) {
-        return factory.withStatelessSession(s -> s.get(Fruit.class, id)
+        return factory.withStatelessSession(s -> s.find(Fruit.class, id)
                 .onItem().ifNull().failWith(new WebApplicationException("Fruit missing from database.", NOT_FOUND))
                 // If entity exists then delete it
                 .call(s::delete))
