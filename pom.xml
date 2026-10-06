@@ -64,7 +64,11 @@
         <module>infinispan-cache-quickstart</module>
         <module>jms-quickstart</module>
         <module>kafka-quickstart</module>
-        <module>kafka-avro-schema-quickstart</module>
+        <!-- Disabled: Apicurio Registry 3.3.3 calls OAuth2Options.setFlow(OAuth2FlowType)
+             which was removed in Vert.x 5, causing native build failures.
+             Tracked by https://github.com/Apicurio/apicurio-registry/issues/10442
+             Re-enable once a compatible Apicurio version is available. -->
+        <!--<module>kafka-avro-schema-quickstart</module>-->
         <module>kafka-bare-quickstart</module>
         <module>kafka-streams-quickstart</module>
         <!-- Disabled for now until we clarify status and https://github.com/apache/incubator-kie-optaplanner/pull/3177 can be merged -->
