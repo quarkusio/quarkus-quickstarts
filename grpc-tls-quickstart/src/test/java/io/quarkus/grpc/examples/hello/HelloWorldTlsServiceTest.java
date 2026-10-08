@@ -35,7 +35,7 @@ class HelloWorldTlsServiceTest {
     @BeforeEach
     public void init() throws SSLException {
         SslContextBuilder builder = GrpcSslContexts.forClient();
-        builder.trustManager(new File("src/main/resources/tls/ca.pem"));
+        builder.trustManager(new File("tls/ca.pem"));
         SslContext context = builder.build();
 
         channel = NettyChannelBuilder.forAddress("localhost", url.getPort())
