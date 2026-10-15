@@ -38,10 +38,6 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-test-security-webauthn</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-reactive-pg-client</artifactId>
     </dependency>
     <dependency>
@@ -51,6 +47,11 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-test-security-webauthn</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
