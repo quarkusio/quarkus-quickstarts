@@ -16,7 +16,7 @@ public class FruitAsyncService extends AbstractService {
     DynamoDbAsyncClient dynamoDB;
 
     public Uni<List<Fruit>> findAll() {
-        return Uni.createFrom().completionStage(() -> dynamoDB.scan(scanRequest()))
+        return Uni.createFrom().completionStage(() -> dynamoDB.query(queryRequest()))
                 .onItem().transform(res -> res.items().stream().map(Fruit::from).collect(Collectors.toList()));
     }
 
