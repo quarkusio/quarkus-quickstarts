@@ -6,6 +6,8 @@ This example showcases how to use the AWS SQS client with Quarkus.
 
 - Run `./mvnw clean quarkus:dev`
 
+Dev Services starts a Floci container and creates the `Quarkus` queue automatically, so no AWS account is required.
+
 ## Send messages to the queue
 
 Shoot with a couple of quarks:
@@ -25,41 +27,25 @@ curl http://localhost:8080/sync/shield
 
 Replace `sync` with `async` in the examples above to test the asynchronous endpoints.
 
-# Using LocalStack
+# Run with a local Floci
 
-As a prerequisite, install the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+As a prerequisite, install Docker.
+The commands below use the AWS CLI shipped in the Floci `latest-compat` image, so you do not need the AWS CLI on your host.
 
-Start LocalStack:
+Start Floci:
 
- ```sh
- docker run \
-  --rm \
-  --name local-sqs \
-  -p 4566:4566 \
-  localstack/localstack
+```sh
+docker run --rm --name floci -p 4566:4566 -d floci/floci:latest-compat
 ```
 
 SQS listens on `localhost:4566` for REST endpoints.
 
-Create an AWS profile for your local instance using AWS CLI:
-
-```sh
-aws configure --profile localstack
-```
-
-```plain
-AWS Access Key ID [None]: test-key
-AWS Secret Access Key [None]: test-secret
-Default region name [None]: us-east-1
-Default output format [None]:
-```
-
 ## Create SQS queue
 
-Create a SQS queue:
+Create the queue used by the application:
 
 ```sh
-aws sqs create-queue --queue-name=Quarkus --profile localstack --endpoint-url=http://localhost:4566
+docker exec floci aws sqs create-queue --queue-name=Quarkus
 ```
 
 ## Run the demo
@@ -68,8 +54,16 @@ You can compile the application and run it with:
 
 ```sh
 ./mvnw install
-AWS_PROFILE=localstack java -Dquarkus.sqs.endpoint-override=http://localhost:4566 -jar ./target/quarkus-app/quarkus-run.jar
+java \
+  -Dquarkus.sqs.endpoint-override=http://localhost:4566 \
+  -Dquarkus.sqs.aws.region=us-east-1 \
+  -Dquarkus.sqs.aws.credentials.type=static \
+  -Dquarkus.sqs.aws.credentials.static-provider.access-key-id=test-key \
+  -Dquarkus.sqs.aws.credentials.static-provider.secret-access-key=test-secret \
+  -jar ./target/quarkus-app/quarkus-run.jar
 ```
+
+You can now replay the `curl` commands above.
 
 ## Running in native
 
@@ -79,13 +73,24 @@ You can compile the application into a native executable using:
 ./mvnw install -Dnative
 ```
 
+Without GraalVM or Mandrel installed, build the native executable inside a container:
+
+```sh
+./mvnw install -Dnative -DskipTests -Dquarkus.native.container-build=true
+```
+
 And run it with:
 
 ```sh
-AWS_PROFILE=localstack ./target/amazon-sqs-quickstart-1.0.0-SNAPSHOT-runner -Dquarkus.sqs.endpoint-override=http://localhost:4566
+./target/amazon-sqs-quickstart-1.0.0-SNAPSHOT-runner \
+  -Dquarkus.sqs.endpoint-override=http://localhost:4566 \
+  -Dquarkus.sqs.aws.region=us-east-1 \
+  -Dquarkus.sqs.aws.credentials.type=static \
+  -Dquarkus.sqs.aws.credentials.static-provider.access-key-id=test-key \
+  -Dquarkus.sqs.aws.credentials.static-provider.secret-access-key=test-secret
 ```
 
-# Running native in container
+# Run the app and Floci in containers
 
 Build a native image in a container by running:
 
@@ -99,41 +104,25 @@ Build a Docker image:
 docker build -f src/main/docker/Dockerfile.native -t quarkus/amazon-sqs-quickstart .
 ```
 
-Create a network that connects your container with LocalStack:
+Create a network that connects your container with Floci, and start Floci on it:
 
 ```sh
-docker network create localstack
+docker network create floci
+docker run --rm --name floci --network=floci -p 4566:4566 -d floci/floci:latest-compat
 ```
 
-Stop your LocalStack container you started at the beginning:
+Create the queue:
 
 ```sh
-docker stop local-sqs
+docker exec floci aws sqs create-queue --queue-name=Quarkus
 ```
 
-Start LocalStack and connect to the network:
+Run the Quickstart container connected to that network (note that the application uses the internal Floci URL, `http://floci:4566`):
 
 ```sh
-docker run \
-  --rm \
-  --name local-sqs \
-  --network=localstack \
-  -p 4566:4566 \
-  localstack/localstack
-```
-
-Create a queue:
-
-```sh
-aws sqs create-queue --queue-name=Quarkus --profile localstack --endpoint-url=http://localhost:4566
-```
-
-Run the Quickstart container connected to that network (note that we're using the internal port of the LocalStack container):
-
-```sh
-docker run -i --rm --network=localstack \
+docker run -i --rm --network=floci \
   -p 8080:8080 \
-  -e QUARKUS_SQS_ENDPOINT_OVERRIDE="http://local-sqs:4566" \
+  -e QUARKUS_SQS_ENDPOINT_OVERRIDE="http://floci:4566" \
   -e QUARKUS_SQS_AWS_REGION="us-east-1" \
   -e QUARKUS_SQS_AWS_CREDENTIALS_TYPE="static" \
   -e QUARKUS_SQS_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID="test-key" \
@@ -146,28 +135,31 @@ You can now replay the `curl` commands above.
 Clean up your environment:
 
 ```sh
-docker stop local-sqs
-docker network rm localstack
+docker stop floci
+docker network rm floci
 ```
 
+See the [Packaging applications](https://quarkus.io/guides/packaging) guide for more details.
+
 # Using AWS account
+
+As a prerequisite, install the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
 
 Before you can use the AWS SDKs with SQS, you must get an AWS access key ID and secret access key.
 For more information, see:
  - [Sign up for AWS and Create an IAM User](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/signup-create-iam-user.html)
  - [Set Up AWS Credentials and Region for Development](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html)
 
-Create a SQS queue and store the queue url in an environment variable as we will need to provide it to our app:
+Create a SQS queue and store the queue URL in an environment variable as we will need to provide it to our app:
 
 ```sh
-QUEUE_URL=`aws sqs create-queue --queue-name=ColliderQueue`
+export QUEUE_URL=$(aws sqs create-queue --queue-name=Quarkus --query QueueUrl --output text)
 ```
 
 ## Run demo
 
 You can run the demo the same way as for a local instance, but you don't need to override the endpoint as you are going to communicate with the AWS service with the default AWS profile.
-
-Run it:
+You do need to provide the queue URL: the application derives it from the SQS endpoint, which is only set for a local instance.
 
 ```sh
 java -Dqueue.url=$QUEUE_URL -jar ./target/quarkus-app/quarkus-run.jar

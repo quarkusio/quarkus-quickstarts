@@ -19,7 +19,7 @@ public class QuarkusSesSyncResource {
 
     @POST
     @Path("/email")
-    public String encrypt(Email data) {
+    public String send(Email data) {
         return ses.sendEmail(req -> req
             .source(data.getFrom())
             .destination(d -> d.toAddresses(data.getTo()))

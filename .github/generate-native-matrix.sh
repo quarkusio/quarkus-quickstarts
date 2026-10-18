@@ -4,10 +4,9 @@ IFS=$'\n'
 # Exclusions from native matrix:
 # neo4j: extension not compatible with Quarkus 4 yet
 # optaplanner: discontinued, see https://github.com/apache/incubator-kie-optaplanner/pull/3177
-# amazon-*: quarkus-amazon-services not compatible with Quarkus 4 yet (quarkiverse/quarkus-amazon-services#2253)
 # kafka-avro-schema: Apicurio Registry not compatible with Vert.x 5 yet (quarkusio/quarkus-quickstarts#1691)
 # security-jpa-reactive: native BootstrapMethodError in generated code (quarkusio/quarkus#57368)
-modules=($(grep -LR --include=pom.xml '<packaging>pom</packaging>' */ | xargs dirname | grep -v neo4j | grep -v optaplanner | grep -v '^amazon-' | grep -v kafka-avro-schema | grep -v security-jpa-reactive | sort))
+modules=($(grep -LR --include=pom.xml '<packaging>pom</packaging>' */ | xargs dirname | grep -v neo4j | grep -v optaplanner | grep -v kafka-avro-schema | grep -v security-jpa-reactive | sort))
 count=${#modules[@]}
 partition=$(expr $count / 4 + 1)
 

@@ -38,7 +38,7 @@ public class QuarksCannonAsyncResource {
         String message = QUARK_WRITER.writeValueAsString(quark);
         return Uni.createFrom()
             .completionStage(sns.publish(p -> p.topicArn(topicArn).message(message)))
-            .onItem().invoke(item -> LOGGER.infov("Fired Quark[{0}, {1}}]", quark.getFlavor(), quark.getSpin()))
+            .onItem().invoke(item -> LOGGER.infov("Fired Quark[{0}, {1}]", quark.getFlavor(), quark.getSpin()))
             .onItem().transform(PublishResponse::messageId)
             .onItem().transform(id -> Response.ok().entity(id).build());
     }

@@ -11,7 +11,7 @@ import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
 /**
- * A bean consuming data from the "request" SQS queue and giving out a random quote.
+ * A bean consuming data from the "quote-requests" SQS queue and giving out a random quote.
  * The result is pushed to the "quotes" SQS queue.
  */
 @ApplicationScoped

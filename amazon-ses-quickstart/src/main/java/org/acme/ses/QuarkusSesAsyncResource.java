@@ -21,7 +21,7 @@ public class QuarkusSesAsyncResource {
 
     @POST
     @Path("/email")
-    public Uni<String> encrypt(Email data) {
+    public Uni<String> send(Email data) {
         return Uni.createFrom()
             .completionStage(
                 ses.sendEmail(req -> req
