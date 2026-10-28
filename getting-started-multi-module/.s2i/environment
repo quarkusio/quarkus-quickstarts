@@ -1,0 +1,5 @@
+# ARTIFACT_COPY_ARGS is deprecated, but S2I_SOURCE_DEPLOYMENTS_FILTER does not actually work, see https://github.com/jboss-container-images/openjdk/issues/75
+
+ARTIFACT_COPY_ARGS=-p -r lib/ *-runner.jar
+
+JAVA_OPTIONS=-Dquarkus.http.host=0.0.0.0
