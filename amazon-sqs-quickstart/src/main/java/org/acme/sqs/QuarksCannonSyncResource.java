@@ -35,7 +35,7 @@ public class QuarksCannonSyncResource {
     public Response sendMessage(Quark quark) throws Exception {
         String message = QUARK_WRITER.writeValueAsString(quark);
         SendMessageResponse response = sqs.sendMessage(m -> m.queueUrl(queueUrl).messageBody(message));
-        LOGGER.infov("Fired Quark[{0}, {1}}]", quark.getFlavor(), quark.getSpin());
+        LOGGER.infov("Fired Quark[{0}, {1}]", quark.getFlavor(), quark.getSpin());
         return Response.ok().entity(response.messageId()).build();
     }
 }
