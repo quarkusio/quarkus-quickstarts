@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Based on https://docs.aws.amazon.com/sns/latest/dg/sns-message-and-json-formats.html#http-notification-json
  */
-@JsonIgnoreProperties(ignoreUnknown = true) //Required because of https://github.com/localstack/localstack/pull/2181
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SnsNotification {
 
     @JsonProperty("Message")

@@ -7,7 +7,6 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
-import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
 
 public abstract class AbstractService {
 
@@ -24,13 +23,17 @@ public abstract class AbstractService {
     protected QueryRequest queryRequest() {
         Map<String, AttributeValue> expressionValues = new HashMap<>();
         expressionValues.put(":pk", AttributeValue.builder().s(PARTITION_VALUE).build());
+        Map<String, String> expressionNames = new HashMap<>();
+        expressionNames.put("#name", FRUIT_NAME_COL);
+        expressionNames.put("#description", FRUIT_DESC_COL);
 
         return QueryRequest.builder()
                 .tableName(getTableName())
                 .keyConditionExpression(PARTITION_KEY + " = :pk")
+                .projectionExpression("#name, #description")
                 .expressionAttributeValues(expressionValues)
-                .attributesToGet(FRUIT_NAME_COL, FRUIT_DESC_COL)
-                .scanIndexForward(true) // true = tri croissant (alphabétique) garanti par DynamoDB
+                .expressionAttributeNames(expressionNames)
+                .scanIndexForward(true) // ascending (alphabetical) order guaranteed by DynamoDB
                 .build();
     }
 

@@ -1,3 +1,4 @@
+#!/bin/bash
 aws dynamodb create-table \
     --table-name QuarkusFruits \
     --attribute-definitions \

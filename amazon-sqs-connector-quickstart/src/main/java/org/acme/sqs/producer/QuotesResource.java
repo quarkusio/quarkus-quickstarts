@@ -40,7 +40,7 @@ public class QuotesResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String createRequest() {
         UUID uuid = UUID.randomUUID();
-        quoteRequestEmitter.send(uuid.toString()); // <2>
+        quoteRequestEmitter.send(uuid.toString()); // <4>
         return uuid.toString();
     }
 }
