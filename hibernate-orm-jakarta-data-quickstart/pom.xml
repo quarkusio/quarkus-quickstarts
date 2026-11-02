@@ -81,11 +81,11 @@
                     <parameters>true</parameters>
                     <!-- for the annotation processor transitive dependencies to be managed by Quarkus, we need this setting -->
                     <annotationProcessorPathsUseDepMgmt>true</annotationProcessorPathsUseDepMgmt>
-                    <!-- the hibernate annotation processor provides both static metamodel and Jakarta Data capabilities: -->
+                    <!-- the Quarkus Data processor provides both static metamodel and Jakarta Data capabilities: -->
                     <annotationProcessorPaths>
                         <path>
-                            <groupId>org.hibernate.orm</groupId>
-                            <artifactId>hibernate-processor</artifactId>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-data-processor</artifactId>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
