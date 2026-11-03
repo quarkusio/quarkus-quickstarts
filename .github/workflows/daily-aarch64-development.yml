@@ -75,9 +75,11 @@ jobs:
           ./mvnw -T1C -e -B --settings .github/mvn-settings.xml clean install -Dquickly-ci -Prelocations
 
       - name: Test Quickstarts in Native mode
+        # -H:-AOTSingleCallsiteInline works around a Mandrel AArch64 crash, remove it once fixed: https://github.com/quarkusio/quarkus-quickstarts/issues/1707
         run: |
           ./mvnw -e -B --settings .github/mvn-settings.xml clean install --fail-at-end -Dnative -Dstart-containers \
-            -Dquarkus.native.container-build=true -am -pl "${{ matrix.test-modules }}"
+            -Dquarkus.native.container-build=true -Dquarkus.native.additional-build-args-append=-H:-AOTSingleCallsiteInline \
+            -am -pl "${{ matrix.test-modules }}"
 
       - name: Prepare build reports archive
         if: always()
