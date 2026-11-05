@@ -19,7 +19,7 @@ Java records.
 From the repository root, run:
 
 ```shell
-./mvnw clean verify -pl quarkus-data-sql-quickstart
+./mvnw clean verify -pl data-sql-quickstart
 ```
 
 Dev Services automatically starts PostgreSQL. Hibernate ORM runs `import.sql`
@@ -42,7 +42,7 @@ execute, making these tests important.
 From the repository root, run:
 
 ```shell
-./mvnw -pl quarkus-data-sql-quickstart quarkus:test
+./mvnw -pl data-sql-quickstart quarkus:test
 ```
 
 Quarkus re-runs the tests as you edit `Library`, the SQL scripts, or the tests.
