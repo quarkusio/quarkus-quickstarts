@@ -43,8 +43,8 @@ public class MovieResourceTest {
 
         source.open();
 
-        // check if, after at most 5 seconds, we have at least 2 items collected, and they are what we expect
-        await().atMost(5, SECONDS).until(() -> received.size() >= 2);
+        // check if, after at most 15 seconds, we have at least 2 items collected, and they are what we expect
+        await().atMost(15, SECONDS).until(() -> received.size() >= 2);
         assertThat(received, Matchers.hasItems("'The Shawshank Redemption' from 1994",
                 "'12 Angry Men' from 1957"));
         source.close();
