@@ -7,8 +7,8 @@ and Quarkus Security Jakarta Persistence Reactive extension to store your user i
 ## Start the database
 
 You need a database to store the user identities/roles. Here, we are using [PostgreSQL](https://www.postgresql.org).
-To ease the setup, we have provided a `docker-compose.yml` file which start a PostgreSQL container, bind the network ports
-and finally creates the users and their credentials by importing the `import.sql` file.
+To ease the setup, we have provided a `docker-compose.yml` file which starts a PostgreSQL container and binds the network ports.
+The application then creates the users and their credentials by loading the `data.sql` file on startup.
 
 The database can be started using:
  ```bash
