@@ -44,10 +44,10 @@ public class DynamodbResourcesTest {
             .then()
             .statusCode(200)
             .body("size()", equalTo(2))
-            .body("[0].name", equalTo(data.get(1)))
-            .body("[0].description", equalTo("description-" + data.get(1)))
-            .body("[1].name", equalTo(data.get(0)))
-            .body("[1].description", equalTo("description-" + data.get(0)));
+            .body("[0].name", equalTo(data.get(0)))
+            .body("[0].description", equalTo("description-" + data.get(0)))
+            .body("[1].name", equalTo(data.get(1)))
+            .body("[1].description", equalTo("description-" + data.get(1)));
 
         //Get single fruit
         data.forEach(fruit ->

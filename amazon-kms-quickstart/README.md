@@ -6,6 +6,8 @@ This example showcases how to use the AWS KMS client with Quarkus.
 
 - Run `./mvnw clean quarkus:dev`
 
+Dev Services starts a Floci container and creates the `alias/quarkus` key automatically, so no AWS account is required.
+
 ## Encrypt your text
 
 ```sh
@@ -38,42 +40,26 @@ And then decrypt
 curl -XPOST -H"Content-type: text/plain" http://localhost:8080/async/decrypt -d '<encrypted-message>'
 ```
 
-# Using LocalStack
+# Run with a local Floci
 
-As a prerequisite, install the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+As a prerequisite, install Docker.
+The commands below use the AWS CLI shipped in the Floci `latest-compat` image, so you do not need the AWS CLI on your host.
 
-Start LocalStack:
+Start Floci:
 
- ```sh
- docker run \
-  --rm \
-  --name local-kms \
-  -p 4566:4566 \
-  localstack/localstack
+```sh
+docker run --rm --name floci -p 4566:4566 -d floci/floci:latest-compat
 ```
 
 KMS listens on `localhost:4566` for REST endpoints.
 
-Create an AWS profile for your local instance using AWS CLI:
-
-```sh
-aws configure --profile localstack
-```
-
-```plain
-AWS Access Key ID [None]: test-key
-AWS Secret Access Key [None]: test-secret
-Default region name [None]: us-east-1
-Default output format [None]:
-```
-
 ## Create KMS master key
 
-Create a master key with an alias for simpler configuration.
+Create a master key with an alias, which the application uses through the `key.arn` property:
 
 ```sh
-key_id=$(aws kms create-key --query KeyMetadata.KeyId --output text  --profile localstack --endpoint-url=http://localhost:4566)
-aws kms create-alias --alias-name "alias/quarkus" --target-key-id $key_id  --profile localstack --endpoint-url=http://localhost:4566
+key_id=$(docker exec floci aws kms create-key --query KeyMetadata.KeyId --output text)
+docker exec floci aws kms create-alias --alias-name alias/quarkus --target-key-id $key_id
 ```
 
 ## Run the demo
@@ -82,7 +68,13 @@ You can compile the application and run it with:
 
 ```sh
 ./mvnw install
-AWS_PROFILE=localstack java -Dquarkus.kms.endpoint-override=http://localhost:4566 -jar ./target/quarkus-app/quarkus-run.jar
+java \
+  -Dquarkus.kms.endpoint-override=http://localhost:4566 \
+  -Dquarkus.kms.aws.region=us-east-1 \
+  -Dquarkus.kms.aws.credentials.type=static \
+  -Dquarkus.kms.aws.credentials.static-provider.access-key-id=test-key \
+  -Dquarkus.kms.aws.credentials.static-provider.secret-access-key=test-secret \
+  -jar ./target/quarkus-app/quarkus-run.jar
 ```
 
 You can now replay the `curl` commands above.
@@ -95,13 +87,24 @@ You can compile the application into a native executable using:
 ./mvnw install -Dnative
 ```
 
+Without GraalVM or Mandrel installed, build the native executable inside a container:
+
+```sh
+./mvnw install -Dnative -DskipTests -Dquarkus.native.container-build=true
+```
+
 And run it with:
 
 ```sh
-AWS_PROFILE=localstack ./target/amazon-kms-quickstart-1.0.0-SNAPSHOT-runner -Dquarkus.kms.endpoint-override=http://localhost:4566
+./target/amazon-kms-quickstart-1.0.0-SNAPSHOT-runner \
+  -Dquarkus.kms.endpoint-override=http://localhost:4566 \
+  -Dquarkus.kms.aws.region=us-east-1 \
+  -Dquarkus.kms.aws.credentials.type=static \
+  -Dquarkus.kms.aws.credentials.static-provider.access-key-id=test-key \
+  -Dquarkus.kms.aws.credentials.static-provider.secret-access-key=test-secret
 ```
 
-# Running native in container
+# Run the app and Floci in containers
 
 Build a native image in a container by running:
 
@@ -115,42 +118,26 @@ Build a Docker image:
 docker build -f src/main/docker/Dockerfile.native -t quarkus/amazon-kms-quickstart .
 ```
 
-Create a network that connects your container with LocalStack:
+Create a network that connects your container with Floci, and start Floci on it:
 
 ```sh
-docker network create localstack
+docker network create floci
+docker run --rm --name floci --network=floci -p 4566:4566 -d floci/floci:latest-compat
 ```
 
-Stop your LocalStack container you started at the beginning:
+Create a master key with an alias:
 
 ```sh
-docker stop local-kms
+key_id=$(docker exec floci aws kms create-key --query KeyMetadata.KeyId --output text)
+docker exec floci aws kms create-alias --alias-name alias/quarkus --target-key-id $key_id
 ```
 
-Start LocalStack and connect to the network:
+Run the Quickstart container connected to that network (note that the application uses the internal Floci URL, `http://floci:4566`):
 
 ```sh
-docker run \
-  --rm \
-  --name local-kms \
-  --network=localstack \
-  -p 4566:4566 \
-  localstack/localstack
-```
-
-Create a master key with an alias for simpler configuration.
-
-```sh
-key_id=$(aws kms create-key --query KeyMetadata.KeyId --output text  --profile localstack --endpoint-url=http://localhost:4566)
-aws kms create-alias --alias-name "alias/quarkus" --target-key-id $key_id  --profile localstack --endpoint-url=http://localhost:4566
-```
-
-Run the Quickstart container connected to that network (note that we're using the internal port of the LocalStack container):
-
-```sh
-docker run -i --rm --network=localstack \
+docker run -i --rm --network=floci \
   -p 8080:8080 \
-  -e QUARKUS_KMS_ENDPOINT_OVERRIDE="http://local-kms:4566" \
+  -e QUARKUS_KMS_ENDPOINT_OVERRIDE="http://floci:4566" \
   -e QUARKUS_KMS_AWS_REGION="us-east-1" \
   -e QUARKUS_KMS_AWS_CREDENTIALS_TYPE="static" \
   -e QUARKUS_KMS_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID="test-key" \
@@ -158,16 +145,20 @@ docker run -i --rm --network=localstack \
   quarkus/amazon-kms-quickstart
 ```
 
-Replay `curl` commands from above:
+You can now replay the `curl` commands above.
 
 Clean up your environment:
 
 ```sh
-docker stop local-kms
-docker network rm localstack
+docker stop floci
+docker network rm floci
 ```
 
+See the [Packaging applications](https://quarkus.io/guides/packaging) guide for more details.
+
 # Using AWS account
+
+As a prerequisite, install the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
 
 Before you can use the AWS SDKs with KMS, you must get an AWS access key ID and secret access key.
 For more information, see:
