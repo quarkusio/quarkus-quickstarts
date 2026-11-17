@@ -15,7 +15,7 @@ public class FruitSyncService extends AbstractService {
     DynamoDbClient dynamoDB;
 
     public List<Fruit> findAll() {
-        return dynamoDB.scanPaginator(scanRequest()).items().stream()
+        return dynamoDB.queryPaginator(queryRequest()).items().stream()
                 .map(Fruit::from)
                 .collect(Collectors.toList());
     }
