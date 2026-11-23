@@ -109,6 +109,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Spring Boot Properties extension](./spring-boot-properties-quickstart): How to use the Quarkus extension for the Spring Boot properties
 * [Spring Scheduled extension](./spring-scheduled-quickstart): How to use the Quarkus extension for the Spring Scheduled annotation
 * [Spring Data REST extension](./spring-data-rest-quickstart): How to use the Quarkus extension for the Spring Data REST
+* [Spring Test extension](./spring-test-quickstart): How to write tests in Spring Boot style using the Quarkus `@SpringBootTest` annotation
 * [Using STM](./software-transactional-memory-quickstart): How to use the Narayana Software Transactional Memory extension
 * [Stork Consul](./stork-quickstart): How to discover and select services with Consul
 * [Stork Kubernetes](./stork-kubernetes-quickstart): How to discover and select services with Kubernetes
