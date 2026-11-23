@@ -18,10 +18,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <quarkus-artemis.version>3.15.0</quarkus-artemis.version>
+        <quarkus-jms.version>0.1.0</quarkus-jms.version>
 
-        <!-- Tests are unstable -->
-        <skipTests>true</skipTests>
-        <skipITs>true</skipITs>
     </properties>
 
     <dependencyManagement>
@@ -45,6 +43,15 @@
 
     <dependencies>
         <dependency>
+            <groupId>io.quarkiverse.jms</groupId>
+            <artifactId>quarkus-jms</artifactId>
+            <version>${quarkus-jms.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jackson</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkiverse.artemis</groupId>
             <artifactId>quarkus-artemis-jms</artifactId>
         </dependency>
@@ -65,11 +72,6 @@
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>artemis-server</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
