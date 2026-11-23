@@ -47,6 +47,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for how to build these examples.
 * [Amazon SQS Connector](./amazon-sqs-connector-quickstart): How to connect to an Amazon SQS (Simple Queue Service) using the Reactive Messaging connector
 * [Amazon SSM](./amazon-ssm-quickstart): How to connect to Amazon SSM (Simple Systems Manager)
 * [AWT Graphics, ImageIO](./awt-graphics-rest-quickstart): How to create a service that watermarks images and draws text
+* [Apache PDFBox, Graphics](./awt-graphics-pdfbox-quickstart): How to use PDFBOX to convert a PDF page to a PNG image
 * [Hibernate Reactive Panache and RESTEasy Reactive](./hibernate-reactive-quickstart): Exposing a CRUD service over REST using Hibernate Reactive and Panache to connect to a PostgreSQL database
 * [Hibernate Reactive and RESTEasy](./hibernate-reactive-quickstart): Exposing a CRUD service over REST using Hibernate Reactive to connect to a PostgreSQL database
 * [Hibernate Reactive and Vert.x Web](./hibernate-reactive-routes-quickstart): Exposing a CRUD service with Reactive Routes using Hibernate Reactive to connect to a PostgreSQL database
