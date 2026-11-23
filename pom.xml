@@ -90,6 +90,7 @@
         <module>pulsar-quickstart</module>
         <module>quartz-quickstart</module>
         <module>qute-quickstart</module>
+        <module>data-sql-quickstart</module>
         <module>rabbitmq-quickstart</module>
         <module>rest-client-quickstart</module>
         <module>reactive-routes-quickstart</module>
