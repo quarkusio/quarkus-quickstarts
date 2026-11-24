@@ -72,9 +72,9 @@
 # - GC_CONTAINER_OPTIONS: Specify Java GC to use. The value of this variable should
 #   contain the necessary JRE command-line options to specify the required GC, which
 #   will override the default of `-XX:+UseParallelGC` (example: -XX:+UseG1GC).
-# - HTTPS_PROXY: The location of the https proxy. (example: "myuser@127.0.0.1:8080")
-# - HTTP_PROXY: The location of the http proxy. (example: "myuser@127.0.0.1:8080")
-# - NO_PROXY: A comma separated lists of hosts, IP addresses or domains that can be
+# - https_proxy: The location of the https proxy. (example: "myuser@127.0.0.1:8080")
+# - http_proxy: The location of the http proxy. (example: "myuser@127.0.0.1:8080")
+# - no_proxy: A comma separated lists of hosts, IP addresses or domains that can be
 #   accessed directly. (example: "foo.example.com,bar.example.com")
 #
 ###
